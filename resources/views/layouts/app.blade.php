@@ -13,7 +13,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="relative antialiased bg-gray-100">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -27,7 +27,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="container mx-w-6xl mx-auto py-4">
                 {{ $slot }}
             </main>
         </div>
