@@ -2,27 +2,35 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
-        //
+        Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
+        Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+
+        Builder::macro('search', fn ($field, $string) => $string ?
+                $this->orWhere($field, 'like', '%'.$string.'%')
+                : $this
+        );
+
+        Builder::macro(
+            'whenSort',
+            fn ($sortField, $sort) => $this->when($sortField, fn ($query) => $query->orderBy($sortField, $sort))
+        );
+
+        Builder::macro(
+            'whenFilter',
+            fn ($column, $filter) => $this->when($filter !== null && $filter != '', fn ($query) => $query->where($column, $filter))
+        );
     }
 }

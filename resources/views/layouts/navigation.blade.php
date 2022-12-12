@@ -16,7 +16,7 @@
             </p>
         </a>
         <ul class="flex items-center space-x-4 text-sm font-semibold">
-            <x-nav-link :href="route('dashboard')">Beranda</x-nav-link>
+            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Beranda</x-nav-link>
             <li class="relative" x-data="{ open: false }">
                 <a x-on:click="open = !open" x-on:click.outside="open = false" href="#"
                     class="px-2 xl:px-4 py-2 text-gray-600 rounded-md hover:bg-gray-200 flex gap-2 items-center">
@@ -51,6 +51,7 @@
                     </li>
                 </ul>
             </li>
+            <x-nav-link :href="route('pengguna')" :active="request()->routeIs('pengguna')">Pengguna</x-nav-link>
         </ul>
         <ul class="flex space-x-2 xl:space-x-4 text-sm font-semibold">
             <li>

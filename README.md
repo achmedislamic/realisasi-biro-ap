@@ -9,8 +9,9 @@
 7. Buat database baru.
 8. Copy file .env.example dan paste dengan nama .env
 9. Ganti nama databasenya sesuai dengan database yang kamu buat.
-10. Ketik perintah `php artisan migrate --seed` untuk membuat table dan mengisi data dummy
-11. Ketik perintah `php artisan key:generate` untuk membuat key Laravel.
+10. Jalankan perintah `php artisan migrate --seed` untuk membuat table dan mengisi data dummy
+11. Jalankan perintah `php artisan key:generate` untuk membuat key Laravel.
+12. Jalankan perintah `npm run dev` agar aset frontend di compile. Karena menggunakan asset tooling bernama Vite, setiap perubahan HTML dan CSS akan refresh otomatis di browser.
 
 ## Best practice dalam menulis kode
 - Beri nama variable yang singkat dan jelas menggunakan camelCase.
@@ -42,4 +43,3 @@ protected function rules(): array
 ```
 
 - Gunakan Blade Component jika kode HTML yang sama dipakai berulang kali. Contohnya bisa dilihat pada component nav-link.blade.php dan digunakan pada app.blade.php
-- Gunakan aturan Laravel d

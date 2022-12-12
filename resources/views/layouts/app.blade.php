@@ -9,9 +9,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+        @vite(['resources/css/app.css'])
+        @livewireStyles
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="relative antialiased bg-gray-100">
         <div class="min-h-screen bg-gray-100">
@@ -31,5 +31,10 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- Scripts -->
+        @vite(['resources/js/app.js'])
+        @livewireScripts
+        @wireUiScripts
     </body>
 </html>
