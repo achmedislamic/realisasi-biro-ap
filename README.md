@@ -13,6 +13,11 @@
 11. Jalankan perintah `php artisan key:generate` untuk membuat key Laravel.
 12. Jalankan perintah `npm run dev` agar aset frontend di compile. Karena menggunakan asset tooling bernama Vite, setiap perubahan HTML dan CSS akan refresh otomatis di browser.
 
+## Library yang digunakan untuk mempercepat coding
+1. WireUI https://livewire-wireui.com/docs/get-started (cek dulu disini jika ingin menambahkan tombol, input, icon, dropdown, dan element lainnya)
+2. TailwindCSS template: https://flowbite.com/docs/getting-started/introduction/ (jika dirasa tidak ditemukan di WireUI, pakai disini)
+3. Sudah juga saya siapkan Blade component untuk tabel supaya semuanya selaras.
+
 ## Daftar extension VS Code yang harus dipasang untuk mempermudah coding di Laravel (langsung search keyword di bawah di Extension VS Code)
 1. Alpine.js Intellisense
 2. Auto Close Tag
