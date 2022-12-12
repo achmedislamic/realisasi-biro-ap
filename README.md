@@ -13,6 +13,20 @@
 11. Jalankan perintah `php artisan key:generate` untuk membuat key Laravel.
 12. Jalankan perintah `npm run dev` agar aset frontend di compile. Karena menggunakan asset tooling bernama Vite, setiap perubahan HTML dan CSS akan refresh otomatis di browser.
 
+## Daftar extension VS Code yang harus dipasang untuk mempermudah coding di Laravel (langsung search keyword di bawah di Extension VS Code)
+1. Alpine.js Intellisense
+2. Auto Close Tag
+3. Auto Rename Tag
+4. Laravel Blade Formatter
+5. Laravel Blade Snippet
+6. Laravel Extra Intellisense
+7. Laravel Snippets
+8. Livewire Language Support
+9. php cs fixer
+10. PHP Intelephense
+11. PHP Namespace Resolver
+12. Tailwind CSS IntelliSense
+
 ## Best practice dalam menulis kode
 - Beri nama variable yang singkat dan jelas menggunakan camelCase.
 - Untuk variable yang memiliki lebih dari satu data, tambahkan huruf 's' dibelakang variable. Contoh:

@@ -33,8 +33,8 @@
         </div>
 
         <!-- Scripts -->
+        @wireUiScripts
         @vite(['resources/js/app.js'])
         @livewireScripts
-        @wireUiScripts
     </body>
 </html>
