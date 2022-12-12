@@ -23,7 +23,28 @@
                     {{ $user->email }}
                 </x-table.td>
                 <x-table.td>
-                    
+                    <x-button
+                        :href="route('pengguna.form', $user->id)"
+                        label="Ubah"
+                        warning
+                        icon="pencil"
+                    />
+
+                     @if ($konfirmasi === $user->id)
+                        <x-button
+                            wire:click="destroy({{ $user->id }})"
+                            icon="x"
+                            dark
+                            label="Anda Yakin?"
+                        />
+                     @else
+                        <x-button
+                            wire:click="konfirmasiHapus({{ $user->id }})"
+                            icon="x"
+                            negative
+                            label="Hapus"
+                        />
+                     @endif
                 </x-table.td>
             </x-table.tr>
             @endforeach

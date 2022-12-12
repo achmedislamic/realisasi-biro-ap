@@ -43,3 +43,5 @@ protected function rules(): array
 ```
 
 - Gunakan Blade Component jika kode HTML yang sama dipakai berulang kali. Contohnya bisa dilihat pada component nav-link.blade.php dan digunakan pada app.blade.php
+- Gunakan selalu Eloquent untuk mengambil data.
+- Pahami konsep Global Scope dan Local Scope untuk Model di dokumentasi resmi Laravel. Contoh untuk Scope bisa di cek pada menu Pengguna.

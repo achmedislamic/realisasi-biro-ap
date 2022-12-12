@@ -4,7 +4,9 @@ namespace App\Traits;
 
 trait Pencarian
 {
-  public function updatingCari()
+    public string $cari = '';
+    
+    public function updatingCari()
     {
         $this->resetPage();
     }

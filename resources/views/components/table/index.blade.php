@@ -1,9 +1,7 @@
 @props(['model'])
 <div class="flex flex-col space-y-3">
     <div class="flex flex-row justify-between mb-3">
-        <x-link :href="route('pengguna.form')">
-            Tambah
-        </x-link>
+        <x-button primary :href="route('pengguna.form')" label="Tambah" />
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
