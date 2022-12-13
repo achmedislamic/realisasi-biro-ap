@@ -5,7 +5,7 @@
 </x-slot>
 
 <x-container>
-    <x-table.index :model="$tahapan_apbds">
+    <x-table.index :model="$tahapanApbds">
 
         <x-slot name="table_actions">
             <x-button primary :href="route('tahapan-apbd.form')" label="Tambah" />
@@ -22,21 +22,20 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($tahapan_apbds as $tahapan_apbd)
+            @foreach ($tahapanApbds as $tahapanApbd)
             <x-table.tr>
                 <x-table.td-utama>
-                    {{ $tahapan_apbd->nama_tahapan }}
+                    {{ $tahapanApbd->nama }}
                 </x-table.td-utama>
                 <x-table.td>
-                    <x-button :href="route('tahapan-apbd.form', $tahapan_apbd->id)" label="Ubah" warning
-                        icon="pencil" />
+                    <x-button :href="route('tahapan-apbd.form', $tahapanApbd->id)" label="Ubah" warning icon="pencil" />
                     <x-button label="Hapus" negative icon="x" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
                             accept: {
                                 label: 'Hapus',
-                                method: 'hapusTahapanAPBD',
-                                params: {{ $tahapan_apbd->id }}
+                                method: 'hapusTahapanApbd',
+                                params: {{ $tahapanApbd->id }}
                             },
                             reject: {
                                 label: 'Batal'

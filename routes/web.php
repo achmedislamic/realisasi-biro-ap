@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
     Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
 
-    Route::get('/tahapan-apbd', App\Http\Livewire\TahapanAPBD\TahapanAPBDTable::class)->name('tahapan-apbd');
-    Route::get('/tahapan-apbd/form/{id?}', App\Http\Livewire\TahapanAPBD\TahapanAPBDForm::class)->name('tahapan-apbd.form');
+    Route::get('/tahapan-apbd', App\Http\Livewire\TahapanApbd\TahapanApbdTable::class)->name('tahapan-apbd');
+    Route::get('/tahapan-apbd/form/{id?}', App\Http\Livewire\TahapanApbd\TahapanApbdForm::class)->name('tahapan-apbd.form');
 });
 
 require __DIR__.'/auth.php';

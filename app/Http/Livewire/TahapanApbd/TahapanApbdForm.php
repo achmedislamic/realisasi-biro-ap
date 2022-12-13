@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Http\Livewire\TahapanAPBD;
+namespace App\Http\Livewire\TahapanApbd;
 
-use App\Models\TahapanAPBD;
+use App\Models\TahapanApbd;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 
-class TahapanAPBDForm extends Component
+class TahapanApbdForm extends Component
 {
     use WithLiveValidation;
 
-    private ?int $IdTahapanAPBD = null;
-    public TahapanAPBD $tahapan;
+    private ?int $IdTahapanApbd = null;
+    public TahapanApbd $tahapan;
 
     public function mount(int $id = null): void
     {
-        $this->IdTahapanAPBD = $id;
-        $this->tahapan = is_null($id) ? new TahapanAPBD() : TahapanAPBD::find($id);
+        $this->IdTahapanApbd = $id;
+        $this->tahapan = is_null($id) ? new TahapanApbd() : TahapanApbd::find($id);
     }
 
     protected function rules(): array
     {
         return [
-            'tahapan.nama_tahapan' => 'required|string|max:255',
+            'tahapan.nama' => 'required|string|max:255',
         ];
     }
 
