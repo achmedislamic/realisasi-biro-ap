@@ -55,6 +55,8 @@
             </x-nav-link>
             <x-nav-link :href="route('pekerjaan')" :active="request()->routeIs('pekerjaan')">Pekerjaan
             </x-nav-link>
+            <x-nav-link :href="route('satuan')" :active="request()->routeIs('satuan')">Satuan
+            </x-nav-link>
         </ul>
         <ul class="flex space-x-2 xl:space-x-4 text-sm font-semibold">
             <li>

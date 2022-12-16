@@ -25,6 +25,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');
     Route::get('/pekerjaan/form/{id?}', App\Http\Livewire\Pekerjaan\PekerjaanForm::class)->name('pekerjaan.form');
+
+    Route::get('/satuan', App\Http\Livewire\SatuanTable::class)->name('satuan');
+    Route::get('/satuan/form/{id?}', App\Http\Livewire\SatuanForm::class)->name('satuan.form');
 });
 
 require __DIR__.'/auth.php';
