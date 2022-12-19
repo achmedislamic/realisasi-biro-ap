@@ -22,6 +22,7 @@ class TahapanApbdForm extends Component
     protected function rules(): array
     {
         return [
+            'tahapan.tahun' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
             'tahapan.nama' => 'required|string|max:255',
         ];
     }
