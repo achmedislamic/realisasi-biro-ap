@@ -14,6 +14,7 @@ return new class () extends Migration {
     {
         Schema::create('tahapan_apbds', function (Blueprint $table) {
             $table->id();
+            $table->year("tahun");
             $table->string('nama');
             $table->timestamps();
         });

@@ -14,6 +14,9 @@
         <x-table.thead>
             <tr>
                 <x-table.th>
+                    Tahun
+                </x-table.th>
+                <x-table.th>
                     Nama Tahapan APBD
                 </x-table.th>
                 <x-table.th>
@@ -24,6 +27,9 @@
         <tbody>
             @foreach ($tahapanApbds as $tahapanApbd)
             <x-table.tr>
+                <x-table.td-utama>
+                    {{ $tahapanApbd->tahun }}
+                </x-table.td-utama>
                 <x-table.td-utama>
                     {{ $tahapanApbd->nama }}
                 </x-table.td-utama>
