@@ -9,7 +9,8 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-        @vite(['resources/css/app.css'])
+        {{-- @vite(['resources/css/app.css']) --}}
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @livewireStyles
 
     </head>
@@ -35,7 +36,7 @@
 
         <!-- Scripts -->
         @wireUiScripts
-        @vite(['resources/js/app.js'])
+        <script src="{{ mix('js/app.js') }}" defer></script>
         @livewireScripts
     </body>
 </html>

@@ -9,20 +9,20 @@
         <div class="flex flex-col space-y-3">
             <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                 <div class="w-full">
-                    <x-input type="email" label="Nama" wire:model.lazy="user.name" placeholder="Masukkan nama Anda" />
+                    <x-input type="email" label="Nama" wire:model.defer="user.name" placeholder="Masukkan nama Anda" />
                 </div>
                 <div class="w-full">
-                    <x-input wire:model.lazy="user.email" label="Email" placeholder="Masukkan email Anda" />
+                    <x-input wire:model.defer="user.email" label="Email" placeholder="Masukkan email Anda" />
                 </div>
             </div>
 
             @if (filled($user))
                 <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                     <div class="w-full">
-                        <x-inputs.password wire:model.lazy="password" label="Password" />
+                        <x-inputs.password wire:model.defer="password" label="Password" />
                     </div>
                     <div class="w-full">
-                        <x-inputs.password wire:model.lazy="password_confirmation" label="Konfirmasi Password" />
+                        <x-inputs.password wire:model.defer="password_confirmation" label="Konfirmasi Password" />
                     </div>
                 </div>
             @endif
