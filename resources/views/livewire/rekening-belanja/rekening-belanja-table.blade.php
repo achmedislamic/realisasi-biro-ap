@@ -1,23 +1,23 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Tabel Tahapan APBD
+        Rekening Belanja
     </h2>
 </x-slot>
 
 <x-container>
-    <x-table.index :model="$tahapanApbds">
+    <x-table.index :model="$rekeningBelanjas">
 
         <x-slot name="table_actions">
-            <x-button primary :href="route('tahapan-apbd.form')" label="Tambah" />
+            <x-button primary :href="route('rekening-belanja.form')" label="Tambah" />
         </x-slot>
 
         <x-table.thead>
             <tr>
                 <x-table.th>
-                    Tahun
+                    Kode
                 </x-table.th>
                 <x-table.th>
-                    Nama Tahapan APBD
+                    Nama
                 </x-table.th>
                 <x-table.th>
                     Aksi
@@ -25,23 +25,24 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($tahapanApbds as $tahapanApbd)
+            @foreach ($rekeningBelanjas as $rekeningBelanja)
             <x-table.tr>
                 <x-table.td-utama>
-                    {{ $tahapanApbd->tahun }}
+                    {{ $rekeningBelanja->kode }}
                 </x-table.td-utama>
                 <x-table.td-utama>
-                    {{ $tahapanApbd->nama }}
+                    {{ $rekeningBelanja->nama }}
                 </x-table.td-utama>
                 <x-table.td>
-                    <x-button :href="route('tahapan-apbd.form', $tahapanApbd->id)" label="Ubah" warning icon="pencil" />
+                    <x-button :href="route('rekening-belanja.form', $rekeningBelanja->id)" label="Ubah" warning
+                        icon="pencil" />
                     <x-button label="Hapus" negative icon="x" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
                             accept: {
                                 label: 'Hapus',
-                                method: 'hapusTahapanApbd',
-                                params: {{ $tahapanApbd->id }}
+                                method: 'hapuRekeningBelanja',
+                                params: {{ $rekeningBelanja->id }}
                             },
                             reject: {
                                 label: 'Batal'

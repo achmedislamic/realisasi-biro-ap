@@ -12,10 +12,10 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('tahapan_apbds', function (Blueprint $table) {
+        Schema::create('rekening_belanjas', function (Blueprint $table) {
             $table->id();
-            $table->year("tahun");
-            $table->string('nama');
+            $table->string("kode");
+            $table->string("nama");
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('tahapan_apbds');
+        Schema::dropIfExists('rekening_belanjas');
     }
 };
