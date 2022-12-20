@@ -6,5 +6,5 @@
     <x-nav-dropdown-item-link text="Kegiatan" />
     <x-nav-dropdown-item-link text="Sub Kegiatan" />
     <x-nav-dropdown-item-link text="Kategori" />
-    <x-nav-dropdown-item-link text="Anggota DPRD" />
+    <x-nav-dropdown-item-link text="Anggota DPRD" :href="route('anggota-dprd')" />
 </x-nav-dropdown-link>
