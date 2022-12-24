@@ -8,10 +8,10 @@
     <x-table.index :model="$users">
         <x-table.thead>
             <tr>
-                <x-table.th-sort sortBy="name" :sortField="$sortField" :sortAsc="$sortAsc">
+                <x-table.th-sort sortBy="name" :$sortField :$sortAsc>
                     Nama
                 </x-table.th-sort>
-                <x-table.th-sort sortBy="email" :sortField="$sortField" :sortAsc="$sortAsc">
+                <x-table.th-sort sortBy="email" :$sortField :$sortAsc>
                     Email
                 </x-table.th-sort>
                 <x-table.th>
