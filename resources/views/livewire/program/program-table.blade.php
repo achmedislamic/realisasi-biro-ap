@@ -1,15 +1,14 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Rekening Belanja
+        Program
     </h2>
 </x-slot>
 
 <x-container>
-    <x-table.index :model="$rekeningBelanjas">
+    <x-table.index :model="$programs">
 
         <x-slot name="table_actions">
-            <x-button primary :href="route('rekening-belanja.form')" label="Tambah" />
-            <x-button green :href="route('rekening-belanja.form-upload')" label="Upload Excel" />
+            <x-button primary :href="route('program.form')" label="Tambah" />
         </x-slot>
 
         <x-table.thead>
@@ -26,24 +25,23 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($rekeningBelanjas as $rekeningBelanja)
+            @foreach ($programs as $program)
             <x-table.tr>
                 <x-table.td-utama>
-                    {{ $rekeningBelanja->kode }}
+                    {{ $program->kode }}
                 </x-table.td-utama>
                 <x-table.td-utama>
-                    {{ $rekeningBelanja->nama }}
+                    {{ $program->nama }}
                 </x-table.td-utama>
                 <x-table.td>
-                    <x-button :href="route('rekening-belanja.form', $rekeningBelanja->id)" label="Ubah" warning
-                        icon="pencil" />
+                    <x-button :href="route('program.form', $program->id)" label="Ubah" warning icon="pencil" />
                     <x-button label="Hapus" negative icon="x" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
                             accept: {
                                 label: 'Hapus',
-                                method: 'hapuRekeningBelanja',
-                                params: {{ $rekeningBelanja->id }}
+                                method: 'hapusProgram',
+                                params: {{ $program->id }}
                             },
                             reject: {
                                 label: 'Batal'
