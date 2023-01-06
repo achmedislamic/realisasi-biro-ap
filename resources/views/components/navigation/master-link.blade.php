@@ -5,6 +5,6 @@
     <x-nav-dropdown-item-link text="Program" :href="route('program')" />
     <x-nav-dropdown-item-link text="Kegiatan" />
     <x-nav-dropdown-item-link text="Sub Kegiatan" />
-    <x-nav-dropdown-item-link text="Kategori" />
+    <x-nav-dropdown-item-link text="Kategori" :href="route('kategori')" />
     <x-nav-dropdown-item-link text="Anggota DPRD" />
 </x-nav-dropdown-link>
