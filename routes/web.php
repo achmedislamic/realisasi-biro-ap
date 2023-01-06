@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/rekening-belanja', App\Http\Livewire\RekeningBelanja\RekeningBelanjaTable::class)->name('rekening-belanja');
     Route::get('/rekening-belanja/form/{id?}', App\Http\Livewire\RekeningBelanja\RekeningBelanjaForm::class)->name('rekening-belanja.form');
+
+
+    Route::get('/program', App\Http\Livewire\Program\ProgramTable::class)->name('program');
+    Route::get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
 });
 
 require __DIR__.'/auth.php';
