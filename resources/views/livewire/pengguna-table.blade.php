@@ -8,12 +8,12 @@
     <x-table.index :model="$users">
         <x-table.thead>
             <tr>
-                <x-table.th>
+                <x-table.th-sort sortBy="name" :$sortField :$sortAsc>
                     Nama
-                </x-table.th>
-                <x-table.th>
+                </x-table.th-sort>
+                <x-table.th-sort sortBy="email" :$sortField :$sortAsc>
                     Email
-                </x-table.th>
+                </x-table.th-sort>
                 <x-table.th>
                     Aksi
                 </x-table.th>
