@@ -9,6 +9,7 @@
 
         <x-slot name="table_actions">
             <x-button primary :href="route('pekerjaan.form')" label="Tambah" />
+            <x-button green :href="route('pekerjaan.form-upload')" label="Upload Excel" />
         </x-slot>
 
         <x-table.thead>

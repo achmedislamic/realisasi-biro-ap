@@ -25,15 +25,23 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');
     Route::get('/pekerjaan/form/{id?}', App\Http\Livewire\Pekerjaan\PekerjaanForm::class)->name('pekerjaan.form');
+    Route::get('/pekerjaan/form-upload', App\Http\Livewire\Pekerjaan\UploadExcel::class)->name('pekerjaan.form-upload');
 
     Route::get('/satuan', App\Http\Livewire\SatuanTable::class)->name('satuan');
     Route::get('/satuan/form/{id?}', App\Http\Livewire\SatuanForm::class)->name('satuan.form');
 
     Route::get('/rekening-belanja', App\Http\Livewire\RekeningBelanja\RekeningBelanjaTable::class)->name('rekening-belanja');
     Route::get('/rekening-belanja/form/{id?}', App\Http\Livewire\RekeningBelanja\RekeningBelanjaForm::class)->name('rekening-belanja.form');
-
+    Route::get('/rekening-belanja/form-upload', App\Http\Livewire\RekeningBelanja\UploadExcel::class)->name('rekening-belanja.form-upload');
+    
     Route::get('/anggota-dprd', App\Http\Livewire\AnggotaDprd\AnggotaDprdTable::class)->name('anggota-dprd');
     Route::get('/anggota-dprd/form/{id?}', App\Http\Livewire\AnggotaDprd\AnggotaDprdForm::class)->name('anggota-dprd.form');
+    
+    Route::get('/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
+    Route::get('/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
+
+    Route::get('/program', App\Http\Livewire\Program\ProgramTable::class)->name('program');
+    Route::get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
 });
 
 require __DIR__.'/auth.php';

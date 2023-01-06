@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
+        "spatie/simple-excel": "^3.0",
         "wireui/wireui": "^1.17"
     },
     "require-dev": {
