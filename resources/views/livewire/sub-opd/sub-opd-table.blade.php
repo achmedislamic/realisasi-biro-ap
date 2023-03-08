@@ -25,16 +25,16 @@
         </div>
     </div>
 
-    <x-table.index :model="$subUnits">
+    <x-table.index :model="$subOpds">
 
         <x-slot name="table_actions">
-            <x-button primary label="Tambah" :href="route('sub-unit.form', $opd->id)" />
+            <x-button primary label="Tambah" :href="route('sub-opd.form', $opd->id)" />
         </x-slot>
 
         <x-table.thead>
             <tr>
                 <x-table.th>
-                    Sub Unit
+                    Sub Opd
                 </x-table.th>
                 <x-table.th>
                     Aksi
@@ -42,21 +42,21 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($subUnits as $subUnit)
+            @foreach ($subOpds as $subOpd)
             <x-table.tr>
                 <x-table.td>
-                    {{ $subUnit->nama }}
+                    {{ $subOpd->nama }}
                 </x-table.td>
                 <x-table.td>
                     <x-button.circle warning xs icon="pencil"
-                        :href="route('sub-unit.form', [$opd->id, $subUnit->id])" />
+                        :href="route('sub-unit.form', [$opd->id, $subOpd->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
                             accept: {
                                 label: 'Hapus',
                                 method: 'hapusSubUnit',
-                                params: {{ $subUnit->id }}
+                                params: {{ $subOpd->id }}
                             },
                             reject: {
                                 label: 'Batal'

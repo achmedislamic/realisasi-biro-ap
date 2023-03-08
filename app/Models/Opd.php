@@ -28,8 +28,8 @@ class Opd extends Model
         return $this->belongsTo(BidangUrusan::class);
     }
 
-    public function subUnits(): HasMany
+    public function subOpds(): HasMany
     {
-        return $this->hasMany(SubUnit::class);
+        return $this->hasMany(SubOpd::class);
     }
 }

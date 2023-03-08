@@ -31,7 +31,10 @@ class BidangUrusanTable extends Component
 
      public function render()
      {
-         $bidangUrusans = BidangUrusan::query()->where('urusan_id', $this->urusanId)->pencarian($this->cari)->paginate();
+         $bidangUrusans = BidangUrusan::query()
+            ->where('urusan_id', $this->urusanId)
+            ->pencarian($this->cari)
+            ->paginate();
          $urusan = Urusan::find($this->urusanId);
          return view('livewire.bidang-Urusan.bidang-Urusan-table', compact('urusan', 'bidangUrusans'));
      }

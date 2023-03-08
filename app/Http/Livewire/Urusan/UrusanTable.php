@@ -21,7 +21,6 @@ class UrusanTable extends Component
         Urusan::destroy($id);
     }
 
-
     public function render()
     {
         $urusans = Urusan::query()->pencarian($this->cari)->paginate();

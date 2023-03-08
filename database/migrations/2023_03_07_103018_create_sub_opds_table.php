@@ -10,11 +10,11 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sub_units', function (Blueprint $table) {
+        Schema::create('sub_opds', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('opd_id')->constrained();
             $table->string('kode')->nullable();
             $table->string('nama');
-            $table->bigInteger('opd_id');
             $table->timestamps();
         });
     }

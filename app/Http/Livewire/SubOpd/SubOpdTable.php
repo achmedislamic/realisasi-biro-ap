@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\SubUnit;
+namespace App\Http\Livewire\SubOpd;
 
 use App\Models\Opd;
-use App\Models\SubUnit;
+use App\Models\SubOpd;
 use App\Traits\Pencarian;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
-class SubUnitTable extends Component
+class SubOpdTable extends Component
 {
     use Pencarian;
     use WithPagination;
@@ -24,16 +24,20 @@ class SubUnitTable extends Component
         $this->idOpd = $idOpd;
     }
 
-    public function hapusSubUnit(int $id): void
+    public function hapusSubOpd(int $id): void
     {
-        SubUnit::destroy($id);
+        SubOpd::destroy($id);
     }
 
     public function render()
     {
-        $subUnits = SubUnit::query()->where('opd_id', $this->idOpd)->pencarian($this->cari)->paginate();
+        $subOpds = SubOpd::query()
+            ->where('opd_id', $this->idOpd)
+            ->pencarian($this->cari)
+            ->paginate();
+
         $opd = Opd::find($this->idOpd);
 
-        return view('livewire.sub-unit.sub-unit-table', compact(['subUnits', 'opd']));
+        return view('livewire.sub-unit.sub-unit-table', compact('subOpds', 'opd'));
     }
 }

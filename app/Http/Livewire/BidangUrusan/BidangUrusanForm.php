@@ -18,7 +18,7 @@ class BidangUrusanForm extends Component
     public function mount(int $urusanId, int $id = null): void
     {
         $this->idBidangUrusan = $id;
-        $this->bidangUrusan = is_null($id) ? new BidangUrusan() : BidangUrusan::find($id);
+        $this->bidangUrusan = is_null($id) ? new BidangUrusan : BidangUrusan::find($id);
         $this->urusanId = $urusanId;
     }
 

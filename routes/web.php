@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/realisasi/upload-program-kegiatan-subkegiatan', App\Http\Livewire\UploadProgramKegiatanSubkegiatan::class)->name('upload-program-kegiatan-subkegiatan');
 
-    Route::get('/master/perankat-daerah', App\Http\Livewire\Urusan\UrusanTable::class)->name('perangkat-daerah');
+    Route::get('/master/urusan-opd', App\Http\Livewire\UrusanOpdTabs::class)->name('perangkat-daerah');
 
     Route::get('/master/perankat-daerah/urusan/{id?}', App\Http\Livewire\Urusan\UrusanForm::class)->name('urusan.form');
 
@@ -55,8 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/master/perankat-daerah/opd/{idBidangUrusan}', App\Http\Livewire\Opd\OpdTable::class)->name('opd');
     Route::get('/master/perankat-daerah/opd/{idBidangUrusan}/form/{id?}', App\Http\Livewire\Opd\OpdForm::class)->name('opd.form');
 
-    Route::get('/master/perankat-daerah/sub-unit/{idOpd}', App\Http\Livewire\SubUnit\SubUnitTable::class)->name('sub-unit');
-    Route::get('/master/perankat-daerah/sub-unit/{idOpd}/form/{id?}', App\Http\Livewire\SubUnit\SubUnitForm::class)->name('sub-unit.form');
+    Route::get('/master/perankat-daerah/sub-opd/{idOpd}', App\Http\Livewire\SubOpd\SubOpdTable::class)->name('sub-opd');
+    Route::get('/master/perankat-daerah/sub-opd/{idOpd}/form/{id?}', App\Http\Livewire\SubOpd\SubOpdForm::class)->name('sub-opd.form');
 });
 
 require __DIR__.'/auth.php';
