@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Pekerjaan;
 
 use App\Models\BidangUrusan;
+use App\Models\BidangUrusanOpd;
 use App\Models\Opd;
 use App\Models\Pekerjaan;
 use App\Models\SubOpd;
@@ -52,7 +53,6 @@ class UploadExcel extends Component
             ]);
 
             $opd = Opd::firstOrCreate([
-                'bidang_urusan_id' => $bidangUrusan->id,
                 'kode' => str($item['OPD'])->before(' '),
                 'nama' => str($item['OPD'])->after(' '),
             ]);
@@ -61,6 +61,11 @@ class UploadExcel extends Component
                 'opd_id' => $opd->id,
                 'kode' => str($item['Sub Unit'])->before(' '),
                 'nama' => str($item['Sub Unit'])->after(' '),
+            ]);
+
+            $bidangUrusanOpd = BidangUrusanOpd::firstOrCreate([
+                'bidang_urusan_id' => $bidangUrusan->id,
+                'opd_id' => $opd->id,
             ]);
 
             // dd($item);
