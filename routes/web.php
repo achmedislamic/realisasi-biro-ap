@@ -43,8 +43,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/master/program', App\Http\Livewire\Program\ProgramTable::class)->name('program');
     Route::get('/master/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
 
-    Route::get('/realisasi/upload-program-kegiatan-subkegiatan', App\Http\Livewire\UploadProgramKegiatanSubkegiatan::class)->name('upload-program-kegiatan-subkegiatan');
-
     Route::get('/master/urusan-opd', App\Http\Livewire\UrusanOpdTabs::class)->name('perangkat-daerah');
 
     Route::get('/master/perankat-daerah/urusan/{id?}', App\Http\Livewire\Urusan\UrusanForm::class)->name('urusan.form');

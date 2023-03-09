@@ -9,7 +9,7 @@
         <x-button green wire:click="downloadTemplate" label="Download Template Excel" />
     </div>
 
-    <form wire:submit.prevent="upload" enctype="multipart/form-data">
+    <form wire:submit.prevent="upload">
         <div class="flex flex-col space-y-3">
 
             <x-input label="File Excel Realisasi Pekerjaan" wire:model.defer="file" type="file"
