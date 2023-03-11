@@ -24,6 +24,7 @@ class TahapanApbdForm extends Component
         return [
             'tahapan.tahun' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
             'tahapan.nama' => 'required|string|max:255',
+            'tahapan.nomor_dpa' => 'required|string|max:255',
         ];
     }
 

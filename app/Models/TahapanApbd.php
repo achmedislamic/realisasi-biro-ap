@@ -17,6 +17,8 @@ class TahapanApbd extends Model
         return $query->when($cari, function ($query) use ($cari) {
             $query->where(function ($query) use ($cari) {
                 $query->search('nama', $cari);
+            })->orWhere(function ($query) use ($cari) {
+                $query->search('nomor_dpa', $cari);
             });
         });
     }

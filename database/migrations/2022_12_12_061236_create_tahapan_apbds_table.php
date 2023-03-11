@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->id();
             $table->year("tahun");
             $table->string('nama');
+            $table->string('nomor_dpa');
             $table->timestamps();
         });
     }

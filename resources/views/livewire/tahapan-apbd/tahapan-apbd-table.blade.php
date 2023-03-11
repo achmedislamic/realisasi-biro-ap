@@ -20,6 +20,9 @@
                     Nama Tahapan APBD
                 </x-table.th>
                 <x-table.th>
+                    Nomor DPA
+                </x-table.th>
+                <x-table.th>
                     Aksi
                 </x-table.th>
             </tr>
@@ -33,20 +36,23 @@
                 <x-table.td-utama>
                     {{ $tahapanApbd->nama }}
                 </x-table.td-utama>
+                <x-table.td-utama>
+                    {{ $tahapanApbd->nomor_dpa }}
+                </x-table.td-utama>
                 <x-table.td>
-                    <x-button :href="route('tahapan-apbd.form', $tahapanApbd->id)" label="Ubah" warning icon="pencil" />
-                    <x-button label="Hapus" negative icon="x" x-on:confirm="{
-                            title: 'Anda yakin akan menghapus data?',
-                            icon: 'question',
-                            accept: {
-                                label: 'Hapus',
-                                method: 'hapusTahapanApbd',
-                                params: {{ $tahapanApbd->id }}
-                            },
-                            reject: {
-                                label: 'Batal'
-                            }
-                        }" />
+                    <x-button.circle warning xs icon="pencil" :href="route('tahapan-apbd.form', $tahapanApbd->id)" />
+                    <x-button.circle negative xs icon="trash" x-on:confirm="{
+                        title: 'Anda yakin akan menghapus data?',
+                        icon: 'question',
+                        accept: {
+                            label: 'Hapus',
+                            method: 'hapusTahapanApbd',
+                            params: {{ $tahapanApbd->id }}
+                        },
+                        reject: {
+                            label: 'Batal'
+                        }
+                    }" />
                 </x-table.td>
 
             </x-table.tr>
