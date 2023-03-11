@@ -33,7 +33,7 @@ class ProgramForm extends Component
 
         $this->program->save();
 
-        return to_route('program');
+        return to_route('program-kegiatan');
     }
 
     public function render()

@@ -1,17 +1,16 @@
 <div class="flex flex-col gap-y-4">
     <div class="border-l-4 border-blue-700 text-slate-900">
-        <p class="pl-2">{{ $bidangUrusan->urusan->kode ?? "" }} {{ $bidangUrusan->urusan->nama ?? "" }}</p>
-        <div class="border-l-[24px] border-l-blue-400">
-            <p class="pl-2">{{ $bidangUrusan->kode ?? "" }} {{ $bidangUrusan->nama ?? "" }}</p>
-        </div>
+        <p class="pl-2">{{ $program->kode ?? "" }} {{ $program->nama ?? "" }}</p>
     </div>
 
     <hr>
 
-    <x-table.index :model="$programs">
+    <x-table.index :model="$kegiatans">
 
         <x-slot name="table_actions">
-            <x-button primary :href="route('program.form')" label="Tambah" />
+            @if ($idProgram != 0)
+            <x-button primary :href="route('kegiatan.form', $idProgram)" label="Tambah" />
+            @endif
         </x-slot>
 
         <x-table.thead>
@@ -28,30 +27,31 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($programs as $program)
+            @foreach ($kegiatans as $kegiatan)
             <x-table.tr>
                 <x-table.td-utama>
-                    {{ $program->kode }}
+                    {{ $kegiatan->kode }}
                 </x-table.td-utama>
                 <x-table.td-utama>
-                    {{ $program->nama }}
+                    {{ $kegiatan->nama }}
                 </x-table.td-utama>
                 <x-table.td>
-                    <x-button.circle warning xs icon="pencil" :href="route('program.form', $program->id)" />
+                    <x-button.circle warning xs icon="pencil"
+                        :href="route('kegiatan.form', [$idProgram, $kegiatan->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                         title: 'Anda yakin akan menghapus data?',
                         icon: 'question',
                         accept: {
                             label: 'Hapus',
-                            method: 'hapusProgram',
-                            params: {{ $program->id }}
+                            method: 'hapusKegiatan',
+                            params: {{ $kegiatan->id }}
                         },
                         reject: {
                             label: 'Batal'
                         }
                     }" />
                     <x-button.circle positive xs icon="folder-open"
-                        wire:click="pilihIdProgramEvent({{ $program->id }})" />
+                        wire:click="pilihIdKegiatanEvent({{ $kegiatan->id }})" />
                 </x-table.td>
 
             </x-table.tr>

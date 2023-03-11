@@ -16,6 +16,12 @@ class ProgramTable extends Component
 
     protected $queryString = ['cari' => ['except' => '']];
 
+    public function pilihIdProgramEvent(int $id)
+    {
+        $this->emit('pilihIdProgramEvent', $id);
+        $this->emit('proKegGantiTabEvent', 'kegiatan');
+    }
+
     public function hapusProgram(int $id): void
     {
         Program::destroy($id);
@@ -24,7 +30,6 @@ class ProgramTable extends Component
     public function render()
     {
         $programs = Program::query()->pencarian($this->cari)->paginate();
-
         return view('livewire.program.program-table', compact("programs"));
     }
 }
