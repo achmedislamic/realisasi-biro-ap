@@ -1,32 +1,26 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Perangkat Daerah - OPD
-    </h2>
-</x-slot>
-
-<x-container>
-    <div class="bg-orange-300 mb-6 pl-4 py-1">
-        <div class="flex justify-between mr-4 mb-1">
-            <h4 class="font-semibold">{{ $bidangUrusan->urusan->nama }}</h4>
-            <x-button.circle white xs icon="folder-open" :href="route('perangkat-daerah')" />
-        </div>
-        <div class="bg-blue-300 px-4 py-1">
-            <div class="flex justify-between">
-                <h4 class="font-semibold">{{ $bidangUrusan->nama }}</h4>
-                <x-button.circle white xs icon="folder-open"
-                    :href="route('bidang-urusan', $bidangUrusan->urusan->id)" />
-            </div>
+<div class="flex flex-col gap-y-4">
+    <div class="border-l-4 border-blue-700 text-slate-900">
+        <p class="pl-2">{{ $bidangUrusan->urusan->kode ?? "" }} {{ $bidangUrusan->urusan->nama ?? "" }}</p>
+        <div class="border-l-[24px] border-l-blue-400">
+            <p class="pl-2">{{ $bidangUrusan->kode ?? "" }} {{ $bidangUrusan->nama ?? "" }}</p>
         </div>
     </div>
+
+    <hr>
 
     <x-table.index :model="$opds">
 
         <x-slot name="table_actions">
-            <x-button primary label="Tambah" :href="route('opd.form', $bidangUrusan->id)" />
+            @if ($idBidangUrusan != 0)
+            <x-button primary label="Tambah" :href="route('opd.form', $idBidangUrusan)" />
+            @endif
         </x-slot>
 
         <x-table.thead>
             <tr>
+                <x-table.th>
+                    Kode
+                </x-table.th>
                 <x-table.th>
                     OPD
                 </x-table.th>
@@ -39,11 +33,13 @@
             @foreach ($opds as $opd)
             <x-table.tr>
                 <x-table.td>
+                    {{ $opd->kode }}
+                </x-table.td>
+                <x-table.td>
                     {{ $opd->nama }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button.circle warning xs icon="pencil"
-                        :href="route('opd.form', [$bidangUrusan->id, $opd->id])" />
+                    <x-button.circle warning xs icon="pencil" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
@@ -56,10 +52,10 @@
                                 label: 'Batal'
                             }
                         }" />
-                    <x-button.circle positive xs icon="folder-open" :href="route('sub-unit', $opd->id)" />
+                    <x-button.circle positive xs icon="folder-open" wire:click="pilihIdOpdEvent({{ $opd->id }})" />
                 </x-table.td>
             </x-table.tr>
             @endforeach
         </tbody>
     </x-table.index>
-</x-container>
+</div>

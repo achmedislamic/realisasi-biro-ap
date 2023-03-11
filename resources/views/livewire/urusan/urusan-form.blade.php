@@ -7,6 +7,7 @@
 <x-container>
     <form wire:submit.prevent="simpan">
         <div class="flex flex-col space-y-3">
+            <x-input label="Kode" wire:model.defer="urusan.kode" placeholder="Kode urusan" />
             <x-input label="Nama" wire:model.defer="urusan.nama" placeholder="Nama urusan" />
             <div class="ml-auto">
                 <x-button type="submit" positive label="Simpan" />

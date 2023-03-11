@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/master/perankat-daerah/opd/{idBidangUrusan}/form/{id?}', App\Http\Livewire\Opd\OpdForm::class)->name('opd.form');
 
     Route::get('/master/perankat-daerah/sub-opd/{idOpd}', App\Http\Livewire\SubOpd\SubOpdTable::class)->name('sub-opd');
-    Route::get('/master/perankat-daerah/sub-opd/{idOpd}/form/{id?}', App\Http\Livewire\SubOpd\SubOpdForm::class)->name('sub-opd.form');
+    Route::get('/master/perankat-daerah/sub-opd/{idOpd}/{idBidangUrusan}/form/{id?}', App\Http\Livewire\SubOpd\SubOpdForm::class)->name('sub-opd.form');
 });
 
 require __DIR__.'/auth.php';

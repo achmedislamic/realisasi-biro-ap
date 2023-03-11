@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Opd;
 
 use App\Models\BidangUrusan;
+use App\Models\BidangUrusanOpd;
 use App\Models\Opd;
 use App\Models\SubOpd;
 use App\Traits\Pencarian;
@@ -16,13 +17,23 @@ class OpdTable extends Component
     use WithPagination;
     use Actions;
 
-    public $idBidangUrusan;
+    public $idBidangUrusan = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
 
-    public function mount(int $idBidangUrusan): void
+    protected $listeners = [
+    'pilihIdBidangUrusanEvent' => 'pilihIdBidangUrusan'
+    ];
+
+    public function pilihIdBidangUrusan($idBidangUrusan)
     {
         $this->idBidangUrusan = $idBidangUrusan;
+    }
+
+    public function pilihIdOpdEvent(int $idOpd)
+    {
+        $this->emit('pilihIdOpdEvent', $idOpd, $this->idBidangUrusan);
+        $this->emit('gantiTab', 'sub_opd');
     }
 
     public function hapusOpd(int $id): void
@@ -33,7 +44,8 @@ class OpdTable extends Component
     public function render()
     {
         $opds = Opd::query()
-            ->where('bidang_urusan_id', $this->idBidangUrusan)
+            ->with('bidangUrusans')
+            ->whereBidangUrusanId($this->idBidangUrusan)
             ->pencarian($this->cari)
             ->paginate();
 

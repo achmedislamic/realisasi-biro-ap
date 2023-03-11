@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BidangUrusan extends Model
@@ -23,13 +24,21 @@ class BidangUrusan extends Model
         });
     }
 
+    public function scopeWhereUrusanId($query, int $id): Builder
+    {
+        return $query->whereHas('urusan', function ($query) use ($id) {
+            $query->where('urusan_id', $id);
+        });
+    }
+
     public function urusan(): BelongsTo
     {
         return $this->belongsTo(Urusan::class);
     }
 
-    public function opds(): HasMany
+    public function opds(): BelongsToMany
     {
-        return $this->hasMany(Opd::class);
+        return $this->belongsToMany(Opd::class, 'bidang_urusan_opds', 'bidang_urusan_id')
+        ->withTimestamps();
     }
 }

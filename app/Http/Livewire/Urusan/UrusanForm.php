@@ -22,6 +22,7 @@ class UrusanForm extends Component
     protected function rules(): array
     {
         return [
+            'urusan.kode' => 'required',
             'urusan.nama' => 'required|string|max:255',
         ];
     }

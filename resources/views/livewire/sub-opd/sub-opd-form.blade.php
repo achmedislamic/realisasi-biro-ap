@@ -5,21 +5,17 @@
 </x-slot>
 
 <x-container>
-    <div class="bg-orange-300 mb-6 pl-4 py-1">
-        <div class="flex justify-between mr-4 mb-1">
-            <h4 class="font-semibold">{{ $opd->bidangUrusan->urusan->nama }}</h4>
-            <x-button.circle white xs icon="folder-open" :href="route('perangkat-daerah')" />
-        </div>
-        <div class="bg-blue-300 pl-4 py-1 mb-1">
-            <div class="flex justify-between mr-4 mb-1">
-                <h4 class="font-semibold">{{ $opd->bidangUrusan->nama }}</h4>
-                <x-button.circle white xs icon="folder-open"
-                    :href="route('bidang-urusan', $opd->bidangUrusan->urusan->id)" />
-            </div>
-            <div class="bg-purple-300 px-4 py-1 mb-1">
-                <div class="flex justify-between">
-                    <h4 class="font-semibold">{{ $opd->nama }}</h4>
-                    <x-button.circle white xs icon="folder-open" :href="route('opd', $opd->bidangUrusan->id)" />
+    <div class="border-b pb-2 mb-6">
+        <div class="border-l-8 border-l-blue-700 ">
+            <h4 class="font-semibold pl-2">
+                {{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}
+            </h4>
+            <div class="border-l-8 border-l-orange-500">
+                <h4 class="font-semibold pl-2">
+                    {{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}
+                </h4>
+                <div class="border-l-8 border-l-green-600">
+                    <h4 class="font-semibold pl-2">{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</h4>
                 </div>
             </div>
         </div>
@@ -27,7 +23,8 @@
 
     <form wire:submit.prevent="simpan">
         <div class="flex flex-col space-y-3">
-            <x-input label="Nama Sub Unit" wire:model.defer="subUnit.nama" placeholder="Nama Sub Unit" />
+            <x-input label="Kode Sub OPD" wire:model.defer="subOpd.kode" placeholder="Nama Sub OPD" />
+            <x-input label="Nama Sub OPD" wire:model.defer="subOpd.nama" placeholder="Nama Sub OPD" />
             <div class="flex justify-between">
                 <x-button gray label="Kembali" href="{{ url()->previous() }}" />
                 <x-button type="submit" positive label="Simpan" />

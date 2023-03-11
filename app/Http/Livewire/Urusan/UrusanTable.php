@@ -21,6 +21,12 @@ class UrusanTable extends Component
         Urusan::destroy($id);
     }
 
+    public function pilihIdUrusanEvent(int $id)
+    {
+        $this->emit('pilihIdUrusanEvent', $id);
+        $this->emit('gantiTab', 'bidang_urusan');
+    }
+
     public function render()
     {
         $urusans = Urusan::query()->pencarian($this->cari)->paginate();

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Opd;
 use App\Models\BidangUrusan;
 use App\Models\Opd;
 use App\Traits\WithLiveValidation;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class OpdForm extends Component
@@ -25,6 +26,7 @@ class OpdForm extends Component
     protected function rules(): array
     {
         return [
+            'opd.kode' => 'required',
             'opd.nama' => 'required|string|max:255',
         ];
     }
@@ -32,9 +34,13 @@ class OpdForm extends Component
     public function simpan()
     {
         $this->validate();
-        $this->opd->bidang_urusan_id = $this->idBidangUrusan;
         $this->opd->save();
-        return to_route('opd', $this->idBidangUrusan);
+        $idOpd = DB::getPdo()->lastInsertId();
+
+        $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
+        $bidangUrusan->opds()->attach($idOpd);
+
+        return to_route('perangkat-daerah');
     }
 
     public function render()

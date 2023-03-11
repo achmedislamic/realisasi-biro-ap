@@ -18,13 +18,14 @@ class BidangUrusanForm extends Component
     public function mount(int $urusanId, int $id = null): void
     {
         $this->idBidangUrusan = $id;
-        $this->bidangUrusan = is_null($id) ? new BidangUrusan : BidangUrusan::find($id);
+        $this->bidangUrusan = is_null($id) ? new BidangUrusan() : BidangUrusan::find($id);
         $this->urusanId = $urusanId;
     }
 
     protected function rules(): array
     {
         return [
+            'bidangUrusan.kode' => 'required',
             'bidangUrusan.nama' => 'required|string|max:255',
         ];
     }
@@ -34,7 +35,8 @@ class BidangUrusanForm extends Component
         $this->validate();
         $this->bidangUrusan->urusan_id = $this->urusanId;
         $this->bidangUrusan->save();
-        return to_route('bidang-urusan', $this->urusanId);
+
+        return to_route('perangkat-daerah');
     }
 
     public function render()

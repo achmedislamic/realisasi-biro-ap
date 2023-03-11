@@ -15,27 +15,38 @@ class BidangUrusanTable extends Component
     use WithPagination;
     use Actions;
 
-    public int $urusanId;
+    public int $idUrusan = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
+    protected $listeners = [
+        'pilihIdUrusanEvent' => 'pilihIdUrusan'
+    ];
 
-    public function mount(int $urusanId): void
+    public function pilihIdUrusan(int $idUrusan)
     {
-        $this->urusanId = $urusanId;
+        $this->idUrusan = $idUrusan;
     }
 
-     public function hapusBidangUrusan(int $id): void
-     {
-         BidangUrusan::destroy($id);
-     }
+    public function pilihIdBidangUrusanEvent(int $idBidangUrusan)
+    {
+        $this->emit('pilihIdBidangUrusanEvent', $idBidangUrusan);
+        $this->emit('gantiTab', 'opd');
+    }
 
-     public function render()
-     {
-         $bidangUrusans = BidangUrusan::query()
-            ->where('urusan_id', $this->urusanId)
+    public function hapusBidangUrusan(int $id): void
+    {
+        BidangUrusan::destroy($id);
+    }
+
+    public function render()
+    {
+        $bidangUrusans = BidangUrusan::query()
+            ->whereUrusanId($this->idUrusan)
             ->pencarian($this->cari)
             ->paginate();
-         $urusan = Urusan::find($this->urusanId);
-         return view('livewire.bidang-Urusan.bidang-Urusan-table', compact('urusan', 'bidangUrusans'));
-     }
+
+        $urusan = Urusan::find($this->idUrusan);
+
+        return view('livewire.bidang-Urusan.bidang-Urusan-table', compact(['bidangUrusans', 'urusan']));
+    }
 }

@@ -26,4 +26,11 @@ class SubOpd extends Model
             });
         });
     }
+
+    public function scopeWhereOpdId($query, int $id): Builder
+    {
+        return $query->whereHas('opd', function ($query) use ($id) {
+            $query->where('opd_id', $id);
+        });
+    }
 }

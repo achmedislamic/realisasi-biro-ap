@@ -1,34 +1,25 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Perangkat Daerah - Sub Unit
-    </h2>
-</x-slot>
+<div class="flex flex-col gap-y-4">
+    <div class="border-l-4 border-blue-700 text-slate-900">
+        <p class="pl-2">
+            {{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}
+        </p>
+        <div class="border-l-[24px] border-l-blue-400">
+            <p class="pl-2">{{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}</p>
 
-<x-container>
-    <div class="bg-orange-300 mb-6 pl-4 py-1">
-        <div class="flex justify-between mr-4 mb-1">
-            <h4 class="font-semibold">{{ $opd->bidangUrusan->urusan->nama }}</h4>
-            <x-button.circle white xs icon="folder-open" :href="route('perangkat-daerah')" />
-        </div>
-        <div class="bg-blue-300 pl-4 py-1 mb-1">
-            <div class="flex justify-between mr-4 mb-1">
-                <h4 class="font-semibold">{{ $opd->bidangUrusan->nama }}</h4>
-                <x-button.circle white xs icon="folder-open"
-                    :href="route('bidang-urusan', $opd->bidangUrusan->urusan->id)" />
-            </div>
-            <div class="bg-purple-300 px-4 py-1 mb-1">
-                <div class="flex justify-between">
-                    <h4 class="font-semibold">{{ $opd->nama }}</h4>
-                    <x-button.circle white xs icon="folder-open" :href="route('opd', $opd->bidangUrusan->id)" />
-                </div>
+            <div class="border-l-[24px] border-l-blue-200">
+                <p class="pl-2">{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</p>
             </div>
         </div>
     </div>
 
+    <hr>
+
     <x-table.index :model="$subOpds">
 
         <x-slot name="table_actions">
-            <x-button primary label="Tambah" :href="route('sub-opd.form', $opd->id)" />
+            @if ($idOpd != 0)
+            <x-button primary label="Tambah" :href="route('sub-opd.form', [$idOpd, $idBidangUrusan])" />
+            @endif
         </x-slot>
 
         <x-table.thead>
@@ -48,23 +39,22 @@
                     {{ $subOpd->nama }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button.circle warning xs icon="pencil"
-                        :href="route('sub-unit.form', [$opd->id, $subOpd->id])" />
+                    <x-button.circle warning xs icon="pencil" :href="route('sub-opd.form', [$opd->id, $subOpd->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
-                            title: 'Anda yakin akan menghapus data?',
-                            icon: 'question',
-                            accept: {
-                                label: 'Hapus',
-                                method: 'hapusSubUnit',
-                                params: {{ $subOpd->id }}
-                            },
-                            reject: {
-                                label: 'Batal'
-                            }
-                        }" />
+                                    title: 'Anda yakin akan menghapus data?',
+                                    icon: 'question',
+                                    accept: {
+                                        label: 'Hapus',
+                                        method: 'hapusSubUnit',
+                                        params: {{ $subOpd->id }}
+                                    },
+                                    reject: {
+                                        label: 'Batal'
+                                    }
+                                }" />
                 </x-table.td>
             </x-table.tr>
             @endforeach
         </tbody>
     </x-table.index>
-</x-container>
+</div>

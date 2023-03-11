@@ -6,6 +6,9 @@
     <x-table.thead>
         <tr>
             <x-table.th>
+                Kode
+            </x-table.th>
+            <x-table.th>
                 Urusan
             </x-table.th>
             <x-table.th>
@@ -16,6 +19,9 @@
     <tbody>
         @foreach ($urusans as $urusan)
         <x-table.tr>
+            <x-table.td>
+                {{ $urusan->kode }}
+            </x-table.td>
             <x-table.td>
                 {{ $urusan->nama }}
             </x-table.td>
@@ -33,7 +39,7 @@
                             label: 'Batal'
                         }
                     }" />
-                <x-button.circle positive xs icon="folder-open" :href="route('bidang-urusan', $urusan->id)" />
+                <x-button.circle positive xs icon="folder-open" wire:click="pilihIdUrusanEvent({{ $urusan->id }})" />
             </x-table.td>
         </x-table.tr>
         @endforeach

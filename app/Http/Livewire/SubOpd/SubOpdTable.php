@@ -15,13 +15,19 @@ class SubOpdTable extends Component
     use WithPagination;
     use Actions;
 
-    public $idOpd;
+    public $idOpd = 0;
+    public $idBidangUrusan = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
 
-    public function mount(int $idOpd): void
+    protected $listeners = [
+    'pilihIdOpdEvent' => 'pilihIdOpd'
+    ];
+
+    public function pilihIdOpd($idOpd, $idBidangUrusan)
     {
         $this->idOpd = $idOpd;
+        $this->idBidangUrusan = $idBidangUrusan;
     }
 
     public function hapusSubOpd(int $id): void
@@ -32,12 +38,16 @@ class SubOpdTable extends Component
     public function render()
     {
         $subOpds = SubOpd::query()
-            ->where('opd_id', $this->idOpd)
+            ->whereOpdId($this->idOpd)
             ->pencarian($this->cari)
             ->paginate();
 
-        $opd = Opd::find($this->idOpd);
+        $opd = Opd::query()
+            ->with('bidangUrusans')
+            ->whereHas('bidangUrusans')
+            ->whereBidangUrusanId($this->idBidangUrusan)
+            ->find($this->idOpd);
 
-        return view('livewire.sub-unit.sub-unit-table', compact('subOpds', 'opd'));
+        return view('livewire.sub-opd.sub-opd-table', compact('subOpds', 'opd'));
     }
 }
