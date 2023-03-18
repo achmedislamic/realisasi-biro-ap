@@ -1259,6 +1259,16 @@ select {
 .w-9 {
   width: 2.25rem;
 }
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.w-\[2000px\] {
+  width: 2000px;
+}
+.w-\[1500px\] {
+  width: 1500px;
+}
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1274,6 +1284,9 @@ select {
 .max-w-sm {
   max-width: 24rem;
 }
+.max-w-lg {
+  max-width: 32rem;
+}
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1285,6 +1298,12 @@ select {
 }
 .grow {
   flex-grow: 1;
+}
+.table-auto {
+  table-layout: auto;
+}
+.table-fixed {
+  table-layout: fixed;
 }
 .origin-top-left {
   transform-origin: top left;
@@ -1543,6 +1562,9 @@ select {
 }
 .overflow-y-hidden {
   overflow-y: hidden;
+}
+.overflow-x-scroll {
+  overflow-x: scroll;
 }
 .overscroll-contain {
   overscroll-behavior: contain;

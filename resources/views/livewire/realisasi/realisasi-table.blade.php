@@ -19,7 +19,7 @@
 
     <div class="flex flex-col gap-y-4">
 
-        <x-table.index :model="$realisasiApbds">
+        <x-table.scrollable :model="$realisasiApbds" class="w-[2000px]">
 
             <x-slot name="table_actions">
                 <x-button primary label="Tambah" />
@@ -27,6 +27,9 @@
 
             <x-table.thead>
                 <tr>
+                    <x-table.th>
+                        Opd
+                    </x-table.th>
                     <x-table.th>
                         Sub Opd
                     </x-table.th>
@@ -51,19 +54,23 @@
                 @foreach ($realisasiApbds as $realisasiApbd)
                 <x-table.tr>
                     <x-table.td>
-                        {{ $realisasiApbd->subOpd->nama }}
+                        {{ $realisasiApbd->subOpd->opd->kode." ".$realisasiApbd->subOpd->opd->nama }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $realisasiApbd->subKegiatan->nama }}
+                        {{ $realisasiApbd->subOpd->kode." ".$realisasiApbd->subOpd->nama }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $realisasiApbd->subRincianObjekBelanja->nama }}
+                        {{ $realisasiApbd->subKegiatan->kode." ".$realisasiApbd->subKegiatan->nama }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $realisasiApbd->anggaran }}
+                        {{ $realisasiApbd->subRincianObjekBelanja->kode." ".$realisasiApbd->subRincianObjekBelanja->nama
+                        }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $realisasiApbd->realisasi }}
+                        {{ number_format($realisasiApbd->anggaran, 2, ',', '.') }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ number_format($realisasiApbd->realisasi, 2, ',', '.') }}
                     </x-table.td>
 
                     <x-table.td>
@@ -87,6 +94,6 @@
                 </x-table.tr>
                 @endforeach
             </tbody>
-        </x-table.index>
+        </x-table.scrollable>
     </div>
 </x-container-no-overflow>
