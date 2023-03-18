@@ -5,9 +5,6 @@
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Beranda</x-nav-link>
             <x-navigation.master-link />
             <x-navigation.realisasi-link />
-            <x-navigation.laporan-link />
-            <x-nav-link :href="route('pekerjaan')" :active="request()->routeIs('pekerjaan')">Prototype Realisasi
-            </x-nav-link>
         </ul>
 
         <x-navigation.pengguna-link />

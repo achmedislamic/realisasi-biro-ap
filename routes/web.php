@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/master/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
 
     require __DIR__.'/master/index.php';
+    require __DIR__.'/realisasi.php';
 });
 
 require __DIR__.'/auth.php';

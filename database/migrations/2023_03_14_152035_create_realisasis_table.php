@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class () extends Migration {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('realisasis', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('tahapan_apbd_id')->constrained();
+            $table->foreignId('sub_opd_id')->constrained();
+            $table->foreignId('sub_kegiatan_id')->constrained();
+            $table->foreignId('sub_rincian_objek_id')->constrained('sub_rincian_objek_belanjas');
+            $table->double('anggaran')->default(0);
+            $table->date('tanggal');
+            $table->double('realisasi')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('realisasis');
+    }
+};

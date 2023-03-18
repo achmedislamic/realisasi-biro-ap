@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pekerjaan;
+namespace App\Http\Livewire\Realisasi;
 
 use App\Models\AkunBelanja;
 use App\Models\BidangUrusan;
@@ -10,7 +10,6 @@ use App\Models\Kegiatan;
 use App\Models\KelompokBelanja;
 use App\Models\ObjekBelanja;
 use App\Models\Opd;
-use App\Models\Pekerjaan;
 use App\Models\Program;
 use App\Models\Realisasi;
 use App\Models\RincianObjekBelanja;
@@ -20,85 +19,84 @@ use App\Models\SubRincianObjekBelanja;
 use App\Models\TahapanApbd;
 use App\Models\Urusan;
 use App\Traits\WithLiveValidation;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use PhpParser\Node\Expr\Cast\Double;
 use Spatie\SimpleExcel\SimpleExcelReader;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class UploadExcel extends Component
+class ImportRealisasi extends Component
 {
     use WithLiveValidation;
     use WithFileUploads;
 
-    public Pekerjaan $pekerjaan;
     public $file;
-    private $rows;
-    public $totalRows = 0;
-    public $tahapan;
-    public $uploadingStatus = false;
+    public $idTahapanApbd;
+    public $tanggal;
+    public $tahapanApbds;
 
     public function mount()
     {
-        $this->tahapan = TahapanApbd::first();
+        $this->tanggal = date('Y-m-d');
+        $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
     }
 
     protected function rules(): array
     {
         return [
-           'file' => 'required|mimes:xls,xlsx,csv|max:2048',
+           'idTahapanApbd' => 'required',
+           'tanggal' => 'required|date',
+           'file' => 'required|mimes:xls,xlsx|max:2048',
         ];
-    }
-
-    public function downloadTemplate(): StreamedResponse
-    {
-        return Storage::download('upload-template/upload pekerjaan.xlsx');
     }
 
     public function upload()
     {
         $this->validate();
-        $this->rows = SimpleExcelReader::create($this->file->path())->getRows();
 
-        $this->rows->each(function (array $item) {
-            $data[] =[
-            'kode' => str($item['Urusan'])->before(' '),
-            'nama' => str($item['Urusan'])->after(' ')->limit(255),
-            ];
-        });
+        $realisasiRows = SimpleExcelReader::create($this->file->path())
+            ->headerOnRow(1)
+            ->getRows();
 
-        DB::transaction(function () {
-        $this->rows->each(function (array $item) {
+        $realisasiRows->each(function (array $item) {
             $perangkatDaerah = $this->importPerangkatDaerah($item);
 
-            $bidangUrusanOpd = BidangUrusanOpd::firstOrCreate([
+            /**
+             * Import bidang urusan OPD
+             */
+            BidangUrusanOpd::firstOrCreate([
                 'bidang_urusan_id' => $perangkatDaerah['idBidangUrusan'],
                 'opd_id' => $perangkatDaerah['idOpd'],
             ]);
 
+            /**
+             * Import Program, Kegiatan, Sub Kegiatan
+             */
             $programKegiatan = $this->importProgramKegiatan($item);
+
+            /**
+             * Import Rekening Belanja Akun s/d Sub Rincian Objek Belanja
+             */
             $rekeningBelanja = $this->importRekeningBelanja($item);
 
+            /**
+             * Import Realisasi
+             */
             $realisasi = Realisasi::updateOrCreate(
                 [
-                    'tahapan_apbd_id' => $this->tahapan->id,
+                    'tahapan_apbd_id' => intval($this->idTahapanApbd),
                     'sub_opd_id' => $perangkatDaerah['idSubOpd'],
                     'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
                     'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
-                    'tanggal' => date('Y-m-d')
+                    'tanggal' => $this->tanggal
                 ],
                 [
                     'anggaran' => floatval($item['APBD']),
-                    'realisasi' => 0
+                    'realisasi' => floatval($item['REALISASI'])
                 ]
             );
         });
-        });
 
-        return to_route('pekerjaan');
+        return redirect()->to('/realisasi');
     }
 
     public function importPerangkatDaerah(array $item)
@@ -197,7 +195,6 @@ class UploadExcel extends Component
 
     public function render()
     {
-        $total = $this->totalRows;
-        return view('livewire.pekerjaan.upload-excel', compact('total'));
+        return view('livewire.realisasi.import-realisasi');
     }
 }
