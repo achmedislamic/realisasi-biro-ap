@@ -65,43 +65,43 @@ class UploadExcel extends Component
 
         $this->rows->each(function (array $item) {
             $data[] =[
-            'kode' => str($item['Urusan'])->before(' '),
-            'nama' => str($item['Urusan'])->after(' ')->limit(255),
+                'kode' => str($item['Urusan'])->before(' '),
+                'nama' => str($item['Urusan'])->after(' ')->limit(255),
             ];
         });
 
         DB::transaction(function () {
-        $this->rows->each(function (array $item) {
-            $perangkatDaerah = $this->importPerangkatDaerah($item);
+            $this->rows->each(function (array $item) {
+                $perangkatDaerah = $this->importPerangkatDaerah($item);
 
-            $bidangUrusanOpd = BidangUrusanOpd::firstOrCreate([
-                'bidang_urusan_id' => $perangkatDaerah['idBidangUrusan'],
-                'opd_id' => $perangkatDaerah['idOpd'],
-            ]);
+                $bidangUrusanOpd = BidangUrusanOpd::firstOrCreate([
+                    'bidang_urusan_id' => $perangkatDaerah['idBidangUrusan'],
+                    'opd_id' => $perangkatDaerah['idOpd'],
+                ]);
 
-            $programKegiatan = $this->importProgramKegiatan($item);
-            $rekeningBelanja = $this->importRekeningBelanja($item);
+                $programKegiatan = $this->importProgramKegiatan($item);
+                $rekeningBelanja = $this->importRekeningBelanja($item);
 
-            $realisasi = Realisasi::updateOrCreate(
-                [
-                    'tahapan_apbd_id' => $this->tahapan->id,
-                    'sub_opd_id' => $perangkatDaerah['idSubOpd'],
-                    'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
-                    'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
-                    'tanggal' => date('Y-m-d')
-                ],
-                [
-                    'anggaran' => floatval($item['APBD']),
-                    'realisasi' => 0
-                ]
-            );
-        });
+                $realisasi = Realisasi::updateOrCreate(
+                    [
+                        'tahapan_apbd_id' => $this->tahapan->id,
+                        'sub_opd_id' => $perangkatDaerah['idSubOpd'],
+                        'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
+                        'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
+                        'tanggal' => today()
+                    ],
+                    [
+                        'anggaran' => floatval($item['APBD']),
+                        'realisasi' => 0
+                    ]
+                );
+            });
         });
 
         return to_route('pekerjaan');
     }
 
-    public function importPerangkatDaerah(array $item)
+    public function importPerangkatDaerah(array $item): array
     {
         $urusan = Urusan::firstOrCreate([
             'kode' => str($item['Urusan'])->before(' '),
