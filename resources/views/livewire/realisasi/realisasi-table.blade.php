@@ -22,7 +22,7 @@
         <x-table.scrollable :model="$realisasiApbds" class="w-[2000px]">
 
             <x-slot name="table_actions">
-                <x-button primary label="Tambah" />
+                <x-button primary label="Tambah" :href="route('realisasi.form')" />
             </x-slot>
 
             <x-table.thead>
@@ -74,22 +74,21 @@
                     </x-table.td>
 
                     <x-table.td>
-                        <x-dropdown>
-
-                            <x-dropdown.item icon="pencil" label="Edit" />
-                            <x-dropdown.item icon="trash" label="Hapus" x-on:confirm="{
-                                    title: 'Anda yakin akan menghapus data?',
-                                    icon: 'question',
-                                    accept: {
-                                        label: 'Hapus',
-                                        method: 'hapusRealisasiBelanja',
-                                        params: {{ $realisasiApbd->id }}
-                                    },
-                                    reject: {
-                                        label: 'Batal'
-                                    }
-                                }" />
-                        </x-dropdown>
+                        <x-button.circle warning xs icon="pencil"
+                            :href="route('realisasi.form', [$realisasiApbd->id])" />
+                        {{--
+                        <x-button.circle negative xs icon="trash" x-on:confirm="{
+                            title: 'Anda yakin akan menghapus data realisasi ini?',
+                            icon: 'question',
+                            accept: {
+                                label: 'Hapus',
+                                method: 'hapusSubUnit',
+                                params: {{ $subOpd->id }}
+                            },
+                            reject: {
+                                label: 'Batal'
+                            }
+                        }" /> --}}
                     </x-table.td>
                 </x-table.tr>
                 @endforeach
