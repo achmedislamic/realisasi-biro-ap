@@ -17,6 +17,7 @@ use App\Models\SubKegiatan;
 use App\Models\SubOpd;
 use App\Models\SubRincianObjekBelanja;
 use App\Models\Urusan;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,6 +27,7 @@ use Illuminate\Queue\SerializesModels;
 
 class ImportRealisasi implements ShouldQueue
 {
+    use Batchable;
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
@@ -57,6 +59,8 @@ class ImportRealisasi implements ShouldQueue
      */
     public function handle()
     {
+        usleep(50000);
+
         foreach ($this->realisasiChunk as $item) {
             $item = (array) $item;
             /**
