@@ -24,6 +24,7 @@ module.exports = {
                     "medium-orange": "#FBA51C",
                     "heavy-orange": "#EB6B22",
                 },
+                utama: "#6366F1",
             },
         },
     },

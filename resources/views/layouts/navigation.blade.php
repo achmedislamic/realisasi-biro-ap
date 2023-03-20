@@ -3,10 +3,9 @@
         <div class="flex justify-between lg:justify-between lg:items-center">
             <x-navigation.logo />
             <ul class="hidden lg:flex items-center space-x-4 text-sm font-semibold">
-                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Beranda
-                </x-nav-link>
-                <x-nav-link :href="route('tahapan-apbd')" :active="request()->routeIs('tahapan-apbd')">Tahapan APBD
-                </x-nav-link>
+                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" text="Beranda" />
+                <x-nav-link :href="route('tahapan-apbd')" :active="request()->routeIs('tahapan-apbd')"
+                    text="Tahapan APBD" />
                 <x-navigation.master-link />
                 <x-navigation.realisasi-link />
             </ul>

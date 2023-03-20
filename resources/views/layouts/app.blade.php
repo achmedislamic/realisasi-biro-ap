@@ -24,7 +24,7 @@
         <!-- Page Heading -->
         @if (isset($header))
         <header class="">
-            <div class="container mx-auto py-5">
+            <div class="container mx-auto py-7">
                 {{ $header }}
             </div>
         </header>
