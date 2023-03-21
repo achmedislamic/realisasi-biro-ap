@@ -55,7 +55,7 @@
                         accept: {
                             label: 'Hapus',
                             method: 'hapusSubKegiatan',
-                            params: {{ $kegiatan->id }}
+                            params: {{ $subKegiatan->id }}
                         },
                         reject: {
                             label: 'Batal'

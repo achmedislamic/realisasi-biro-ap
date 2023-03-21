@@ -36,7 +36,18 @@ class KegiatanTable extends Component
 
     public function hapusKegiatan(int $id): void
     {
-        Kegiatan::destroy($id);
+        try {
+            Kegiatan::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data kegiatan terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data kegiatan tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

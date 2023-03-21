@@ -6,20 +6,30 @@ use App\Models\Kegiatan;
 use App\Models\SubKegiatan;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class SubKegiatanForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $idSubKegiatan = null;
+    public ?int $idSubKegiatan = null;
     public int $idKegiatan;
     public SubKegiatan $subKegiatan;
+    public String $buttonText;
 
     public function mount(int $idKegiatan, int $id = null): void
     {
-        $this->idSubKegiatan = $id;
-        $this->subKegiatan = is_null($id) ? new SubKegiatan() : SubKegiatan::find($id);
         $this->idKegiatan = $idKegiatan;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->subKegiatan = new SubKegiatan();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->idSubKegiatan = $id;
+            $this->subKegiatan = SubKegiatan::find($id);
+        }
     }
 
     protected function rules(): array
@@ -30,14 +40,25 @@ class SubKegiatanForm extends Component
         ];
     }
 
-       public function simpan()
-       {
-           $this->validate();
-           $this->subKegiatan->kegiatan_id = $this->idKegiatan;
-           $this->subKegiatan->save();
+    public function simpan()
+    {
+        $this->validate();
+        $this->subKegiatan->kegiatan_id = $this->idKegiatan;
+        $this->subKegiatan->save();
 
-           return to_route('program-kegiatan');
-       }
+        if (is_null($this->idSubKegiatan)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data sub kegiatan tersimpan.'
+            );
+            $this->subKegiatan = new SubKegiatan();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data sub kegiatan diubah.'
+            );
+        }
+    }
 
     public function render()
     {

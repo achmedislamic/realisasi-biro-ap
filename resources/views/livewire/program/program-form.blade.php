@@ -13,7 +13,7 @@
 
             <div class="flex justify-between">
                 <x-button gray label="Kembali" href="{{ url()->previous() }}" />
-                <x-button type="submit" positive label="Simpan" />
+                <x-button type="submit" positive label="{{ $buttonText }}" />
             </div>
         </div>
     </form>

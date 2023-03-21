@@ -11,7 +11,7 @@
             <x-input label="Nama" wire:model.defer="urusan.nama" placeholder="Nama urusan" />
             <div class="flex justify-between">
                 <x-button gray label="Kembali" :href="route('perangkat-daerah')" />
-                <x-button type="submit" positive label="Simpan" />
+                <x-button type="submit" positive label="{{ $buttonText }}" />
             </div>
         </div>
     </form>
