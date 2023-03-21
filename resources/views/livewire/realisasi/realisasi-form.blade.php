@@ -6,23 +6,8 @@
 
 <x-container>
 
-    <div>
-        @if (session()->has('message'))
-        <div class="bg-green-300 p-4 rounded-md border-2 border-green-600 mb-4 text-gray-900 w-full">
-            <div class="flex justify-between">
-                <h4 class="font-semibold">{{ session('message') }}</h4>
-                <x-button.circle negative xs icon="x" wire:click="flushSession" />
-            </div>
-
-        </div>
-        @endif
-    </div>
-
     <form wire:submit.prevent="simpan">
         <div class="flex flex-col space-y-3">
-            {{--
-            <x-input label="Nama Sub OPD" wire:model.defer="subOpd.nama" placeholder="Nama Sub OPD" /> --}}
-
             <div class="flex gap-x-4">
                 <div class="w-full">
                     <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"

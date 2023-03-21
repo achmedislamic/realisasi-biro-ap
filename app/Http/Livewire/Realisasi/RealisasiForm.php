@@ -11,11 +11,12 @@ use App\Models\SubOpd;
 use App\Models\SubRincianObjekBelanja;
 use App\Models\TahapanApbd;
 use Livewire\Component;
-
-use function PHPUnit\Framework\isNull;
+use WireUi\Traits\Actions;
 
 class RealisasiForm extends Component
 {
+    use Actions;
+
     public $tanggal;
     public $idTahapanApbd;
     public $tahapanApbds;
@@ -40,7 +41,6 @@ class RealisasiForm extends Component
 
     public function mount(int $id = null)
     {
-        $this->idRealisasi = $id;
         $this->submitText = "Simpan Realisasi";
 
         $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
@@ -51,8 +51,8 @@ class RealisasiForm extends Component
         $this->subKegiatans = collect();
         $this->subRincianObjekBelanjas = SubRincianObjekBelanja::orderBy('kode')->get();
 
-
         if (!is_null($id)) {
+            $this->idRealisasi = $id;
             $this->submitText = "Update Realisasi";
 
             $realisasiBelanja = Realisasi::find($id);
@@ -154,9 +154,15 @@ class RealisasiForm extends Component
                ]);
 
         if (!$realisasi) {
-            session()->flash('error', 'Gagal menyimpan realisasi.');
+            $this->notification()->success(
+                'GAGAL !!!',
+                'Gagal menyimpan realisasi.'
+            );
         } else {
-            session()->flash('message', 'Berhasil menyimpan realisasi.');
+            $this->notification()->success(
+                'BERHASIL',
+                'Berhasil menyimpan realisasi.'
+            );
             $this->opdPilihan = null;
             $this->subOpdPilihan = null;
             $this->programPilihan = null;
@@ -185,9 +191,15 @@ class RealisasiForm extends Component
         ]);
 
         if (!$realisasi) {
-            session()->flash('error', 'Gagal update realisasi.');
+            $this->notification()->success(
+                'GAGAL !!!',
+                'Gagal update realisas.'
+            );
         } else {
-            session()->flash('message', 'Berhasil update realisasi.');
+            $this->notification()->success(
+                'BERHASIL',
+                'Berhasil update realisasi.'
+            );
         }
     }
 
