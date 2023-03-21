@@ -5,18 +5,29 @@ namespace App\Http\Livewire\TahapanApbd;
 use App\Models\TahapanApbd;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
+
+use function PHPUnit\Framework\isNull;
 
 class TahapanApbdForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $IdTahapanApbd = null;
+    public ?int $IdTahapanApbd = null;
     public TahapanApbd $tahapan;
+    public $buttonText = "Simpan";
 
     public function mount(int $id = null): void
     {
-        $this->IdTahapanApbd = $id;
-        $this->tahapan = is_null($id) ? new TahapanApbd() : TahapanApbd::find($id);
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->tahapan =  new TahapanApbd();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->IdTahapanApbd = $id;
+            $this->tahapan = TahapanApbd::find($id);
+        }
     }
 
     protected function rules(): array
@@ -31,10 +42,20 @@ class TahapanApbdForm extends Component
     public function simpan()
     {
         $this->validate();
-
         $this->tahapan->save();
 
-        return to_route('tahapan-apbd');
+        if (is_null($this->IdTahapanApbd)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data tahapan APBD tersimpan.'
+            );
+            $this->tahapan =  new TahapanApbd();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data tahapan APBD diubah.'
+            );
+        }
     }
 
     public function render()

@@ -18,7 +18,18 @@ class TahapanApbdTable extends Component
 
     public function hapusTahapanApbd(int $id): void
     {
-        TahapanApbd::destroy($id);
+        try {
+            TahapanApbd::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data tahapan APBD terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data tahapan APBD tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

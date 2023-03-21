@@ -12,8 +12,9 @@
                 wire:model.defer="tahapan.tahun" />
             <x-input label="Nama Tahapan" wire:model.defer="tahapan.nama" placeholder="Masukkan nama tahapan" />
             <x-input label="Nomor DPA" wire:model.defer="tahapan.nomor_dpa" placeholder="Masukkan nomor DPA" />
-            <div class="ml-auto">
-                <x-button type="submit" positive label="Simpan" />
+            <div class="flex justify-between">
+                <x-button gray label="Kembali" :href="route('tahapan-apbd')" />
+                <x-button type="submit" positive label="{{ $buttonText }}" />
             </div>
         </div>
     </form>
