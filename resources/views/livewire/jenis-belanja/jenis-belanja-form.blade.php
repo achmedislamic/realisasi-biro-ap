@@ -26,7 +26,7 @@
             <x-input label="Nama Jenis Belanja" wire:model.defer="jenisBelanja.nama" placeholder="Nama Jenis Belanja" />
             <div class="flex justify-between">
                 <x-button gray label="Kembali" href="{{ url()->previous() }}" />
-                <x-button type="submit" positive label="Simpan" />
+                <x-button type="submit" positive label="{{ $buttonText }}" />
             </div>
         </div>
     </form>

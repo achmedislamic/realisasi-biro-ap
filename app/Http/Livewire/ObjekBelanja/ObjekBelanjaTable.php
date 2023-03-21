@@ -35,7 +35,18 @@ class ObjekBelanjaTable extends Component
 
     public function hapusObjekBelanja(int $id): void
     {
-        ObjekBelanja::destroy($id);
+        try {
+            ObjekBelanja::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data objek belanja terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data objek belanja tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

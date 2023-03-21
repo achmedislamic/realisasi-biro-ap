@@ -18,7 +18,18 @@ class AkunBelanjaTable extends Component
 
     public function hapusAkun(int $id): void
     {
-        AkunBelanja::destroy($id);
+        try {
+            AkunBelanja::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data akun belanja terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data akun belanja tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function pilihIdAkunBelanjaEvent(int $id)

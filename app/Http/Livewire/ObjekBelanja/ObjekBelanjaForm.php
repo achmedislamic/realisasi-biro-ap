@@ -6,20 +6,31 @@ use App\Models\JenisBelanja;
 use App\Models\ObjekBelanja;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use PhpParser\Node\Expr\Cast\Object_;
+use WireUi\Traits\Actions;
 
 class ObjekBelanjaForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $idObjekBelanja = null;
+    public ?int $idObjekBelanja = null;
     public int $idJenisBelanja;
     public ObjekBelanja $objekBelanja;
+    public String $buttonText;
 
     public function mount(int $idJenisBelanja, int $id = null): void
     {
-        $this->idObjekBelanja = $id;
-        $this->objekBelanja = is_null($id) ? new ObjekBelanja() : ObjekBelanja::find($id);
         $this->idJenisBelanja = $idJenisBelanja;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->objekBelanja = new ObjekBelanja();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->idObjekBelanja = $id;
+            $this->objekBelanja = ObjekBelanja::find($id);
+        }
     }
 
     protected function rules(): array
@@ -36,7 +47,18 @@ class ObjekBelanjaForm extends Component
         $this->objekBelanja->jenis_belanja_id = $this->idJenisBelanja;
         $this->objekBelanja->save();
 
-        return to_route('rekening');
+        if (is_null($this->idObjekBelanja)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data objek belanja tersimpan.'
+            );
+            $this->objekBelanja = new ObjekBelanja();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data objek belanja diubah.'
+            );
+        }
     }
 
     public function render()

@@ -6,20 +6,30 @@ use App\Models\AkunBelanja;
 use App\Models\KelompokBelanja;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class KelompokBelanjaForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $idKelompokBelanja = null;
+    public ?int $idKelompokBelanja = null;
     public int $idAkunBelanja;
     public KelompokBelanja $kelompokBelanja;
+    public String $buttonText;
 
     public function mount(int $idAkunBelanja, int $id = null): void
     {
-        $this->idKelompokBelanja = $id;
-        $this->kelompokBelanja = is_null($id) ? new KelompokBelanja() : KelompokBelanja::find($id);
         $this->idAkunBelanja = $idAkunBelanja;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->kelompokBelanja = new KelompokBelanja();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->idKelompokBelanja = $id;
+            $this->kelompokBelanja = KelompokBelanja::find($id);
+        }
     }
 
     protected function rules(): array
@@ -36,7 +46,18 @@ class KelompokBelanjaForm extends Component
         $this->kelompokBelanja->akun_belanja_id = $this->idAkunBelanja;
         $this->kelompokBelanja->save();
 
-        return to_route('rekening');
+        if (is_null($this->idKelompokBelanja)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data kelompok belanja tersimpan.'
+            );
+            $this->kelompokBelanja = new KelompokBelanja();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data kelompok belanja diubah.'
+            );
+        }
     }
 
     public function render()

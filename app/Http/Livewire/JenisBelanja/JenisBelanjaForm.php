@@ -6,20 +6,30 @@ use App\Models\JenisBelanja;
 use App\Models\KelompokBelanja;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class JenisBelanjaForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $idJenisBelanja = null;
+    public ?int $idJenisBelanja = null;
     public int $idKelompokBelanja;
     public JenisBelanja $jenisBelanja;
+    public String $buttonText;
 
     public function mount(int $idKelompokBelanja, int $id = null): void
     {
-        $this->idJenisBelanja = $id;
-        $this->jenisBelanja = is_null($id) ? new JenisBelanja() : JenisBelanja::find($id);
         $this->idKelompokBelanja = $idKelompokBelanja;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->jenisBelanja = new JenisBelanja();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->idJenisBelanja = $id;
+            $this->jenisBelanja = JenisBelanja::find($id);
+        }
     }
 
     protected function rules(): array
@@ -36,7 +46,18 @@ class JenisBelanjaForm extends Component
         $this->jenisBelanja->kelompok_belanja_id = $this->idKelompokBelanja;
         $this->jenisBelanja->save();
 
-        return to_route('rekening');
+        if (is_null($this->idJenisBelanja)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data jenis belanja tersimpan.'
+            );
+            $this->jenisBelanja = new JenisBelanja();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data jenis belanja diubah.'
+            );
+        }
     }
 
     public function render()

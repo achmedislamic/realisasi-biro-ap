@@ -35,7 +35,18 @@ class JenisBelanjaTable extends Component
 
     public function hapusJenisBelanja(int $id): void
     {
-        JenisBelanja::destroy($id);
+        try {
+            JenisBelanja::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data jenis belanja terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data jenis belanja tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

@@ -35,7 +35,18 @@ class KelompokBelanjaTable extends Component
 
     public function hapusKelompokBelanja(int $id): void
     {
-        KelompokBelanja::destroy($id);
+        try {
+            KelompokBelanja::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data kelompok belanja terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data kelompok belanja tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

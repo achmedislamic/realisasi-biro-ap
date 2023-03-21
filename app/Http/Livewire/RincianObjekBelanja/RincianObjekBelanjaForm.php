@@ -6,20 +6,30 @@ use App\Models\ObjekBelanja;
 use App\Models\RincianObjekBelanja;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class RincianObjekBelanjaForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $idRincianObjekBelanja = null;
+    public ?int $idRincianObjekBelanja = null;
     public int $idObjekBelanja;
     public RincianObjekBelanja $rincianObjekBelanja;
+    public String $buttonText;
 
     public function mount(int $idObjekBelanja, int $id = null): void
     {
-        $this->idRincianObjekBelanja = $id;
-        $this->rincianObjekBelanja = is_null($id) ? new RincianObjekBelanja() : RincianObjekBelanja::find($id);
         $this->idObjekBelanja = $idObjekBelanja;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->rincianObjekBelanja = new RincianObjekBelanja();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->idRincianObjekBelanja = $id;
+            $this->rincianObjekBelanja = RincianObjekBelanja::find($id);
+        }
     }
 
     protected function rules(): array
@@ -36,7 +46,18 @@ class RincianObjekBelanjaForm extends Component
         $this->rincianObjekBelanja->objek_belanja_id = $this->idObjekBelanja;
         $this->rincianObjekBelanja->save();
 
-        return to_route('rekening');
+        if (is_null($this->idRincianObjekBelanja)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data rincian objek belanja tersimpan.'
+            );
+            $this->rincianObjekBelanja = new RincianObjekBelanja();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data rincian objek belanja diubah.'
+            );
+        }
     }
 
     public function render()
