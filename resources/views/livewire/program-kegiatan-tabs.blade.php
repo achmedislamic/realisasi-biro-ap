@@ -30,13 +30,13 @@
             </ul>
         </div>
         <div id="myTabContent">
-            <div x-show="tab == 'program'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'program'" x-transition>
                 @livewire('program.program-table')
             </div>
-            <div x-show="tab == 'kegiatan'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'kegiatan'" x-transition>
                 @livewire('kegiatan.kegiatan-table')
             </div>
-            <div x-show="tab == 'sub_kegiatan'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'sub_kegiatan'" x-transition>
                 @livewire('sub-kegiatan.sub-kegiatan-table')
             </div>
         </div>
