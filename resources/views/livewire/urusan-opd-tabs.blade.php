@@ -35,16 +35,16 @@
             </ul>
         </div>
         <div id="myTabContent">
-            <div x-show="tab == 'urusan'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'urusan'" x-transition>
                 @livewire('urusan.urusan-table')
             </div>
-            <div x-show="tab == 'bidang_urusan'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'bidang_urusan'" x-transition>
                 @livewire('bidang-urusan.bidang-urusan-table')
             </div>
-            <div x-show="tab == 'opd'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'opd'" x-transition>
                 @livewire('opd.opd-table')
             </div>
-            <div x-show="tab == 'sub_opd'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'sub_opd'" x-transition>
                 @livewire('sub-opd.sub-opd-table')
             </div>
         </div>

@@ -13,6 +13,9 @@
 
         <x-table.thead>
             <tr>
+                <x-table.td>
+                    #
+                </x-table.td>
                 <x-table.th>
                     Tahun
                 </x-table.th>
@@ -28,17 +31,20 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($tahapanApbds as $tahapanApbd)
+            @foreach ($tahapanApbds as $key => $tahapanApbd)
             <x-table.tr>
-                <x-table.td-utama>
+                <x-table.td>
+                    {{ $tahapanApbds->firstItem() + $key }}
+                </x-table.td>
+                <x-table.td>
                     {{ $tahapanApbd->tahun }}
-                </x-table.td-utama>
-                <x-table.td-utama>
+                </x-table.td>
+                <x-table.td>
                     {{ $tahapanApbd->nama }}
-                </x-table.td-utama>
-                <x-table.td-utama>
+                </x-table.td>
+                <x-table.td>
                     {{ $tahapanApbd->nomor_dpa }}
-                </x-table.td-utama>
+                </x-table.td>
                 <x-table.td>
                     <x-button.circle warning xs icon="pencil" :href="route('tahapan-apbd.form', $tahapanApbd->id)" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{

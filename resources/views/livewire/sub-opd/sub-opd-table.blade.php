@@ -1,18 +1,18 @@
 <div class="flex flex-col gap-y-4">
-    <div class="border-l-4 border-blue-700 text-slate-900">
-        <p class="pl-2">
-            {{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}
-        </p>
-        <div class="border-l-[24px] border-l-blue-400">
-            <p class="pl-2">{{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}</p>
-
-            <div class="border-l-[24px] border-l-blue-200">
-                <p class="pl-2">{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</p>
-            </div>
+    <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-2 h-0.5"></div>
+            <p>{{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}</p>
+        </div>
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-4 h-0.5"></div>
+            <p>{{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}</p>
+        </div>
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-8 h-0.5"></div>
+            <p>{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</p>
         </div>
     </div>
-
-    <hr>
 
     <x-table.index :model="$subOpds">
 
@@ -25,6 +25,12 @@
         <x-table.thead>
             <tr>
                 <x-table.th>
+                    #
+                </x-table.th>
+                <x-table.th>
+                    Kode
+                </x-table.th>
+                <x-table.th>
                     Sub Opd
                 </x-table.th>
                 <x-table.th>
@@ -33,8 +39,14 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($subOpds as $subOpd)
+            @foreach ($subOpds as $key => $subOpd)
             <x-table.tr>
+                <x-table.td>
+                    {{ $subOpds->firstItem() + $key }}
+                </x-table.td>
+                <x-table.td>
+                    {{ $subOpd->kode }}
+                </x-table.td>
                 <x-table.td>
                     {{ $subOpd->nama }}
                 </x-table.td>

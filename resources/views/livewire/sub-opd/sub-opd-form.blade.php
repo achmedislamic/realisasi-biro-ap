@@ -5,19 +5,18 @@
 </x-slot>
 
 <x-container>
-    <div class="border-b pb-2 mb-6">
-        <div class="border-l-8 border-l-blue-700 ">
-            <h4 class="font-semibold pl-2">
-                {{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}
-            </h4>
-            <div class="border-l-8 border-l-orange-500">
-                <h4 class="font-semibold pl-2">
-                    {{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}
-                </h4>
-                <div class="border-l-8 border-l-green-600">
-                    <h4 class="font-semibold pl-2">{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</h4>
-                </div>
-            </div>
+    <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-2 h-0.5"></div>
+            <p>{{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}</p>
+        </div>
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-4 h-0.5"></div>
+            <p>{{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}</p>
+        </div>
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-8 h-0.5"></div>
+            <p>{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</p>
         </div>
     </div>
 

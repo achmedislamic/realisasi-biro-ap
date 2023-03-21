@@ -28,6 +28,9 @@
             <x-table.thead>
                 <tr>
                     <x-table.th>
+                        #
+                    </x-table.th>
+                    <x-table.th>
                         Opd
                     </x-table.th>
                     <x-table.th>
@@ -51,8 +54,11 @@
                 </tr>
             </x-table.thead>
             <tbody>
-                @foreach ($realisasiApbds as $realisasiApbd)
+                @foreach ($realisasiApbds as $key => $realisasiApbd)
                 <x-table.tr>
+                    <x-table.td>
+                        {{ $realisasiApbds->firstItem() + $key }}
+                    </x-table.td>
                     <x-table.td>
                         {{ $realisasiApbd->subOpd->opd->kode." ".$realisasiApbd->subOpd->opd->nama }}
                     </x-table.td>
