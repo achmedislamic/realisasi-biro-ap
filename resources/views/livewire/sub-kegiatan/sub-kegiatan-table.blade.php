@@ -37,15 +37,15 @@
         <tbody>
             @foreach ($subKegiatans as $key => $subKegiatan)
             <x-table.tr>
-                <x-table.td-utama>
+                <x-table.td>
                     {{ $subKegiatans->firstItem() + $key }}
-                </x-table.td-utama>
-                <x-table.td-utama>
+                </x-table.td>
+                <x-table.td>
                     {{ $subKegiatan->kode }}
-                </x-table.td-utama>
-                <x-table.td-utama>
+                </x-table.td>
+                <x-table.td>
                     {{ $subKegiatan->nama }}
-                </x-table.td-utama>
+                </x-table.td>
                 <x-table.td>
                     <x-button.circle warning xs icon="pencil"
                         :href="route('sub-kegiatan.form', [$idKegiatan, $subKegiatan->id])" />

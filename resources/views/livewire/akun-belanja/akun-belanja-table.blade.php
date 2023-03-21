@@ -6,6 +6,9 @@
     <x-table.thead>
         <tr>
             <x-table.th>
+                #
+            </x-table.th>
+            <x-table.th>
                 Kode
             </x-table.th>
             <x-table.th>
@@ -17,8 +20,11 @@
         </tr>
     </x-table.thead>
     <tbody>
-        @foreach ($akuns as $akun)
+        @foreach ($akuns as $key => $akun)
         <x-table.tr>
+            <x-table.td>
+                {{ $akuns->firstItem() + $key }}
+            </x-table.td>
             <x-table.td>
                 {{ $akun->kode }}
             </x-table.td>

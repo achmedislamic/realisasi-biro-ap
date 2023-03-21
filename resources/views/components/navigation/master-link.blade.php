@@ -1,10 +1,8 @@
-<x-nav-dropdown-link text="Master" :active="
-    request()->routeIs('perangkat-daerah') || request()->routeIs('program-kegiatan') || request()->routeIs('rekening')
-">
+<x-nav-dropdown-link text="Master" :active="request()->segment(1) == 'master'">
     <x-nav-dropdown-item-link text="Perangkat Daerah" :href="route('perangkat-daerah')"
-        :active="request()->routeIs('perangkat-daerah')" />
+        :active="request()->segment(2) == 'urusan-opd'" />
     <x-nav-dropdown-item-link text="Program Kegiatan" :href="route('program-kegiatan')"
-        :active="request()->routeIs('program-kegiatan')" />
+        :active="request()->segment(2) == 'program-kegiatan'" />
     <x-nav-dropdown-item-link text="Rekening Belanja" :href="route('rekening')"
-        :active="request()->routeIs('rekening')" />
+        :active="request()->segment(2) == 'rekening-belanja'" />
 </x-nav-dropdown-link>

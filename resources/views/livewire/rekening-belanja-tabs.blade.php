@@ -49,22 +49,22 @@
             </ul>
         </div>
         <div id="myTabContent">
-            <div x-show="tab == 'akun'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'akun'" x-transition>
                 @livewire('akun-belanja.akun-belanja-table')
             </div>
-            <div x-show="tab == 'kelompok'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'kelompok'" x-transition>
                 @livewire('kelompok-belanja.kelompok-belanja-table')
             </div>
-            <div x-show="tab == 'jenis'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'jenis'" x-transition>
                 @livewire('jenis-belanja.jenis-belanja-table')
             </div>
-            <div x-show="tab == 'objek'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'objek'" x-transition>
                 @livewire('objek-belanja.objek-belanja-table')
             </div>
-            <div x-show="tab == 'rincian_objek'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'rincian_objek'" x-transition>
                 @livewire('rincian-objek-belanja.rincian-objek-belanja-table')
             </div>
-            <div x-show="tab == 'sub_rincian_objek'" x-transition class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <div x-show="tab == 'sub_rincian_objek'" x-transition>
                 @livewire('sub-rincian-objek-belanja.sub-rincian-objek-belanja-table')
             </div>
         </div>

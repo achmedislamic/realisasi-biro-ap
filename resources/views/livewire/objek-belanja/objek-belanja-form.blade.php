@@ -5,20 +5,23 @@
 </x-slot>
 
 <x-container>
-    <div class="border-b pb-2 mb-6">
-        <div class="border-l-8 border-l-blue-700 ">
-            <h4 class="font-semibold pl-2">
+    <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-2 h-0.5"></div>
+            <p>
                 {{ $jenisBelanja->kelompokBelanja->akunBelanja->kode ?? "" }}
                 {{ $jenisBelanja->kelompokBelanja->akunBelanja->nama ?? "" }}
-            </h4>
-            <div class="border-l-8 border-l-orange-500">
-                <h4 class="font-semibold pl-2">
-                    {{ $jenisBelanja->kelompokBelanja->kode ?? "" }} {{ $jenisBelanja->kelompokBelanja->nama ?? ""}}
-                </h4>
-                <div class="border-l-8 border-l-green-600">
-                    <h4 class="font-semibold pl-2">{{ $jenisBelanja->kode ?? "" }} {{ $jenisBelanja->nama ?? "" }}</h4>
-                </div>
-            </div>
+            </p>
+        </div>
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-4 h-0.5"></div>
+            <p>
+                {{ $jenisBelanja->kelompokBelanja->kode ?? "" }} {{ $jenisBelanja->kelompokBelanja->nama ??"" }}
+            </p>
+        </div>
+        <div class="flex gap-x-1 items-center">
+            <div class="bg-slate-900 w-8 h-0.5"></div>
+            <p>{{ $jenisBelanja->kode ?? "" }} {{ $jenisBelanja->nama ?? "" }}</p>
         </div>
     </div>
 
