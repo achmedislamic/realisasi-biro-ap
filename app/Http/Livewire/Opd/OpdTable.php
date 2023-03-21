@@ -3,9 +3,7 @@
 namespace App\Http\Livewire\Opd;
 
 use App\Models\BidangUrusan;
-use App\Models\BidangUrusanOpd;
 use App\Models\Opd;
-use App\Models\SubOpd;
 use App\Traits\Pencarian;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -38,7 +36,18 @@ class OpdTable extends Component
 
     public function hapusOpd(int $id): void
     {
-        Opd::destroy($id);
+        try {
+            Opd::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data OPD terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data OPD tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

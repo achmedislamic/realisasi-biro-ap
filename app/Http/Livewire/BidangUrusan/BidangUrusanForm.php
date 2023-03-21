@@ -6,20 +6,33 @@ use App\Models\BidangUrusan;
 use App\Models\Urusan;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class BidangUrusanForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
     private ?int $idBidangUrusan = null;
     public int $urusanId;
     public BidangUrusan $bidangUrusan;
+    public String $buttonText;
 
     public function mount(int $urusanId, int $id = null): void
     {
-        $this->idBidangUrusan = $id;
-        $this->bidangUrusan = is_null($id) ? new BidangUrusan() : BidangUrusan::find($id);
         $this->urusanId = $urusanId;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+
+            $this->idBidangUrusan = $id;
+            $this->bidangUrusan =  new BidangUrusan();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+
+            $this->idBidangUrusan = $id;
+            $this->bidangUrusan = BidangUrusan::find($id);
+        }
     }
 
     protected function rules(): array
@@ -36,7 +49,18 @@ class BidangUrusanForm extends Component
         $this->bidangUrusan->urusan_id = $this->urusanId;
         $this->bidangUrusan->save();
 
-        return to_route('perangkat-daerah');
+        if (is_null($this->idBidangUrusan)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data bidang urusan tersimpan.'
+            );
+            $this->bidangUrusan =  new BidangUrusan();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data bidang urusan diubah.'
+            );
+        }
     }
 
     public function render()

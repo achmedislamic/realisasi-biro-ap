@@ -5,18 +5,27 @@ namespace App\Http\Livewire\Urusan;
 use App\Models\Urusan;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class UrusanForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $IdUrusan = null;
+    public ?int $IdUrusan = null;
     public Urusan $urusan;
+    public String $buttonText;
 
     public function mount(int $id = null): void
     {
-        $this->IdUrusan = $id;
-        $this->urusan = is_null($id) ? new Urusan() : Urusan::find($id);
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->urusan =  new Urusan();
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->IdUrusan = $id;
+            $this->urusan = Urusan::find($id);
+        }
     }
 
     protected function rules(): array
@@ -31,7 +40,19 @@ class UrusanForm extends Component
     {
         $this->validate();
         $this->urusan->save();
-        return to_route('perangkat-daerah');
+
+        if (is_null($this->IdUrusan)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data Urusan tersimpan.'
+            );
+            $this->urusan =  new Urusan();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data Urusan diubah.'
+            );
+        }
     }
 
     public function render()

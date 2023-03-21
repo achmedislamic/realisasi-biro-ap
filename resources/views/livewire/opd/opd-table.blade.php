@@ -47,7 +47,7 @@
                     {{ $opd->nama }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button.circle warning xs icon="pencil" />
+                    <x-button.circle warning xs icon="pencil" :href="route('opd.form', [$idBidangUrusan, $opd->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',

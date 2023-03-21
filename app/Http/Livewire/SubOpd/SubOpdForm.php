@@ -6,22 +6,32 @@ use App\Models\Opd;
 use App\Models\SubOpd;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class SubOpdForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $idSubOpd = null;
+    public ?int $idSubOpd = null;
     public int $idOpd;
     public $idBidangUrusan = 0;
     public SubOpd $subOpd;
+    public String $buttonText;
 
     public function mount(int $idOpd, int $idBidangUrusan, int $id = null): void
     {
-        $this->idSubOpd = $id;
-        $this->subOpd = is_null($id) ? new SubOpd() : SubOpd::find($id);
         $this->idOpd = $idOpd;
         $this->idBidangUrusan = $idBidangUrusan;
+
+        if (is_null($id)) {
+            $this->buttonText = "Simpan";
+            $this->subOpd =  new SubOpd() ;
+        } else {
+            $this->buttonText = "Simpan Perubahan";
+            $this->idSubOpd = $id;
+            $this->subOpd = SubOpd::find($id);
+        }
     }
 
     protected function rules(): array
@@ -37,7 +47,19 @@ class SubOpdForm extends Component
         $this->validate();
         $this->subOpd->opd_id = $this->idOpd;
         $this->subOpd->save();
-        return to_route('perangkat-daerah', $this->idOpd);
+
+        if (is_null($this->idSubOpd)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data sub OPD tersimpan.'
+            );
+            $this->subOpd =  new SubOpd();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data sub OPD diubah.'
+            );
+        }
     }
 
     public function render()

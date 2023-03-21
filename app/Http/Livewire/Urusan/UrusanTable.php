@@ -18,7 +18,18 @@ class UrusanTable extends Component
 
     public function hapusUrusan(int $id): void
     {
-        Urusan::destroy($id);
+        try {
+            Urusan::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data urusan terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data urusan tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function pilihIdUrusanEvent(int $id)

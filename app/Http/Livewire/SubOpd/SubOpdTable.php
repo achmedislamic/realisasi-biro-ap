@@ -32,7 +32,18 @@ class SubOpdTable extends Component
 
     public function hapusSubOpd(int $id): void
     {
-        SubOpd::destroy($id);
+        try {
+            SubOpd::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data sub OPD terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data sub OPD tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

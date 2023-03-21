@@ -35,7 +35,18 @@ class BidangUrusanTable extends Component
 
     public function hapusBidangUrusan(int $id): void
     {
-        BidangUrusan::destroy($id);
+        try {
+            BidangUrusan::destroy($id);
+            $this->notification()->success(
+                'BERHASIL',
+                'Data bidang urusan terhapus.'
+            );
+        } catch (\Throwable $th) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Data bidang urusan tidak terhapus karena digunakan tabel lain.'
+            );
+        }
     }
 
     public function render()

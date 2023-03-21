@@ -51,13 +51,14 @@
                     {{ $subOpd->nama }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button.circle warning xs icon="pencil" :href="route('sub-opd.form', [$opd->id, $subOpd->id])" />
+                    <x-button.circle warning xs icon="pencil"
+                        :href="route('sub-opd.form', [$opd->id, $idBidangUrusan, $subOpd->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                                     title: 'Anda yakin akan menghapus data?',
                                     icon: 'question',
                                     accept: {
                                         label: 'Hapus',
-                                        method: 'hapusSubUnit',
+                                        method: 'hapusSubOpd',
                                         params: {{ $subOpd->id }}
                                     },
                                     reject: {
