@@ -13,6 +13,7 @@
         "livewire/livewire": "^2.10",
         "spatie/simple-excel": "^3.0",
         "staudenmeir/belongs-to-through": "^2.5",
+        "wire-elements/modal": "^1.0",
         "wireui/wireui": "^1.17"
     },
     "require-dev": {

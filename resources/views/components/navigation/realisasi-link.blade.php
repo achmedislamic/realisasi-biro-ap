@@ -4,4 +4,5 @@
         :active="request()->segment(2) == 'form'" />
     <x-nav-dropdown-item-link text="Import Realisasi" :href="route('realisasi.import')"
         :active="request()->segment(2) == 'import'" />
+    <x-nav-dropdown-item-link text="Laporan" />
 </x-nav-dropdown-link>
