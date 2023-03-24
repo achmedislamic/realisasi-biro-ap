@@ -5,12 +5,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/ta', App\Http\Livewire\PilihTahunAnggaran::class)
-    ->middleware(['auth'])
+    ->middleware(['auth', 'admin', 'opd'])
     ->name('pilih-ta');
 
 Route::get('/', function () {
     return view('dashboard');
-})->middleware(['auth', 'hasTahapanApbd'])->name('dashboard');
+})->middleware(['auth', 'hasTahapanApbd', 'admin', 'opd'])->name('dashboard');
 
 Route::middleware(['auth', 'hasTahapanApbd'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

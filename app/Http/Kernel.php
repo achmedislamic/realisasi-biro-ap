@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'hasTahapanApbd' => \App\Http\Middleware\EnsureTahunAnggaranCookies::class,
+        'admin' => \App\Http\Middleware\IsAdmin::class,
+        'opd' => \App\Http\Middleware\Opd::class,
     ];
 }
