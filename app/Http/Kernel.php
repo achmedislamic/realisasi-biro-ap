@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
 
         'hasTahapanApbd' => \App\Http\Middleware\EnsureTahunAnggaranCookies::class,
         'admin' => \App\Http\Middleware\IsAdmin::class,
-        'opd' => \App\Http\Middleware\Opd::class,
+        'opd' => \App\Http\Middleware\IsOpd::class,
+        'isAllowed' => \App\Http\Middleware\IsAllowedUser::class,
     ];
 }

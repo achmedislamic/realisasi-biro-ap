@@ -7,7 +7,7 @@
     </a>
 
     <ul x-cloak x-show="open" x-transition
-        class="absolute top-8 left-0 bg-white py-2 rounded-md shadow-lg overflow-hidden w-max min-w-[120px] z-50">
+        class="absolute left-0 bg-white py-2 rounded-md shadow-lg overflow-hidden w-max z-50 mt-4">
         {{ $slot }}
     </ul>
 </div>

@@ -4,19 +4,24 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/ta', App\Http\Livewire\PilihTahunAnggaran::class)
-    ->middleware(['auth', 'admin', 'opd'])
-    ->name('pilih-ta');
+Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
+    Route::middleware('hasTahapanApbd')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard');
+        })->name('dashboard');
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'hasTahapanApbd', 'admin', 'opd'])->name('dashboard');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 
-Route::middleware(['auth', 'hasTahapanApbd'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/ta', App\Http\Livewire\PilihTahunAnggaran::class)
+        ->name('pilih-ta');
 
+    require __DIR__.'/realisasi.php';
+});
+
+Route::middleware(['auth', 'hasTahapanApbd', 'admin'])->group(function () {
     Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
     Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
 
@@ -38,7 +43,6 @@ Route::middleware(['auth', 'hasTahapanApbd'])->group(function () {
     Route::get('/master/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
 
     require __DIR__.'/master/index.php';
-    require __DIR__.'/realisasi.php';
 });
 
 require __DIR__.'/auth.php';

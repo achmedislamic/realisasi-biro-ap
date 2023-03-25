@@ -18,15 +18,12 @@ class ImportRealisasi extends Component
     use WithFileUploads;
 
     public $file;
-    public $idTahapanApbd;
     public $tanggal;
-    public $tahapanApbds;
     public $hideButton;
 
     public function mount()
     {
         $this->tanggal = date('Y-m-d');
-        $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
         $this->hideButton = false;
     }
 
@@ -40,7 +37,6 @@ class ImportRealisasi extends Component
     protected function rules(): array
     {
         return [
-           'idTahapanApbd' => 'required',
            'tanggal' => 'required|date',
            'file' => 'required|mimes:xls,xlsx|max:2048',
         ];
@@ -50,6 +46,8 @@ class ImportRealisasi extends Component
     {
         $this->validate();
 
+        $idTahapanApbd = Cookie::get('TAID');
+
         $realisasiRows = SimpleExcelReader::create($this->file->path())
             ->headerOnRow(1)
             ->getRows();
@@ -58,7 +56,7 @@ class ImportRealisasi extends Component
         $jobs = [];
 
         foreach ($chunks as $realisasiChunk) {
-            array_push($jobs, new JobsImportRealisasi($realisasiChunk, $this->idTahapanApbd, $this->tanggal));
+            array_push($jobs, new JobsImportRealisasi($realisasiChunk, $idTahapanApbd, $this->tanggal));
         }
 
         $batch = Bus::batch($jobs)->name('Import Anggaran Realisasi')->dispatch();

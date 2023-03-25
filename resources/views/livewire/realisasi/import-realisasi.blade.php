@@ -12,13 +12,6 @@
             <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
                 display-format="DD-MM-YYYY" wire:model.defer="tanggal" without-time display-format="DD-MM-YYYY" />
 
-            <x-native-select label="Tahapan APBD" wire:model.defer="idTahapanApbd">
-                <option selected>Pilih tahapan APBD</option>
-                @foreach ($tahapanApbds as $tahapan)
-                <option value="{{ $tahapan->id }}">{{ $tahapan->tahun }} - {{ $tahapan->nama}}</option>
-                @endforeach
-            </x-native-select>
-
             <x-input label="File Excel Realisasi" wire:model.defer="file" type="file" accept=".xls,.xlsx" />
 
             <div class="ml-auto">

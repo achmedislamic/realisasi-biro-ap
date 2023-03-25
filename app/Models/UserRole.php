@@ -16,4 +16,9 @@ class UserRole extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function subOpd(): BelongsTo
+    {
+        return $this->belongsTo(SubOpd::class);
+    }
 }
