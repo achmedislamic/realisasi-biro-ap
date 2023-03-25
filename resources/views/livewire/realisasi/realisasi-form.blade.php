@@ -14,15 +14,6 @@
                         display-format="DD-MM-YYYY" wire:model.defer="tanggal" without-time
                         display-format="DD-MM-YYYY" />
                 </div>
-
-                <div class="w-full">
-                    <x-native-select label="Tahapan APBD" wire:model.defer="idTahapanApbd">
-                        <option selected>Pilih tahapan APBD</option>
-                        @foreach ($tahapanApbds as $tahapan)
-                        <option value="{{ $tahapan->id }}">{{ $tahapan->tahun }} - {{ $tahapan->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
             </div>
 
             <hr>

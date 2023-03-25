@@ -1,5 +1,7 @@
 <x-nav-dropdown-user-link text="{{ auth()->user()->name }}">
+    @if (Auth::user()->role->role_name === 'admin')
     <x-nav-dropdown-item-link text="Pengguna" :href="route('pengguna')" :active="request()->routeIs('pengguna')" />
+    @endif
 
     <form method="POST" action="{{ route('logout') }}">
         @csrf

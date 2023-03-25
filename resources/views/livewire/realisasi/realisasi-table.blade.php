@@ -7,7 +7,29 @@
 <div class="pb-12">
     <div class="bg-white shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900">
-            <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2">
+            <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
+                @if (Auth::user()->role->role_name === 'admin')
+                <div class="w-1/2 flex gap-2">
+                    <div class="w-full">
+                        <x-native-select label="OPD" wire:model="opdPilihan">
+                            <option selected>Pilih OPD</option>
+                            @foreach ($pods as $opd)
+                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
+                            @endforeach
+                        </x-native-select>
+                    </div>
+
+                    <div class="w-full">
+                        <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
+                            <option selected>Pilih Sub OPD (Unit)</option>
+                            @foreach ($subOpds as $subOpd)
+                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
+                            @endforeach
+                        </x-native-select>
+                    </div>
+                </div>
+                @endif
+
                 <div class="w-1/2 flex gap-2">
                     <div class="w-1/2">
                         <x-datetime-picker label="Dari Tanggal" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
@@ -17,15 +39,6 @@
                         <x-datetime-picker label="Sampai Tanggal" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
                             wire:model.defer="sampaiTanggal" without-time display-format="DD-MM-YYYY" />
                     </div>
-                </div>
-
-                <div class="w-1/2">
-                    <x-native-select wire:model.defer="idTahapanApbd" label="Tahapan APBD">
-                        <option selected>Pilih tahapan APBD</option>
-                        @foreach ($tahapanApbds as $tahapan)
-                        <option value="{{ $tahapan->id }}">{{ $tahapan->tahun }} - {{ $tahapan->nama}}</option>
-                        @endforeach
-                    </x-native-select>
                 </div>
 
                 <div class="flex items-end">
@@ -39,7 +52,9 @@
 
                     <x-slot name="table_actions">
                         <x-button primary label="Tambah" :href="route('realisasi.form')" />
+                        @if (Auth::user()->role->role_name === 'admin')
                         <x-button positive label="Import Anggaran Realisasi" :href="route('realisasi.import')" />
+                        @endif
                     </x-slot>
 
                     <x-table.thead>

@@ -100,12 +100,13 @@ class PenggunaForm extends Component
         }
 
         if ($success) {
-            UserRole::create([
-                'role_name' => $this->rolePengguna,
-                'user_id' => $this->user->id,
-                'sub_opd_id' => $this->subOpdPilihan,
-            ]);
-
+            UserRole::updateOrCreate(
+                ['user_id' => $this->user->id],
+                [
+                    'role_name' => $this->rolePengguna,
+                    'sub_opd_id' => $this->subOpdPilihan,
+                ]
+            );
 
             if (is_null($this->userId)) {
                 $this->notification()->success(

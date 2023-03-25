@@ -10,6 +10,7 @@ use App\Models\SubKegiatan;
 use App\Models\SubOpd;
 use App\Models\SubRincianObjekBelanja;
 use App\Models\TahapanApbd;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -18,8 +19,6 @@ class RealisasiForm extends Component
     use Actions;
 
     public $tanggal;
-    public $idTahapanApbd;
-    public $tahapanApbds;
     public $pods;
     public $subOpds;
     public $programs;
@@ -43,7 +42,6 @@ class RealisasiForm extends Component
     {
         $this->submitText = "Simpan Realisasi";
 
-        $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
         $this->pods = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
         $this->programs = Program::orderBy('kode')->get();
@@ -56,7 +54,6 @@ class RealisasiForm extends Component
             $this->submitText = "Update Realisasi";
 
             $realisasiBelanja = Realisasi::find($id);
-            $this->idTahapanApbd = $realisasiBelanja->tahapan_apbd_id;
             $this->tanggal = $realisasiBelanja->tanggal;
             $this->anggaran = $realisasiBelanja->anggaran;
             $this->realisasi = $realisasiBelanja->realisasi;
@@ -118,7 +115,6 @@ class RealisasiForm extends Component
     {
         return [
             'tanggal' => 'required|date',
-            'idTahapanApbd' => 'required',
             'opdPilihan' => 'required',
             'subOpdPilihan' => 'required',
             'programPilihan' => 'required',
@@ -144,7 +140,7 @@ class RealisasiForm extends Component
     public function simpanRealisasi()
     {
         $realisasi = Realisasi::create([
-                   'tahapan_apbd_id' => $this->idTahapanApbd,
+                   'tahapan_apbd_id' => Cookie::get('TAID'),
                    'sub_opd_id' => $this->subOpdPilihan,
                    'sub_kegiatan_id' => $this->subKegiatanPilihan,
                    'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
@@ -181,7 +177,7 @@ class RealisasiForm extends Component
     public function updateRealisasi(int $id)
     {
         $realisasi = Realisasi::where('id', $id)->update([
-            'tahapan_apbd_id' => $this->idTahapanApbd,
+            'tahapan_apbd_id' => Cookie::get('TAID'),
             'sub_opd_id' => $this->subOpdPilihan,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
             'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
