@@ -12,11 +12,13 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('realisasis', function (Blueprint $table) {
+        Schema::create('objek_realisasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('objek_realisasi_id')->constrained();
-            $table->date('tanggal');
-            $table->double('realisasi')->default(0);
+            $table->foreignId('tahapan_apbd_id')->constrained();
+            $table->foreignId('sub_opd_id')->constrained();
+            $table->foreignId('sub_kegiatan_id')->constrained();
+            $table->foreignId('sub_rincian_objek_id')->constrained('sub_rincian_objek_belanjas');
+            $table->double('anggaran')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('realisasis');
+        Schema::dropIfExists('objek_ralisasis');
     }
 };

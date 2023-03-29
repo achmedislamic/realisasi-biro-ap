@@ -2,84 +2,57 @@
 
 namespace App\Http\Livewire\Realisasi;
 
-use App\Models\Opd;
+use App\Models\ObjekRealisasi;
 use App\Models\Realisasi;
-use App\Models\SubOpd;
-use App\Models\TahapanApbd;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
+use App\Traits\Pencarian;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
 class RealisasiTable extends Component
 {
+    use Pencarian;
     use WithPagination;
     use Actions;
 
-    public $tahapanApbds;
-    public $cari;
-    public $dariTanggal;
-    public $sampaiTanggal;
-    public $idTahapanApbd;
+    public int $idObjekRealisasi = 0;
 
-    public $pods;
-    public $subOpds;
-    public $opdPilihan = null;
-    public $subOpdPilihan = null;
+    protected $queryString = ['cari' => ['except' => '']];
+    protected $listeners = [
+        'pilihIdObjekRealisasiEvent' => 'pilihIdObjekRealisasi'
+    ];
 
-    public function mount()
+    public function pilihIdObjekRealisasi(int $idObjekRealisasi)
     {
-        $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
-        $this->dariTanggal = date('Y-m-d');
-        $this->sampaiTanggal = date('Y-m-d');
-
-
-        $this->pods = Opd::orderBy('kode')->get();
-        $this->subOpds = collect();
+        $this->idObjekRealisasi = $idObjekRealisasi;
     }
 
-    public function updatedOpdPilihan($opd)
-    {
-        $this->subOpds = SubOpd::where('opd_id', $opd)
-            ->orderBy('kode')
-            ->get();
-        $this->subOpdPilihan = null;
-    }
-
-    public function hapusRealisasiBelanja(int $id): void
+    public function hapusRealisasi(int $id): void
     {
         try {
             Realisasi::destroy($id);
             $this->notification()->success(
                 'BERHASIL',
-                'Data realisasi belanja terhapus.'
+                'Data realisasi terhapus.'
             );
         } catch (\Throwable $th) {
             $this->notification()->error(
                 'GAGAL !!!',
-                'Data realisasi belanja tidak dapat dihapus.'
+                'Data realisasi tidak terhapus karena digunakan tabel lain.'
             );
         }
     }
 
     public function render()
     {
-        $userIsOPD = Auth::user()->role;
-        $subOpdPilihan = $this->subOpdPilihan;
-
-        $realisasiApbds = Realisasi::query()
-            ->where('tahapan_apbd_id', Cookie::get('TAID'))
-            ->whereBetween('tanggal', [$this->dariTanggal, $this->sampaiTanggal])
-            ->when($userIsOPD->role_name == 'opd', function (Builder $query) use ($userIsOPD) {
-                $query->where('sub_opd_id', $userIsOPD->sub_opd_id);
-            })
-            ->when(!$subOpdPilihan == "", function (Builder $query) use ($subOpdPilihan) {
-                $query->where('sub_opd_id', $subOpdPilihan);
-            })
+        $realisasis = Realisasi::query()
+            ->where('objek_realisasi_id', $this->idObjekRealisasi)
+            ->orderByDesc('tanggal')
+            ->pencarian($this->cari)
             ->paginate();
 
-        return view('livewire.realisasi.realisasi-table', compact('realisasiApbds'));
+        $objekRealisasi = ObjekRealisasi::find($this->idObjekRealisasi);
+
+        return view('livewire.realisasi.realisasi-table', compact(['realisasis', 'objekRealisasi']));
     }
 }

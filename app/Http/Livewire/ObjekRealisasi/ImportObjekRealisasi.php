@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Livewire\Realisasi;
+namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Jobs\ImportRealisasi as JobsImportRealisasi;
-use App\Models\TahapanApbd;
+use App\Jobs\ImportObjekRealisasi as JobImportObjekRealisasi;
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class ImportRealisasi extends Component
+class ImportObjekRealisasi extends Component
 {
     use WithLiveValidation;
     use WithFileUploads;
@@ -55,17 +53,17 @@ class ImportRealisasi extends Component
         $chunks = array_chunk(json_decode($realisasiRows), 500);
         $jobs = [];
 
-        foreach ($chunks as $realisasiChunk) {
-            array_push($jobs, new JobsImportRealisasi($realisasiChunk, $idTahapanApbd, $this->tanggal));
+        foreach ($chunks as $objekRealisasiChunk) {
+            array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, $idTahapanApbd, $this->tanggal));
         }
 
-        $batch = Bus::batch($jobs)->name('Import Anggaran Realisasi')->dispatch();
+        $batch = Bus::batch($jobs)->name('Import Anggaran Objek Realisasi')->dispatch();
         $this->emit('showImportProgressEvent', $batch->id);
         $this->hideButton = true;
     }
 
     public function render()
     {
-        return view('livewire.realisasi.import-realisasi');
+        return view('livewire.objek-realisasi.import-objek-realisasi');
     }
 }

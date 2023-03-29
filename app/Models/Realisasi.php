@@ -15,23 +15,17 @@ class Realisasi extends Model
 
     protected $guarded = [];
 
-    public function tahapanApbd(): BelongsTo
+    public function scopePencarian(Builder $query, string $cari = ''): Builder
     {
-        return $this->belongsTo(TahapanApbd::class);
+        return $query->when($cari, function ($query) use ($cari) {
+            $query->where(function ($query) use ($cari) {
+                $query->search('tanggal', $cari)->search('realisasi', $cari);
+            });
+        });
     }
 
-    public function subOpd(): BelongsTo
+    public function objekRealisasi(): BelongsTo
     {
-        return $this->belongsTo(SubOpd::class);
-    }
-
-    public function subKegiatan(): BelongsTo
-    {
-        return $this->belongsTo(SubKegiatan::class);
-    }
-
-    public function subRincianObjekBelanja(): BelongsTo
-    {
-        return $this->belongsTo(SubRincianObjekBelanja::class, 'sub_rincian_objek_id');
+        return $this->belongsTo(ObjekRealisasi::class);
     }
 }

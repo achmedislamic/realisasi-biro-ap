@@ -9,9 +9,9 @@ use App\Models\JenisBelanja;
 use App\Models\Kegiatan;
 use App\Models\KelompokBelanja;
 use App\Models\ObjekBelanja;
+use App\Models\ObjekRealisasi;
 use App\Models\Opd;
 use App\Models\Program;
-use App\Models\Realisasi;
 use App\Models\RincianObjekBelanja;
 use App\Models\SubKegiatan;
 use App\Models\SubOpd;
@@ -19,13 +19,12 @@ use App\Models\SubRincianObjekBelanja;
 use App\Models\Urusan;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ImportRealisasi implements ShouldQueue
+class ImportObjekRealisasi implements ShouldQueue
 {
     use Batchable;
     use Dispatchable;
@@ -35,7 +34,6 @@ class ImportRealisasi implements ShouldQueue
 
     private $realisasiChunk;
     private $idTahapanApbd;
-    private $tanggal;
 
     /**
      * Create a new job instance.
@@ -45,11 +43,9 @@ class ImportRealisasi implements ShouldQueue
     public function __construct(
         $realisasiChunk,
         $idTahapanApbd,
-        $tanggal
     ) {
         $this->realisasiChunk = $realisasiChunk;
         $this->idTahapanApbd = $idTahapanApbd;
-        $this->tanggal = $tanggal;
     }
 
     /**
@@ -89,17 +85,15 @@ class ImportRealisasi implements ShouldQueue
             /**
              * Import Realisasi
              */
-            Realisasi::updateOrCreate(
+            ObjekRealisasi::updateOrCreate(
                 [
                     'tahapan_apbd_id' => intval($this->idTahapanApbd),
                     'sub_opd_id' => $perangkatDaerah['idSubOpd'],
                     'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
                     'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
-                    'tanggal' => $this->tanggal
                 ],
                 [
                     'anggaran' => floatval($item['APBD']),
-                    'realisasi' => 0
                 ]
             );
         }

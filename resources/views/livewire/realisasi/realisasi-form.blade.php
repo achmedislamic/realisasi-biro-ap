@@ -4,81 +4,52 @@
     </h2>
 </x-slot>
 
-<x-container>
-
+<x-container-no-overflow class="overflow-visible">
     <form wire:submit.prevent="simpan">
         <div class="flex flex-col space-y-3">
             <div class="flex gap-x-4">
+                <div class="w-full">
+                    <x-input label="OPD" disabled wire:model="pod" />
+                </div>
+
+                <div class="w-full">
+                    <x-input label="Sub OPD" disabled wire:model="subOpd" />
+                </div>
+            </div>
+
+            <div class="flex gap-x-4">
+                <div class="w-full">
+                    <x-input label="Program" disabled wire:model="program" />
+                </div>
+
+                <div class="w-full">
+                    <x-input label="Kegiatan" disabled wire:model="kegiatan" />
+                </div>
+            </div>
+
+            <div class="flex gap-x-4">
+                <div class="w-full">
+                    <x-input label="Sub Kegiatan" disabled wire:model="subKegiatan" />
+                </div>
+
+                <div class="w-full">
+                    <x-input label="Rekening Belanja" disabled wire:model="subRincianObjekBelanja" />
+                </div>
+            </div>
+
+            <div class="flex gap-x-4">
+                <div class="w-full">
+                    <x-input label="Anggaran" disabled wire:model="anggaran" />
+                </div>
+
                 <div class="w-full">
                     <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
                         display-format="DD-MM-YYYY" wire:model.defer="tanggal" without-time
                         display-format="DD-MM-YYYY" />
                 </div>
-            </div>
-
-            <hr>
-
-            <div class="flex gap-x-4">
-                <div class="w-full">
-                    <x-native-select label="OPD" wire:model="opdPilihan">
-                        <option selected>Pilih OPD</option>
-                        @foreach ($pods as $opd)
-                        <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
 
                 <div class="w-full">
-                    <x-native-select label="Sub OPD" wire:model.defer="subOpdPilihan">
-                        <option selected>Pilih Sub OPD (Unit)</option>
-                        @foreach ($subOpds as $subOpd)
-                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
-            </div>
-
-            <div class="flex gap-x-4">
-                <div class="w-full">
-                    <x-native-select label="Program" wire:model="programPilihan">
-                        <option selected>Pilih Program</option>
-                        @foreach ($programs as $program)
-                        <option value="{{ $program->id }}">{{ $program->kode }} - {{ $program->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
-
-                <div class="w-full">
-                    <x-native-select label="Kegiatan" wire:model="kegiatanPilihan">
-                        <option selected>Pilih Kegiatan</option>
-                        @foreach ($kegiatans as $kegiatan)
-                        <option value="{{ $kegiatan->id }}">{{ $kegiatan->kode }} - {{ $kegiatan->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
-            </div>
-
-            <x-native-select label="Sub Kegiatan" wire:model.defer="subKegiatanPilihan">
-                <option selected>Pilih Sub Kegiatan</option>
-                @foreach ($subKegiatans as $subKegiatan)
-                <option value="{{ $subKegiatan->id }}">{{ $subKegiatan->kode }} - {{ $subKegiatan->nama}}</option>
-                @endforeach
-            </x-native-select>
-
-            <x-native-select label="Rekening Belanja" wire:model.defer="rekeningBelanjaPilihan">
-                <option selected>Pilih Rekenig Belanja (Sub Rincian Objek)</option>
-                @foreach ($subRincianObjekBelanjas as $rekening)
-                <option value="{{ $rekening->id }}">{{ $rekening->kode }} - {{ $rekening->nama}}</option>
-                @endforeach
-            </x-native-select>
-
-            <div class="flex gap-x-4">
-                <div class="w-full">
-                    <x-inputs.number label="Anggaran" prefix="Rp." wire:model.defer="anggaran" />
-                </div>
-
-                <div class="w-full">
-                    <x-inputs.number label="Realisasi" wire:model.defer="realisasi" />
+                    <x-inputs.number label="Realisasi" prefix="Rp." wire:model.defer="realisasi" />
                 </div>
             </div>
 
@@ -89,4 +60,4 @@
         </div>
     </form>
 
-</x-container>
+</x-container-no-overflow>

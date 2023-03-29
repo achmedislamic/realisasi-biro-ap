@@ -2,52 +2,45 @@
 
 namespace App\Http\Livewire\Realisasi;
 
-use App\Models\Kegiatan;
-use App\Models\Opd;
-use App\Models\Program;
+use App\Models\ObjekRealisasi;
 use App\Models\Realisasi;
-use App\Models\SubKegiatan;
-use App\Models\SubOpd;
-use App\Models\SubRincianObjekBelanja;
-use App\Models\TahapanApbd;
-use Illuminate\Support\Facades\Cookie;
+use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
 class RealisasiForm extends Component
 {
+    use WithLiveValidation;
     use Actions;
 
     public $tanggal;
-    public $pods;
-    public $subOpds;
-    public $programs;
-    public $kegiatans;
-    public $subKegiatans;
-    public $subRincianObjekBelanjas;
-    public $anggaran;
     public $realisasi;
-
-    public $opdPilihan = null;
-    public $subOpdPilihan = null;
-    public $programPilihan = null;
-    public $kegiatanPilihan = null;
-    public $subKegiatanPilihan = null;
-    public $rekeningBelanjaPilihan = null;
-
-    public $submitText;
+    public $idObjekRealisasi;
     public $idRealisasi;
+    public $submitText;
+    public ObjekRealisasi $objekRealisasi;
 
-    public function mount(int $id = null)
+    public $pod;
+    public $subOpd;
+    public $program;
+    public $kegiatan;
+    public $subKegiatan;
+    public $subRincianObjekBelanja;
+    public $anggaran;
+
+    public function mount(int $idObjekRealisasi, int $id = null)
     {
         $this->submitText = "Simpan Realisasi";
+        $this->idObjekRealisasi = $idObjekRealisasi;
+        $this->objekRealisasi = ObjekRealisasi::find($idObjekRealisasi);
 
-        $this->pods = Opd::orderBy('kode')->get();
-        $this->subOpds = collect();
-        $this->programs = Program::orderBy('kode')->get();
-        $this->kegiatans = collect();
-        $this->subKegiatans = collect();
-        $this->subRincianObjekBelanjas = SubRincianObjekBelanja::orderBy('kode')->get();
+        $this->pod = $this->objekRealisasi->subOpd->opd->nama;
+        $this->subOpd = $this->objekRealisasi->subOpd->nama;
+        $this->program = $this->objekRealisasi->subKegiatan->kegiatan->program->nama;
+        $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
+        $this->subKegiatan = $this->objekRealisasi->subKegiatan->nama;
+        $this->subRincianObjekBelanja = $this->objekRealisasi->subRincianObjekBelanja->nama;
+        $this->anggaran =  number_format($this->objekRealisasi->anggaran, 2, ',', '.');
 
         if (!is_null($id)) {
             $this->idRealisasi = $id;
@@ -55,74 +48,15 @@ class RealisasiForm extends Component
 
             $realisasiBelanja = Realisasi::find($id);
             $this->tanggal = $realisasiBelanja->tanggal;
-            $this->anggaran = $realisasiBelanja->anggaran;
             $this->realisasi = $realisasiBelanja->realisasi;
-            $this->rekeningBelanjaPilihan = $realisasiBelanja->sub_rincian_objek_id;
-
-            $subOpd = SubOpd::find($realisasiBelanja->sub_opd_id);
-            if ($subOpd) {
-                $this->subOpds = SubOpd::query()
-                    ->where('opd_id', $subOpd->opd_id)
-                    ->get();
-
-                $this->subOpdPilihan = $subOpd->id;
-                $this->opdPilihan = $subOpd->opd_id;
-            }
-
-            $subKegiatan = SubKegiatan::find($realisasiBelanja->sub_kegiatan_id);
-            if ($subKegiatan) {
-                $this->programPilihan = $subKegiatan->kegiatan->program->id;
-
-                $this->kegiatans = Kegiatan::query()
-                    ->where('program_id', $subKegiatan->kegiatan->program->id)
-                    ->get();
-
-                $this->subKegiatans = SubKegiatan::query()
-                    ->where('kegiatan_id', $subKegiatan->kegiatan->id)
-                    ->get();
-
-                $this->kegiatanPilihan = $subKegiatan->kegiatan->id;
-                $this->subKegiatanPilihan = $subKegiatan->id;
-            }
         }
-    }
-
-    public function updatedOpdPilihan($opd)
-    {
-        $this->subOpds = SubOpd::where('opd_id', $opd)
-            ->orderBy('kode')
-            ->get();
-        $this->subOpdPilihan = null;
-    }
-
-    public function updatedProgramPilihan($program)
-    {
-        $this->kegiatans = Kegiatan::where('program_id', $program)
-            ->orderBy('kode')
-            ->get();
-        $this->kegiatanPilihan = null;
-    }
-
-    public function updatedKegiatanPilihan($kegiatan)
-    {
-        $this->subKegiatans = SubKegiatan::where('kegiatan_id', $kegiatan)
-            ->orderBy('kode')
-            ->get();
-        $this->subKegiatanPilihan = null;
     }
 
     protected function rules(): array
     {
         return [
             'tanggal' => 'required|date',
-            'opdPilihan' => 'required',
-            'subOpdPilihan' => 'required',
-            'programPilihan' => 'required',
-            'kegiatanPilihan' => 'required',
-            'subKegiatanPilihan' => 'required',
-            'rekeningBelanjaPilihan' => 'required',
-            'anggaran' => 'required',
-            'realisasi' => 'required',
+            'realisasi' => 'required|numeric',
         ];
     }
 
@@ -130,27 +64,35 @@ class RealisasiForm extends Component
     {
         $this->validate();
 
-        if (is_null($this->idRealisasi)) {
-            $this->simpanRealisasi();
+        $anggaran = $this->objekRealisasi->anggaran;
+        $sumRealisasi = Realisasi::query()
+           ->where('objek_realisasi_id', $this->idObjekRealisasi)
+           ->sum('realisasi');
+
+        if ($anggaran < ($this->realisasi + $sumRealisasi)) {
+            $this->notification()->error(
+                'GAGAL !!!',
+                'Gagal menyimpan realisasi. Total realisasi lebih besar dari anggaran.'
+            );
         } else {
-            $this->updateRealisasi($this->idRealisasi);
+            if (is_null($this->idRealisasi)) {
+                $this->simpanRealisasi();
+            } else {
+                $this->updateRealisasi($this->idRealisasi);
+            }
         }
     }
 
     public function simpanRealisasi()
     {
         $realisasi = Realisasi::create([
-                   'tahapan_apbd_id' => Cookie::get('TAID'),
-                   'sub_opd_id' => $this->subOpdPilihan,
-                   'sub_kegiatan_id' => $this->subKegiatanPilihan,
-                   'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
-                   'anggaran' => floatval($this->anggaran),
-                   'tanggal' => $this->tanggal,
-                   'realisasi' => floatval($this->realisasi),
-               ]);
+            'objek_realisasi_id' => $this->idObjekRealisasi,
+            'tanggal' => $this->tanggal,
+            'realisasi' => floatval($this->realisasi),
+        ]);
 
         if (!$realisasi) {
-            $this->notification()->success(
+            $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal menyimpan realisasi.'
             );
@@ -159,35 +101,21 @@ class RealisasiForm extends Component
                 'BERHASIL',
                 'Berhasil menyimpan realisasi.'
             );
-            $this->opdPilihan = null;
-            $this->subOpdPilihan = null;
-            $this->programPilihan = null;
-            $this->kegiatanPilihan = null;
-            $this->subKegiatanPilihan = null;
-            $this->rekeningBelanjaPilihan = null;
-
-            $this->subOpds = collect();
-            $this->kegiatans = collect();
-            $this->subKegiatans = collect();
-            $this->anggaran = 0;
-            $this->realisasi = 0;
+            $this->tanggal = null;
+            $this->realisasi = null;
         }
     }
 
     public function updateRealisasi(int $id)
     {
         $realisasi = Realisasi::where('id', $id)->update([
-            'tahapan_apbd_id' => Cookie::get('TAID'),
-            'sub_opd_id' => $this->subOpdPilihan,
-            'sub_kegiatan_id' => $this->subKegiatanPilihan,
-            'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
-            'anggaran' => floatval($this->anggaran),
+           'objek_realisasi_id' => $this->idObjekRealisasi,
             'tanggal' => $this->tanggal,
             'realisasi' => floatval($this->realisasi),
         ]);
 
         if (!$realisasi) {
-            $this->notification()->success(
+            $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal update realisas.'
             );
@@ -197,11 +125,6 @@ class RealisasiForm extends Component
                 'Berhasil update realisasi.'
             );
         }
-    }
-
-    public function flushSession()
-    {
-        session()->forget('message');
     }
 
     public function hapusRealisasi(int $id): void

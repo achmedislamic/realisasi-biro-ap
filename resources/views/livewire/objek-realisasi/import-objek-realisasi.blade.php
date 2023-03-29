@@ -1,18 +1,16 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Import Data Anggaran Realisasi
+        Import Data Anggaran Objek Realisasi
     </h2>
 </x-slot>
 
 <x-container-no-overflow>
-    @livewire('realisasi.import-realiasi-progress')
+    @livewire('objek-realisasi.import-objek-realiasi-progress')
 
     <form wire:submit.prevent="upload" enctype="multipart/form-data">
         <div class="flex flex-col space-y-3">
-            <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
-                display-format="DD-MM-YYYY" wire:model.defer="tanggal" without-time display-format="DD-MM-YYYY" />
 
-            <x-input label="File Excel Realisasi" wire:model.defer="file" type="file" accept=".xls,.xlsx" />
+            <x-input label="File Excel Anggaran Realisasi" wire:model.defer="file" type="file" accept=".xls,.xlsx" />
 
             <div class="ml-auto">
                 @if (!$hideButton)

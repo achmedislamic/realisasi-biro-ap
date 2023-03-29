@@ -1,138 +1,98 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Data Realisasi Belanja
-    </h2>
-</x-slot>
-
-<div class="pb-12">
-    <div class="bg-white shadow-sm sm:rounded-lg">
-        <div class="p-6 text-gray-900">
-            <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
-                @if (Auth::user()->role->role_name === 'admin')
-                <div class="w-1/2 flex gap-2">
-                    <div class="w-full">
-                        <x-native-select label="OPD" wire:model="opdPilihan">
-                            <option selected>Pilih OPD</option>
-                            @foreach ($pods as $opd)
-                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
-                            @endforeach
-                        </x-native-select>
-                    </div>
-
-                    <div class="w-full">
-                        <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
-                            <option selected>Pilih Sub OPD (Unit)</option>
-                            @foreach ($subOpds as $subOpd)
-                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
-                            @endforeach
-                        </x-native-select>
-                    </div>
-                </div>
-                @endif
-
-                <div class="w-1/2 flex gap-2">
-                    <div class="w-1/2">
-                        <x-datetime-picker label="Dari Tanggal" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
-                            wire:model.defer="dariTanggal" without-time display-format="DD-MM-YYYY" />
-                    </div>
-                    <div class="w-1/2">
-                        <x-datetime-picker label="Sampai Tanggal" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
-                            wire:model.defer="sampaiTanggal" without-time display-format="DD-MM-YYYY" />
-                    </div>
-                </div>
-
-                <div class="flex items-end">
-                    <x-button primary icon="filter" label="Filter" wire:click="render" />
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-y-4">
-
-                <x-table.scrollable :model="$realisasiApbds" class="w-[2000px]">
-
-                    <x-slot name="table_actions">
-                        <x-button primary label="Tambah" :href="route('realisasi.form')" />
-                        @if (Auth::user()->role->role_name === 'admin')
-                        <x-button positive label="Import Anggaran Realisasi" :href="route('realisasi.import')" />
-                        @endif
-                    </x-slot>
-
-                    <x-table.thead>
-                        <tr>
-                            <x-table.th>
-                                #
-                            </x-table.th>
-                            <x-table.th>
-                                Opd
-                            </x-table.th>
-                            <x-table.th>
-                                Sub Opd
-                            </x-table.th>
-                            <x-table.th>
-                                Sub Kegiatan
-                            </x-table.th>
-                            <x-table.th>
-                                Rekening Belanja
-                            </x-table.th>
-                            <x-table.th>
-                                Anggaran
-                            </x-table.th>
-                            <x-table.th>
-                                Realisasi
-                            </x-table.th>
-                            <x-table.th class="w-28">
-                                Aksi
-                            </x-table.th>
-                        </tr>
-                    </x-table.thead>
-                    <tbody>
-                        @foreach ($realisasiApbds as $key => $realisasiApbd)
-                        <x-table.tr>
-                            <x-table.td>
-                                {{ $realisasiApbds->firstItem() + $key }}
-                            </x-table.td>
-                            <x-table.td>
-                                {{ $realisasiApbd->subOpd->opd->kode." ".$realisasiApbd->subOpd->opd->nama }}
-                            </x-table.td>
-                            <x-table.td>
-                                {{ $realisasiApbd->subOpd->kode." ".$realisasiApbd->subOpd->nama }}
-                            </x-table.td>
-                            <x-table.td>
-                                {{ $realisasiApbd->subKegiatan->kode." ".$realisasiApbd->subKegiatan->nama }}
-                            </x-table.td>
-                            <x-table.td>
-                                {{ $realisasiApbd->subRincianObjekBelanja->kode."
-                                ".$realisasiApbd->subRincianObjekBelanja->nama
-                                }}
-                            </x-table.td>
-                            <x-table.td>
-                                {{ number_format($realisasiApbd->anggaran, 2, ',', '.') }}
-                            </x-table.td>
-                            <x-table.td>
-                                {{ number_format($realisasiApbd->realisasi, 2, ',', '.') }}
-                            </x-table.td>
-
-                            <x-table.td>
-                                <x-button.circle warning xs icon="pencil"
-                                    :href="route('realisasi.form', [$realisasiApbd->id])" />
-                                <x-button.circle negative xs icon="trash" x-on:confirm="{
-                            title: 'Anda yakin akan menghapus data realisasi ini?',
-                            icon: 'question',
-                            accept: {
-                                label: 'Hapus',
-                                method: 'hapusRealisasiBelanja',
-                                params: {{ $realisasiApbd->id }}
-                            },
-                            reject: {
-                                label: 'Batal'
-                            }
-                        }" />
-                            </x-table.td>
-                        </x-table.tr>
-                        @endforeach
-                    </tbody>
-                </x-table.scrollable>
-            </div>
-        </div>
+<div>
+    <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2">
+        @if ($objekRealisasi)
+        <table>
+            <tbody>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">OPD</td>
+                    <td class="text-sm">{{ $objekRealisasi->subOpd->opd->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Sub OPD</td>
+                    <td class="text-sm">{{ $objekRealisasi->subOpd->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Program</td>
+                    <td class="text-sm">{{ $objekRealisasi->subKegiatan->kegiatan->program->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Kegiatan</td>
+                    <td class="text-sm">{{ $objekRealisasi->subKegiatan->kegiatan->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Sub Kegiatan</td>
+                    <td class="text-sm">{{ $objekRealisasi->subKegiatan->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Rekening Belanja</td>
+                    <td class="text-sm">{{ $objekRealisasi->subRincianObjekBelanja->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Anggaran</td>
+                    <td>Rp. {{ number_format($objekRealisasi->anggaran, 2, ',', '.') }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi</td>
+                    <td>Rp. {{ number_format($realisasis->sum('realisasi'), 2, ',', '.') }}</td>
+                </tr>
+            </tbody>
+        </table>
+        @else
+        <h1 class="tracking-widest font-semibold text-lg">LOADING...</h1>
+        @endif
     </div>
+
+    <x-table.index :model="$realisasis">
+        <x-slot name="table_actions">
+            <x-button primary label="Tambah" :href="route('realisasi.form', $idObjekRealisasi)" />
+        </x-slot>
+
+        <x-table.thead>
+            <tr>
+                <x-table.th>
+                    #
+                </x-table.th>
+                <x-table.th>
+                    Tanggal
+                </x-table.th>
+                <x-table.th>
+                    Realisasi
+                </x-table.th>
+                <x-table.th>
+                    Aksi
+                </x-table.th>
+            </tr>
+        </x-table.thead>
+        <tbody>
+            @foreach ($realisasis as $key => $realisasi)
+            <x-table.tr>
+                <x-table.td>
+                    {{ $realisasis->firstItem() + $key }}
+                </x-table.td>
+                <x-table.td>
+                    {{ Carbon\Carbon::createFromFormat('Y-m-d', $realisasi->tanggal)->format('m/d/Y') }}
+                </x-table.td>
+                <x-table.td>
+                    {{ number_format($realisasi->realisasi, 2, ',', '.') }}
+                </x-table.td>
+                <x-table.td>
+                    <x-button.circle warning xs icon="pencil"
+                        :href="route('realisasi.form', [$idObjekRealisasi, $realisasi->id])" />
+                    <x-button.circle negative xs icon="trash" x-on:confirm="{
+                        title: 'Anda yakin akan menghapus data realisasi ini?',
+                        icon: 'question',
+                        accept: {
+                            label: 'Hapus',
+                            method: 'hapusRealisasi',
+                            params: {{ $realisasi->id }}
+                        },
+                        reject: {
+                            label: 'Batal'
+                        }
+                    }" />
+                </x-table.td>
+            </x-table.tr>
+            @endforeach
+        </tbody>
+    </x-table.index>
 </div>

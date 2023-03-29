@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Realisasi;
+namespace App\Http\Livewire\ObjekRealisasi;
 
 use Illuminate\Support\Facades\Bus;
 use Livewire\Component;
 
-class ImportRealiasiProgress extends Component
+class ImportObjekRealiasiProgress extends Component
 {
     public $showImportProgress = false;
     public $importFinished = false;
@@ -37,6 +37,6 @@ class ImportRealiasiProgress extends Component
             }
         }
 
-        return view('livewire.realisasi.import-realiasi-progress', compact('percentage'));
+        return view('livewire.objek-realisasi.import-objek-realiasi-progress', compact('percentage'));
     }
 }
