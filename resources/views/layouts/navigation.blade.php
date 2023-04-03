@@ -15,6 +15,7 @@
                 @endif
 
                 <x-navigation.realisasi-link />
+                <x-navigation.laporan-link />
             </ul>
 
             <div class="hidden lg:flex">

@@ -6,10 +6,12 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SubKegiatan extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     protected $guarded = [];
 
@@ -34,5 +36,18 @@ class SubKegiatan extends Model
     public function kegiatan(): BelongsTo
     {
         return $this->belongsTo(Kegiatan::class);
+    }
+
+    public function objekRealisasis(): HasMany
+    {
+        return $this->hasMany(ObjekRealisasi::class);
+    }
+
+    public function realisasis()
+    {
+        return $this->hasManyThrough(
+            Realisasi::class,
+            ObjekRealisasi::class,
+        );
     }
 }
