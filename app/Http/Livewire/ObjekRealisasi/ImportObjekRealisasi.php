@@ -16,12 +16,10 @@ class ImportObjekRealisasi extends Component
     use WithFileUploads;
 
     public $file;
-    public $tanggal;
     public $hideButton;
 
     public function mount()
     {
-        $this->tanggal = date('Y-m-d');
         $this->hideButton = false;
     }
 
@@ -35,7 +33,6 @@ class ImportObjekRealisasi extends Component
     protected function rules(): array
     {
         return [
-           'tanggal' => 'required|date',
            'file' => 'required|mimes:xls,xlsx|max:2048',
         ];
     }
@@ -54,7 +51,7 @@ class ImportObjekRealisasi extends Component
         $jobs = [];
 
         foreach ($chunks as $objekRealisasiChunk) {
-            array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, $idTahapanApbd, $this->tanggal));
+            array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, $idTahapanApbd));
         }
 
         $batch = Bus::batch($jobs)->name('Import Anggaran Objek Realisasi')->dispatch();
