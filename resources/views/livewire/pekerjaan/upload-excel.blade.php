@@ -11,7 +11,7 @@
 
     <br>
     <div x-data="{ open: @entangle('uploadingStatus') }">
-        <ul x-show="open">
+        <ul x-show="open" x-cloak>
             <li><button wire:click="archive">Archive</button></li>
             <li><button wire:click="delete">Delete</button></li>
         </ul>

@@ -60,43 +60,31 @@ class ImportObjekRealisasi implements ShouldQueue
 
         foreach ($this->realisasiChunk as $item) {
             $item = (array) $item;
-            /**
-             * Import bidang OPD
-             */
+
             $perangkatDaerah = $this->importPerangkatDaerah($item);
 
-            /**
-             * Import bidang urusan OPD
-             */
             BidangUrusanOpd::firstOrCreate([
                 'bidang_urusan_id' => $perangkatDaerah['idBidangUrusan'],
                 'opd_id' => $perangkatDaerah['idOpd'],
             ]);
 
-            /**
-             * Import Program, Kegiatan, Sub Kegiatan
-             */
             $programKegiatan = $this->importProgramKegiatan($item);
 
-            /**
-             * Import Rekening Belanja Akun s/d Sub Rincian Objek Belanja
-             */
             $rekeningBelanja = $this->importRekeningBelanja($item);
 
-            /**
-             * Import Realisasi
-             */
-            ObjekRealisasi::updateOrCreate(
+            $objek = ObjekRealisasi::updateOrCreate(
                 [
-                    'tahapan_apbd_id' => intval($this->idTahapanApbd),
                     'sub_opd_id' => $perangkatDaerah['idSubOpd'],
                     'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
                     'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
                 ],
                 [
                     'anggaran' => floatval($item['APBD']),
+                    'tahapan_apbd_id' => intval($this->idTahapanApbd),
                 ]
             );
+
+            dd($perangkatDaerah['idSubOpd'], $programKegiatan['idSubKegiatan'], $rekeningBelanja['idSubRincianObjekBelanja'], $objek);
         }
     }
 

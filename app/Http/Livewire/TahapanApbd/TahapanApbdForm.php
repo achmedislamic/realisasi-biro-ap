@@ -23,6 +23,7 @@ class TahapanApbdForm extends Component
         if (is_null($id)) {
             $this->buttonText = 'Simpan';
             $this->tahapan = new TahapanApbd();
+            $this->tahapan->tahun = cache('tahapanApbd')->tahun;
         } else {
             $this->buttonText = 'Simpan Perubahan';
             $this->IdTahapanApbd = $id;
@@ -44,6 +45,9 @@ class TahapanApbdForm extends Component
         $this->validate();
         $this->tahapan->save();
 
+        cache()->forget('tahapanApbd');
+        cache()->forever('tahapanApbd', $this->tahapan);
+
         if (is_null($this->IdTahapanApbd)) {
             $this->notification()->success(
                 'BERHASIL',
@@ -56,6 +60,8 @@ class TahapanApbdForm extends Component
                 'Data tahapan APBD diubah.'
             );
         }
+
+        return to_route('tahapan-apbd');
     }
 
     public function render()
