@@ -15,16 +15,21 @@ class RealisasiTable extends Component
     use WithPagination;
     use Actions;
 
-    public int $idObjekRealisasi = 0;
+    public $objekRealisasiId;
 
-    protected $queryString = ['cari' => ['except' => '']];
+    protected $queryString = ['cari' => ['except' => ''], 'objekRealisasiId'];
     protected $listeners = [
         'pilihIdObjekRealisasiEvent' => 'pilihIdObjekRealisasi'
     ];
 
-    public function pilihIdObjekRealisasi(int $idObjekRealisasi)
+    // public function mount($objekRealisasiId)
+    // {
+    //     dd($objekRealisasiId);
+    // }
+
+    public function pilihIdObjekRealisasi(int $objekRealisasiId)
     {
-        $this->idObjekRealisasi = $idObjekRealisasi;
+        $this->objekRealisasiId = $objekRealisasiId;
     }
 
     public function hapusRealisasi(int $id): void
@@ -46,12 +51,12 @@ class RealisasiTable extends Component
     public function render()
     {
         $realisasis = Realisasi::query()
-            ->where('objek_realisasi_id', $this->idObjekRealisasi)
+            ->where('objek_realisasi_id', $this->objekRealisasiId)
             ->orderByDesc('tanggal')
             ->pencarian($this->cari)
             ->paginate();
 
-        $objekRealisasi = ObjekRealisasi::find($this->idObjekRealisasi);
+        $objekRealisasi = ObjekRealisasi::find($this->objekRealisasiId);
 
         return view('livewire.realisasi.realisasi-table', compact(['realisasis', 'objekRealisasi']));
     }

@@ -44,7 +44,7 @@
 
     <x-table.index :model="$realisasis">
         <x-slot name="table_actions">
-            <x-button primary label="Tambah" :href="route('realisasi.form', $idObjekRealisasi)" />
+            <x-button primary label="Tambah" :href="route('realisasi.form', $objekRealisasiId)" />
         </x-slot>
 
         <x-table.thead>
@@ -77,7 +77,7 @@
                 </x-table.td>
                 <x-table.td>
                     <x-button.circle warning xs icon="pencil"
-                        :href="route('realisasi.form', [$idObjekRealisasi, $realisasi->id])" />
+                        :href="route('realisasi.form', [$objekRealisasiId, $realisasi->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                         title: 'Anda yakin akan menghapus data realisasi ini?',
                         icon: 'question',

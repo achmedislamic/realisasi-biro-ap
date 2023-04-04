@@ -81,6 +81,8 @@ class RealisasiForm extends Component
                 $this->updateRealisasi($this->idRealisasi);
             }
         }
+
+        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId=' . $this->idObjekRealisasi);
     }
 
     public function simpanRealisasi()

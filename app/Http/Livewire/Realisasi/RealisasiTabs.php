@@ -7,14 +7,18 @@ use Livewire\Component;
 class RealisasiTabs extends Component
 {
     public string $tabAktif = 'objekRealisasi';
+    public $objekRealisasiId;
+
+    protected $queryString = ['tabAktif', 'objekRealisasiId'];
 
     protected $listeners = [
         'gantiTab' => 'gantiTab'
     ];
 
-    public function gantiTab(string $namaTab)
+    public function gantiTab(string $namaTab, $objekRealisasiId)
     {
         $this->tabAktif = $namaTab;
+        $this->objekRealisasiId = $objekRealisasiId;
     }
 
     public function render()

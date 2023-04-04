@@ -65,7 +65,7 @@ class ObjekRealisasiTable extends Component
     public function pilihIdObjekRealisasiEvent(int $idObjekRealisasi)
     {
         $this->emit('pilihIdObjekRealisasiEvent', $idObjekRealisasi);
-        $this->emit('gantiTab', 'realisasi');
+        $this->emit('gantiTab', 'realisasi', $idObjekRealisasi);
     }
 
     public function render()

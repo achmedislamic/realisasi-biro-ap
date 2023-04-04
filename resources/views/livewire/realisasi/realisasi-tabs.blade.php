@@ -15,7 +15,7 @@
                                 :class="tab == 'objekRealisasi' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                 class="inline-block p-4 border-b-2 rounded-t-lg" id="objek-realisasi-tab"
                                 data-tabs-target="#objek-realisasi" type="button" role="tab" aria-controls="profile"
-                                aria-selected="false">Objek Realisasi</button>
+                                aria-selected="false">Data APBD</button>
                         </li>
                         <li @click="tab = 'realisasi'" class="mr-2" role="presentation">
                             <button @click="tab = 'realisasi'"
