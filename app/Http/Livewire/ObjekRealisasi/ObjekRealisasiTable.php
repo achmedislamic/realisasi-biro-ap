@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\Opd;
 use App\Models\ObjekRealisasi;
+use App\Models\Opd;
 use App\Models\SubOpd;
 use App\Models\TahapanApbd;
 use App\Traits\Pencarian;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
@@ -21,11 +20,15 @@ class ObjekRealisasiTable extends Component
     use Pencarian;
 
     public $tahapanApbds;
+
     public $idTahapanApbd;
 
     public $pods;
+
     public $subOpds;
+
     public $opdPilihan = null;
+
     public $subOpdPilihan = null;
 
     protected $queryString = ['cari' => ['except' => '']];
@@ -74,11 +77,11 @@ class ObjekRealisasiTable extends Component
         $subOpdPilihan = $this->subOpdPilihan;
 
         $realisasiApbds = ObjekRealisasi::query()
-            ->where('tahapan_apbd_id', Cookie::get('TAID'))
+            ->where('tahapan_apbd_id', cache('tahapanApbd')->id)
             ->when($userIsOPD->role_name == 'opd', function (Builder $query) use ($userIsOPD) {
                 $query->where('sub_opd_id', $userIsOPD->sub_opd_id);
             })
-            ->when(!$subOpdPilihan == "", function (Builder $query) use ($subOpdPilihan) {
+            ->when(! $subOpdPilihan == '', function (Builder $query) use ($subOpdPilihan) {
                 $query->where('sub_opd_id', $subOpdPilihan);
             })
             ->pencarian($this->cari)

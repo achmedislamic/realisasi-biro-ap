@@ -18,8 +18,9 @@ class RealisasiTable extends Component
     public $objekRealisasiId = 0;
 
     protected $queryString = ['cari' => ['except' => ''], 'objekRealisasiId'];
+
     protected $listeners = [
-        'pilihIdObjekRealisasiEvent' => 'pilihIdObjekRealisasi'
+        'pilihIdObjekRealisasiEvent' => 'pilihIdObjekRealisasi',
     ];
 
     public function pilihIdObjekRealisasi(int $objekRealisasiId)

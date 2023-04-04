@@ -18,8 +18,9 @@ class ObjekBelanjaTable extends Component
     public int $idJenisBelanja = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
+
     protected $listeners = [
-        'pilihIdJenisBelanjaEvent' => 'pilihIdJenisBelanja'
+        'pilihIdJenisBelanjaEvent' => 'pilihIdJenisBelanja',
     ];
 
     public function pilihIdJenisBelanja(int $idJenisBelanja)

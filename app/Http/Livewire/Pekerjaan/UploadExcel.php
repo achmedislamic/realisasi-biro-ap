@@ -20,12 +20,10 @@ use App\Models\SubRincianObjekBelanja;
 use App\Models\TahapanApbd;
 use App\Models\Urusan;
 use App\Traits\WithLiveValidation;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use PhpParser\Node\Expr\Cast\Double;
 use Spatie\SimpleExcel\SimpleExcelReader;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -35,10 +33,15 @@ class UploadExcel extends Component
     use WithFileUploads;
 
     public Pekerjaan $pekerjaan;
+
     public $file;
+
     private $rows;
+
     public $totalRows = 0;
+
     public $tahapan;
+
     public $uploadingStatus = false;
 
     public function mount()
@@ -49,7 +52,7 @@ class UploadExcel extends Component
     protected function rules(): array
     {
         return [
-           'file' => 'required|mimes:xls,xlsx,csv|max:2048',
+            'file' => 'required|mimes:xls,xlsx,csv|max:2048',
         ];
     }
 
@@ -64,7 +67,7 @@ class UploadExcel extends Component
         $this->rows = SimpleExcelReader::create($this->file->path())->getRows();
 
         $this->rows->each(function (array $item) {
-            $data[] =[
+            $data[] = [
                 'kode' => str($item['Urusan'])->before(' '),
                 'nama' => str($item['Urusan'])->after(' ')->limit(255),
             ];
@@ -88,11 +91,11 @@ class UploadExcel extends Component
                         'sub_opd_id' => $perangkatDaerah['idSubOpd'],
                         'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
                         'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
-                        'tanggal' => today()
+                        'tanggal' => today(),
                     ],
                     [
                         'anggaran' => floatval($item['APBD']),
-                        'realisasi' => 0
+                        'realisasi' => 0,
                     ]
                 );
             });
@@ -128,7 +131,7 @@ class UploadExcel extends Component
         return [
             'idBidangUrusan' => $bidangUrusan->id,
             'idOpd' => $opd->id,
-            'idSubOpd' => $subOpd->id
+            'idSubOpd' => $subOpd->id,
         ];
     }
 
@@ -185,7 +188,6 @@ class UploadExcel extends Component
             'nama' => str($item['Rincian Obyek'])->after(' ')->limit(255),
         ]);
 
-
         $subRincianObjekBelanja = SubRincianObjekBelanja::firstOrCreate([
             'rincian_objek_belanja_id' => $rincianObjekBelanja->id,
             'kode' => str($item['Rekening (Sub Rincian Obyek)'])->before(' '),
@@ -198,6 +200,7 @@ class UploadExcel extends Component
     public function render()
     {
         $total = $this->totalRows;
+
         return view('livewire.pekerjaan.upload-excel', compact('total'));
     }
 }

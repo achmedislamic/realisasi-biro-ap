@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\TahapanApbd;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class PilihTahunAnggaran extends Component
@@ -13,7 +11,8 @@ class PilihTahunAnggaran extends Component
 
     public function pilihTahunAnggaran($idTahapan)
     {
-        Cookie::queue(Cookie::forever("TAID", $idTahapan));
+        cache()->forever('tahapanApbd', TahapanApbd::find($idTahapan));
+
         return redirect()->route('dashboard');
     }
 

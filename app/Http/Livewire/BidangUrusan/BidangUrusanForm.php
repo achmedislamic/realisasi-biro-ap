@@ -14,8 +14,11 @@ class BidangUrusanForm extends Component
     use Actions;
 
     private ?int $idBidangUrusan = null;
+
     public int $urusanId;
+
     public BidangUrusan $bidangUrusan;
+
     public String $buttonText;
 
     public function mount(int $urusanId, int $id = null): void
@@ -23,12 +26,12 @@ class BidangUrusanForm extends Component
         $this->urusanId = $urusanId;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
 
             $this->idBidangUrusan = $id;
-            $this->bidangUrusan =  new BidangUrusan();
+            $this->bidangUrusan = new BidangUrusan();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
 
             $this->idBidangUrusan = $id;
             $this->bidangUrusan = BidangUrusan::find($id);
@@ -54,7 +57,7 @@ class BidangUrusanForm extends Component
                 'BERHASIL',
                 'Data bidang urusan tersimpan.'
             );
-            $this->bidangUrusan =  new BidangUrusan();
+            $this->bidangUrusan = new BidangUrusan();
         } else {
             $this->notification()->success(
                 'BERHASIL',
@@ -66,6 +69,7 @@ class BidangUrusanForm extends Component
     public function render()
     {
         $urusan = Urusan::find($this->urusanId);
+
         return view('livewire.bidang-urusan.bidang-urusan-form', compact('urusan'));
     }
 }

@@ -41,6 +41,7 @@ class ProgramTable extends Component
     public function render()
     {
         $programs = Program::query()->pencarian($this->cari)->paginate();
-        return view('livewire.program.program-table', compact("programs"));
+
+        return view('livewire.program.program-table', compact('programs'));
     }
 }

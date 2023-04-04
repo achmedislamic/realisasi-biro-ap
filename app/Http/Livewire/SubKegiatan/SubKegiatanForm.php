@@ -14,8 +14,11 @@ class SubKegiatanForm extends Component
     use Actions;
 
     public ?int $idSubKegiatan = null;
+
     public int $idKegiatan;
+
     public SubKegiatan $subKegiatan;
+
     public String $buttonText;
 
     public function mount(int $idKegiatan, int $id = null): void
@@ -23,10 +26,10 @@ class SubKegiatanForm extends Component
         $this->idKegiatan = $idKegiatan;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->subKegiatan = new SubKegiatan();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->idSubKegiatan = $id;
             $this->subKegiatan = SubKegiatan::find($id);
         }

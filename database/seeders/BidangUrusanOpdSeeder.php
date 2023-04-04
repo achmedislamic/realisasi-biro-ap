@@ -5,9 +5,6 @@ namespace Database\Seeders;
 use App\Models\BidangUrusan;
 use App\Models\BidangUrusanOpd;
 use App\Models\Opd;
-use App\Models\Urusan;
-use App\Models\User;
-use Carbon\Factory;
 use Illuminate\Database\Seeder;
 
 class BidangUrusanOpdSeeder extends Seeder

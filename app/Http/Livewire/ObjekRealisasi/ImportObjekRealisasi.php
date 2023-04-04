@@ -5,7 +5,6 @@ namespace App\Http\Livewire\ObjekRealisasi;
 use App\Jobs\ImportObjekRealisasi as JobImportObjekRealisasi;
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Spatie\SimpleExcel\SimpleExcelReader;
@@ -16,6 +15,7 @@ class ImportObjekRealisasi extends Component
     use WithFileUploads;
 
     public $file;
+
     public $hideButton;
 
     public function mount()
@@ -33,7 +33,7 @@ class ImportObjekRealisasi extends Component
     protected function rules(): array
     {
         return [
-           'file' => 'required|mimes:xls,xlsx|max:2048',
+            'file' => 'required|mimes:xls,xlsx|max:2048',
         ];
     }
 
@@ -41,7 +41,7 @@ class ImportObjekRealisasi extends Component
     {
         $this->validate();
 
-        $idTahapanApbd = Cookie::get('TAID');
+        $idTahapanApbd = cache('tahapanApbd')->id;
 
         $realisasiRows = SimpleExcelReader::create($this->file->path())
             ->headerOnRow(1)

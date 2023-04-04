@@ -18,8 +18,9 @@ class KelompokBelanjaTable extends Component
     public int $idAkunBelanja = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
+
     protected $listeners = [
-        'pilihIdAkunBelanjaEvent' => 'pilihIdAkunBelanja'
+        'pilihIdAkunBelanjaEvent' => 'pilihIdAkunBelanja',
     ];
 
     public function pilihIdAkunBelanja(int $idAkunBelanja)

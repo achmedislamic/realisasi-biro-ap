@@ -10,7 +10,6 @@ use App\Models\Realisasi;
 use App\Models\SubKegiatan;
 use App\Models\SubOpd;
 use App\Models\SubRincianObjekBelanja;
-use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -19,26 +18,38 @@ class ObjekRealisasiForm extends Component
     use Actions;
 
     public $pods;
+
     public $subOpds;
+
     public $programs;
+
     public $kegiatans;
+
     public $subKegiatans;
+
     public $subRincianObjekBelanjas;
+
     public $anggaran;
 
     public $opdPilihan = null;
+
     public $subOpdPilihan = null;
+
     public $programPilihan = null;
+
     public $kegiatanPilihan = null;
+
     public $subKegiatanPilihan = null;
+
     public $rekeningBelanjaPilihan = null;
 
     public $submitText;
+
     public $idObjekRealisasi;
 
     public function mount(int $id = null)
     {
-        $this->submitText = "Simpan Objek Realisasi";
+        $this->submitText = 'Simpan Objek Realisasi';
 
         $this->pods = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
@@ -47,9 +58,9 @@ class ObjekRealisasiForm extends Component
         $this->subKegiatans = collect();
         $this->subRincianObjekBelanjas = SubRincianObjekBelanja::orderBy('kode')->get();
 
-        if (!is_null($id)) {
+        if (! is_null($id)) {
             $this->idObjekRealisasi = $id;
-            $this->submitText = "Update Realisasi";
+            $this->submitText = 'Update Realisasi';
 
             $objekRealisasi = ObjekRealisasi::find($id);
             $this->anggaran = $objekRealisasi->anggaran;
@@ -145,14 +156,14 @@ class ObjekRealisasiForm extends Component
     public function simpanObjekRealisasi()
     {
         $realisasi = ObjekRealisasi::create([
-            'tahapan_apbd_id' => Cookie::get('TAID'),
+            'tahapan_apbd_id' => cache('tahapanApbd')->id,
             'sub_opd_id' => $this->subOpdPilihan,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
             'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
         ]);
 
-        if (!$realisasi) {
+        if (! $realisasi) {
             $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal menyimpan objek realisasi.'
@@ -179,14 +190,14 @@ class ObjekRealisasiForm extends Component
     public function updateObjekRealisasi(int $id)
     {
         $realisasi = ObjekRealisasi::where('id', $id)->update([
-            'tahapan_apbd_id' => Cookie::get('TAID'),
+            'tahapan_apbd_id' => cache('tahapanApbd')->id,
             'sub_opd_id' => $this->subOpdPilihan,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
             'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
         ]);
 
-        if (!$realisasi) {
+        if (! $realisasi) {
             $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal update objek realisasi.'

@@ -33,6 +33,7 @@ class ImportObjekRealisasi implements ShouldQueue
     use SerializesModels;
 
     private $realisasiChunk;
+
     private $idTahapanApbd;
 
     /**
@@ -60,8 +61,8 @@ class ImportObjekRealisasi implements ShouldQueue
         foreach ($this->realisasiChunk as $item) {
             $item = (array) $item;
             /**
-            * Import bidang OPD
-            */
+             * Import bidang OPD
+             */
             $perangkatDaerah = $this->importPerangkatDaerah($item);
 
             /**
@@ -126,7 +127,7 @@ class ImportObjekRealisasi implements ShouldQueue
         return [
             'idBidangUrusan' => $bidangUrusan->id,
             'idOpd' => $opd->id,
-            'idSubOpd' => $subOpd->id
+            'idSubOpd' => $subOpd->id,
         ];
     }
 
@@ -182,7 +183,6 @@ class ImportObjekRealisasi implements ShouldQueue
             'kode' => str($item['Rincian Obyek'])->before(' '),
             'nama' => str($item['Rincian Obyek'])->after(' ')->limit(250),
         ]);
-
 
         $subRincianObjekBelanja = SubRincianObjekBelanja::firstOrCreate([
             'rincian_objek_belanja_id' => $rincianObjekBelanja->id,

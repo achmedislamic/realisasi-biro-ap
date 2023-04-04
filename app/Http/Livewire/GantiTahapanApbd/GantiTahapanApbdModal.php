@@ -3,24 +3,24 @@
 namespace App\Http\Livewire\GantiTahapanApbd;
 
 use App\Models\TahapanApbd;
-use Illuminate\Support\Facades\Cookie;
 use LivewireUI\Modal\ModalComponent;
-
-use function PHPUnit\Framework\isEmpty;
 
 class GantiTahapanApbdModal extends ModalComponent
 {
     public $idTahapanPilihan = null;
+
     public $tahunTahapanPilihan = null;
 
     public $tahunTahapans;
+
     public $namaTahapans;
 
     protected $listeners = ['refreshComponent' => '$refresh'];
+
     public function mount()
     {
-        $tahapan = TahapanApbd::find(Cookie::get('TAID'));
-        $this->idTahapanPilihan = Cookie::get('TAID');
+        $tahapan = cache('tahapanApbd');
+        $this->idTahapanPilihan = $tahapan->id;
         $this->tahunTahapanPilihan = $tahapan->tahun;
 
         $this->tahunTahapans = collect(TahapanApbd::query()
@@ -35,15 +35,17 @@ class GantiTahapanApbdModal extends ModalComponent
     public function rules()
     {
         return [
-             'idTahapanPilihan' => 'required',
-             'tahunTahapanPilihan' => 'required'
+            'idTahapanPilihan' => 'required',
+            'tahunTahapanPilihan' => 'required',
         ];
     }
 
     public function gantiTahapanApbd()
     {
-        if ($this->idTahapanPilihan !== "") {
-            Cookie::queue(Cookie::forever("TAID", $this->idTahapanPilihan));
+        if ($this->idTahapanPilihan !== '') {
+            cache()->forget('tahapanApbd');
+            cache()->forever('tahapanApbd', TahapanApbd::find($this->idTahapanPilihan));
+
             return redirect()->route('dashboard');
         }
     }

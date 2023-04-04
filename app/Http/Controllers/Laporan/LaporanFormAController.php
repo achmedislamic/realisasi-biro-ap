@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Laporan;
 
 use App\Http\Controllers\Controller;
-use App\Models\Opd;
 use App\Models\Program;
-use App\Models\Urusan;
-use Illuminate\Http\Request;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class LaporanFormAController extends Controller
@@ -129,6 +126,7 @@ class LaporanFormAController extends Controller
         // });
 
         $program = Program::has('realisasis')->get();
+
         return $program;
         SimpleExcelWriter::streamDownload('programs.xlsx')
             ->noHeaderRow()

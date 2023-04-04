@@ -14,23 +14,34 @@ class RealisasiForm extends Component
     use Actions;
 
     public $tanggal;
+
     public $realisasi;
+
     public $idObjekRealisasi;
+
     public $idRealisasi;
+
     public $submitText;
+
     public ObjekRealisasi $objekRealisasi;
 
     public $pod;
+
     public $subOpd;
+
     public $program;
+
     public $kegiatan;
+
     public $subKegiatan;
+
     public $subRincianObjekBelanja;
+
     public $anggaran;
 
     public function mount(int $idObjekRealisasi, int $id = null)
     {
-        $this->submitText = "Simpan Realisasi";
+        $this->submitText = 'Simpan Realisasi';
         $this->idObjekRealisasi = $idObjekRealisasi;
         $this->objekRealisasi = ObjekRealisasi::find($idObjekRealisasi);
 
@@ -40,11 +51,11 @@ class RealisasiForm extends Component
         $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
         $this->subKegiatan = $this->objekRealisasi->subKegiatan->nama;
         $this->subRincianObjekBelanja = $this->objekRealisasi->subRincianObjekBelanja->nama;
-        $this->anggaran =  number_format($this->objekRealisasi->anggaran, 2, ',', '.');
+        $this->anggaran = number_format($this->objekRealisasi->anggaran, 2, ',', '.');
 
-        if (!is_null($id)) {
+        if (! is_null($id)) {
             $this->idRealisasi = $id;
-            $this->submitText = "Update Realisasi";
+            $this->submitText = 'Update Realisasi';
 
             $realisasiBelanja = Realisasi::find($id);
             $this->tanggal = $realisasiBelanja->tanggal;
@@ -82,7 +93,7 @@ class RealisasiForm extends Component
             }
         }
 
-        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId=' . $this->idObjekRealisasi);
+        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId='.$this->idObjekRealisasi);
     }
 
     public function simpanRealisasi()
@@ -93,7 +104,7 @@ class RealisasiForm extends Component
             'realisasi' => floatval($this->realisasi),
         ]);
 
-        if (!$realisasi) {
+        if (! $realisasi) {
             $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal menyimpan realisasi.'
@@ -111,12 +122,12 @@ class RealisasiForm extends Component
     public function updateRealisasi(int $id)
     {
         $realisasi = Realisasi::where('id', $id)->update([
-           'objek_realisasi_id' => $this->idObjekRealisasi,
+            'objek_realisasi_id' => $this->idObjekRealisasi,
             'tanggal' => $this->tanggal,
             'realisasi' => floatval($this->realisasi),
         ]);
 
-        if (!$realisasi) {
+        if (! $realisasi) {
             $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal update realisas.'

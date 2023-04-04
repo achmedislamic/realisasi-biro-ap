@@ -3,16 +3,16 @@
 namespace App\Http\Livewire;
 
 use App\Models\Satuan;
-use Livewire\Component;
 use App\Traits\WithLiveValidation;
 use Illuminate\View\View;
-use PhpParser\Node\Expr\FuncCall;
+use Livewire\Component;
 
 class SatuanForm extends Component
 {
     use WithLiveValidation;
 
     private ?int $idSatuan = null;
+
     public Satuan $satuan;
 
     public function mount(int $id = null): void
@@ -29,13 +29,13 @@ class SatuanForm extends Component
         ];
     }
 
-    public function simpan() {
+    public function simpan()
+    {
         $this->validate();
         $this->satuan->save();
+
         return to_route('satuan');
     }
-
-
 
     public function render(): view
     {

@@ -7,24 +7,24 @@ use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-use function PHPUnit\Framework\isNull;
-
 class TahapanApbdForm extends Component
 {
     use WithLiveValidation;
     use Actions;
 
     public ?int $IdTahapanApbd = null;
+
     public TahapanApbd $tahapan;
-    public $buttonText = "Simpan";
+
+    public $buttonText = 'Simpan';
 
     public function mount(int $id = null): void
     {
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
-            $this->tahapan =  new TahapanApbd();
+            $this->buttonText = 'Simpan';
+            $this->tahapan = new TahapanApbd();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->IdTahapanApbd = $id;
             $this->tahapan = TahapanApbd::find($id);
         }
@@ -33,7 +33,7 @@ class TahapanApbdForm extends Component
     protected function rules(): array
     {
         return [
-            'tahapan.tahun' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
+            'tahapan.tahun' => 'required|digits:4|integer|min:1900|max:'.(date('Y') + 1),
             'tahapan.nama' => 'required|string|max:255',
             'tahapan.nomor_dpa' => 'required|string|max:255',
         ];
@@ -49,7 +49,7 @@ class TahapanApbdForm extends Component
                 'BERHASIL',
                 'Data tahapan APBD tersimpan.'
             );
-            $this->tahapan =  new TahapanApbd();
+            $this->tahapan = new TahapanApbd();
         } else {
             $this->notification()->success(
                 'BERHASIL',

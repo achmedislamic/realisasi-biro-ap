@@ -20,7 +20,7 @@ class KegiatanTable extends Component
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
-        'pilihIdProgramEvent' => 'pilihIdProgram'
+        'pilihIdProgramEvent' => 'pilihIdProgram',
     ];
 
     public function pilihIdKegiatanEvent(int $id)

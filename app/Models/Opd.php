@@ -32,7 +32,7 @@ class Opd extends Model
 
     public function bidangUrusans(): BelongsToMany
     {
-        return $this->belongsToMany(BidangUrusan::class, 'bidang_urusan_opds', 'opd_id', 'bidang_urusan_id', )
+        return $this->belongsToMany(BidangUrusan::class, 'bidang_urusan_opds', 'opd_id', 'bidang_urusan_id')
         ->withTimestamps()
         ->withPivot('bidang_urusan_id')
         ->using(BidangUrusanOpd::class);

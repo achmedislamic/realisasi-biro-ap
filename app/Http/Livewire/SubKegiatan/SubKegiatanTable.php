@@ -20,7 +20,7 @@ class SubKegiatanTable extends Component
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
-        'pilihIdKegiatanEvent' => 'pilihIdKegiatan'
+        'pilihIdKegiatanEvent' => 'pilihIdKegiatan',
     ];
 
     public function pilihIdKegiatan(int $idKegiatan): void

@@ -11,6 +11,7 @@ class KategoriForm extends Component
     use WithLiveValidation;
 
     private ?int $idKategori = null;
+
     public Kategori $kategori;
 
     public function mount(int $id = null): void

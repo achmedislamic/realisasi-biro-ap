@@ -9,7 +9,7 @@ class RekeningBelanjaTabs extends Component
     public string $rekeningTabAktif = 'akun';
 
     protected $listeners = [
-        'rekeningGantiTabEvent' => 'rekeningKegGantiTab'
+        'rekeningGantiTabEvent' => 'rekeningKegGantiTab',
     ];
 
     public function rekeningKegGantiTab(string $namaTab)

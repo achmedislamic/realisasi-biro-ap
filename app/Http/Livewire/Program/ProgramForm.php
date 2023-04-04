@@ -13,16 +13,18 @@ class ProgramForm extends Component
     use Actions;
 
     public ?int $IdProgram = null;
+
     public Program $program;
+
     public String $buttonText;
 
     public function mount(int $id = null): void
     {
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->program = new Program();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->IdProgram = $id;
             $this->program = Program::find($id);
         }
@@ -47,7 +49,7 @@ class ProgramForm extends Component
                 'BERHASIL',
                 'Data program tersimpan.'
             );
-            $this->program =  new Program();
+            $this->program = new Program();
         } else {
             $this->notification()->success(
                 'BERHASIL',

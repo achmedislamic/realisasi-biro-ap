@@ -41,6 +41,7 @@ class UrusanTable extends Component
     public function render()
     {
         $urusans = Urusan::query()->pencarian($this->cari)->paginate();
+
         return view('livewire.urusan.urusan-table', compact('urusans'));
     }
 }

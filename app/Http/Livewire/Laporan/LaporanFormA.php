@@ -21,11 +21,15 @@ class LaporanFormA extends Component
     use WithPagination;
 
     public $idUrusanPilihan = null;
+
     public $bulan = 1;
 
     public $pods;
+
     public $subOpds;
+
     public $idOpdPilihan = null;
+
     public $idSubOpdPilihan = null;
 
     private $anggarans;
@@ -109,12 +113,11 @@ class LaporanFormA extends Component
         //     $rows[] = $program;
         // }
 
-
         SimpleExcelWriter::streamDownload('your-export.xlsx')
              ->addRow([
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-            ])
+                 'first_name' => 'John',
+                 'last_name' => 'Doe',
+             ])
             ->addRow([
                 'first_name' => 'Jane',
                 'last_name' => 'Doe',

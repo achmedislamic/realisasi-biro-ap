@@ -14,8 +14,11 @@ class JenisBelanjaForm extends Component
     use Actions;
 
     public ?int $idJenisBelanja = null;
+
     public int $idKelompokBelanja;
+
     public JenisBelanja $jenisBelanja;
+
     public String $buttonText;
 
     public function mount(int $idKelompokBelanja, int $id = null): void
@@ -23,10 +26,10 @@ class JenisBelanjaForm extends Component
         $this->idKelompokBelanja = $idKelompokBelanja;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->jenisBelanja = new JenisBelanja();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->idJenisBelanja = $id;
             $this->jenisBelanja = JenisBelanja::find($id);
         }

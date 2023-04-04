@@ -18,8 +18,9 @@ class SubRincianObjekBelanjaTable extends Component
     public int $idRincianObjekBelanja = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
+
     protected $listeners = [
-        'pilihIdRincianObjekBelanjaEvent' => 'pilihIdRincianObjekBelanja'
+        'pilihIdRincianObjekBelanjaEvent' => 'pilihIdRincianObjekBelanja',
     ];
 
     public function pilihIdRincianObjekBelanja(int $idRincianObjekBelanja)

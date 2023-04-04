@@ -13,16 +13,18 @@ class AkunBelanjaForm extends Component
     use Actions;
 
     public ?int $IdAkunBelanja = null;
+
     public AkunBelanja $akunBelanja;
+
     public String $buttonText;
 
     public function mount(int $id = null): void
     {
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->akunBelanja = new AkunBelanja();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->IdAkunBelanja = $id;
             $this->akunBelanja = AkunBelanja::find($id);
         }
@@ -46,7 +48,7 @@ class AkunBelanjaForm extends Component
                 'BERHASIL',
                 'Data akun belanja tersimpan.'
             );
-            $this->akunBelanja =  new AkunBelanja();
+            $this->akunBelanja = new AkunBelanja();
         } else {
             $this->notification()->success(
                 'BERHASIL',

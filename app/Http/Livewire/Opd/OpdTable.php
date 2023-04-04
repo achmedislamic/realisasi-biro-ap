@@ -20,7 +20,7 @@ class OpdTable extends Component
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
-    'pilihIdBidangUrusanEvent' => 'pilihIdBidangUrusan'
+        'pilihIdBidangUrusanEvent' => 'pilihIdBidangUrusan',
     ];
 
     public function pilihIdBidangUrusan($idBidangUrusan)

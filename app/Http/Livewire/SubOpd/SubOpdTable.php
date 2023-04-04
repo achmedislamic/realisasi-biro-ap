@@ -16,12 +16,13 @@ class SubOpdTable extends Component
     use Actions;
 
     public $idOpd = 0;
+
     public $idBidangUrusan = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
-    'pilihIdOpdEvent' => 'pilihIdOpd'
+        'pilihIdOpdEvent' => 'pilihIdOpd',
     ];
 
     public function pilihIdOpd($idOpd, $idBidangUrusan)

@@ -7,12 +7,13 @@ use Livewire\Component;
 class RealisasiTabs extends Component
 {
     public string $tabAktif = 'objekRealisasi';
+
     public $objekRealisasiId;
 
     protected $queryString = ['tabAktif'];
 
     protected $listeners = [
-        'gantiTab' => 'gantiTab'
+        'gantiTab' => 'gantiTab',
     ];
 
     public function gantiTab(string $namaTab, $objekRealisasiId)

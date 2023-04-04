@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'name' => 'Administrator',
             'email' => $emailAdmin,
             'password' => bcrypt($emailAdmin),
-            'email_verified_at' => now()
+            'email_verified_at' => now(),
         ]);
 
         UserRole::create([

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\TahapanApbd;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TahapanApbdSeeder extends Seeder
@@ -18,19 +17,19 @@ class TahapanApbdSeeder extends Seeder
         TahapanApbd::create([
             'tahun' => 2022,
             'nama' => 'Murni',
-            'nomor_dpa' => '123'
+            'nomor_dpa' => '123',
         ]);
 
         TahapanApbd::create([
             'tahun' => 2023,
             'nama' => 'Murni',
-            'nomor_dpa' => '123'
+            'nomor_dpa' => '123',
         ]);
 
         TahapanApbd::create([
             'tahun' => 2024,
             'nama' => 'Murni',
-            'nomor_dpa' => '123'
+            'nomor_dpa' => '123',
         ]);
     }
 }

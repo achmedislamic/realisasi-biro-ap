@@ -13,16 +13,18 @@ class UrusanForm extends Component
     use Actions;
 
     public ?int $IdUrusan = null;
+
     public Urusan $urusan;
+
     public String $buttonText;
 
     public function mount(int $id = null): void
     {
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
-            $this->urusan =  new Urusan();
+            $this->buttonText = 'Simpan';
+            $this->urusan = new Urusan();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->IdUrusan = $id;
             $this->urusan = Urusan::find($id);
         }
@@ -46,7 +48,7 @@ class UrusanForm extends Component
                 'BERHASIL',
                 'Data Urusan tersimpan.'
             );
-            $this->urusan =  new Urusan();
+            $this->urusan = new Urusan();
         } else {
             $this->notification()->success(
                 'BERHASIL',

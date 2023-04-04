@@ -15,8 +15,11 @@ class OpdForm extends Component
     use Actions;
 
     public ?int $idOpd = null;
+
     public int $idBidangUrusan;
+
     public Opd $opd;
+
     public String $buttonText;
 
     public function mount(int $idBidangUrusan, int $id = null): void
@@ -24,10 +27,10 @@ class OpdForm extends Component
         $this->idBidangUrusan = $idBidangUrusan;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->opd = new Opd();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->idOpd = $id;
             $this->opd = Opd::find($id);
         }
@@ -57,7 +60,7 @@ class OpdForm extends Component
                 'BERHASIL',
                 'Data OPD tersimpan.'
             );
-            $this->opd =  new Opd();
+            $this->opd = new Opd();
         } else {
             $this->notification()->success(
                 'BERHASIL',
@@ -69,6 +72,7 @@ class OpdForm extends Component
     public function render()
     {
         $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
+
         return view('livewire.opd.opd-form', compact('bidangUrusan'));
     }
 }

@@ -11,6 +11,7 @@ class AnggotaDprdForm extends Component
     use WithLiveValidation;
 
     private ?int $idAnggotaDprd = null;
+
     public AnggotaDprd $anggotaDprd;
 
     public function mount(int $id = null): void

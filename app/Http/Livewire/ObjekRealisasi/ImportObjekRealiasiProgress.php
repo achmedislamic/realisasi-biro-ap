@@ -8,12 +8,14 @@ use Livewire\Component;
 class ImportObjekRealiasiProgress extends Component
 {
     public $showImportProgress = false;
+
     public $importFinished = false;
-    public $idBatch = "";
+
+    public $idBatch = '';
 
     protected $listeners = ['showImportProgressEvent' => 'showProgress'];
 
-    public function showProgress($idBatch = "")
+    public function showProgress($idBatch = '')
     {
         if ($idBatch) {
             $this->idBatch = $idBatch;
@@ -30,7 +32,7 @@ class ImportObjekRealiasiProgress extends Component
             $percentage = $batch->progress();
 
             if ($percentage == 100) {
-                $this->idBatch = "";
+                $this->idBatch = '';
                 $this->showImportProgress = false;
                 $this->importFinished = true;
                 $this->emit('importSelesai');

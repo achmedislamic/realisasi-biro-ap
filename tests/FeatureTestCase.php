@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use Tests\Traits\SignIn;
-use Tests\Traits\Asserts;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\Traits\Asserts;
+use Tests\Traits\SignIn;
 
 class FeatureTestCase extends TestCase
 {

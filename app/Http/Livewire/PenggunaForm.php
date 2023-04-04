@@ -7,7 +7,6 @@ use App\Models\SubOpd;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Traits\WithLiveValidation;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -20,15 +19,25 @@ class PenggunaForm extends Component
     use Actions;
 
     public ?int $userId = null;
+
     public $name;
+
     public $email;
+
     public $password;
+
     public $password_confirmation;
+
     public $pods;
+
     public $subOpds;
+
     public $opdPilihan = null;
+
     public $subOpdPilihan = null;
+
     public $rolePengguna;
+
     public String $buttonText;
 
     public User $user;
@@ -37,12 +46,12 @@ class PenggunaForm extends Component
     {
         $this->pods = Opd::orderBy('kode')->get();
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->subOpds = collect();
             $this->rolePengguna = 'opd';
             $this->user = new User();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->userId = $id;
             $this->user = User::with('role')->find($id);
 
@@ -71,7 +80,7 @@ class PenggunaForm extends Component
 
     protected function rules(): array
     {
-        $rules =  [
+        $rules = [
             'user.name' => 'required|string|max:255',
             'user.email' => 'required|email|max:255|unique:users,email,'.$this->email.',email',
             'rolePengguna' => 'required',
@@ -79,8 +88,8 @@ class PenggunaForm extends Component
             'subOpdPilihan' => 'required_if:rolePengguna,opd',
         ];
 
-        if (is_null($this->userId) || $this->password != "") {
-            return array_merge($rules, [ 'password' => ['required', 'confirmed', Password::min(8)]]);
+        if (is_null($this->userId) || $this->password != '') {
+            return array_merge($rules, ['password' => ['required', 'confirmed', Password::min(8)]]);
         }
 
         return $rules;

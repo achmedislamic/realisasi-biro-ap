@@ -14,8 +14,11 @@ class RincianObjekBelanjaForm extends Component
     use Actions;
 
     public ?int $idRincianObjekBelanja = null;
+
     public int $idObjekBelanja;
+
     public RincianObjekBelanja $rincianObjekBelanja;
+
     public String $buttonText;
 
     public function mount(int $idObjekBelanja, int $id = null): void
@@ -23,10 +26,10 @@ class RincianObjekBelanjaForm extends Component
         $this->idObjekBelanja = $idObjekBelanja;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
+            $this->buttonText = 'Simpan';
             $this->rincianObjekBelanja = new RincianObjekBelanja();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->idRincianObjekBelanja = $id;
             $this->rincianObjekBelanja = RincianObjekBelanja::find($id);
         }

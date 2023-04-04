@@ -9,7 +9,7 @@ class ProgramKegiatanTabs extends Component
     public string $proKegTabAktif = 'program';
 
     protected $listeners = [
-        'proKegGantiTabEvent' => 'proKegGantiTab'
+        'proKegGantiTabEvent' => 'proKegGantiTab',
     ];
 
     public function proKegGantiTab(string $namaTab)

@@ -14,9 +14,13 @@ class SubOpdForm extends Component
     use Actions;
 
     public ?int $idSubOpd = null;
+
     public int $idOpd;
+
     public $idBidangUrusan = 0;
+
     public SubOpd $subOpd;
+
     public String $buttonText;
 
     public function mount(int $idOpd, int $idBidangUrusan, int $id = null): void
@@ -25,10 +29,10 @@ class SubOpdForm extends Component
         $this->idBidangUrusan = $idBidangUrusan;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
-            $this->subOpd =  new SubOpd() ;
+            $this->buttonText = 'Simpan';
+            $this->subOpd = new SubOpd();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->idSubOpd = $id;
             $this->subOpd = SubOpd::find($id);
         }
@@ -53,7 +57,7 @@ class SubOpdForm extends Component
                 'BERHASIL',
                 'Data sub OPD tersimpan.'
             );
-            $this->subOpd =  new SubOpd();
+            $this->subOpd = new SubOpd();
         } else {
             $this->notification()->success(
                 'BERHASIL',

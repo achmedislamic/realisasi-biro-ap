@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Livewire\AkunBelanja\AkunBelanjaForm;
-use App\Http\Livewire\KelompokBelanja\KelompokBelanjaForm;
 use App\Http\Livewire\JenisBelanja\JenisBelanjaForm;
+use App\Http\Livewire\KelompokBelanja\KelompokBelanjaForm;
 use App\Http\Livewire\ObjekBelanja\ObjekBelanjaForm;
 use App\Http\Livewire\RincianObjekBelanja\RincianObjekBelanjaForm;
 use App\Http\Livewire\SubRincianObjekBelanja\SubRincianObjekBelanjaForm;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/master/rekening-belanja', App\Http\Livewire\RekeningBelanjaTabs::class)->name('rekening');
 Route::get('/master/rekening-belanja/akun/form/{id?}', AkunBelanjaForm::class)->name('akun.form');

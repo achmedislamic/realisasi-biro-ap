@@ -18,8 +18,9 @@ class BidangUrusanTable extends Component
     public int $idUrusan = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
+
     protected $listeners = [
-        'pilihIdUrusanEvent' => 'pilihIdUrusan'
+        'pilihIdUrusanEvent' => 'pilihIdUrusan',
     ];
 
     public function pilihIdUrusan(int $idUrusan)

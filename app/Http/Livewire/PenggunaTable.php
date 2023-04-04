@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Traits\WithSorting;
 use App\Models\User;
 use App\Traits\Pencarian;
+use App\Traits\WithSorting;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,7 +17,7 @@ class PenggunaTable extends Component
     public string|int $konfirmasi;
 
     protected $queryString = ['cari' => ['except' => ''], 'sortAsc' => ['except' => 'true'],
-    'sortField'];
+        'sortField'];
 
     public function konfirmasiHapus($id): void
     {

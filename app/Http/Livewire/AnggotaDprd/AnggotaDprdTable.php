@@ -25,6 +25,6 @@ class AnggotaDprdTable extends Component
     {
         $anggotaDprds = AnggotaDprd::query()->pencarian($this->cari)->paginate();
 
-        return view('livewire.anggota-dprd.anggota-dprd-table', compact("anggotaDprds"));
+        return view('livewire.anggota-dprd.anggota-dprd-table', compact('anggotaDprds'));
     }
 }

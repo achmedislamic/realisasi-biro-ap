@@ -14,8 +14,11 @@ class KegiatanForm extends Component
     use Actions;
 
     public ?int $idKegiatan = null;
+
     public int $idProgram;
+
     public Kegiatan $kegiatan;
+
     public String $buttonText;
 
     public function mount(int $idProgram, int $id = null): void
@@ -23,10 +26,10 @@ class KegiatanForm extends Component
         $this->idProgram = $idProgram;
 
         if (is_null($id)) {
-            $this->buttonText = "Simpan";
-            $this->kegiatan = new Kegiatan() ;
+            $this->buttonText = 'Simpan';
+            $this->kegiatan = new Kegiatan();
         } else {
-            $this->buttonText = "Simpan Perubahan";
+            $this->buttonText = 'Simpan Perubahan';
             $this->idKegiatan = $id;
             $this->kegiatan = Kegiatan::find($id);
         }
@@ -51,7 +54,7 @@ class KegiatanForm extends Component
                    'BERHASIL',
                    'Data kegiatan tersimpan.'
                );
-               $this->kegiatan =  new Kegiatan();
+               $this->kegiatan = new Kegiatan();
            } else {
                $this->notification()->success(
                    'BERHASIL',
@@ -63,6 +66,7 @@ class KegiatanForm extends Component
        public function render()
        {
            $program = Program::find($this->idProgram);
+
            return view('livewire.kegiatan.kegiatan-form', compact('program'));
        }
 }
