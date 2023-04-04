@@ -9,7 +9,7 @@ class RealisasiTabs extends Component
     public string $tabAktif = 'objekRealisasi';
     public $objekRealisasiId;
 
-    protected $queryString = ['tabAktif', 'objekRealisasiId'];
+    protected $queryString = ['tabAktif'];
 
     protected $listeners = [
         'gantiTab' => 'gantiTab'

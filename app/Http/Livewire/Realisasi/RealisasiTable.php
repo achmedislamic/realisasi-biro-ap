@@ -15,17 +15,12 @@ class RealisasiTable extends Component
     use WithPagination;
     use Actions;
 
-    public $objekRealisasiId;
+    public $objekRealisasiId = 0;
 
     protected $queryString = ['cari' => ['except' => ''], 'objekRealisasiId'];
     protected $listeners = [
         'pilihIdObjekRealisasiEvent' => 'pilihIdObjekRealisasi'
     ];
-
-    // public function mount($objekRealisasiId)
-    // {
-    //     dd($objekRealisasiId);
-    // }
 
     public function pilihIdObjekRealisasi(int $objekRealisasiId)
     {
