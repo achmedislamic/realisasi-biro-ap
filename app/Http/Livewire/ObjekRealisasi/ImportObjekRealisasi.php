@@ -41,8 +41,6 @@ class ImportObjekRealisasi extends Component
     {
         $this->validate();
 
-        $idTahapanApbd = cache('tahapanApbd')->id;
-
         $realisasiRows = SimpleExcelReader::create($this->file->path())
             ->headerOnRow(1)
             ->getRows();
@@ -51,11 +49,12 @@ class ImportObjekRealisasi extends Component
         $jobs = [];
 
         foreach ($chunks as $objekRealisasiChunk) {
-            array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, $idTahapanApbd));
+            array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, cache('tahapanApbd')->id));
         }
 
         $batch = Bus::batch($jobs)->name('Import Anggaran Objek Realisasi')->dispatch();
         $this->emit('showImportProgressEvent', $batch->id);
+
         $this->hideButton = true;
     }
 

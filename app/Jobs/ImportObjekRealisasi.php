@@ -36,15 +36,8 @@ class ImportObjekRealisasi implements ShouldQueue
 
     private $idTahapanApbd;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        $realisasiChunk,
-        $idTahapanApbd,
-    ) {
+    public function __construct($realisasiChunk, $idTahapanApbd)
+    {
         $this->realisasiChunk = $realisasiChunk;
         $this->idTahapanApbd = $idTahapanApbd;
     }
@@ -72,7 +65,7 @@ class ImportObjekRealisasi implements ShouldQueue
 
             $rekeningBelanja = $this->importRekeningBelanja($item);
 
-            $objek = ObjekRealisasi::updateOrCreate(
+            ObjekRealisasi::updateOrCreate(
                 [
                     'sub_opd_id' => $perangkatDaerah['idSubOpd'],
                     'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
@@ -83,8 +76,6 @@ class ImportObjekRealisasi implements ShouldQueue
                     'tahapan_apbd_id' => intval($this->idTahapanApbd),
                 ]
             );
-
-            dd($perangkatDaerah['idSubOpd'], $programKegiatan['idSubKegiatan'], $rekeningBelanja['idSubRincianObjekBelanja'], $objek);
         }
     }
 
