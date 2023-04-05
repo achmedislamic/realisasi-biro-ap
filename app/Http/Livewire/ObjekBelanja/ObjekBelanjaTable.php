@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\ObjekBelanja;
 
-use App\Models\JenisBelanja;
-use App\Models\ObjekBelanja;
+use App\Models\{JenisBelanja, ObjekBelanja};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class ObjekBelanjaTable extends Component

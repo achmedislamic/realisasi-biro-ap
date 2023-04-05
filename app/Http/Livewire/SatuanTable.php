@@ -5,8 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Satuan;
 use App\Traits\Pencarian;
 use Illuminate\View\View;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class SatuanTable extends Component

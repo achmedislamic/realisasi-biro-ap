@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\Opd;
 
-use App\Models\BidangUrusan;
-use App\Models\Opd;
+use App\Models\{BidangUrusan, Opd};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class OpdTable extends Component

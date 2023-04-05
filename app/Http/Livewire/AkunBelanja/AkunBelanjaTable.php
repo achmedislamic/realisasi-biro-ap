@@ -4,8 +4,7 @@ namespace App\Http\Livewire\AkunBelanja;
 
 use App\Models\AkunBelanja;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class AkunBelanjaTable extends Component

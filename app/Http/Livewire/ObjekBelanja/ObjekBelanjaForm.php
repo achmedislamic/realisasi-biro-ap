@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\ObjekBelanja;
 
-use App\Models\JenisBelanja;
-use App\Models\ObjekBelanja;
+use App\Models\{JenisBelanja, ObjekBelanja};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

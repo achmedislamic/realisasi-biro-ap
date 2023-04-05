@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\SubKegiatan;
 
-use App\Models\Kegiatan;
-use App\Models\SubKegiatan;
+use App\Models\{Kegiatan, SubKegiatan};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

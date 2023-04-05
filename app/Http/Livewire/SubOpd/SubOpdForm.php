@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\SubOpd;
 
-use App\Models\Opd;
-use App\Models\SubOpd;
+use App\Models\{Opd, SubOpd};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

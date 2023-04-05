@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\RincianObjekBelanja;
 
-use App\Models\ObjekBelanja;
-use App\Models\RincianObjekBelanja;
+use App\Models\{ObjekBelanja, RincianObjekBelanja};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

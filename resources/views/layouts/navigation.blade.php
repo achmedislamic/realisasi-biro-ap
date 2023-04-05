@@ -7,7 +7,7 @@
 
                 <x-nav-link href="/telescope" text="Monitoring Aplikasi" target="_blank" />
 
-                @if (Auth::user()->role->role_name === 'admin')
+                @if (auth()->user()->isAdmin())
                 <x-nav-link :href="route('tahapan-apbd')"
                     :active="request()->routeIs('tahapan-apbd') || request()->routeIs('tahapan-apbd.form')"
                     text="Tahapan APBD" />

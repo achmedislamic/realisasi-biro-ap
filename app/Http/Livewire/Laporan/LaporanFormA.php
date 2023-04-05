@@ -2,16 +2,9 @@
 
 namespace App\Http\Livewire\Laporan;
 
-use App\Models\Kegiatan;
-use App\Models\ObjekRealisasi;
-use App\Models\Opd;
-use App\Models\Program;
-use App\Models\SubKegiatan;
-use App\Models\SubOpd;
-use App\Models\Urusan;
+use App\Models\{Kegiatan, ObjekRealisasi, Opd, Program, SubKegiatan, SubOpd, Urusan};
 use Illuminate\Support\Facades\DB;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use WireUi\Traits\Actions;
 

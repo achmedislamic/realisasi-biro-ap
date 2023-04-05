@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\BidangUrusan;
-use App\Models\BidangUrusanOpd;
-use App\Models\Opd;
+use App\Models\{BidangUrusan, BidangUrusanOpd, Opd};
 use Illuminate\Database\Seeder;
 
 class BidangUrusanOpdSeeder extends Seeder

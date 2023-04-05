@@ -5,8 +5,7 @@ namespace App\Http\Livewire\ObjekRealisasi;
 use App\Jobs\ImportObjekRealisasi as JobImportObjekRealisasi;
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\Bus;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ImportObjekRealisasi extends Component

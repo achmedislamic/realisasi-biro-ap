@@ -2,14 +2,7 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\Kegiatan;
-use App\Models\ObjekRealisasi;
-use App\Models\Opd;
-use App\Models\Program;
-use App\Models\Realisasi;
-use App\Models\SubKegiatan;
-use App\Models\SubOpd;
-use App\Models\SubRincianObjekBelanja;
+use App\Models\{Kegiatan, ObjekRealisasi, Opd, Program, Realisasi, SubKegiatan, SubOpd, SubRincianObjekBelanja};
 use Livewire\Component;
 use WireUi\Traits\Actions;
 

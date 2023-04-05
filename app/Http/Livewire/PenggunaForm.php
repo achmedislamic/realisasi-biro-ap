@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Opd;
-use App\Models\SubOpd;
-use App\Models\User;
-use App\Models\UserRole;
+use App\Models\{Opd, SubOpd, User, UserRole};
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;

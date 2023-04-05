@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Livewire\ObjekRealisasi\ImportObjekRealisasi;
-use App\Http\Livewire\ObjekRealisasi\ObjekRealisasiForm;
-use App\Http\Livewire\Realisasi\RealisasiForm;
-use App\Http\Livewire\Realisasi\RealisasiTabs;
+use App\Http\Livewire\ObjekRealisasi\{ImportObjekRealisasi, ObjekRealisasiForm};
+use App\Http\Livewire\Realisasi\{RealisasiForm, RealisasiTabs};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/realisasi', RealisasiTabs::class)->name('realisasi');

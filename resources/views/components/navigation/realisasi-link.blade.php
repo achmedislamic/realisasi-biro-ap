@@ -3,7 +3,7 @@
     <x-nav-dropdown-item-link text="Input Objek Realisasi" :href="route('objek-realisasi.form')"
         :active="request()->routeIs('objek-realisasi.form')" />
 
-    @if (Auth::user()->role->role_name === 'admin')
+    @if (auth()->user()->isAdmin())
     <x-nav-dropdown-item-link text="Import Objek Realisasi" :href="route('objek-realisasi.import')"
         :active="request()->routeIs('objek-realisasi.import')" />
     @endif

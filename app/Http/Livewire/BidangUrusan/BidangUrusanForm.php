@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\BidangUrusan;
 
-use App\Models\BidangUrusan;
-use App\Models\Urusan;
+use App\Models\{BidangUrusan, Urusan};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

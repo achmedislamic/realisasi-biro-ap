@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\KelompokBelanja;
 
-use App\Models\AkunBelanja;
-use App\Models\KelompokBelanja;
+use App\Models\{AkunBelanja, KelompokBelanja};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

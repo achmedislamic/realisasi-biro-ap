@@ -1,6 +1,6 @@
 <div>
     <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
-        @if (Auth::user()->role->role_name === 'admin')
+        @if (auth()->user()->isAdmin())
         <div class="w-1/2 flex gap-2">
             <div class="w-full">
                 <x-native-select label="OPD" wire:model="opdPilihan">
@@ -33,7 +33,7 @@
 
             <x-slot name="table_actions">
                 <x-button primary label="Tambah" :href="route('objek-realisasi.form')" />
-                @if (Auth::user()->role->role_name === 'admin')
+                @if (auth()->user()->isAdmin())
                 <x-button positive label="Import Anggaran Realisasi" :href="route('objek-realisasi.import')" />
                 @endif
             </x-slot>

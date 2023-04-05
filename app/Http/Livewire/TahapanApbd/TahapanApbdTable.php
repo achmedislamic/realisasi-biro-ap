@@ -4,8 +4,7 @@ namespace App\Http\Livewire\TahapanApbd;
 
 use App\Models\TahapanApbd;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class TahapanApbdTable extends Component

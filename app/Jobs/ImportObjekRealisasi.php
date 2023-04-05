@@ -2,27 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Models\AkunBelanja;
-use App\Models\BidangUrusan;
-use App\Models\BidangUrusanOpd;
-use App\Models\JenisBelanja;
-use App\Models\Kegiatan;
-use App\Models\KelompokBelanja;
-use App\Models\ObjekBelanja;
-use App\Models\ObjekRealisasi;
-use App\Models\Opd;
-use App\Models\Program;
-use App\Models\RincianObjekBelanja;
-use App\Models\SubKegiatan;
-use App\Models\SubOpd;
-use App\Models\SubRincianObjekBelanja;
-use App\Models\Urusan;
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
+use App\Models\{AkunBelanja, BidangUrusan, BidangUrusanOpd, JenisBelanja, Kegiatan, KelompokBelanja, ObjekBelanja, ObjekRealisasi, Opd, Program, RincianObjekBelanja, SubKegiatan, SubOpd, SubRincianObjekBelanja, Urusan};
+use Illuminate\Bus\{Batchable, Queueable};
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\{InteractsWithQueue, SerializesModels};
 
 class ImportObjekRealisasi implements ShouldQueue
 {

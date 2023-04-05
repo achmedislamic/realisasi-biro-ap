@@ -4,8 +4,7 @@ namespace App\Http\Livewire\RekeningBelanja;
 
 use App\Models\RekeningBelanja;
 use App\Traits\WithLiveValidation;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class UploadExcel extends Component

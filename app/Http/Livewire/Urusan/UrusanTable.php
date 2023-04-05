@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Urusan;
 
 use App\Models\Urusan;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class UrusanTable extends Component

@@ -4,8 +4,7 @@ namespace App\Http\Livewire\AnggotaDprd;
 
 use App\Models\AnggotaDprd;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class AnggotaDprdTable extends Component

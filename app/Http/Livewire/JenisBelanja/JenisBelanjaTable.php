@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\JenisBelanja;
 
-use App\Models\JenisBelanja;
-use App\Models\KelompokBelanja;
+use App\Models\{JenisBelanja, KelompokBelanja};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class JenisBelanjaTable extends Component

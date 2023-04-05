@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Realisasi;
 
-use App\Models\ObjekRealisasi;
-use App\Models\Realisasi;
+use App\Models\{ObjekRealisasi, Realisasi};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

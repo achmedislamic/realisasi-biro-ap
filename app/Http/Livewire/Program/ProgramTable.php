@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Program;
 
 use App\Models\Program;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class ProgramTable extends Component

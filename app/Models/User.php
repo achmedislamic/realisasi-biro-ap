@@ -18,21 +18,11 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -40,6 +30,21 @@ class User extends Authenticatable
     public function role(): HasOne
     {
         return $this->hasOne(UserRole::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->role_name === 'admin';
+    }
+
+    public function isNotAdmin(): bool
+    {
+        return $this->role->role_name != 'admin';
+    }
+
+    public function isOpd(): bool
+    {
+        return $this->role->role_name === 'opd';
     }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder

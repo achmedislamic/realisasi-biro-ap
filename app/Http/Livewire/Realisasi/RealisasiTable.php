@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\Realisasi;
 
-use App\Models\ObjekRealisasi;
-use App\Models\Realisasi;
+use App\Models\{ObjekRealisasi, Realisasi};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class RealisasiTable extends Component

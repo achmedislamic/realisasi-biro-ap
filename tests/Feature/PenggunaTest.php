@@ -2,8 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Livewire\PenggunaForm;
-use App\Http\Livewire\PenggunaTable;
+use App\Http\Livewire\{PenggunaForm, PenggunaTable};
 use App\Models\User;
 use Livewire\Livewire;
 use Tests\FeatureTestCase;

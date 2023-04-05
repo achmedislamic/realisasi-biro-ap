@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\SubOpd;
 
-use App\Models\Opd;
-use App\Models\SubOpd;
+use App\Models\{Opd, SubOpd};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class SubOpdTable extends Component

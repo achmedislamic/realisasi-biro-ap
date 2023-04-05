@@ -3,11 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use App\Traits\Pencarian;
-use App\Traits\WithSorting;
+use App\Traits\{Pencarian, WithSorting};
 use Illuminate\View\View;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 
 class PenggunaTable extends Component
 {

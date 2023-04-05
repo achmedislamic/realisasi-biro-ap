@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Opd;
 
-use App\Models\BidangUrusan;
-use App\Models\Opd;
+use App\Models\{BidangUrusan, Opd};
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;

@@ -2,15 +2,10 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\ObjekRealisasi;
-use App\Models\Opd;
-use App\Models\SubOpd;
-use App\Models\TahapanApbd;
+use App\Models\{ObjekRealisasi, Opd, SubOpd, TahapanApbd};
 use App\Traits\Pencarian;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class ObjekRealisasiTable extends Component
@@ -73,13 +68,12 @@ class ObjekRealisasiTable extends Component
 
     public function render()
     {
-        $userIsOPD = Auth::user()->role;
         $subOpdPilihan = $this->subOpdPilihan;
 
         $realisasiApbds = ObjekRealisasi::query()
             ->where('tahapan_apbd_id', cache('tahapanApbd')->id)
-            ->when($userIsOPD->role_name == 'opd', function (Builder $query) use ($userIsOPD) {
-                $query->where('sub_opd_id', $userIsOPD->sub_opd_id);
+            ->when(auth()->user()->isOpd(), function (Builder $query) {
+                $query->where('sub_opd_id', auth()->user()->sub_opd_id);
             })
             ->when(! $subOpdPilihan == '', function (Builder $query) use ($subOpdPilihan) {
                 $query->where('sub_opd_id', $subOpdPilihan);

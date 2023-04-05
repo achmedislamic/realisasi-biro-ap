@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\SubRincianObjekBelanja;
 
-use App\Models\RincianObjekBelanja;
-use App\Models\SubRincianObjekBelanja;
+use App\Models\{RincianObjekBelanja, SubRincianObjekBelanja};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class SubRincianObjekBelanjaTable extends Component

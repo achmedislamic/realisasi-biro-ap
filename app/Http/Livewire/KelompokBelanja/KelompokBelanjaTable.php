@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\KelompokBelanja;
 
-use App\Models\AkunBelanja;
-use App\Models\KelompokBelanja;
+use App\Models\{AkunBelanja, KelompokBelanja};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class KelompokBelanjaTable extends Component

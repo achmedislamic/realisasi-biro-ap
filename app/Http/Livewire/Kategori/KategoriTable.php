@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Kategori;
 
 use App\Models\Kategori;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class KategoriTable extends Component

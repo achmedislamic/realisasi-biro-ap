@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\BidangUrusan;
 
-use App\Models\BidangUrusan;
-use App\Models\Urusan;
+use App\Models\{BidangUrusan, Urusan};
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class BidangUrusanTable extends Component

@@ -1,5 +1,5 @@
 <x-nav-dropdown-user-link text="{{ auth()->user()->name }}">
-    @if (Auth::user()->role->role_name === 'admin')
+    @if (auth()->user()->isAdmin())
     <x-nav-dropdown-item-link text="Pengguna" :href="route('pengguna')" :active="request()->routeIs('pengguna')" />
     @endif
 
