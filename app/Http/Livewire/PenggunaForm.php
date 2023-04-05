@@ -6,7 +6,6 @@ use App\Enums\RoleName;
 use App\Models\{Opd, SubOpd, User, UserRole};
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -106,7 +105,7 @@ class PenggunaForm extends Component
 
         DB::transaction(function () {
             if (is_null($this->userId)) {
-                $this->user->password = Hash::make($this->password);
+                $this->user->password = bcrypt($this->password);
             }
 
             $this->user->save();
@@ -115,8 +114,8 @@ class PenggunaForm extends Component
                 ['user_id' => $this->user->id],
                 [
                     'role_name' => $this->rolePengguna,
-                    'imageable_id' => $this->rolePengguna == 'sub_opd' ? $this->subOpdPilihan : $this->opdPilihan,
-                    'imageable_type' => $this->rolePengguna == 'sub_opd' ? 'App\Models\SubOpd' : 'App\Models\Opd',
+                    'imageable_id' => $this->rolePengguna == RoleName::SUB_OPD ? $this->subOpdPilihan : $this->opdPilihan,
+                    'imageable_type' => $this->rolePengguna == RoleName::SUB_OPD ? 'App\Models\SubOpd' : 'App\Models\Opd',
                 ]
             );
         });
