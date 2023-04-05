@@ -32,7 +32,7 @@
                     {{ $user->email }}
                 </x-table.td>
                 <x-table.td>
-                    {{ $user->role->subOpd->nama ?? "-" }}
+                    {{ $user->role->imageable->nama ?? "-" }}
                 </x-table.td>
                 <x-table.td>
                     <x-button :href="route('pengguna.form', $user->id)" label="Ubah" warning icon="pencil" />

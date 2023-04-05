@@ -15,7 +15,7 @@ class IsOpd
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->role->role_name == 'opd') {
+        if ($request->user()->isOpd()) {
             return $next($request);
         }
 

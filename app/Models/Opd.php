@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsToMany, HasMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsToMany, HasMany, MorphOne};
 
 class Opd extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public function userRole(): MorphOne
+    {
+        return $this->morphOne(UserRole::class, 'imageable');
+    }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder
     {

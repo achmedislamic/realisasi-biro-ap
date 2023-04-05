@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\RoleName;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -34,17 +36,17 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->role->role_name === 'admin';
+        return $this->role->role_name === RoleName::ADMIN;
     }
 
     public function isNotAdmin(): bool
     {
-        return $this->role->role_name != 'admin';
+        return ! $this->isAdmin();
     }
 
     public function isOpd(): bool
     {
-        return $this->role->role_name === 'opd';
+        return $this->role->role_name === RoleName::OPD;
     }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder

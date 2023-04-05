@@ -17,13 +17,14 @@
                 </div>
                 <div class="w-full">
                     <x-native-select label="Jenis Pengguna" wire:model="rolePengguna">
-                        <option value="admin">Admin</option>
-                        <option value="opd">Operator OPD</option>
+                        @foreach (\App\Enums\RoleName::cases() as $roleName)
+                            <option value="{{ $roleName->value }}">{{ str($roleName->value)->title() }}</option>
+                        @endforeach
                     </x-native-select>
                 </div>
             </div>
 
-            @if ($rolePengguna == 'opd')
+            @if ($rolePengguna == \App\Enums\RoleName::OPD || $rolePengguna == \App\Enums\RoleName::SUB_OPD)
             <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                 <div class="w-full">
                     <x-native-select label="OPD" wire:model="opdPilihan">
@@ -33,7 +34,10 @@
                         @endforeach
                     </x-native-select>
                 </div>
+            </div>
+            @endif
 
+            @if ($rolePengguna == \App\Enums\RoleName::SUB_OPD)
                 <div class="w-full">
                     <x-native-select label="Sub OPD" wire:model.defer="subOpdPilihan">
                         <option selected>Pilih Sub OPD (Unit)</option>
@@ -42,7 +46,6 @@
                         @endforeach
                     </x-native-select>
                 </div>
-            </div>
             @endif
 
             @if (!is_null($userId))

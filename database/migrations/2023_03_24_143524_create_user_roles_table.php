@@ -6,18 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class() extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
-            $table->enum('role_name', ['admin', 'opd']);
+            $table->enum('role_name', ['admin', 'opd', 'sub_opd']);
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('sub_opd_id')->nullable()->constrained();
+            $table->unsignedBigInteger('imageable_id')->nullable();
+            $table->string('imageable_type')->nullable();
             $table->timestamps();
         });
     }

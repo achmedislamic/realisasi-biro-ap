@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\RoleName;
 use App\Models\{Opd, SubOpd, User, UserRole};
 use App\Traits\WithLiveValidation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -52,17 +54,23 @@ class PenggunaForm extends Component
             $this->userId = $id;
             $this->user = User::with('role')->find($id);
 
-            $subOpd = SubOpd::find($this->user->role->sub_opd_id);
             $this->rolePengguna = $this->user->role->role_name;
             $this->name = $this->user->name;
             $this->email = $this->user->email;
 
-            if ($subOpd) {
+            $userRole = $this->user->role;
+            if($userRole->role_name == RoleName::SUB_OPD)
+            {
                 $this->subOpds = SubOpd::query()
-                    ->where('opd_id', $subOpd->opd_id)
+                    ->where('opd_id', $userRole->imageable->id)
                     ->get();
-                $this->subOpdPilihan = $subOpd->id;
-                $this->opdPilihan = $subOpd->opd_id;
+                $this->subOpdPilihan = $userRole->imageable->id;
+                $this->opdPilihan = $userRole->imageable->opd->id;
+            }
+
+            if($userRole->role_name == RoleName::OPD)
+            {
+                $this->opdPilihan = $userRole->imageable->id;
             }
         }
     }
@@ -96,38 +104,29 @@ class PenggunaForm extends Component
     {
         $this->validate();
 
-        $success = false;
+        DB::transaction(function () {
+            if (is_null($this->userId)) {
+                $this->user->password = Hash::make($this->password);
+            }
 
-        if (is_null($this->userId)) {
-            $this->user->password = Hash::make($this->password);
-            $success = $this->user->save();
-        } else {
-            $success = $this->user->save();
-        }
+            $this->user->save();
 
-        if ($success) {
             UserRole::updateOrCreate(
                 ['user_id' => $this->user->id],
                 [
                     'role_name' => $this->rolePengguna,
-                    'sub_opd_id' => $this->subOpdPilihan,
+                    'imageable_id' => $this->rolePengguna == 'sub_opd' ? $this->subOpdPilihan : $this->opdPilihan,
+                    'imageable_type' => $this->rolePengguna == 'sub_opd' ? 'App\Models\SubOpd' : 'App\Models\Opd',
                 ]
             );
+        });
 
-            if (is_null($this->userId)) {
-                $this->notification()->success(
-                    'BERHASIL',
-                    'Data pengguna tersimpan.'
-                );
-            } else {
-                $this->notification()->success(
-                    'BERHASIL',
-                    'Data pengguna diubah.'
-                );
-            }
+        $this->notification()->success(
+            'BERHASIL',
+            'Data pengguna tersimpan.'
+        );
 
-            return redirect()->route('pengguna');
-        }
+        return to_route('pengguna');
     }
 
     public function render(): View
