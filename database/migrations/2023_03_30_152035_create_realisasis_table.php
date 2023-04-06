@@ -6,18 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class() extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('realisasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('objek_realisasi_id')->constrained();
             $table->date('tanggal');
-            $table->double('realisasi')->default(0);
+            $table->double('jumlah')->default(0);
             $table->timestamps();
         });
     }

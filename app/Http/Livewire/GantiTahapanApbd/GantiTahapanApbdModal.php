@@ -46,7 +46,7 @@ class GantiTahapanApbdModal extends ModalComponent
             cache()->forget('tahapanApbd');
             cache()->forever('tahapanApbd', TahapanApbd::find($this->idTahapanPilihan));
 
-            return redirect()->route('dashboard');
+            return to_route('dashboard');
         }
     }
 

@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi</td>
-                    <td>Rp. {{ number_format($realisasis->sum('realisasi'), 2, ',', '.') }}</td>
+                    <td>Rp. {{ \App\Helpers\FormatHelper::angka($realisasis->sum('jumlah')) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -70,10 +70,10 @@
                     {{ $realisasis->firstItem() + $key }}
                 </x-table.td>
                 <x-table.td>
-                    {{ Carbon\Carbon::createFromFormat('Y-m-d', $realisasi->tanggal)->format('m/d/Y') }}
+                    {{ \App\Helpers\FormatHelper::tanggal($realisasi->tanggal) }}
                 </x-table.td>
                 <x-table.td>
-                    {{ number_format($realisasi->realisasi, 2, ',', '.') }}
+                    {{ \App\Helpers\FormatHelper::angka($realisasi->jumlah) }}
                 </x-table.td>
                 <x-table.td>
                     <x-button.circle warning xs icon="pencil"

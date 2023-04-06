@@ -19,6 +19,6 @@ class EnsureTahunAnggaranCookies
             return $next($request);
         }
 
-        return redirect()->route('pilih-ta');
+        return to_route('pilih-ta');
     }
 }

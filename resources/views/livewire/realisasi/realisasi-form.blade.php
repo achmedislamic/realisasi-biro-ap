@@ -37,19 +37,31 @@
                 </div>
             </div>
 
-            <div class="flex gap-x-4">
+            <div class="flex flex-row">
+                <div class="w-full">
+                    <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
+                        display-format="DD-MM-YYYY" wire:model.defer="realisasi.tanggal" without-time
+                        display-format="DD-MM-YYYY" />
+                </div>
+            </div>
+
+            <div class="flex gap-x-4 items-end">
                 <div class="w-full">
                     <x-input label="Anggaran" disabled wire:model="anggaran" />
                 </div>
 
                 <div class="w-full">
-                    <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
-                        display-format="DD-MM-YYYY" wire:model.defer="tanggal" without-time
-                        display-format="DD-MM-YYYY" />
+                    <x-inputs.currency
+                        label="Realisasi"
+                        thousands="."
+                        decimal=","
+                        precision="4"
+                        wire:model.lazy="realisasi.jumlah"
+                    />
                 </div>
 
                 <div class="w-full">
-                    <x-inputs.number label="Realisasi" prefix="Rp." wire:model.defer="realisasi" />
+                    <p>Realisasi yang sudah terinput sebelumnya: Rp. {{ $totalRealisasi }}</p>
                 </div>
             </div>
 

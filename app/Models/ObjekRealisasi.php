@@ -13,6 +13,17 @@ class ObjekRealisasi extends Model
 
     protected $guarded = [];
 
+    public function selisihRealisasi($realisasiId = null): int
+    {
+        $totalRealisasi = Realisasi::query()
+            ->where('objek_realisasi_id', $this->id)
+            ->when(filled($realisasiId), function ($query) use ($realisasiId) {
+                $query->where('id', '!=', $realisasiId);
+            })->sum('jumlah');
+
+        return $this->anggaran - $totalRealisasi;
+    }
+
     public function tahapanApbd(): BelongsTo
     {
         return $this->belongsTo(TahapanApbd::class);

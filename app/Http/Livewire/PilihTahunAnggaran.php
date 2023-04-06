@@ -13,7 +13,7 @@ class PilihTahunAnggaran extends Component
     {
         cache()->forever('tahapanApbd', TahapanApbd::find($idTahapan));
 
-        return redirect()->route('dashboard');
+        return to_route('dashboard');
     }
 
     public function render()

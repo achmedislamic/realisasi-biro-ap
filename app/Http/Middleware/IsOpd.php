@@ -19,6 +19,6 @@ class IsOpd
             return $next($request);
         }
 
-        return redirect()->route('dashboard');
+        return to_route('dashboard');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Realisasi;
 
+use App\Helpers\FormatHelper;
 use App\Models\{ObjekRealisasi, Realisasi};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
@@ -16,9 +17,9 @@ class RealisasiForm extends Component
 
     public $realisasi;
 
-    public $idObjekRealisasi;
+    public $objekRealisasiId;
 
-    public $idRealisasi;
+    public $idRealisasi = null;
 
     public $submitText;
 
@@ -38,11 +39,15 @@ class RealisasiForm extends Component
 
     public $anggaran;
 
-    public function mount(int $idObjekRealisasi, int $id = null)
+    public $totalRealisasi;
+
+    public $selisihRealisasi = 0;
+
+    public function mount(int $objekRealisasiId, int $id = null)
     {
         $this->submitText = 'Simpan Realisasi';
-        $this->idObjekRealisasi = $idObjekRealisasi;
-        $this->objekRealisasi = ObjekRealisasi::find($idObjekRealisasi);
+        $this->objekRealisasiId = $objekRealisasiId;
+        $this->objekRealisasi = ObjekRealisasi::find($objekRealisasiId);
 
         $this->pod = $this->objekRealisasi->subOpd->opd->nama;
         $this->subOpd = $this->objekRealisasi->subOpd->nama;
@@ -50,23 +55,30 @@ class RealisasiForm extends Component
         $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
         $this->subKegiatan = $this->objekRealisasi->subKegiatan->nama;
         $this->subRincianObjekBelanja = $this->objekRealisasi->subRincianObjekBelanja->nama;
-        $this->anggaran = number_format($this->objekRealisasi->anggaran, 2, ',', '.');
+        $this->anggaran = FormatHelper::angka($this->objekRealisasi->anggaran);
 
         if (! is_null($id)) {
             $this->idRealisasi = $id;
             $this->submitText = 'Update Realisasi';
+            $this->totalRealisasi = Realisasi::query()
+                ->where('objek_realisasi_id', $objekRealisasiId)
+                ->where('id', '!=', $id)
+                ->sum('jumlah');
 
-            $realisasiBelanja = Realisasi::find($id);
-            $this->tanggal = $realisasiBelanja->tanggal;
-            $this->realisasi = $realisasiBelanja->realisasi;
+            $this->realisasi = Realisasi::find($id);
+        } elseif (is_null($id)){
+            $this->realisasi = new Realisasi;
+            $this->totalRealisasi = Realisasi::where('objek_realisasi_id', $objekRealisasiId)->sum('jumlah');
         }
+
+        $this->totalRealisasi = FormatHelper::angka($this->totalRealisasi);
     }
 
     protected function rules(): array
     {
         return [
-            'tanggal' => 'required|date',
-            'realisasi' => 'required|numeric',
+            'realisasi.tanggal' => 'required|date',
+            'realisasi.jumlah' => 'required|numeric|lte:' . ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];
     }
 
@@ -74,69 +86,16 @@ class RealisasiForm extends Component
     {
         $this->validate();
 
-        $anggaran = $this->objekRealisasi->anggaran;
-        $sumRealisasi = Realisasi::query()
-           ->where('objek_realisasi_id', $this->idObjekRealisasi)
-           ->sum('realisasi');
+        $this->realisasi->objek_realisasi_id = $this->objekRealisasiId;
 
-        if ($anggaran < ($this->realisasi + $sumRealisasi)) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Gagal menyimpan realisasi. Total realisasi lebih besar dari anggaran.'
-            );
-        } else {
-            if (is_null($this->idRealisasi)) {
-                $this->simpanRealisasi();
-            } else {
-                $this->updateRealisasi($this->idRealisasi);
-            }
-        }
+        $this->realisasi->save();
 
-        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId='.$this->idObjekRealisasi);
-    }
+        $this->notification()->success(
+            'BERHASIL',
+            'Berhasil menyimpan realisasi.'
+        );
 
-    public function simpanRealisasi()
-    {
-        $realisasi = Realisasi::create([
-            'objek_realisasi_id' => $this->idObjekRealisasi,
-            'tanggal' => $this->tanggal,
-            'realisasi' => floatval($this->realisasi),
-        ]);
-
-        if (! $realisasi) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Gagal menyimpan realisasi.'
-            );
-        } else {
-            $this->notification()->success(
-                'BERHASIL',
-                'Berhasil menyimpan realisasi.'
-            );
-            $this->tanggal = null;
-            $this->realisasi = null;
-        }
-    }
-
-    public function updateRealisasi(int $id)
-    {
-        $realisasi = Realisasi::where('id', $id)->update([
-            'objek_realisasi_id' => $this->idObjekRealisasi,
-            'tanggal' => $this->tanggal,
-            'realisasi' => floatval($this->realisasi),
-        ]);
-
-        if (! $realisasi) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Gagal update realisas.'
-            );
-        } else {
-            $this->notification()->success(
-                'BERHASIL',
-                'Berhasil update realisasi.'
-            );
-        }
+        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId='.$this->objekRealisasiId);
     }
 
     public function hapusRealisasi(int $id): void
