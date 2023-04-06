@@ -44,7 +44,7 @@ class ObjekRealisasi extends Model
         return $this->belongsTo(SubRincianObjekBelanja::class, 'sub_rincian_objek_id');
     }
 
-    public function realisasi(): HasMany
+    public function realisasis(): HasMany
     {
         return $this->hasMany(Realisasi::class);
     }

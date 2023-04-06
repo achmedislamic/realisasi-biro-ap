@@ -29,7 +29,7 @@
                 </tr>
                 <tr>
                     <td class="pr-5 font-semibold text-sm text-gray-400">Anggaran</td>
-                    <td>Rp. {{ number_format($objekRealisasi->anggaran, 2, ',', '.') }}</td>
+                    <td>Rp. {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}</td>
                 </tr>
                 <tr>
                     <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi</td>

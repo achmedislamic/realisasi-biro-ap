@@ -71,6 +71,7 @@ class ObjekRealisasiTable extends Component
         $subOpdPilihan = $this->subOpdPilihan;
 
         $realisasiApbds = ObjekRealisasi::query()
+            ->with('realisasis')
             ->where('tahapan_apbd_id', cache('tahapanApbd')->id)
             ->when(auth()->user()->isOpd(), function (Builder $query) {
                 $query->where('sub_opd_id', auth()->user()->sub_opd_id);

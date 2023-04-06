@@ -87,10 +87,10 @@
                         }}
                     </x-table.td>
                     <x-table.td>
-                        {{ number_format($objekRealisasi->anggaran, 2, ',', '.') }}
+                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}
                     </x-table.td>
                     <x-table.td>
-                        {{ number_format($objekRealisasi->realisasi->sum('realisasi'), 2, ',', '.') }}
+                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->realisasis->sum('jumlah')) }}
                     </x-table.td>
 
                     <x-table.td>
