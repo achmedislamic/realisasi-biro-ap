@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Opd;
-use App\Models\SubOpd;
+use App\Models\{Opd, SubOpd};
 use App\Models\{User, UserRole};
 use Illuminate\Database\Seeder;
 
@@ -45,14 +44,14 @@ class UserSeeder extends Seeder
             'role_name' => 'opd',
             'user_id' => $userOpd->id,
             'imageable_id' => Opd::firstWhere('nama', 'like', '%dinas pendidikan%')->id,
-            'imageable_type' => 'App\Models\Opd'
+            'imageable_type' => 'App\Models\Opd',
         ]);
 
         UserRole::create([
             'role_name' => 'sub_opd',
             'user_id' => $userSubOpd->id,
             'imageable_id' => SubOpd::firstWhere('nama', 'like', '%dinas pendidikan%')->id,
-            'imageable_type' => 'App\Models\SubOpd'
+            'imageable_type' => 'App\Models\SubOpd',
         ]);
     }
 }

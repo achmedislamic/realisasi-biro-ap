@@ -5,8 +5,7 @@ namespace App\Models;
 use App\Enums\RoleName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, MorphTo};
 
 class UserRole extends Model
 {
@@ -15,7 +14,7 @@ class UserRole extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'role_name' => RoleName::class
+        'role_name' => RoleName::class,
     ];
 
     public function imageable(): MorphTo

@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
             OpdSeeder::class,
             SubOpdSeeder::class,
             UserSeeder::class,
-            TahapanApbdSeeder::class
+            TahapanApbdSeeder::class,
         ]);
     }
 }

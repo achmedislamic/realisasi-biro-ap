@@ -58,8 +58,7 @@ class PenggunaForm extends Component
             $this->email = $this->user->email;
 
             $userRole = $this->user->role;
-            if($userRole->role_name == RoleName::SUB_OPD)
-            {
+            if ($userRole->role_name == RoleName::SUB_OPD) {
                 $this->subOpds = SubOpd::query()
                     ->where('opd_id', $userRole->imageable->id)
                     ->get();
@@ -67,8 +66,7 @@ class PenggunaForm extends Component
                 $this->opdPilihan = $userRole->imageable->opd->id;
             }
 
-            if($userRole->role_name == RoleName::OPD)
-            {
+            if ($userRole->role_name == RoleName::OPD) {
                 $this->opdPilihan = $userRole->imageable->id;
             }
         }

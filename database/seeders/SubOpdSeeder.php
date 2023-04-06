@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\SubOpd;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SubOpdSeeder extends Seeder

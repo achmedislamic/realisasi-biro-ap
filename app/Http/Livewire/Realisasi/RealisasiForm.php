@@ -66,8 +66,8 @@ class RealisasiForm extends Component
                 ->sum('jumlah');
 
             $this->realisasi = Realisasi::find($id);
-        } elseif (is_null($id)){
-            $this->realisasi = new Realisasi;
+        } elseif (is_null($id)) {
+            $this->realisasi = new Realisasi();
             $this->totalRealisasi = Realisasi::where('objek_realisasi_id', $objekRealisasiId)->sum('jumlah');
         }
 
@@ -78,7 +78,7 @@ class RealisasiForm extends Component
     {
         return [
             'realisasi.tanggal' => 'required|date',
-            'realisasi.jumlah' => 'required|numeric|lte:' . ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
+            'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];
     }
 
