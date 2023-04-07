@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CetakLaporanDeviasiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,8 @@ Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
 
     Route::get('/ta', App\Http\Livewire\PilihTahunAnggaran::class)
         ->name('pilih-ta');
+
+    Route::get('/cetak-laporan-deviasi', CetakLaporanDeviasiController::class);
 
     require __DIR__.'/realisasi.php';
 });

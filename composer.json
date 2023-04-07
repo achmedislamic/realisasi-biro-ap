@@ -12,6 +12,7 @@
         "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
+        "phpoffice/phpspreadsheet": "^1.28",
         "spatie/simple-excel": "^3.0",
         "staudenmeir/belongs-to-through": "^2.5",
         "staudenmeir/eloquent-has-many-deep": "^1.17",
