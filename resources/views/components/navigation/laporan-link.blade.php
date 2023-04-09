@@ -5,5 +5,6 @@
     <x-nav-dropdown-item-link text="Laporan Form C" link="#" />
     <x-nav-dropdown-item-link text="Laporan Form D" link="#" />
     <x-nav-dropdown-item-link text="Laporan Form E" link="#" />
-    <x-nav-dropdown-item-link text="Laporan Deviasi" link="#" />
+    <x-nav-dropdown-item-link text="Laporan Deviasi" :href="route('laporan-deviasi')"
+    :active="request()->routeIs('laporan-deviasi')" />
 </x-nav-dropdown-link>

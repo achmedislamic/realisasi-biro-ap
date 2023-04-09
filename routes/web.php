@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CetakLaporanDeviasiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\CetakLaporanDeviasi;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
@@ -17,8 +18,6 @@ Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
 
     Route::get('/ta', App\Http\Livewire\PilihTahunAnggaran::class)
         ->name('pilih-ta');
-
-    Route::get('/cetak-laporan-deviasi', CetakLaporanDeviasiController::class);
 
     require __DIR__.'/realisasi.php';
 });
@@ -43,6 +42,8 @@ Route::middleware(['auth', 'hasTahapanApbd', 'admin'])->group(function () {
 
     Route::get('/master/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
     Route::get('/master/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
+
+    Route::get('/laporan/cetak-deviasi', CetakLaporanDeviasi::class)->name('laporan-deviasi');
 
     require __DIR__.'/master/index.php';
     require __DIR__.'/laporan.php';
