@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\BidangUrusanSubOpd;
 use App\Models\{AkunBelanja, BidangUrusan, BidangUrusanOpd, JenisBelanja, Kegiatan, KelompokBelanja, ObjekBelanja, ObjekRealisasi, Opd, Program, RincianObjekBelanja, SubKegiatan, SubOpd, SubRincianObjekBelanja, Urusan};
 use Illuminate\Bus\{Batchable, Queueable};
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,10 +21,8 @@ class ImportObjekRealisasi implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->realisasiChunk as $item) {
             ObjekRealisasi::updateOrCreate(
@@ -58,15 +57,15 @@ class ImportObjekRealisasi implements ShouldQueue
             'nama' => str($item['OPD'])->after(' ')->limit(250),
         ]);
 
-        BidangUrusanOpd::firstOrCreate([
-            'bidang_urusan_id' => $bidangUrusan->id,
-            'opd_id' => $opd->id,
-        ]);
-
         $subOpd = SubOpd::firstOrCreate([
             'opd_id' => $opd->id,
             'kode' => str($item['Sub Unit'])->before(' '),
             'nama' => str($item['Sub Unit'])->after(' ')->limit(250),
+        ]);
+
+        BidangUrusanSubOpd::firstOrCreate([
+            'bidang_urusan_id' => $bidangUrusan->id,
+            'sub_opd_id' => $subOpd->id,
         ]);
 
         return $subOpd->id;
@@ -85,13 +84,11 @@ class ImportObjekRealisasi implements ShouldQueue
             'nama' => str($item['Kegiatan'])->after(' ')->limit(250),
         ]);
 
-        $subKegiatan = SubKegiatan::firstOrCreate([
+        return SubKegiatan::firstOrCreate([
             'kegiatan_id' => $kegiatan->id,
             'kode' => str($item['Sub Kegiatan'])->before(' '),
             'nama' => str($item['Sub Kegiatan'])->after(' ')->limit(250),
-        ]);
-
-        return $subKegiatan->id;
+        ])->id;
     }
 
     private function importRekeningBelanja(array $item): int
@@ -125,12 +122,10 @@ class ImportObjekRealisasi implements ShouldQueue
             'nama' => str($item['Rincian Obyek'])->after(' ')->limit(250),
         ]);
 
-        $subRincianObjekBelanja = SubRincianObjekBelanja::firstOrCreate([
+        return SubRincianObjekBelanja::firstOrCreate([
             'rincian_objek_belanja_id' => $rincianObjekBelanja->id,
             'kode' => str($item['Rekening (Sub Rincian Obyek)'])->before(' '),
             'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' ')->limit(250),
-        ]);
-
-        return $subRincianObjekBelanja->id;
+        ])->id;
     }
 }

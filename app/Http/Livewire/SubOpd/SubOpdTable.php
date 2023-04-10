@@ -49,14 +49,14 @@ class SubOpdTable extends Component
     {
         $subOpds = SubOpd::query()
             ->where('opd_id', $this->idOpd)
+            ->whereRelation('bidangUrusans', 'bidang_urusan_id', $this->idBidangUrusan)
             ->pencarian($this->cari)
             ->paginate();
 
         $opd = Opd::query()
             ->with('bidangUrusans')
-            ->whereHas('bidangUrusans')
-            ->whereBidangUrusanId($this->idBidangUrusan)
-            ->find($this->idOpd);
+            ->where('id', $this->idOpd)
+            ->first();
 
         return view('livewire.sub-opd.sub-opd-table', compact('subOpds', 'opd'));
     }

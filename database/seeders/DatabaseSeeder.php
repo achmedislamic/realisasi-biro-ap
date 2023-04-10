@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
             UrusanSeeder::class,
             BidangUrusanSeeder::class,
             OpdSeeder::class,
-            BidangUrusanOpdSeeder::class,
             SubOpdSeeder::class,
+            BidangUrusanSubOpdSeeder::class,
             UserSeeder::class,
             TahapanApbdSeeder::class,
         ]);

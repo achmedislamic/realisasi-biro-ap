@@ -35,7 +35,7 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($bidangUrusans as $key => $bidangUrusan)
+            @foreach ($bidangUrusanSubOpds as $key => $bidangUrusan)
             <x-table.tr>
                 <x-table.td>
                     {{ $loop->iteration }}

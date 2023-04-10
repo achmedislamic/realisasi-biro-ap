@@ -4,24 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, Pivot};
-use Illuminate\Database\Query\Builder;
 
-class BidangUrusanOpd extends Pivot
+class BidangUrusanSubOpd extends Pivot
 {
     use HasFactory;
 
-    protected $table = 'bidang_urusan_opds';
+    protected $table = 'bidang_urusan_sub_opds';
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $with = ['opd'];
+    protected $with = ['subOpd'];
 
     public function bidangUrusan(): BelongsTo
     {
         return $this->belongsTo(BidangUrusan::class);
     }
 
-    public function opd(): BelongsTo
+    public function subOpd(): BelongsTo
     {
         return $this->belongsTo(Opd::class);
     }
@@ -30,7 +29,7 @@ class BidangUrusanOpd extends Pivot
     {
         return $query->when($cari, function ($query) use ($cari) {
             $query->where(function ($query) use ($cari) {
-                $query->search('opd.nama', $cari);
+                $query->search('sub_opd.nama', $cari);
             });
         });
     }
