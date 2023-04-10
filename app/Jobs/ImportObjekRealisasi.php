@@ -16,15 +16,7 @@ class ImportObjekRealisasi implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private $realisasiChunk;
-
-    private $idTahapanApbd;
-
-    public function __construct($realisasiChunk, $idTahapanApbd)
-    {
-        $this->realisasiChunk = $realisasiChunk;
-        $this->idTahapanApbd = $idTahapanApbd;
-    }
+    public function __construct(private $realisasiChunk, private $idTahapanApbd) {}
 
     /**
      * Execute the job.
@@ -33,27 +25,12 @@ class ImportObjekRealisasi implements ShouldQueue
      */
     public function handle()
     {
-        usleep(50000);
-
         foreach ($this->realisasiChunk as $item) {
-            $item = (array) $item;
-
-            $perangkatDaerah = $this->importPerangkatDaerah($item);
-
-            BidangUrusanOpd::firstOrCreate([
-                'bidang_urusan_id' => $perangkatDaerah['idBidangUrusan'],
-                'opd_id' => $perangkatDaerah['idOpd'],
-            ]);
-
-            $programKegiatan = $this->importProgramKegiatan($item);
-
-            $rekeningBelanja = $this->importRekeningBelanja($item);
-
             ObjekRealisasi::updateOrCreate(
                 [
-                    'sub_opd_id' => $perangkatDaerah['idSubOpd'],
-                    'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
-                    'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
+                    'sub_opd_id' => $this->importPerangkatDaerah($item),
+                    'sub_kegiatan_id' => $this->importProgramKegiatan($item),
+                    'sub_rincian_objek_id' => $this->importRekeningBelanja($item),
                 ],
                 [
                     'anggaran' => floatval($item['APBD']),
@@ -63,7 +40,7 @@ class ImportObjekRealisasi implements ShouldQueue
         }
     }
 
-    public function importPerangkatDaerah(array $item)
+    private function importPerangkatDaerah(array $item): int
     {
         $urusan = Urusan::firstOrCreate([
             'kode' => str($item['Urusan'])->before(' '),
@@ -81,20 +58,21 @@ class ImportObjekRealisasi implements ShouldQueue
             'nama' => str($item['OPD'])->after(' ')->limit(250),
         ]);
 
+        BidangUrusanOpd::firstOrCreate([
+            'bidang_urusan_id' => $bidangUrusan->id,
+            'opd_id' => $opd->id,
+        ]);
+
         $subOpd = SubOpd::firstOrCreate([
             'opd_id' => $opd->id,
             'kode' => str($item['Sub Unit'])->before(' '),
             'nama' => str($item['Sub Unit'])->after(' ')->limit(250),
         ]);
 
-        return [
-            'idBidangUrusan' => $bidangUrusan->id,
-            'idOpd' => $opd->id,
-            'idSubOpd' => $subOpd->id,
-        ];
+        return $subOpd->id;
     }
 
-    public function importProgramKegiatan(array $item)
+    private function importProgramKegiatan(array $item): int
     {
         $program = Program::firstOrCreate([
             'kode' => str($item['Program'])->before(' '),
@@ -113,10 +91,10 @@ class ImportObjekRealisasi implements ShouldQueue
             'nama' => str($item['Sub Kegiatan'])->after(' ')->limit(250),
         ]);
 
-        return ['idSubKegiatan' => $subKegiatan->id];
+        return $subKegiatan->id;
     }
 
-    public function importRekeningBelanja(array $item)
+    private function importRekeningBelanja(array $item): int
     {
         $akunBelanja = AkunBelanja::firstOrCreate([
             'kode' => str($item['Akun'])->before(' '),
@@ -153,6 +131,6 @@ class ImportObjekRealisasi implements ShouldQueue
             'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' ')->limit(250),
         ]);
 
-        return ['idSubRincianObjekBelanja' => $subRincianObjekBelanja->id];
+        return $subRincianObjekBelanja->id;
     }
 }

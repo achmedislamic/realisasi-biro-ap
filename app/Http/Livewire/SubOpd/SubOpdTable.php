@@ -48,7 +48,7 @@ class SubOpdTable extends Component
     public function render()
     {
         $subOpds = SubOpd::query()
-            ->whereOpdId($this->idOpd)
+            ->where('opd_id', $this->idOpd)
             ->pencarian($this->cari)
             ->paginate();
 

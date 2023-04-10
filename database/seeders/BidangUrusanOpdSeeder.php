@@ -9,11 +9,6 @@ class BidangUrusanOpdSeeder extends Seeder
 {
     public function run(): void
     {
-        BidangUrusanOpd::truncate();
-
-        foreach (BidangUrusan::all() as $bu) {
-            $opds = Opd::inRandomOrder()->take(rand(1, 2))->pluck('id');
-            $bu->opds()->attach($opds);
-        }
+        BidangUrusanOpd::create(['bidang_urusan_id' => 1, 'opd_id' => 1]);
     }
 }

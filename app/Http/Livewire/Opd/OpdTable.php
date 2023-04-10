@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Opd;
 
+use App\Models\BidangUrusanOpd;
 use App\Models\{BidangUrusan, Opd};
 use App\Traits\Pencarian;
 use Livewire\{Component, WithPagination};
@@ -50,14 +51,13 @@ class OpdTable extends Component
 
     public function render()
     {
-        $opds = Opd::query()
-            ->with('bidangUrusans')
-            ->whereBidangUrusanId($this->idBidangUrusan)
+        $bidangUrusans = BidangUrusanOpd::query()
+            ->where('bidang_urusan_opds.id', $this->idBidangUrusan)
             ->pencarian($this->cari)
             ->paginate();
 
         $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
 
-        return view('livewire.opd.opd-table', compact(['opds', 'bidangUrusan']));
+        return view('livewire.opd.opd-table', compact('bidangUrusans', 'bidangUrusan'));
     }
 }

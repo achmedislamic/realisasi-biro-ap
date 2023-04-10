@@ -51,9 +51,11 @@ class BidangUrusanTable extends Component
     public function render()
     {
         $bidangUrusans = BidangUrusan::query()
-            ->whereUrusanId($this->idUrusan)
+            ->where('urusan_id', $this->idUrusan)
             ->pencarian($this->cari)
             ->paginate();
+
+        // dd($bidangUrusans);
 
         $urusan = Urusan::find($this->idUrusan);
 
