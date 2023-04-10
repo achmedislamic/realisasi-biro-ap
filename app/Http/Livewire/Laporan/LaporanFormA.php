@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Laporan;
 
+use App\Exports\LaporanFormAExport;
 use App\Models\{BidangUrusan, Kegiatan, ObjekRealisasi, Opd, Program, SubKegiatan, SubOpd, Urusan};
 use Illuminate\Support\Facades\DB;
 use Livewire\{Component, WithPagination};
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use WireUi\Traits\Actions;
 
@@ -27,10 +29,6 @@ class LaporanFormA extends Component
 
     private $anggarans;
 
-    public $bidangUrusan;
-
-    public $bidangUrusans;
-
     public function mount()
     {
         $this->anggarans = collect();
@@ -39,12 +37,12 @@ class LaporanFormA extends Component
         $this->bidangUrusans = collect();
     }
 
-    public function updatedIdUrusanPilihan($value)
-    {
-        $this->bidangUrusans = BidangUrusan::where('urusan_id', $this->idUrusanPilihan)->get();
+    // public function updatedIdUrusanPilihan($value)
+    // {
+    //     $this->bidangUrusans = BidangUrusan::where('urusan_id', $this->idUrusanPilihan)->get();
 
-        $this->reset('bidangUrusan');
-    }
+    //     $this->reset('bidangUrusan');
+    // }
 
     public function updatedIdOpdPilihan($opd)
     {
@@ -62,6 +60,11 @@ class LaporanFormA extends Component
             'idOpdPilihan' => 'required',
             'idSubOpdPilihan' => 'required',
         ];
+    }
+
+    public function cetak()
+    {
+        return Excel::download(new LaporanFormAExport($this->idUrusanPilihan, $this->bulan, $this->idOpdPilihan, $this->idSubOpdPilihan), 'laporan-form-a.xlsx');
     }
 
     public function fecthData()

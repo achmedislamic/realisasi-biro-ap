@@ -17,6 +17,7 @@ class CetakLaporanDeviasi extends Component
     {
         return Excel::download(new LaporanDeviasiExport($this->bulan), 'laporan.xlsx');
     }
+    
     public function render()
     {
         $date = \Carbon\Carbon::createFromDate(cache('tahapanApbd')->tahun, 1, 1);
