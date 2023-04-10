@@ -30,6 +30,8 @@ class TahapanApbdSeeder extends Seeder
             'tahun' => 2024,
             'nama' => 'Murni',
             'nomor_dpa' => '123',
+            'created_at' => now()->addMinute(1),
+            'updated_at' => now()->addMinute(1),
         ]);
     }
 }

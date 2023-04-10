@@ -37,7 +37,7 @@
             <div class="flex items-center justify-end mt-4">
 
                 <x-primary-button class="ml-3">
-                    {{ __('Log in') }}
+                    Masuk
                 </x-primary-button>
             </div>
         </form>

@@ -16,7 +16,7 @@ Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
-    Route::get('/ta', App\Http\Livewire\PilihTahunAnggaran::class)
+    Route::get('/ta', \App\Http\Controllers\PilihTahunAnggaranController::class)
         ->name('pilih-ta');
 
     require __DIR__.'/realisasi.php';

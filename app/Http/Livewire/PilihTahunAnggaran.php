@@ -7,8 +7,6 @@ use Livewire\Component;
 
 class PilihTahunAnggaran extends Component
 {
-    public $count = 0;
-
     public function pilihTahunAnggaran($idTahapan)
     {
         cache()->forever('tahapanApbd', TahapanApbd::find($idTahapan));
@@ -18,6 +16,12 @@ class PilihTahunAnggaran extends Component
 
     public function render()
     {
+        if(auth()->user()->isNotAdmin()){
+            cache()->forever('tahapanApbd', TahapanApbd::latest()->first());
+
+            return to_route('dashboard');
+        }
+
         $tahunAnggarans = collect(TahapanApbd::query()
             ->orderByDesc('tahun')
             ->get())->unique('tahun')->values()->all();
