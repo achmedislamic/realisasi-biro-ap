@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Laporan;
 
-use App\Models\{Kegiatan, ObjekRealisasi, Opd, Program, SubKegiatan, SubOpd, Urusan};
+use App\Models\{BidangUrusan, Kegiatan, ObjekRealisasi, Opd, Program, SubKegiatan, SubOpd, Urusan};
 use Illuminate\Support\Facades\DB;
 use Livewire\{Component, WithPagination};
 use Spatie\SimpleExcel\SimpleExcelWriter;
@@ -27,11 +27,23 @@ class LaporanFormA extends Component
 
     private $anggarans;
 
+    public $bidangUrusan;
+
+    public $bidangUrusans;
+
     public function mount()
     {
         $this->anggarans = collect();
         $this->pods = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
+        $this->bidangUrusans = collect();
+    }
+
+    public function updatedIdUrusanPilihan($value)
+    {
+        $this->bidangUrusans = BidangUrusan::where('urusan_id', $this->idUrusanPilihan)->get();
+
+        $this->reset('bidangUrusan');
     }
 
     public function updatedIdOpdPilihan($opd)
@@ -39,7 +51,7 @@ class LaporanFormA extends Component
         $this->subOpds = SubOpd::where('opd_id', $opd)
             ->orderBy('kode')
             ->get();
-        $this->idSubOpdPilihan = null;
+        $this->reset('idSubOpdPilihan');
     }
 
     public function rules()

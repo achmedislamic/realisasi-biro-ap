@@ -43,8 +43,6 @@ Route::middleware(['auth', 'hasTahapanApbd', 'admin'])->group(function () {
     Route::get('/master/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
     Route::get('/master/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
 
-    Route::get('/laporan/cetak-deviasi', CetakLaporanDeviasi::class)->name('laporan-deviasi');
-
     require __DIR__.'/master/index.php';
     require __DIR__.'/laporan.php';
 });
