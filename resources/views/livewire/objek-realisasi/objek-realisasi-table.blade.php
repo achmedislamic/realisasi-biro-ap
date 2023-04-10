@@ -1,31 +1,33 @@
 <div>
+    @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
     <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
-        @if (auth()->user()->isAdmin())
         <div class="w-1/2 flex gap-2">
-            <div class="w-full">
-                <x-native-select label="OPD" wire:model="opdPilihan">
-                    <option selected>Pilih OPD</option>
-                    @foreach ($pods as $opd)
-                    <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
-                    @endforeach
-                </x-native-select>
-            </div>
+            @if (auth()->user()->isAdmin())
+                <div class="w-full">
+                    <x-native-select label="OPD" wire:model="opdPilihan">
+                        <option value="">Pilih OPD</option>
+                        @foreach ($pods as $opd)
+                        <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+            @endif
 
-            <div class="w-full">
-                <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
-                    <option selected>Pilih Sub OPD (Unit)</option>
-                    @foreach ($subOpds as $subOpd)
-                    <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
-                    @endforeach
-                </x-native-select>
-            </div>
-        </div>
-        @endif
 
-        <div class="flex items-end">
-            <x-button primary icon="filter" label="Filter" wire:click="render" />
+            @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
+                <div class="w-full">
+                    <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
+                        <option value="">Pilih Sub OPD (Unit)</option>
+                        @foreach ($subOpds as $subOpd)
+                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+            @endif
         </div>
     </div>
+    @endif
+
 
     <div class="flex flex-col gap-y-4">
 
@@ -40,6 +42,9 @@
 
             <x-table.thead>
                 <tr>
+                    <x-table.th class="w-36">
+                        Aksi
+                    </x-table.th>
                     <x-table.th>
                         #
                     </x-table.th>
@@ -61,38 +66,11 @@
                     <x-table.th>
                         Realisasi
                     </x-table.th>
-                    <x-table.th class="w-36">
-                        Aksi
-                    </x-table.th>
                 </tr>
             </x-table.thead>
             <tbody>
                 @foreach ($realisasiApbds as $key => $objekRealisasi)
                 <x-table.tr>
-                    <x-table.td>
-                        {{ $realisasiApbds->firstItem() + $key }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->subOpd->opd->kode." ".$objekRealisasi->subOpd->opd->nama }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->subOpd->kode." ".$objekRealisasi->subOpd->nama }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->subKegiatan->kode." ".$objekRealisasi->subKegiatan->nama }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->subRincianObjekBelanja->kode."
-                        ".$objekRealisasi->subRincianObjekBelanja->nama
-                        }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->realisasis->sum('jumlah')) }}
-                    </x-table.td>
-
                     <x-table.td>
                         <x-button.circle warning xs icon="pencil"
                             :href="route('objek-realisasi.form', [$objekRealisasi->id])" />
@@ -110,6 +88,29 @@
                             }" />
                         <x-button.circle positive xs icon="folder-open"
                             wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" />
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $realisasiApbds->firstItem() + $key }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $objekRealisasi->kode_opd." ".$objekRealisasi->kode_sub_opd }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $objekRealisasi->kode_sub_opd." ".$objekRealisasi->nama_sub_opd }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $objekRealisasi->subKegiatan->kode." ".$objekRealisasi->subKegiatan->nama }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $objekRealisasi->kode_sub_rincian_objek_belanja."
+                        ".$objekRealisasi->nama_sub_rincian_objek_belanja
+                        }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->realisasis->sum('jumlah')) }}
                     </x-table.td>
                 </x-table.tr>
                 @endforeach

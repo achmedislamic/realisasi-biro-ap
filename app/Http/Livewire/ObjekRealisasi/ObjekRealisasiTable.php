@@ -22,18 +22,30 @@ class ObjekRealisasiTable extends Component
 
     public $subOpds;
 
-    public $opdPilihan = null;
+    public $opdPilihan;
 
-    public $subOpdPilihan = null;
+    public $subOpdPilihan;
 
-    protected $queryString = ['cari' => ['except' => '']];
+    protected $queryString = ['cari' => ['except' => ''], 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
 
     public function mount()
     {
         $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
 
-        $this->pods = Opd::orderBy('kode')->get();
+        if(auth()->user()->isAdmin()){
+            $this->pods = Opd::orderBy('kode')->get();
+        }
+
         $this->subOpds = collect();
+
+        if(auth()->user()->isOpd()){
+            $this->opdPilihan = auth()->user()->role->imageable_id;
+            $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
+        }
+
+        if(auth()->user()->isSubOpd()){
+            $this->subOpdPilihan = auth()->user()->role->imageable_id;
+        }
     }
 
     public function updatedOpdPilihan($opd)
@@ -68,16 +80,18 @@ class ObjekRealisasiTable extends Component
 
     public function render()
     {
-        $subOpdPilihan = $this->subOpdPilihan;
-
         $realisasiApbds = ObjekRealisasi::query()
             ->with('realisasis')
+            ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'opds.kode AS kode_opd', 'sub_opds.kode AS kode_sub_opd', 'sub_opds.nama AS nama_sub_opd', 'sub_rincian_objek_belanjas.kode AS kode_sub_rincian_objek_belanja', 'sub_rincian_objek_belanjas.nama AS nama_sub_rincian_objek_belanja')
+            ->join('sub_rincian_objek_belanjas', 'sub_rincian_objek_belanjas.id', '=', 'objek_realisasis.sub_rincian_objek_id')
+            ->join('sub_opds', 'sub_opds.id', '=', 'objek_realisasis.sub_opd_id')
+            ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
             ->where('tahapan_apbd_id', cache('tahapanApbd')->id)
-            ->when(auth()->user()->isOpd(), function (Builder $query) {
-                $query->where('sub_opd_id', auth()->user()->sub_opd_id);
+            ->when(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
+                $query->where('opds.id', $this->opdPilihan);
             })
-            ->when(! $subOpdPilihan == '', function (Builder $query) use ($subOpdPilihan) {
-                $query->where('sub_opd_id', $subOpdPilihan);
+            ->when(filled($this->subOpdPilihan), function (Builder $query) {
+                $query->where('sub_opds.id', $this->subOpdPilihan);
             })
             ->pencarian($this->cari)
             ->paginate();

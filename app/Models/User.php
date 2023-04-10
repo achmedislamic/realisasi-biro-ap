@@ -29,6 +29,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['role'];
+
     public function role(): HasOne
     {
         return $this->hasOne(UserRole::class);
@@ -47,6 +49,11 @@ class User extends Authenticatable
     public function isOpd(): bool
     {
         return $this->role->role_name === RoleName::OPD;
+    }
+
+    public function isSubOpd(): bool
+    {
+        return $this->role->role_name === RoleName::SUB_OPD;
     }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder
