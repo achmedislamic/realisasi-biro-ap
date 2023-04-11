@@ -16,7 +16,7 @@ class PilihTahunAnggaran extends Component
 
     public function render()
     {
-        if(auth()->user()->isNotAdmin()){
+        if (auth()->user()->isNotAdmin()) {
             cache()->forever('tahapanApbd', TahapanApbd::latest()->first());
 
             return to_route('dashboard');

@@ -14,10 +14,10 @@ class LaporanFormAExport implements FromView
         public string $bulan,
         public int $opdId,
         public ?int $subOpdId = null
-    )
-    {
+    ) {
         //
     }
+
     public function view(): View
     {
         $bulan = Carbon::createFromFormat('Y-m-d', $this->bulan);

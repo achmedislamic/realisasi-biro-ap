@@ -24,14 +24,14 @@ class ObjekRealisasi extends Model
         return $this->anggaran - $totalRealisasi;
     }
 
+    public function bidangUrusanSubOpd(): BelongsTo
+    {
+        return $this->belongsTo(BidangUrusanSubOpd::class);
+    }
+
     public function tahapanApbd(): BelongsTo
     {
         return $this->belongsTo(TahapanApbd::class);
-    }
-
-    public function subOpd(): BelongsTo
-    {
-        return $this->belongsTo(SubOpd::class);
     }
 
     public function subKegiatan(): BelongsTo

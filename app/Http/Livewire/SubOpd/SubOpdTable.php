@@ -4,7 +4,6 @@ namespace App\Http\Livewire\SubOpd;
 
 use App\Models\{Opd, SubOpd};
 use App\Traits\Pencarian;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 

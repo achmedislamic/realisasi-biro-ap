@@ -17,7 +17,9 @@ class ImportObjekRealisasi implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private $realisasiChunk, private $idTahapanApbd) {}
+    public function __construct(private $realisasiChunk, private $idTahapanApbd)
+    {
+    }
 
     /**
      * Execute the job.
@@ -32,7 +34,7 @@ class ImportObjekRealisasi implements ShouldQueue
 
             $bidangUrusan = BidangUrusan::firstOrCreate([
                 'urusan_id' => $urusan->id,
-                'kode' => str($item['Bidang Urusan'])->before(' ')->after($urusan->kode . '.'),
+                'kode' => str($item['Bidang Urusan'])->before(' ')->after($urusan->kode.'.'),
                 'nama' => str($item['Bidang Urusan'])->after(' '),
             ]);
 
@@ -43,7 +45,7 @@ class ImportObjekRealisasi implements ShouldQueue
 
             $subOpd = SubOpd::firstOrCreate([
                 'opd_id' => $opd->id,
-                'kode' => str($item['Sub Unit'])->before(' ')->after($opd->kode . '.'),
+                'kode' => str($item['Sub Unit'])->before(' ')->after($opd->kode.'.'),
                 'nama' => str($item['Sub Unit'])->after(' '),
             ]);
 
@@ -53,19 +55,19 @@ class ImportObjekRealisasi implements ShouldQueue
             ]);
 
             $program = Program::firstOrCreate([
-                'kode' => str($item['Program'])->before(' ')->after($urusan->kode . '.' . $bidangUrusan->kode . '.'),
+                'kode' => str($item['Program'])->before(' ')->after($urusan->kode.'.'.$bidangUrusan->kode.'.'),
                 'nama' => str($item['Program'])->after(' '),
             ]);
 
             $kegiatan = Kegiatan::firstOrCreate([
                 'program_id' => $program->id,
-                'kode' => str($item['Kegiatan'])->before(' ')->after($urusan->kode . '.' . $bidangUrusan->kode . '.' . $program->kode . '.'),
+                'kode' => str($item['Kegiatan'])->before(' ')->after($urusan->kode.'.'.$bidangUrusan->kode.'.'.$program->kode.'.'),
                 'nama' => str($item['Kegiatan'])->after(' '),
             ]);
 
             $subKegiatan = SubKegiatan::firstOrCreate([
                 'kegiatan_id' => $kegiatan->id,
-                'kode' => str($item['Sub Kegiatan'])->before(' ')->after($urusan->kode . '.' . $bidangUrusan->kode . '.' . $program->kode . '.' . $kegiatan->kode . '.'),
+                'kode' => str($item['Sub Kegiatan'])->before(' ')->after($urusan->kode.'.'.$bidangUrusan->kode.'.'.$program->kode.'.'.$kegiatan->kode.'.'),
                 'nama' => str($item['Sub Kegiatan'])->after(' '),
             ]);
 
@@ -82,29 +84,29 @@ class ImportObjekRealisasi implements ShouldQueue
 
             $jenisBelanja = JenisBelanja::firstOrCreate([
                 'kelompok_belanja_id' => $kelompokBelanja->id,
-                'kode' => str($item['Jenis'])->before(' ')->after($akunBelanja->kode . $kelompokBelanja->kode . '.'),
+                'kode' => str($item['Jenis'])->before(' ')->after($akunBelanja->kode.$kelompokBelanja->kode.'.'),
                 'nama' => str($item['Jenis'])->after(' '),
             ]);
 
             $objekBelanja = ObjekBelanja::firstOrCreate([
                 'jenis_belanja_id' => $jenisBelanja->id,
-                'kode' => str($item['Objek'])->before(' ')->after($akunBelanja->kode . $kelompokBelanja->kode . '.' . $jenisBelanja->kode . '.'),
+                'kode' => str($item['Objek'])->before(' ')->after($akunBelanja->kode.$kelompokBelanja->kode.'.'.$jenisBelanja->kode.'.'),
                 'nama' => str($item['Objek'])->after(' '),
             ]);
 
             $rincianObjekBelanja = RincianObjekBelanja::firstOrCreate([
                 'objek_belanja_id' => $objekBelanja->id,
-                'kode' => str($item['Rincian Obyek'])->before(' ')->after($akunBelanja->kode . $kelompokBelanja->kode . '.' . $jenisBelanja->kode . '.' . $objekBelanja->kode . '.'),
+                'kode' => str($item['Rincian Obyek'])->before(' ')->after($akunBelanja->kode.$kelompokBelanja->kode.'.'.$jenisBelanja->kode.'.'.$objekBelanja->kode.'.'),
                 'nama' => str($item['Rincian Obyek'])->after(' '),
             ]);
 
             $subRincianObjekBelanja = SubRincianObjekBelanja::firstOrCreate([
                 'rincian_objek_belanja_id' => $rincianObjekBelanja->id,
-                'kode' => str($item['Rekening (Sub Rincian Obyek)'])->before(' ')->after($akunBelanja->kode . $kelompokBelanja->kode . '.' . $jenisBelanja->kode . '.' . $objekBelanja->kode . '.' . $rincianObjekBelanja->kode . '.'),
+                'kode' => str($item['Rekening (Sub Rincian Obyek)'])->before(' ')->after($akunBelanja->kode.$kelompokBelanja->kode.'.'.$jenisBelanja->kode.'.'.$objekBelanja->kode.'.'.$rincianObjekBelanja->kode.'.'),
                 'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' '),
             ]);
 
-            if(! is_null($bidangUrusanSubOpd->id) && ! is_null($subKegiatan->id) && ! is_null($subRincianObjekBelanja->id)){
+            if (! is_null($bidangUrusanSubOpd->id) && ! is_null($subKegiatan->id) && ! is_null($subRincianObjekBelanja->id)) {
                 ObjekRealisasi::updateOrCreate(
                     [
                         'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,

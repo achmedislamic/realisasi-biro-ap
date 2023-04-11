@@ -3,11 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Exports\LaporanDeviasiExport;
-use App\Models\Opd;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class CetakLaporanDeviasi extends Component
 {
@@ -17,7 +14,7 @@ class CetakLaporanDeviasi extends Component
     {
         return Excel::download(new LaporanDeviasiExport($this->bulan), 'laporan.xlsx');
     }
-    
+
     public function render()
     {
         $date = \Carbon\Carbon::createFromDate(cache('tahapanApbd')->tahun, 1, 1);
@@ -38,7 +35,7 @@ class CetakLaporanDeviasi extends Component
         }
 
         return view('livewire.cetak-laporan-deviasi', [
-            'months' => $results
+            'months' => $results,
         ]);
     }
 }

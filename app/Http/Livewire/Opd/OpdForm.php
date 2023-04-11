@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Opd;
 
 use App\Models\{BidangUrusan, Opd};
 use App\Traits\WithLiveValidation;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 

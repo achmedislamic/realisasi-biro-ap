@@ -12,6 +12,7 @@ class LaporanDeviasiExport implements FromView
     {
         //
     }
+
     public function view(): View
     {
         $rows = Opd::query()
@@ -19,14 +20,14 @@ class LaporanDeviasiExport implements FromView
             ->join('sub_opds AS so', 'so.opd_id', '=', 'opds.id')
             ->join('objek_realisasis AS or', 'or.sub_opd_id', '=', 'so.id')
             ->leftJoin('realisasis AS r', 'or.id', '=', 'r.objek_realisasi_id')
-            ->whereBetween('tanggal', [cache('tahapanApbd')->tahun . '-01-01', $this->bulan])
+            ->whereBetween('tanggal', [cache('tahapanApbd')->tahun.'-01-01', $this->bulan])
             ->groupBy('opds.id')
             ->orderBy('opds.nama')
             ->get();
 
         return view('exports.laporan-deviasi-export', [
             'rows' => $rows,
-            'periode' => str(\Carbon\Carbon::createFromFormat('Y-m-d', $this->bulan)->translatedFormat('F Y'))->upper()
+            'periode' => str(\Carbon\Carbon::createFromFormat('Y-m-d', $this->bulan)->translatedFormat('F Y'))->upper(),
         ]);
     }
 }

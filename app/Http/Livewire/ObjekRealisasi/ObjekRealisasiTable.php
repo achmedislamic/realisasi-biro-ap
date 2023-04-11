@@ -32,18 +32,18 @@ class ObjekRealisasiTable extends Component
     {
         $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
 
-        if(auth()->user()->isAdmin()){
+        if (auth()->user()->isAdmin()) {
             $this->pods = Opd::orderBy('kode')->get();
         }
 
         $this->subOpds = collect();
 
-        if(auth()->user()->isOpd()){
+        if (auth()->user()->isOpd()) {
             $this->opdPilihan = auth()->user()->role->imageable_id;
             $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
         }
 
-        if(auth()->user()->isSubOpd()){
+        if (auth()->user()->isSubOpd()) {
             $this->subOpdPilihan = auth()->user()->role->imageable_id;
         }
     }
@@ -84,7 +84,8 @@ class ObjekRealisasiTable extends Component
             ->with('realisasis')
             ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'opds.kode AS kode_opd', 'sub_opds.kode AS kode_sub_opd', 'sub_opds.nama AS nama_sub_opd', 'sub_rincian_objek_belanjas.kode AS kode_sub_rincian_objek_belanja', 'sub_rincian_objek_belanjas.nama AS nama_sub_rincian_objek_belanja')
             ->join('sub_rincian_objek_belanjas', 'sub_rincian_objek_belanjas.id', '=', 'objek_realisasis.sub_rincian_objek_id')
-            ->join('sub_opds', 'sub_opds.id', '=', 'objek_realisasis.sub_opd_id')
+            ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'objek_realisasis.bidang_urusan_sub_opd_id')
+            ->join('sub_opds', 'sub_opds.id', '=', 'buso.sub_opd_id')
             ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
             ->where('tahapan_apbd_id', cache('tahapanApbd')->id)
             ->when(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {

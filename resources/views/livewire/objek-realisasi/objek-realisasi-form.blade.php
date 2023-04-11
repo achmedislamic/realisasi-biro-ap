@@ -1,6 +1,6 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Form Objek Realisasi
+        Form Data Anggaran
     </h2>
 </x-slot>
 
@@ -8,6 +8,26 @@
 
     <form wire:submit.prevent="simpan">
         <div class="flex flex-col space-y-3">
+            <div class="flex gap-x-4">
+                <div class="w-full">
+                    <x-native-select label="Urusan" wire:model="urusanPilihan">
+                        <option selected>Pilih Urusan</option>
+                        @foreach ($urusans as $urusan)
+                        <option value="{{ $urusan->id }}">{{ $urusan->kode }} - {{ $urusan->nama}}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+
+                <div class="w-full">
+                    <x-native-select label="Bidang Urusan" wire:model.defer="bidangUrusanPilihan">
+                        <option selected>Pilih Bidang Urusan</option>
+                        @foreach ($bidangUrusans as $bidangUrusan)
+                        <option value="{{ $bidangUrusan->id }}">{{ $bidangUrusan->kode }} - {{ $bidangUrusan->nama}}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+            </div>
+
             <div class="flex gap-x-4">
                 <div class="w-full">
                     <x-native-select label="OPD" wire:model="opdPilihan">
@@ -63,7 +83,13 @@
             </x-native-select>
 
             <div class="w-full">
-                <x-inputs.number label="Anggaran" prefix="Rp." wire:model.defer="anggaran" />
+                <x-inputs.currency
+                        label="Realisasi"
+                        thousands="."
+                        decimal=","
+                        precision="4"
+                        wire:model.lazy="anggaran"
+                    />
             </div>
 
             <div class="flex justify-between">

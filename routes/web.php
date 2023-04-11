@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\CetakLaporanDeviasiController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Livewire\CetakLaporanDeviasi;
+use App\Http\Controllers\{CetakLaporanDeviasiController, ProfileController};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
