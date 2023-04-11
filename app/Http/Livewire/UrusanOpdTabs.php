@@ -8,9 +8,7 @@ class UrusanOpdTabs extends Component
 {
     public string $tabAktif = 'urusan';
 
-    protected $listeners = [
-        'gantiTab' => 'gantiTab',
-    ];
+    protected $listeners = ['gantiTab'];
 
     public function gantiTab(string $namaTab)
     {

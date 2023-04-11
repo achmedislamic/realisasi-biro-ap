@@ -5,11 +5,11 @@
             <tbody>
                 <tr>
                     <td class="pr-5 font-semibold text-sm text-gray-400">OPD</td>
-                    <td class="text-sm">{{ $objekRealisasi->subOpd->opd->nama }}</td>
+                    <td class="text-sm">{{ $objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama }}</td>
                 </tr>
                 <tr>
                     <td class="pr-5 font-semibold text-sm text-gray-400">Sub OPD</td>
-                    <td class="text-sm">{{ $objekRealisasi->subOpd->nama }}</td>
+                    <td class="text-sm">{{ $objekRealisasi->bidangUrusanSubOpd->subOpd->nama }}</td>
                 </tr>
                 <tr>
                     <td class="pr-5 font-semibold text-sm text-gray-400">Program</td>

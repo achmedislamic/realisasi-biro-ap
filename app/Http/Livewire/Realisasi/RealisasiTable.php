@@ -15,7 +15,7 @@ class RealisasiTable extends Component
 
     public $objekRealisasiId = 0;
 
-    protected $queryString = ['cari' => ['except' => ''], 'objekRealisasiId'];
+    protected $queryString = ['cari' => ['except' => ''], 'objekRealisasiId' => ['except' => 0]];
 
     protected $listeners = [
         'pilihIdObjekRealisasiEvent' => 'pilihIdObjekRealisasi',
@@ -50,7 +50,7 @@ class RealisasiTable extends Component
             ->pencarian($this->cari)
             ->paginate();
 
-        $objekRealisasi = ObjekRealisasi::find($this->objekRealisasiId);
+        $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd')->find($this->objekRealisasiId);
 
         return view('livewire.realisasi.realisasi-table', compact(['realisasis', 'objekRealisasi']));
     }

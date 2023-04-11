@@ -22,7 +22,7 @@ class BidangUrusanSubOpd extends Pivot
 
     public function subOpd(): BelongsTo
     {
-        return $this->belongsTo(Opd::class);
+        return $this->belongsTo(SubOpd::class);
     }
 
     public function scopePencarian($query, string $cari = '')

@@ -47,10 +47,10 @@ class RealisasiForm extends Component
     {
         $this->submitText = 'Simpan Realisasi';
         $this->objekRealisasiId = $objekRealisasiId;
-        $this->objekRealisasi = ObjekRealisasi::find($objekRealisasiId);
+        $this->objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd.opd')->find($objekRealisasiId);
 
-        $this->pod = $this->objekRealisasi->subOpd->opd->nama;
-        $this->subOpd = $this->objekRealisasi->subOpd->nama;
+        $this->pod = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama;
+        $this->subOpd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->nama;
         $this->program = $this->objekRealisasi->subKegiatan->kegiatan->program->nama;
         $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
         $this->subKegiatan = $this->objekRealisasi->subKegiatan->nama;
