@@ -50,6 +50,8 @@ class OpdTable extends Component
 
     public function render()
     {
+        // $opds = Opd::query()
+        //     ->
         $bidangUrusanSubOpds = BidangUrusanSubOpd::query()
             ->with('bidangUrusan')
             ->where('bidang_urusan_id', $this->idBidangUrusan)

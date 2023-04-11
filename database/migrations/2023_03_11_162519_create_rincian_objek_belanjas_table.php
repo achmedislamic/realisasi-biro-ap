@@ -6,18 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('rincian_objek_belanjas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('objek_belanja_id')->constrained();
             $table->string('kode');
-            $table->string('nama');
+            $table->string('nama', 500);
             $table->timestamps();
         });
     }
