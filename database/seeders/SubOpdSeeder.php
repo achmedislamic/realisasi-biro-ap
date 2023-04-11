@@ -9,6 +9,6 @@ class SubOpdSeeder extends Seeder
 {
     public function run(): void
     {
-        SubOpd::create(['kode' => '1.01.2.22.0.00.02.0006', 'nama' => 'Cabang Dinas Pendidikan dan Kebudayaan Sumbawa', 'opd_id' => 1]);
+        SubOpd::create(['kode' => '0006', 'nama' => 'Cabang Dinas Pendidikan dan Kebudayaan Sumbawa', 'opd_id' => 1]);
     }
 }

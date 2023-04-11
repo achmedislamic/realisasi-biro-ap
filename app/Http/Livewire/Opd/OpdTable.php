@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Opd;
 
-use App\Models\{BidangUrusan, Opd};
+use App\Models\{BidangUrusan, BidangUrusanSubOpd, Opd};
 use App\Traits\Pencarian;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
@@ -50,14 +51,21 @@ class OpdTable extends Component
 
     public function render()
     {
+        // daftar opd yang memiliki bidang urusan terpilih
         $opds = Opd::query()
-            ->with('bidangUrusans')
-            ->whereBidangUrusanId($this->idBidangUrusan)
+            ->whereHas('subOpds.bidangUrusans', function (Builder $query) {
+                $query->where('bidang_urusans.id', $this->idBidangUrusan);
+            })
             ->pencarian($this->cari)
             ->paginate();
+        // $bidangUrusanSubOpds = BidangUrusanSubOpd::query()
+        //     ->with('bidangUrusan')
+        //     ->where('bidang_urusan_id', $this->idBidangUrusan)
+        //     ->pencarian($this->cari)
+        //     ->paginate();
 
         $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
 
-        return view('livewire.opd.opd-table', compact(['opds', 'bidangUrusan']));
+        return view('livewire.opd.opd-table', compact('opds', 'bidangUrusan'));
     }
 }

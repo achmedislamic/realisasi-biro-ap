@@ -38,7 +38,7 @@
             @foreach ($opds as $key => $opd)
             <x-table.tr>
                 <x-table.td>
-                    {{ $opds->firstItem() + $key }}
+                    {{ $loop->iteration }}
                 </x-table.td>
                 <x-table.td>
                     {{ $opd->kode }}

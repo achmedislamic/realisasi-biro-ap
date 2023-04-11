@@ -6,16 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('sub_opds', function (Blueprint $table) {
+        Schema::create('bidang_urusan_sub_opds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('opd_id')->constrained();
-            $table->string('kode')->nullable();
-            $table->string('nama');
+            $table->foreignId('bidang_urusan_id')->constrained();
+            $table->foreignId('sub_opd_id')->constrained();
             $table->timestamps();
         });
     }

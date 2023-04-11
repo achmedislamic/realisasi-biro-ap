@@ -6,17 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('kode');
-            $table->string('nama');
+            $table->string('nama', 500);
             $table->timestamps();
         });
     }

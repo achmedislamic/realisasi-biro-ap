@@ -34,9 +34,8 @@ class BidangUrusan extends Model
         return $this->belongsTo(Urusan::class);
     }
 
-    public function opds(): BelongsToMany
+    public function subOpds(): BelongsToMany
     {
-        return $this->belongsToMany(Opd::class, 'bidang_urusan_opds', 'bidang_urusan_id')
-        ->withTimestamps();
+        return $this->belongsToMany(SubOpd::class);
     }
 }
