@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Pekerjaan;
 
 use App\Models\Pekerjaan;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class PekerjaanTable extends Component

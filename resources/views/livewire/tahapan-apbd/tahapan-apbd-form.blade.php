@@ -11,8 +11,10 @@
                 :options="[2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035]"
                 wire:model.defer="tahapan.tahun" />
             <x-input label="Nama Tahapan" wire:model.defer="tahapan.nama" placeholder="Masukkan nama tahapan" />
-            <div class="ml-auto">
-                <x-button type="submit" positive label="Simpan" />
+            <x-input label="Nomor DPA" wire:model.defer="tahapan.nomor_dpa" placeholder="Masukkan nomor DPA" />
+            <div class="flex justify-between">
+                <x-button gray label="Kembali" :href="route('tahapan-apbd')" />
+                <x-button type="submit" positive label="{{ $buttonText }}" />
             </div>
         </div>
     </form>

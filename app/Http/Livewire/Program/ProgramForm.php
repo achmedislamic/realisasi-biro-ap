@@ -5,18 +5,29 @@ namespace App\Http\Livewire\Program;
 use App\Models\Program;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class ProgramForm extends Component
 {
     use WithLiveValidation;
+    use Actions;
 
-    private ?int $IdProgram = null;
+    public ?int $IdProgram = null;
+
     public Program $program;
+
+    public String $buttonText;
 
     public function mount(int $id = null): void
     {
-        $this->IdProgram = $id;
-        $this->program = is_null($id) ? new Program() : Program::find($id);
+        if (is_null($id)) {
+            $this->buttonText = 'Simpan';
+            $this->program = new Program();
+        } else {
+            $this->buttonText = 'Simpan Perubahan';
+            $this->IdProgram = $id;
+            $this->program = Program::find($id);
+        }
     }
 
     protected function rules(): array
@@ -33,7 +44,18 @@ class ProgramForm extends Component
 
         $this->program->save();
 
-        return to_route('program');
+        if (is_null($this->IdProgram)) {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data program tersimpan.'
+            );
+            $this->program = new Program();
+        } else {
+            $this->notification()->success(
+                'BERHASIL',
+                'Data program diubah.'
+            );
+        }
     }
 
     public function render()

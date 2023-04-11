@@ -3,7 +3,6 @@
 namespace Tests\Traits;
 
 use App\Models\User;
-use App\Services\User\AcceptPolicy;
 
 trait SignIn
 {

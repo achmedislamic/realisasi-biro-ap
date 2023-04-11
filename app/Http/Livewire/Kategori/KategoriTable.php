@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Kategori;
 
 use App\Models\Kategori;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class KategoriTable extends Component
@@ -21,11 +20,10 @@ class KategoriTable extends Component
         Kategori::destroy($id);
     }
 
-
     public function render()
     {
         $kategoris = Kategori::query()->pencarian($this->cari)->paginate();
 
-        return view('livewire.kategori.kategori-table', compact("kategoris"));
+        return view('livewire.kategori.kategori-table', compact('kategoris'));
     }
 }

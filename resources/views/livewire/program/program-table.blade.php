@@ -1,10 +1,5 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Program
-    </h2>
-</x-slot>
+<div class="flex flex-col gap-y-4">
 
-<x-container>
     <x-table.index :model="$programs">
 
         <x-slot name="table_actions">
@@ -13,6 +8,9 @@
 
         <x-table.thead>
             <tr>
+                <x-table.th>
+                    #
+                </x-table.th>
                 <x-table.th>
                     Kode
                 </x-table.th>
@@ -25,32 +23,37 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($programs as $program)
+            @foreach ($programs as $key => $program)
             <x-table.tr>
-                <x-table.td-utama>
-                    {{ $program->kode }}
-                </x-table.td-utama>
-                <x-table.td-utama>
-                    {{ $program->nama }}
-                </x-table.td-utama>
                 <x-table.td>
-                    <x-button :href="route('program.form', $program->id)" label="Ubah" warning icon="pencil" />
-                    <x-button label="Hapus" negative icon="x" x-on:confirm="{
-                            title: 'Anda yakin akan menghapus data?',
-                            icon: 'question',
-                            accept: {
-                                label: 'Hapus',
-                                method: 'hapusProgram',
-                                params: {{ $program->id }}
-                            },
-                            reject: {
-                                label: 'Batal'
-                            }
-                        }" />
+                    {{ $programs->firstItem() + $key }}
+                </x-table.td>
+                <x-table.td>
+                    {{ $program->kode }}
+                </x-table.td>
+                <x-table.td>
+                    {{ $program->nama }}
+                </x-table.td>
+                <x-table.td>
+                    <x-button.circle warning xs icon="pencil" :href="route('program.form', $program->id)" />
+                    <x-button.circle negative xs icon="trash" x-on:confirm="{
+                        title: 'Anda yakin akan menghapus data?',
+                        icon: 'question',
+                        accept: {
+                            label: 'Hapus',
+                            method: 'hapusProgram',
+                            params: {{ $program->id }}
+                        },
+                        reject: {
+                            label: 'Batal'
+                        }
+                    }" />
+                    <x-button.circle positive xs icon="folder-open"
+                        wire:click="pilihIdProgramEvent({{ $program->id }})" />
                 </x-table.td>
 
             </x-table.tr>
             @endforeach
         </tbody>
     </x-table.index>
-</x-container>
+</div>

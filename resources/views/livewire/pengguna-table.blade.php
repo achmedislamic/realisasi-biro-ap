@@ -15,6 +15,9 @@
                     Email
                 </x-table.th-sort>
                 <x-table.th>
+                    OPD / Sub OPD
+                </x-table.th>
+                <x-table.th>
                     Aksi
                 </x-table.th>
             </tr>
@@ -29,28 +32,16 @@
                     {{ $user->email }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button
-                        :href="route('pengguna.form', $user->id)"
-                        label="Ubah"
-                        warning
-                        icon="pencil"
-                    />
+                    {{ $user->role->imageable->nama ?? "-" }}
+                </x-table.td>
+                <x-table.td>
+                    <x-button :href="route('pengguna.form', $user->id)" label="Ubah" warning icon="pencil" />
 
-                     @if ($konfirmasi === $user->id)
-                        <x-button
-                            wire:click="destroy({{ $user->id }})"
-                            icon="x"
-                            dark
-                            label="Anda Yakin?"
-                        />
-                     @else
-                        <x-button
-                            wire:click="konfirmasiHapus({{ $user->id }})"
-                            icon="x"
-                            negative
-                            label="Hapus"
-                        />
-                     @endif
+                    @if ($konfirmasi === $user->id)
+                    <x-button wire:click="destroy({{ $user->id }})" icon="x" dark label="Anda Yakin?" />
+                    @else
+                    <x-button wire:click="konfirmasiHapus({{ $user->id }})" icon="x" negative label="Hapus" />
+                    @endif
                 </x-table.td>
             </x-table.tr>
             @endforeach

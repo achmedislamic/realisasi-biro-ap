@@ -11,6 +11,7 @@ class PekerjaanForm extends Component
     use WithLiveValidation;
 
     private ?int $idPekerjaan = null;
+
     public Pekerjaan $pekerjaan;
 
     public function mount(int $id = null): void
@@ -36,7 +37,6 @@ class PekerjaanForm extends Component
 
         return to_route('pekerjaan');
     }
-
 
     public function render()
     {

@@ -3,45 +3,58 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\RoleName;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $with = ['role'];
+
+    public function role(): HasOne
+    {
+        return $this->hasOne(UserRole::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->role_name === RoleName::ADMIN;
+    }
+
+    public function isNotAdmin(): bool
+    {
+        return ! $this->isAdmin();
+    }
+
+    public function isOpd(): bool
+    {
+        return $this->role->role_name === RoleName::OPD;
+    }
+
+    public function isSubOpd(): bool
+    {
+        return $this->role->role_name === RoleName::SUB_OPD;
+    }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder
     {

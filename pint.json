@@ -1,0 +1,10 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "group_import": true,
+        "single_import_per_statement": false,
+        "new_with_braces": {
+            "anonymous_class": false
+        }
+    }
+}

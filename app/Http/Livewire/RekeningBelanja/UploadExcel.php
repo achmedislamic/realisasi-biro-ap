@@ -4,8 +4,7 @@ namespace App\Http\Livewire\RekeningBelanja;
 
 use App\Models\RekeningBelanja;
 use App\Traits\WithLiveValidation;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class UploadExcel extends Component
@@ -14,12 +13,13 @@ class UploadExcel extends Component
     use WithFileUploads;
 
     public RekeningBelanja $rekening;
+
     public $file;
 
     protected function rules(): array
     {
         return [
-           'file' => 'required|mimes:xls,xlsx,csv|max:2048',
+            'file' => 'required|mimes:xls,xlsx,csv|max:2048',
         ];
     }
 
@@ -30,8 +30,8 @@ class UploadExcel extends Component
 
         $rows->each(function (array $rowProperties) {
             RekeningBelanja::create([
-                "kode" => $rowProperties["kode"],
-                "nama" => $rowProperties["nama"]
+                'kode' => $rowProperties['kode'],
+                'nama' => $rowProperties['nama'],
             ]);
         });
 

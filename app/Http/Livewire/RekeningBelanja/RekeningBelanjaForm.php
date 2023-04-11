@@ -11,6 +11,7 @@ class RekeningBelanjaForm extends Component
     use WithLiveValidation;
 
     private ?int $IdRekeningBelanja = null;
+
     public RekeningBelanja $rekening;
 
     public function mount(int $id = null): void

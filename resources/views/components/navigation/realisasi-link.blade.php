@@ -1,6 +1,10 @@
-<x-nav-dropdown-link text="Realisasi" :active="request()->routeIs('realisasi')">
-    <x-nav-dropdown-item-link text="Upload Excel" link="#" />
-    <x-nav-dropdown-item-link text="Tes Upload Excel Program Kegiatan Subkegiatan" href="{{ route('upload-program-kegiatan-subkegiatan') }}" />
-    <x-nav-dropdown-item-link text="Input Realisasi" link="#" />
-    <x-nav-dropdown-item-link text="Pokir" link="#" />
+<x-nav-dropdown-link text="Realisasi" :active="request()->segment(1) == 'realisasi'">
+    <x-nav-dropdown-item-link text="Realisasi" :href="route('realisasi')" :active="request()->routeIs('realisasi')" />
+    <x-nav-dropdown-item-link text="Input Objek Realisasi" :href="route('objek-realisasi.form')"
+        :active="request()->routeIs('objek-realisasi.form')" />
+
+    @if (auth()->user()->isAdmin())
+    <x-nav-dropdown-item-link text="Import Objek Realisasi" :href="route('objek-realisasi.import')"
+        :active="request()->routeIs('objek-realisasi.import')" />
+    @endif
 </x-nav-dropdown-link>

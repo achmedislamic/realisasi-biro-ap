@@ -4,8 +4,7 @@ namespace App\Http\Livewire\AnggotaDprd;
 
 use App\Models\AnggotaDprd;
 use App\Traits\Pencarian;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class AnggotaDprdTable extends Component
@@ -25,6 +24,6 @@ class AnggotaDprdTable extends Component
     {
         $anggotaDprds = AnggotaDprd::query()->pencarian($this->cari)->paginate();
 
-        return view('livewire.anggota-dprd.anggota-dprd-table', compact("anggotaDprds"));
+        return view('livewire.anggota-dprd.anggota-dprd-table', compact('anggotaDprds'));
     }
 }

@@ -14,13 +14,16 @@
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @livewireStyles
 </head>
 
 <body>
     <div class="font-sans text-gray-900 antialiased">
         {{ $slot }}
     </div>
+    @wireUiScripts
     <script src="{{ mix('js/app.js') }}" defer></script>
+    @livewireScripts
 </body>
 
 </html>

@@ -1,49 +1,48 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{CetakLaporanDeviasiController, ProfileController};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
+    Route::middleware('hasTahapanApbd')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    Route::get('/ta', \App\Http\Controllers\PilihTahunAnggaranController::class)
+        ->name('pilih-ta');
+
+    require __DIR__.'/realisasi.php';
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+Route::middleware(['auth', 'hasTahapanApbd', 'admin'])->group(function () {
     Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
     Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
 
-    Route::get('/tahapan-apbd', App\Http\Livewire\TahapanApbd\TahapanApbdTable::class)->name('tahapan-apbd');
-    Route::get('/tahapan-apbd/form/{id?}', App\Http\Livewire\TahapanApbd\TahapanApbdForm::class)->name('tahapan-apbd.form');
+    Route::get('/master/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');
+    Route::get('/master/pekerjaan/form/{id?}', App\Http\Livewire\Pekerjaan\PekerjaanForm::class)->name('pekerjaan.form');
+    Route::get('/master/pekerjaan/form-upload', App\Http\Livewire\Pekerjaan\UploadExcel::class)->name('pekerjaan.form-upload');
 
+    Route::get('/master/satuan', App\Http\Livewire\SatuanTable::class)->name('satuan');
+    Route::get('/master/satuan/form/{id?}', App\Http\Livewire\SatuanForm::class)->name('satuan.form');
 
-    Route::get('/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');
-    Route::get('/pekerjaan/form/{id?}', App\Http\Livewire\Pekerjaan\PekerjaanForm::class)->name('pekerjaan.form');
-    Route::get('/pekerjaan/form-upload', App\Http\Livewire\Pekerjaan\UploadExcel::class)->name('pekerjaan.form-upload');
+    Route::get('/master/rekening-belanja', App\Http\Livewire\RekeningBelanja\RekeningBelanjaTable::class)->name('rekening-belanja');
+    Route::get('/master/rekening-belanja/form/{id?}', App\Http\Livewire\RekeningBelanja\RekeningBelanjaForm::class)->name('rekening-belanja.form');
+    Route::get('/master/rekening-belanja/form-upload', App\Http\Livewire\RekeningBelanja\UploadExcel::class)->name('rekening-belanja.form-upload');
 
-    Route::get('/satuan', App\Http\Livewire\SatuanTable::class)->name('satuan');
-    Route::get('/satuan/form/{id?}', App\Http\Livewire\SatuanForm::class)->name('satuan.form');
+    Route::get('/master/anggota-dprd', App\Http\Livewire\AnggotaDprd\AnggotaDprdTable::class)->name('anggota-dprd');
+    Route::get('/master/anggota-dprd/form/{id?}', App\Http\Livewire\AnggotaDprd\AnggotaDprdForm::class)->name('anggota-dprd.form');
 
-    Route::get('/rekening-belanja', App\Http\Livewire\RekeningBelanja\RekeningBelanjaTable::class)->name('rekening-belanja');
-    Route::get('/rekening-belanja/form/{id?}', App\Http\Livewire\RekeningBelanja\RekeningBelanjaForm::class)->name('rekening-belanja.form');
-    Route::get('/rekening-belanja/form-upload', App\Http\Livewire\RekeningBelanja\UploadExcel::class)->name('rekening-belanja.form-upload');
+    Route::get('/master/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
+    Route::get('/master/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
 
-    Route::get('/anggota-dprd', App\Http\Livewire\AnggotaDprd\AnggotaDprdTable::class)->name('anggota-dprd');
-    Route::get('/anggota-dprd/form/{id?}', App\Http\Livewire\AnggotaDprd\AnggotaDprdForm::class)->name('anggota-dprd.form');
-
-    Route::get('/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
-    Route::get('/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
-
-    Route::get('/program', App\Http\Livewire\Program\ProgramTable::class)->name('program');
-    Route::get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
-
-    Route::get('/realisasi/upload-program-kegiatan-subkegiatan', App\Http\Livewire\UploadProgramKegiatanSubkegiatan::class)->name('upload-program-kegiatan-subkegiatan');
+    require __DIR__.'/master/index.php';
+    require __DIR__.'/laporan.php';
 });
 
 require __DIR__.'/auth.php';
