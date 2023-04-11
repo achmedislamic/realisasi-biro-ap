@@ -104,10 +104,6 @@ class ImportObjekRealisasi implements ShouldQueue
                 'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' '),
             ]);
 
-            // if(is_null($bidangUrusanSubOpd->id)){
-            //     dd($bidangUrusan->id, $subOpd->id, $bidangUrusanSubOpd);
-            // }
-
             if(! is_null($bidangUrusanSubOpd->id) && ! is_null($subKegiatan->id) && ! is_null($subRincianObjekBelanja->id)){
                 ObjekRealisasi::updateOrCreate(
                     [
