@@ -10,8 +10,7 @@ use WireUi\Traits\Actions;
 
 class OpdForm extends Component
 {
-    use WithLiveValidation;
-    use Actions;
+    use Actions, WithLiveValidation;
 
     public ?int $idOpd = null;
 
@@ -46,26 +45,29 @@ class OpdForm extends Component
     public function simpan()
     {
         $this->validate();
+
         $this->opd->save();
-        $idOpd = DB::getPdo()->lastInsertId();
 
-        if ($idOpd) {
-            $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
-            $bidangUrusan->opds()->attach($idOpd);
-        }
+        $this->notification()->success(
+            'BERHASIL',
+            'Data OPD tersimpan.'
+        );
 
-        if (is_null($this->idOpd)) {
-            $this->notification()->success(
-                'BERHASIL',
-                'Data OPD tersimpan.'
-            );
-            $this->opd = new Opd();
-        } else {
-            $this->notification()->success(
-                'BERHASIL',
-                'Data OPD diubah.'
-            );
-        }
+        $this->opd = new Opd();
+
+        // if ($this->opd->id) {
+        //     $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
+        //     $bidangUrusan->opds()->attach($this->opd->id);
+        // }
+
+        // if (is_null($this->idOpd)) {
+
+        // } else {
+        //     $this->notification()->success(
+        //         'BERHASIL',
+        //         'Data OPD diubah.'
+        //     );
+        // }
     }
 
     public function render()

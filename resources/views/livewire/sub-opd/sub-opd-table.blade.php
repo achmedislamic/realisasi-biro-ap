@@ -2,11 +2,11 @@
     <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-2 h-0.5"></div>
-            <p>{{ $opd->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->bidangUrusans[0]->urusan->nama ?? "" }}</p>
+            <p>{{ $opd->subOpds[0]->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->subOpds[0]->bidangUrusans[0]->urusan->nama ?? "" }}</p>
         </div>
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-4 h-0.5"></div>
-            <p>{{ $opd->bidangUrusans[0]->kode ?? "" }} {{ $opd->bidangUrusans[0]->nama ?? "" }}</p>
+            <p>{{ $opd->subOpds[0]->bidangUrusans[0]->kode ?? "" }} {{ $opd->subOpds[0]->bidangUrusans[0]->nama ?? "" }}</p>
         </div>
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-8 h-0.5"></div>

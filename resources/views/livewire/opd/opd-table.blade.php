@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <x-table.index :model="$bidangUrusans">
+    <x-table.index :model="$opds">
 
         <x-slot name="table_actions">
             @if ($idBidangUrusan != 0)
@@ -35,32 +35,32 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($bidangUrusanSubOpds as $key => $bidangUrusan)
+            @foreach ($opds as $key => $opd)
             <x-table.tr>
                 <x-table.td>
                     {{ $loop->iteration }}
                 </x-table.td>
                 <x-table.td>
-                    {{ $bidangUrusan->opd->kode }}
+                    {{ $opd->kode }}
                 </x-table.td>
                 <x-table.td>
-                    {{ $bidangUrusan->opd->nama }}
+                    {{ $opd->nama }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button.circle warning xs icon="pencil" :href="route('opd.form', [$idBidangUrusan, $bidangUrusan->opd->id])" />
+                    <x-button.circle warning xs icon="pencil" :href="route('opd.form', [$idBidangUrusan, $opd->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
                             accept: {
                                 label: 'Hapus',
                                 method: 'hapusOpd',
-                                params: {{ $bidangUrusan->opd->id }}
+                                params: {{ $opd->id }}
                             },
                             reject: {
                                 label: 'Batal'
                             }
                         }" />
-                    <x-button.circle positive xs icon="folder-open" wire:click="pilihIdOpdEvent({{ $bidangUrusan->opd->id }})" />
+                    <x-button.circle positive xs icon="folder-open" wire:click="pilihIdOpdEvent({{ $opd->id }})" />
                 </x-table.td>
             </x-table.tr>
             @endforeach

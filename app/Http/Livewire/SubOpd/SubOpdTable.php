@@ -4,6 +4,7 @@ namespace App\Http\Livewire\SubOpd;
 
 use App\Models\{Opd, SubOpd};
 use App\Traits\Pencarian;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
@@ -49,12 +50,12 @@ class SubOpdTable extends Component
     {
         $subOpds = SubOpd::query()
             ->where('opd_id', $this->idOpd)
-            ->whereRelation('bidangUrusans', 'bidang_urusan_id', $this->idBidangUrusan)
+            ->whereRelation('bidangUrusans', 'bidang_urusans.id', $this->idBidangUrusan)
             ->pencarian($this->cari)
             ->paginate();
 
         $opd = Opd::query()
-            ->with('bidangUrusans')
+            ->with('subOpds.bidangUrusans')
             ->where('id', $this->idOpd)
             ->first();
 
