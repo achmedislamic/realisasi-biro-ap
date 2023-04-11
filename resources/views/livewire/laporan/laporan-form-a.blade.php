@@ -9,7 +9,7 @@
         <div class="flex flex-col space-y-3">
             <div class="flex gap-4">
                 <div class="w-full">
-                    <x-native-select label="Urusan" wire:model="idUrusanPilihan">
+                    <x-native-select label="Urusan" wire:model="urusanDipilih">
                         <option value="">Pilih urusan</option>
                         @foreach ($urusans as $urusan)
                         <option value="{{ $urusan->id }}">{{ $urusan->kode }} - {{ $urusan->nama}}</option>
@@ -17,7 +17,7 @@
                     </x-native-select>
                 </div>
                 <div class="w-full">
-                    <x-native-select label="Bidang Urusan" wire:model.defer="bidangUrusan">
+                    <x-native-select label="Bidang Urusan" wire:model.defer="bidangUrusanDipilih">
                         <option value="">Pilih Bidang Urusan</option>
                         @foreach ($bidangUrusans as $bidangUrusan)
                         <option value="{{ $bidangUrusan->id }}">{{ $bidangUrusan->kode }} - {{ $bidangUrusan->nama}}</option>
@@ -45,7 +45,7 @@
 
             <div class="flex gap-x-4">
                 <div class="w-full">
-                    <x-native-select label="OPD" wire:model="idOpdPilihan">
+                    <x-native-select label="OPD" wire:model="opdDipilih">
                         <option value="">Pilih OPD</option>
                         @foreach ($pods as $opd)
                         <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="w-full">
-                    <x-native-select label="Sub OPD" wire:model.defer="idSubOpdPilihan">
+                    <x-native-select label="Sub OPD" wire:model.defer="subOpdDipilih">
                         <option value="">Pilih Sub OPD (Unit)</option>
                         @foreach ($subOpds as $subOpd)
                         <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>

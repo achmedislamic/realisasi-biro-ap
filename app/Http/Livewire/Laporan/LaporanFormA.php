@@ -15,7 +15,8 @@ class LaporanFormA extends Component
     use Actions;
     use WithPagination;
 
-    public $idUrusanPilihan = null;
+    public $urusanDipilih = null;
+    public $bidangUrusanDipilih = null;
 
     public $bulan = 1;
 
@@ -23,11 +24,13 @@ class LaporanFormA extends Component
 
     public $subOpds;
 
-    public $idOpdPilihan = null;
+    public $opdDipilih = null;
 
-    public $idSubOpdPilihan = null;
+    public $subOpdDipilih = null;
 
     private $anggarans;
+
+    public $bidangUrusans;
 
     public function mount()
     {
@@ -37,34 +40,34 @@ class LaporanFormA extends Component
         $this->bidangUrusans = collect();
     }
 
-    // public function updatedIdUrusanPilihan($value)
-    // {
-    //     $this->bidangUrusans = BidangUrusan::where('urusan_id', $this->idUrusanPilihan)->get();
+    public function updatedUrusanDipilih($value)
+    {
+        $this->bidangUrusans = BidangUrusan::where('urusan_id', $value)->get();
 
-    //     $this->reset('bidangUrusan');
-    // }
+        $this->reset('bidangUrusanDipilih');
+    }
 
-    public function updatedIdOpdPilihan($opd)
+    public function updatedOpdDipilih($opd)
     {
         $this->subOpds = SubOpd::where('opd_id', $opd)
             ->orderBy('kode')
             ->get();
-        $this->reset('idSubOpdPilihan');
+        $this->reset('subOpdDipilih');
     }
 
     public function rules()
     {
         return [
-            'idUrusanPilihan' => 'required',
+            'urusanDipilih' => 'required',
             'bulan' => 'required',
-            'idOpdPilihan' => 'required',
-            'idSubOpdPilihan' => 'required',
+            'opdDipilih' => 'required',
+            'subOpdDipilih' => 'required',
         ];
     }
 
     public function cetak()
     {
-        return Excel::download(new LaporanFormAExport($this->idUrusanPilihan, $this->bulan, $this->idOpdPilihan, $this->idSubOpdPilihan), 'laporan-form-a.xlsx');
+        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->bulan, $this->opdDipilih, $this->subOpdDipilih), 'laporan-form-a.xlsx');
     }
 
     public function fecthData()

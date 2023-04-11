@@ -13,7 +13,7 @@ class ObjekRealisasi extends Model
 
     protected $guarded = [];
 
-    public function selisihRealisasi($realisasiId = null): int
+    public function selisihRealisasi($realisasiId = null): float
     {
         $totalRealisasi = Realisasi::query()
             ->where('objek_realisasi_id', $this->id)
@@ -41,7 +41,7 @@ class ObjekRealisasi extends Model
 
     public function subRincianObjekBelanja(): BelongsTo
     {
-        return $this->belongsTo(SubRincianObjekBelanja::class, 'sub_rincian_objek_id');
+        return $this->belongsTo(SubRincianObjekBelanja::class);
     }
 
     public function realisasis(): HasMany

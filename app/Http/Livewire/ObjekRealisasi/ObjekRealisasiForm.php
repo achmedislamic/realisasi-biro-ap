@@ -77,7 +77,7 @@ class ObjekRealisasiForm extends Component
             $this->bidangUrusanPilihan = $objekRealisasi->bidangUrusanSubOpd->bidang_urusan_id;
 
             $this->anggaran = $objekRealisasi->anggaran;
-            $this->rekeningBelanjaPilihan = $objekRealisasi->sub_rincian_objek_id;
+            $this->rekeningBelanjaPilihan = $objekRealisasi->sub_rincian_objek_belanja_id;
 
             $subOpd = SubOpd::find($objekRealisasi->bidangUrusanSubOpd->sub_opd_id);
             if ($subOpd) {
@@ -179,7 +179,7 @@ class ObjekRealisasiForm extends Component
             'tahapan_apbd_id' => cache('tahapanApbd')->id,
             'bidang_urusan_sub_opd_id' => BidangUrusanSubOpd::where('bidang_urusan_id', $this->bidangUrusanPilihan)->where('sub_opd_id', $this->subOpdPilihan)->first()->id,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
-            'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
+            'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
         ]);
 
@@ -213,7 +213,7 @@ class ObjekRealisasiForm extends Component
             'tahapan_apbd_id' => cache('tahapanApbd')->id,
             'bidang_urusan_sub_opd_id' => BidangUrusanSubOpd::where('bidang_urusan_id', $this->bidangUrusanPilihan)->where('sub_opd_id', $this->subOpdPilihan)->first()->id,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
-            'sub_rincian_objek_id' => $this->rekeningBelanjaPilihan,
+            'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
         ]);
 

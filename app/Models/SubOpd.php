@@ -14,6 +14,11 @@ class SubOpd extends Model
 
     protected $guarded = [];
 
+    public function isInduk(): bool
+    {
+        return $this->kode == '0000';
+    }
+
     public function userRole(): MorphOne
     {
         return $this->morphOne(UserRole::class, 'imageable');

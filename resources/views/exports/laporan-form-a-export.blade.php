@@ -159,15 +159,15 @@
       $subKegiatan = null;
       $i = 1;
     @endphp
-    @foreach ($rows as $row)
+    @foreach ($opds as $opd)
 
     <tr>
       <td>{{ $i++ }}</td>
-	  @if ($program != $row->nama_program)
-		  <td>{{ $row->nama_program }}</td>
-		  <td>{{ $rows->where('tahapan_apbd_id', cache('tahapanApbd')->id)->where('sub_opd_id') }}</td>
+	  @if ($program != $opd->nama_program)
+		  <td>{{ $opd->nama_program }}</td>
+		  <td>{{ $opds->where('tahapan_apbd_id', cache('tahapanApbd')->id)->where('sub_opd_id') }}</td>
 		  @php
-			  $program = $row->nama_program;
+			  $program = $opd->nama_program;
 		  @endphp
 	  @endif
     </tr>

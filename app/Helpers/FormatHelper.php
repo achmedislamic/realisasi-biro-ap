@@ -13,7 +13,7 @@ class FormatHelper
 
     public static function angka($angka)
     {
-        return number_format($angka, 0, ',', '.');
+        return number_format($angka, 2, ',', '.');
     }
 
     public static function angkaKeRoman(int $num): string

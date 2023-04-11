@@ -72,7 +72,7 @@ class UploadExcel extends Component
                         'tahapan_apbd_id' => $this->tahapan->id,
                         'sub_opd_id' => $perangkatDaerah['idSubOpd'],
                         'sub_kegiatan_id' => $programKegiatan['idSubKegiatan'],
-                        'sub_rincian_objek_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
+                        'sub_rincian_objek_belanja_id' => $rekeningBelanja['idSubRincianObjekBelanja'],
                         'tanggal' => today(),
                     ],
                     [

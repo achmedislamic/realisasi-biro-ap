@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\BidangUrusanSubOpd;
-use App\Models\{AkunBelanja, BidangUrusan, BidangUrusanOpd, JenisBelanja, Kegiatan, KelompokBelanja, ObjekBelanja, ObjekRealisasi, Opd, Program, RincianObjekBelanja, SubKegiatan, SubOpd, SubRincianObjekBelanja, Urusan};
+use App\Models\{AkunBelanja, BidangUrusan, JenisBelanja, Kegiatan, KelompokBelanja, ObjekBelanja, ObjekRealisasi, Opd, Program, RincianObjekBelanja, SubKegiatan, SubOpd, SubRincianObjekBelanja, Urusan};
 use Illuminate\Bus\{Batchable, Queueable};
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -111,7 +111,7 @@ class ImportObjekRealisasi implements ShouldQueue
                     [
                         'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
                         'sub_kegiatan_id' => $subKegiatan->id,
-                        'sub_rincian_objek_id' => $subRincianObjekBelanja->id,
+                        'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
                     ],
                     [
                         'anggaran' => floatval($item['APBD']),
