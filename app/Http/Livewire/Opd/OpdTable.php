@@ -18,7 +18,7 @@ class OpdTable extends Component
 
     public $mode;
 
-    protected $queryString = ['cari' => ['except' => ''], 'mode'];
+    protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
         'pilihIdBidangUrusanEvent' => 'pilihIdBidangUrusan',
@@ -34,9 +34,9 @@ class OpdTable extends Component
         $this->idBidangUrusan = $idBidangUrusan;
     }
 
-    public function pilihIdOpdEvent(int $idOpd)
+    public function pilihIdOpdEvent(int $idOpd, string $mode = null)
     {
-        $this->emit('pilihIdOpdEvent', $idOpd, $this->idBidangUrusan);
+        $this->emit('pilihIdOpdEvent', $idOpd, $this->idBidangUrusan, $mode);
         $this->emit('gantiTab', 'sub_opd');
     }
 
@@ -58,7 +58,7 @@ class OpdTable extends Component
 
     public function render()
     {
-        if($this->mode == 'informasi'){
+        if($this->mode == 'opd'){
             $opds = Opd::orderBy('nama')->paginate();
         } else {
             // daftar opd yang memiliki bidang urusan terpilih

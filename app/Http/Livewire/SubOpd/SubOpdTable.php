@@ -17,16 +17,19 @@ class SubOpdTable extends Component
 
     public $idBidangUrusan = 0;
 
+    public $mode;
+
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
         'pilihIdOpdEvent' => 'pilihIdOpd',
     ];
 
-    public function pilihIdOpd($idOpd, $idBidangUrusan)
+    public function pilihIdOpd($idOpd, $idBidangUrusan, string $mode = null)
     {
         $this->idOpd = $idOpd;
         $this->idBidangUrusan = $idBidangUrusan;
+        $this->mode = $mode;
     }
 
     public function hapusSubOpd(int $id): void

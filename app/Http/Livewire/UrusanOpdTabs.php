@@ -10,6 +10,13 @@ class UrusanOpdTabs extends Component
 
     protected $listeners = ['gantiTab'];
 
+    public function mount()
+    {
+        if(request()->segment(3) == 'opd'){
+            $this->tabAktif = 'opd';
+        }
+    }
+
     public function gantiTab(string $namaTab)
     {
         $this->tabAktif = $namaTab;
