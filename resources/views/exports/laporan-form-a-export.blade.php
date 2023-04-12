@@ -161,15 +161,13 @@
         @endphp
         @foreach ($opds as $opd)
 			@php
-				$queryProgram = $opds->where('tahapan_apbd_id', cache('tahapanApbd')->id)
-					->where('bidang_urusan_sub_opd_id', $opd->bidang_urusan_sub_opd_id)
-					->where('program_id', $opd->program_id)
-					->where('sub_rincian_objek_belanja_id', $opd->sub_rincian_objek_belanja_id);
-
-				$queryKegiatan = $opds->where('tahapan_apbd_id', cache('tahapanApbd')->id)
-					->where('bidang_urusan_sub_opd_id', $opd->bidang_urusan_sub_opd_id)
-					->where('kegiatan_id', $opd->kegiatan_id)
-					->where('sub_rincian_objek_belanja_id', $opd->sub_rincian_objek_belanja_id);
+				$queryProgram = $opds->where('nama_urusan', $opd->nama_urusan)
+					->where('nama_bidang_urusan', $opd->nama_bidang_urusan)
+                    ->where('nama_opd', $opd->nama_opd)
+                    ->where('nama_sub_opd', $opd->nama_sub_opd)
+                    ->where('nama_program', $opd->nama_program)
+                    ->where('anggaran', $opd->anggaran)
+                    ;
 			@endphp
             <tr>
                 <td>{{ $i++ }}</td>
