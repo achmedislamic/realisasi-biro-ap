@@ -6,8 +6,13 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LaporanFormAExport implements FromView
+class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithColumnFormatting
 {
     public function __construct(
         public int $urusanId,
@@ -17,6 +22,26 @@ class LaporanFormAExport implements FromView
         public ?int $subOpdId = null
     ) {
         //
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'C16:C10000' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'E16:E10000' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'H16:H10000' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'K16:K10000' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'N16:N10000' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'L16:L10000' => NumberFormat::FORMAT_PERCENTAGE,
+        ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        $sheet->getStyle('A3:A5')->getFont()->setBold(true);
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+        $sheet->getStyle('A11:N15')->getAlignment()->setHorizontal('center')->setVertical('center');
+        $sheet->getStyle('A11:N15')->getFont()->setBold(true);
     }
 
     public function view(): View
