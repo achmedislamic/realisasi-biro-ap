@@ -47,6 +47,7 @@ class LaporanFormAExport implements FromView
             ->selectRaw("u.nama AS nama_urusan, bu.nama AS nama_bidang_urusan, o.nama AS nama_opd, so.nama AS nama_sub_opd, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM( or.anggaran) AS anggaran, SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu, SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini, SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini")
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
             ->groupByRaw('u.nama, bu.nama, o.nama, so.nama, p.nama, k.nama, sk.nama')
+            ->orderByRaw('u.nama, bu.nama, o.nama, so.nama, p.nama, k.nama, sk.nama')
             // ->dd()
             ->get();
 
