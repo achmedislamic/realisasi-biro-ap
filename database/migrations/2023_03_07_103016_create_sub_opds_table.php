@@ -13,6 +13,9 @@ return new class extends Migration
             $table->foreignId('opd_id')->constrained();
             $table->string('kode')->nullable();
             $table->string('nama');
+            $table->enum('sektor', ['infrastruktur', 'sosbud', 'ekonomi'])->nullable();
+            $table->string('nama_kepala')->nullable();
+            $table->string('nip_kepala')->nullable();
             $table->timestamps();
         });
     }

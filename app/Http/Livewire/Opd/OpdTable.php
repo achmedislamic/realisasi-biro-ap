@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Opd;
 
-use App\Models\{BidangUrusan, BidangUrusanSubOpd, Opd};
+use App\Models\{BidangUrusan, Opd};
 use App\Traits\Pencarian;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
@@ -16,11 +16,18 @@ class OpdTable extends Component
 
     public $idBidangUrusan = 0;
 
-    protected $queryString = ['cari' => ['except' => '']];
+    public $mode;
+
+    protected $queryString = ['cari' => ['except' => ''], 'mode'];
 
     protected $listeners = [
         'pilihIdBidangUrusanEvent' => 'pilihIdBidangUrusan',
     ];
+
+    public function mount()
+    {
+        $this->mode = request()->segment(3);
+    }
 
     public function pilihIdBidangUrusan($idBidangUrusan)
     {
@@ -51,18 +58,17 @@ class OpdTable extends Component
 
     public function render()
     {
-        // daftar opd yang memiliki bidang urusan terpilih
-        $opds = Opd::query()
+        if($this->mode == 'informasi'){
+            $opds = Opd::orderBy('nama')->paginate();
+        } else {
+            // daftar opd yang memiliki bidang urusan terpilih
+            $opds = Opd::query()
             ->whereHas('subOpds.bidangUrusans', function (Builder $query) {
                 $query->where('bidang_urusans.id', $this->idBidangUrusan);
             })
             ->pencarian($this->cari)
             ->paginate();
-        // $bidangUrusanSubOpds = BidangUrusanSubOpd::query()
-        //     ->with('bidangUrusan')
-        //     ->where('bidang_urusan_id', $this->idBidangUrusan)
-        //     ->pencarian($this->cari)
-        //     ->paginate();
+        }
 
         $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
 

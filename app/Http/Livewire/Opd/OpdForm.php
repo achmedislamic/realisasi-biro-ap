@@ -36,8 +36,11 @@ class OpdForm extends Component
     protected function rules(): array
     {
         return [
-            'opd.kode' => 'required',
+            'opd.kode' => 'required|max:25',
             'opd.nama' => 'required|string|max:255',
+            'opd.sektor' => 'required|max:20',
+            'opd.nama_kepala' => 'required|max:255',
+            'opd.nip_kepala' => 'required|max:25'
         ];
     }
 
@@ -52,8 +55,7 @@ class OpdForm extends Component
             'Data OPD tersimpan.'
         );
 
-        $this->opd = new Opd();
-
+        return to_route('perangkat-daerah');
         // if ($this->opd->id) {
         //     $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
         //     $bidangUrusan->opds()->attach($this->opd->id);

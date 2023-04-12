@@ -12,6 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('kode');
             $table->string('nama');
+            $table->enum('sektor', ['infrastruktur', 'sosbud', 'ekonomi'])->nullable();
+            $table->string('nama_kepala')->nullable();
+            $table->string('nip_kepala')->nullable();
             $table->timestamps();
         });
     }
