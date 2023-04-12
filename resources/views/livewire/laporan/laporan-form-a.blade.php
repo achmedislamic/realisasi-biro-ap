@@ -65,7 +65,7 @@
 
             <div class="flex">
                 <div class="ml-auto">
-                    <x-button positive label="Cetak" type="submit" />
+                    <x-button spinner positive label="Cetak" type="submit" />
                 </div>
             </div>
         </div>
