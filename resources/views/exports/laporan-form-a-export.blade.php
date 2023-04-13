@@ -46,7 +46,7 @@
         </tr>
         <tr>
             <td>Nama Urusan</td>
-            <td>: {{ $namaUrusan }}</td>
+            <td>: {{ $urusan->kode . '. ' .$urusan->nama }}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -63,7 +63,7 @@
         <tr>
             <td>Organisasi</td>
             <td>
-                {{ filled($namaSubOpd) ? $namaOpd . ' - ' . $namaSubOpd : $namaOpd }}
+                {{ filled($subOpd) ? $opd->kode . '. ' . $opd->nama . ' - ' . $subOpd->nama : $opd->kode . '. ' . $opd->nama }}
             </td>
             <td></td>
             <td></td>
@@ -480,9 +480,9 @@
             <td colspan="4">
                 @php
                     $teks = 'Kepala Perangkat Daerah';
-                    if (filled($namaSubOpd)) {
+                    if (filled($subOpd)) {
                         $teks = 'Kepala UPT';
-                        if (str($namaSubOpd)->contains('biro')) {
+                        if (str($subOpd->nama)->contains('biro')) {
                             $teks = 'Kepala Biro';
                         }
                     }

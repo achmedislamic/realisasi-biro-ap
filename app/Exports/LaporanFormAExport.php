@@ -120,18 +120,10 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
             // ->dd()
             ->get();
 
-        $namaUrusan = Urusan::find($this->urusanId)->nama;
+        $urusan = Urusan::find($this->urusanId);
         $namaBidangUrusan = filled($this->bidangUrusanId) ? BidangUrusan::find($this->bidangUrusanId)->nama : null;
         $opd = Opd::find($this->opdId);
-        $namaOpd = $opd->nama;
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
-        $namaSubOpd = $subOpd ?? $subOpd?->nama;
-        $namaKepala = $opd->nama_kepala;
-        $nip = $opd->nip_kepala;
-        if(filled($this->subOpdId)){
-            $namaKepala = $subOpd ?? $subOpd->nama_kepala;
-            $nip = $subOpd ?? $subOpd->nip_kepala;
-        }
-        return view('exports.laporan-form-a-export', compact('opds', 'namaUrusan', 'namaBidangUrusan', 'namaOpd', 'namaSubOpd', 'namaBulan', 'namaKepala', 'nip'));
+        return view('exports.laporan-form-a-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaBulan'));
     }
 }
