@@ -29,6 +29,6 @@ class RealisasiSeeder extends Seeder
         //     'jumlah' => 4000
         // ]);
 
-        Realisasi::factory()->count(1000)->create();
+        Realisasi::factory()->count(10000)->create();
     }
 }

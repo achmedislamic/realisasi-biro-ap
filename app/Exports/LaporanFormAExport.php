@@ -97,7 +97,14 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
             ->join('sub_opds AS so', 'so.id', '=', 'buso.sub_opd_id')
             ->join('opds AS o', 'o.id', '=', 'so.opd_id')
 
-            ->selectRaw("p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM( or.anggaran) AS anggaran, SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu, SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini, SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini")
+            ->join('sub_rincian_objek_belanjas AS srob', 'srob.id', '=', 'or.sub_rincian_objek_belanja_id')
+            ->join('rincian_objek_belanjas AS rob', 'rob.id', '=', 'srob.rincian_objek_belanja_id')
+            ->join('objek_belanjas AS ob', 'ob.id', '=', 'rob.objek_belanja_id')
+            ->join('jenis_belanjas AS jb', 'jb.id', '=', 'ob.jenis_belanja_id')
+            ->join('kelompok_belanjas AS kb', 'kb.id', '=', 'jb.kelompok_belanja_id')
+            ->join('akun_belanjas AS ab', 'ab.id', '=', 'kb.akun_belanja_id')
+
+            ->selectRaw("u.kode AS kode_urusan, bu.kode AS kode_bidang_urusan, p.kode AS kode_program, k.kode AS kode_kegiatan, sk.kode AS kode_sub_kegiatan,ab.kode AS kode_belanja_1, ab.nama AS nama_belanja_1, kb.kode AS kode_belanja_2, kb.nama AS nama_belanja_2, jb.kode AS kode_belanja_3, jb.nama AS nama_belanja_3, ob.kode AS kode_belanja_4, ob.nama AS nama_belanja_4, rob.kode AS kode_belanja_5, rob.nama AS nama_belanja_5, srob.kode AS kode_belanja_6, srob.nama AS nama_belanja_6, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM( or.anggaran) AS anggaran, SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu, SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini, SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini")
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
             ->where('or.anggaran', '!=', 0)
             ->where('u.id', $this->urusanId)
@@ -108,8 +115,8 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
             ->when(filled($this->subOpdId), function ($query) {
                 $query->where('so.id', $this->subOpdId);
             })
-            ->groupByRaw('p.nama, k.nama, sk.nama')
-            ->orderByRaw('p.nama, k.nama, sk.nama')
+            ->groupByRaw('ab.kode, ab.nama, kb.kode, kb.nama, u.kode, bu.kode, p.kode, p.nama, k.kode, k.nama, sk.kode, sk.nama, jb.kode, jb.nama, ob.kode, ob.nama, rob.kode, rob.nama, srob.kode, srob.nama')
+            ->orderByRaw('ab.kode, ab.nama, kb.kode, kb.nama, u.kode, bu.kode, p.kode, p.nama, k.kode, k.nama, sk.kode, sk.nama, jb.kode, jb.nama, ob.kode, ob.nama, rob.kode, rob.nama, srob.kode, srob.nama')
             // ->dd()
             ->get();
 
