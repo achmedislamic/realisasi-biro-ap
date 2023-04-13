@@ -1,13 +1,16 @@
 <div class="flex flex-col gap-y-4">
     <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
+        @if (filled($bidangUrusan))
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-2 h-0.5"></div>
-            <p>{{ $opd->subOpds[0]->bidangUrusans[0]->urusan->kode ?? "" }} {{ $opd->subOpds[0]->bidangUrusans[0]->urusan->nama ?? "" }}</p>
+            <p>{{ $bidangUrusan->urusan->kode ?? "" }} {{ $bidangUrusan->urusan->nama ?? "" }}</p>
         </div>
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-4 h-0.5"></div>
-            <p>{{ $opd->subOpds[0]->bidangUrusans[0]->kode ?? "" }} {{ $opd->subOpds[0]->bidangUrusans[0]->nama ?? "" }}</p>
+            <p>{{ $bidangUrusan->kode ?? "" }} {{ $bidangUrusan->nama ?? "" }}</p>
         </div>
+        @endif
+
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-8 h-0.5"></div>
             <p>{{ $opd->kode ?? "" }} {{ $opd->nama ?? "" }}</p>

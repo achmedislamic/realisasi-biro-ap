@@ -31,7 +31,7 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($bidangUrusans as $key=> $bidangUrusan)
+            @foreach ($bidangUrusans as $key => $bidangUrusan)
             <x-table.tr>
                 <x-table.td>
                     {{ $bidangUrusans->firstItem() + $key }}

@@ -8,7 +8,7 @@
     <div x-data="{ tab: @entangle('tabAktif') }">
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
-                @if (request()->segment(3) != 'opd')
+                @if ($mode != 'opd')
                     <li class="mr-2" role="presentation">
                         <button @click="tab = 'urusan'"
                                 :class="tab == 'urusan' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div id="myTabContent">
-            @if (request()->segment(3) != 'opd')
+            @if ($mode != 'opd')
                 <div x-show="tab == 'urusan'" x-transition>
                     @livewire('urusan.urusan-table')
                 </div>
