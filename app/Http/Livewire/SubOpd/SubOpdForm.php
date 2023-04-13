@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\SubOpd;
 
-use App\Models\{Opd, SubOpd};
+use App\Models\{BidangUrusan, Opd, SubOpd};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -42,37 +42,32 @@ class SubOpdForm extends Component
         return [
             'subOpd.kode' => 'required',
             'subOpd.nama' => 'required|string|max:255',
+            'subOpd.nama_kepala' => 'required|max:255',
+            'subOpd.nip_kepala' => 'required|max:25'
         ];
     }
 
     public function simpan()
     {
         $this->validate();
+
         $this->subOpd->opd_id = $this->idOpd;
+
         $this->subOpd->save();
 
-        if (is_null($this->idSubOpd)) {
-            $this->notification()->success(
-                'BERHASIL',
-                'Data sub OPD tersimpan.'
-            );
-            $this->subOpd = new SubOpd();
-        } else {
-            $this->notification()->success(
-                'BERHASIL',
-                'Data sub OPD diubah.'
-            );
-        }
+        $this->notification()->success(
+            'BERHASIL',
+            'Data Sub OPD tersimpan.'
+        );
+
+        return redirect()->back();
     }
 
     public function render()
     {
-        $opd = Opd::query()
-            ->with('bidangUrusans')
-            ->whereHas('bidangUrusans')
-            ->whereBidangUrusanId($this->idBidangUrusan)
-            ->find($this->idOpd);
+        $opd = Opd::find($this->idOpd);
+        $bidangUrusan = BidangUrusan::with('urusan')->find($this->idBidangUrusan);
 
-        return view('livewire.sub-opd.sub-opd-form', compact('opd'));
+        return view('livewire.sub-opd.sub-opd-form', compact('opd', 'bidangUrusan'));
     }
 }

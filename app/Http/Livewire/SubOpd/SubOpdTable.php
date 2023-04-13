@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\SubOpd;
 
-use App\Models\{Opd, SubOpd};
+use App\Models\{BidangUrusan, Opd, SubOpd};
 use App\Traits\Pencarian;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
@@ -17,16 +18,19 @@ class SubOpdTable extends Component
 
     public $idBidangUrusan = 0;
 
+    public $mode;
+
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
         'pilihIdOpdEvent' => 'pilihIdOpd',
     ];
 
-    public function pilihIdOpd($idOpd, $idBidangUrusan)
+    public function pilihIdOpd($idOpd, $idBidangUrusan, string $mode = null)
     {
         $this->idOpd = $idOpd;
         $this->idBidangUrusan = $idBidangUrusan;
+        $this->mode = $mode;
     }
 
     public function hapusSubOpd(int $id): void
@@ -49,7 +53,9 @@ class SubOpdTable extends Component
     {
         $subOpds = SubOpd::query()
             ->where('opd_id', $this->idOpd)
-            ->whereRelation('bidangUrusans', 'bidang_urusans.id', $this->idBidangUrusan)
+            ->when($this->mode != 'opd', function (Builder $query) {
+                $query->whereRelation('bidangUrusans', 'bidang_urusans.id', $this->idBidangUrusan);
+            })
             ->pencarian($this->cari)
             ->paginate();
 
@@ -58,6 +64,8 @@ class SubOpdTable extends Component
             ->where('id', $this->idOpd)
             ->first();
 
-        return view('livewire.sub-opd.sub-opd-table', compact('subOpds', 'opd'));
+        $bidangUrusan = BidangUrusan::with('urusan')->find($this->idBidangUrusan);
+
+        return view('livewire.sub-opd.sub-opd-table', compact('subOpds', 'opd', 'bidangUrusan'));
     }
 }
