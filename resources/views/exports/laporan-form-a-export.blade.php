@@ -62,7 +62,9 @@
         </tr>
         <tr>
             <td>Organisasi</td>
-            <td>: ...............</td>
+            <td>
+                {{ filled($namaSubOpd) ? $namaOpd . ' - ' . $namaSubOpd : $namaOpd }}
+            </td>
             <td></td>
             <td></td>
             <td></td>
@@ -78,7 +80,7 @@
         </tr>
         <tr>
             <td>Periode</td>
-            <td>: Bulan ...</td>
+            <td>: Bulan {{ $namaBulan }}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -307,7 +309,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="4">Mataram, .....</td>
+            <td colspan="4">Mataram, {{ \App\Helpers\FormatHelper::tanggal(today()) }}</td>
           </tr>
           <tr>
             <td></td>
@@ -320,39 +322,19 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="4">Kepala Perangkat Daerah</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td colspan="4">
+                @php
+                    $teks = 'Kepala Perangkat Daerah';
+                    if(filled($namaSubOpd)){
+                        $teks = 'Kepala UPT';
+                        if(str($namaSubOpd)->contains('biro')){
+                            $teks = 'Kepala Biro';
+                        }
+                    }
+
+                    echo $teks;
+                @endphp
+            </td>
           </tr>
           <tr>
             <td></td>
@@ -381,7 +363,10 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="4">_________________________________</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td></td>
@@ -394,7 +379,36 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="4">NIP......................................................</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="4">{{ $namaKepala ?? '(Belum mengisi nama kepala perangkat daerah/upt/biro)' }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="4">NIP: {{ $nip ?? 'Belum mengisi nip' }}</td>
           </tr>
     </tbody>
 </table>

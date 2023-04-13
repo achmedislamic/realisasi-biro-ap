@@ -6,7 +6,6 @@ use App\Models\BidangUrusan;
 use App\Models\Opd;
 use App\Models\SubOpd;
 use App\Models\Urusan;
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +73,8 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
     public function view(): View
     {
         $bulan = CarbonImmutable::createFromFormat('Y-m-d', cache('tahapanApbd')->tahun . '-12-31');
+        $namaBulan = $bulan->translatedFormat('F');
+
         $bulanLaluMulai = $bulan->startOfMonth()->subMonth(1)->toDateString();
         $bulanLaluSelesai = $bulan->startOfMonth()->subMonth(1)->endOfMonth()->toDateString();
 
@@ -114,8 +115,16 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
 
         $namaUrusan = Urusan::find($this->urusanId)->nama;
         $namaBidangUrusan = filled($this->bidangUrusanId) ? BidangUrusan::find($this->bidangUrusanId)->nama : null;
-        $namaOpd = Opd::find($this->opdId)->nama;
-        $namaSubOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId)->nama : null;
-        return view('exports.laporan-form-a-export', compact('opds', 'namaUrusan', 'namaBidangUrusan', 'namaOpd', 'namaSubOpd'));
+        $opd = Opd::find($this->opdId);
+        $namaOpd = $opd->nama;
+        $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
+        $namaSubOpd = $subOpd ?? $subOpd?->nama;
+        $namaKepala = $opd->nama_kepala;
+        $nip = $opd->nip_kepala;
+        if(filled($this->subOpdId)){
+            $namaKepala = $subOpd ?? $subOpd->nama_kepala;
+            $nip = $subOpd ?? $subOpd->nip_kepala;
+        }
+        return view('exports.laporan-form-a-export', compact('opds', 'namaUrusan', 'namaBidangUrusan', 'namaOpd', 'namaSubOpd', 'namaBulan', 'namaKepala', 'nip'));
     }
 }

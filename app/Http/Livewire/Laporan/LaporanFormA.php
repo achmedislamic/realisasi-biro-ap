@@ -138,8 +138,9 @@ class LaporanFormA extends Component
 
     public function render()
     {
-        $urusans = Urusan::orderBy('kode')->get();
-
-        return view('livewire.laporan.laporan-form-a', compact(['urusans']));
+        return view('livewire.laporan.laporan-form-a', [
+            'urusans' => Urusan::orderBy('kode')->get(),
+            'bulans' => \App\Helpers\TanggalHelper::daftarBulan()
+        ]);
     }
 }

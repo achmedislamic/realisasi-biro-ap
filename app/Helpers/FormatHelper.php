@@ -6,9 +6,12 @@ use Carbon\Carbon;
 
 class FormatHelper
 {
-    public static function tanggal($tanggal)
+    public static function tanggal(string|Carbon $tanggal)
     {
-        return Carbon::parse($tanggal)->format('d F Y');
+        if(is_string($tanggal)){
+            return Carbon::parse($tanggal)->format('d F Y');
+        }
+        return $tanggal->format('d F Y');
     }
 
     public static function angka($angka)
@@ -19,6 +22,7 @@ class FormatHelper
     public static function angkaKeRoman(int $num): string
     {
         // Be sure to convert the given parameter into an integer
+
         $result = '';
 
         // Declare a lookup array that we will use to traverse the number:
