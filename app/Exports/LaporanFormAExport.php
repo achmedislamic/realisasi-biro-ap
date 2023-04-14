@@ -74,8 +74,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
     public function view(): View
     {
         $waktu = CarbonImmutable::createFromFormat('Y-m-d', $this->waktu);
-        // $waktu->quarter
-        $namaBulan = $waktu->translatedFormat('F');
+        $namaPeriode = $this->jenisLaporan == 'a' ? 'Bulan ' . $waktu->translatedFormat('F') . ' ' . cache('tahapanApbd')->tahun : 'Triwulan ' . $waktu->quarter;
 
         $bulanLaluMulai = $waktu->startOfMonth()->subMonth(1)->toDateString();
         $bulanLaluSelesai = $waktu->startOfMonth()->subMonth(1)->endOfMonth()->toDateString();
@@ -126,6 +125,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $namaBidangUrusan = filled($this->bidangUrusanId) ? BidangUrusan::find($this->bidangUrusanId)->nama : null;
         $opd = Opd::find($this->opdId);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
-        return view('exports.laporan-form-a-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaBulan'));
+        $jenisLaporan = $this->jenisLaporan;
+        return view('exports.laporan-form-a-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
     }
 }

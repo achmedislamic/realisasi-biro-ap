@@ -16,7 +16,7 @@ class LaporanFormB extends Component
     public $urusanDipilih = null;
     public $bidangUrusanDipilih = null;
 
-    public $triwulan = 1;
+    public $triwulan;
 
     public $opds;
 
@@ -72,7 +72,6 @@ class LaporanFormB extends Component
     {
         return view('livewire.laporan.laporan-form-b', [
             'urusans' => Urusan::orderBy('kode')->get(),
-            'bulans' => \App\Helpers\TanggalHelper::daftarBulan()
         ]);
     }
 }

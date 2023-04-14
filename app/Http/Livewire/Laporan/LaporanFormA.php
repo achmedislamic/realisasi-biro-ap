@@ -18,9 +18,9 @@ class LaporanFormA extends Component
     public $urusanDipilih = null;
     public $bidangUrusanDipilih = null;
 
-    public $bulan = 1;
+    public $bulan;
 
-    public $pods;
+    public $opds;
 
     public $subOpds;
 
@@ -35,7 +35,7 @@ class LaporanFormA extends Component
     public function mount()
     {
         $this->anggarans = collect();
-        $this->pods = Opd::orderBy('kode')->get();
+        $this->opds = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
         $this->bidangUrusans = collect();
     }

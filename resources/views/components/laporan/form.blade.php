@@ -1,4 +1,4 @@
-@props(['jenisLaporan' => 'a', 'urusans', 'bidangUrusans', 'opds', 'subOpds'])
+@props(['jenisLaporan' => 'a', 'bulans', 'urusans', 'bidangUrusans', 'opds', 'subOpds'])
 <form wire:submit.prevent="cetak">
     <div class="flex flex-col space-y-3">
         <div class="flex gap-4">
@@ -29,10 +29,10 @@
                 @elseif($jenisLaporan == 'b')
                     <x-native-select label="Triwulan" wire:model.defer="triwulan">
                         <option value="">Pilih Triwulan</option>
-                        <option value="1">Triwulan 1</option>
-                        <option value="2">Triwulan 2</option>
-                        <option value="3">Triwulan 3</option>
-                        <option value="4">Triwulan 4</option>
+                        <option value="{{ cache('tahapanApbd')->tahun . '-01-01' }}">Triwulan 1</option>
+                        <option value="{{ cache('tahapanApbd')->tahun . '-04-01' }}">Triwulan 2</option>
+                        <option value="{{ cache('tahapanApbd')->tahun . '-07-01' }}">Triwulan 3</option>
+                        <option value="{{ cache('tahapanApbd')->tahun . '-10-01' }}">Triwulan 4</option>
                     </x-native-select>
                 @endif
 
