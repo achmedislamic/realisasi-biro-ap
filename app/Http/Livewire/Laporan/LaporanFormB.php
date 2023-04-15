@@ -65,7 +65,7 @@ class LaporanFormB extends Component
 
     public function cetak()
     {
-        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'a'), 'laporan-form-b.xlsx');
+        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'b'), 'laporan-form-b.xlsx');
     }
 
     public function render()

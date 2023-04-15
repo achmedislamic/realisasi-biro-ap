@@ -76,11 +76,11 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $waktu = CarbonImmutable::createFromFormat('Y-m-d', $this->waktu);
         $namaPeriode = $this->jenisLaporan == 'a' ? 'Bulan ' . $waktu->translatedFormat('F') . ' ' . cache('tahapanApbd')->tahun : 'Triwulan ' . $waktu->quarter;
 
-        $bulanLaluMulai = $waktu->startOfMonth()->subMonth(1)->toDateString();
-        $bulanLaluSelesai = $waktu->startOfMonth()->subMonth(1)->endOfMonth()->toDateString();
+        $bulanLaluMulai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->toDateString() : $waktu->startOfQuarter()->subQuarter(1)->toDateString();
+        $bulanLaluSelesai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->endOfMonth()->toDateString() : $waktu->startOfQuarter()->subQuarter()->endOfQuarter()->toDateString();
 
-        $bulanIniMulai = $waktu->startOfMonth()->toDateString();
-        $bulanIniSelesai = $waktu->endOfMonth()->toDateString();
+        $bulanIniMulai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->toDateString() : $waktu->startOfQuarter()->toDateString();
+        $bulanIniSelesai = $this->jenisLaporan == 'a' ? $waktu->endOfMonth()->toDateString() : $waktu->endOfQuarter()->toDateString();
 
         $sdBulanIniMulai = $waktu->startOfYear()->toDateString();
         $sdBulanIniSelesai = $waktu->toDateString();
@@ -126,6 +126,6 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $opd = Opd::find($this->opdId);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
         $jenisLaporan = $this->jenisLaporan;
-        return view('exports.laporan-form-a-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
+        return view($this->jenisLaporan == 'a' ? 'exports.laporan-form-a-export' : 'exports.laporan-form-b-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
     }
 }
