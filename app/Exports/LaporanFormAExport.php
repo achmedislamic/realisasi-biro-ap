@@ -22,9 +22,10 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
     public function __construct(
         public int $urusanId,
         public ?int $bidangUrusanId = null,
-        public string $bulan,
+        public string $waktu,
         public int $opdId,
-        public ?int $subOpdId = null
+        public ?int $subOpdId = null,
+        public string $jenisLaporan = 'a'
     ) {
         //
     }
@@ -72,17 +73,17 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
 
     public function view(): View
     {
-        $bulan = CarbonImmutable::createFromFormat('Y-m-d', cache('tahapanApbd')->tahun . '-12-31');
-        $namaBulan = $bulan->translatedFormat('F');
+        $waktu = CarbonImmutable::createFromFormat('Y-m-d', $this->waktu);
+        $namaPeriode = $this->jenisLaporan == 'a' ? 'Bulan ' . $waktu->translatedFormat('F') . ' ' . cache('tahapanApbd')->tahun : 'Triwulan ' . $waktu->quarter;
 
-        $bulanLaluMulai = $bulan->startOfMonth()->subMonth(1)->toDateString();
-        $bulanLaluSelesai = $bulan->startOfMonth()->subMonth(1)->endOfMonth()->toDateString();
+        $bulanLaluMulai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->toDateString() : $waktu->startOfQuarter()->subQuarter(1)->toDateString();
+        $bulanLaluSelesai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->endOfMonth()->toDateString() : $waktu->startOfQuarter()->subQuarter()->endOfQuarter()->toDateString();
 
-        $bulanIniMulai = $bulan->startOfMonth()->toDateString();
-        $bulanIniSelesai = $bulan->endOfMonth()->toDateString();
+        $bulanIniMulai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->toDateString() : $waktu->startOfQuarter()->toDateString();
+        $bulanIniSelesai = $this->jenisLaporan == 'a' ? $waktu->endOfMonth()->toDateString() : $waktu->endOfQuarter()->toDateString();
 
-        $sdBulanIniMulai = $bulan->startOfYear()->toDateString();
-        $sdBulanIniSelesai = $bulan->toDateString();
+        $sdBulanIniMulai = $waktu->startOfYear()->toDateString();
+        $sdBulanIniSelesai = $waktu->toDateString();
 
         $opds = DB::table('objek_realisasis AS or')
             ->join('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
@@ -124,6 +125,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $namaBidangUrusan = filled($this->bidangUrusanId) ? BidangUrusan::find($this->bidangUrusanId)->nama : null;
         $opd = Opd::find($this->opdId);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
-        return view('exports.laporan-form-a-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaBulan'));
+        $jenisLaporan = $this->jenisLaporan;
+        return view($this->jenisLaporan == 'a' ? 'exports.laporan-form-a-export' : 'exports.laporan-form-b-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
     }
 }

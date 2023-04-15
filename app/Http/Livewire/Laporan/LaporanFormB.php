@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Livewire\Laporan;
+
+use App\Exports\LaporanFormAExport;
+use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
+use Livewire\{Component, WithPagination};
+use Maatwebsite\Excel\Facades\Excel;
+use WireUi\Traits\Actions;
+
+class LaporanFormB extends Component
+{
+    use Actions;
+    use WithPagination;
+
+    public $urusanDipilih = null;
+    public $bidangUrusanDipilih = null;
+
+    public $triwulan;
+
+    public $opds;
+
+    public $subOpds;
+
+    public $opdDipilih = null;
+
+    public $subOpdDipilih = null;
+
+    private $anggarans;
+
+    public $bidangUrusans;
+
+    public function mount()
+    {
+        $this->anggarans = collect();
+        $this->opds = Opd::orderBy('kode')->get();
+        $this->subOpds = collect();
+        $this->bidangUrusans = collect();
+    }
+
+    public function updatedUrusanDipilih($value)
+    {
+        $this->bidangUrusans = BidangUrusan::where('urusan_id', $value)->get();
+
+        $this->reset('bidangUrusanDipilih');
+    }
+
+    public function updatedOpdDipilih($opd)
+    {
+        $this->subOpds = SubOpd::where('opd_id', $opd)
+            ->orderBy('kode')
+            ->get();
+        $this->reset('subOpdDipilih');
+    }
+
+    public function rules()
+    {
+        return [
+            'urusanDipilih' => 'required',
+            'triwulan' => 'required',
+            'opdDipilih' => 'required',
+            'subOpdDipilih' => 'required',
+        ];
+    }
+
+    public function cetak()
+    {
+        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'b'), 'laporan-form-b.xlsx');
+    }
+
+    public function render()
+    {
+        return view('livewire.laporan.laporan-form-b', [
+            'urusans' => Urusan::orderBy('kode')->get(),
+        ]);
+    }
+}

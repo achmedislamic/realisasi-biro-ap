@@ -1,32 +1,33 @@
 <x-laporan :$jenisLaporan :$urusan :$subOpd :$opd :$namaPeriode>
+    <tr>
+        <td colspan="14"></td>
+    </tr>
     <tr style="text-align: center; vertical-align: center;">
-        <td rowspan="4" style="border:1px solid black;padding:5px">Kode</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Nama Program/Kegiatan/Subkegiatan</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Jumlah Anggaran (Rp)</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Bobot (%)</td>
-        <td colspan="9" style="border:1px solid black;padding:5px">Realisasi Pelaksanaan Anggaran</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Sisa Anggaran (Rp)</td>
+        <td rowspan="3" style="border:1px solid black;padding:5px">Kode</td>
+        <td rowspan="3" style="border:1px solid black;padding:5px">Nama Program/Kegiatan/Subkegiatan</td>
+        <td rowspan="3" style="border:1px solid black;padding:5px">Jumlah Anggaran (Rp)</td>
+        <td rowspan="3" style="border:1px solid black;padding:5px">Bobot (%)</td>
+        <td colspan="8" style="border:1px solid black;padding:5px">Penyerapan Anggaran</td>
+        <td colspan="2" style="border:1px solid black;padding:5px">Indikator Keluaran</td>
+        <td rowspan="3" style="border:1px solid black;padding:5px">Sisa Anggaran (Rp)</td>
     </tr>
     <tr>
-        <td colspan="3" style="border:1px solid black;padding:5px">Bulan Lalu</td>
-        <td colspan="3" style="border:1px solid black;padding:5px">Bulan Ini</td>
-        <td colspan="3" style="border:1px solid black;padding:5px">s.d. Bulan Ini</td>
+        <td colspan="2" style="border:1px solid black;padding:5px">Triwulan Lalu</td>
+        <td colspan="2" style="border:1px solid black;padding:5px">Triwulan Ini</td>
+        <td colspan="2" style="border:1px solid black;padding:5px">s.d. Bulan Ini</td>
+        <td colspan="2" style="border:1px solid black;padding:5px">Prosentasi s.d. Triwulan Ini</td>
+        <td rowspan="2" style="border:1px solid black;padding:5px">Narasi</td>
+        <td rowspan="2" style="border:1px solid black;padding:5px">Satuan</td>
     </tr>
     <tr>
-        <td colspan="2" style="border:1px solid black;padding:5px">Keuangan</td>
-        <td rowspan="2" style="border:1px solid black;padding:5px">Fisik (%)</td>
-        <td colspan="2" style="border:1px solid black;padding:5px">Keuangan</td>
-        <td rowspan="2" style="border:1px solid black;padding:5px">Fisik (%)</td>
-        <td colspan="2" style="border:1px solid black;padding:5px">Keuangan</td>
-        <td rowspan="2" style="border:1px solid black;padding:5px">Fisik (%)</td>
-    </tr>
-    <tr>
-        <td style="border:1px solid black;padding:5px">Rp.</td>
-        <td style="border:1px solid black;padding:5px">%</td>
-        <td style="border:1px solid black;padding:5px">Rp.</td>
-        <td style="border:1px solid black;padding:5px">%</td>
-        <td style="border:1px solid black;padding:5px">Rp.</td>
-        <td style="border:1px solid black;padding:5px">%</td>
+        <td style="border:1px solid black;padding:5px">Renc.</td>
+        <td style="border:1px solid black;padding:5px">Real</td>
+        <td style="border:1px solid black;padding:5px">Renc.</td>
+        <td style="border:1px solid black;padding:5px">Real</td>
+        <td style="border:1px solid black;padding:5px">Renc.</td>
+        <td style="border:1px solid black;padding:5px">Real</td>
+        <td style="border:1px solid black;padding:5px">Keu. (%)</td>
+        <td style="border:1px solid black;padding:5px">Fisik. (%)</td>
     </tr>
     <tr>
         <td style="border:1px solid black;padding:5px">1</td>
@@ -43,6 +44,7 @@
         <td style="border:1px solid black;padding:5px">12</td>
         <td style="border:1px solid black;padding:5px">13</td>
         <td style="border:1px solid black;padding:5px">14</td>
+        <td style="border:1px solid black;padding:5px">15</td>
     </tr>
     @php
         $belanja1 = null;

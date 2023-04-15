@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('objek_realisasi_id')->constrained();
             $table->date('tanggal');
-            $table->double('jumlah')->default(0);
+            $table->unsignedDecimal('jumlah', 15)->default(0);
             $table->timestamps();
         });
     }
