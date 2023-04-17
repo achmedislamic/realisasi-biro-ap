@@ -313,7 +313,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
                 @php
-                    $subKegiatan = $opd->nama_sub_kegiatan;
+                    $belanja6 = $opd->nama_belanja_6;
                 @endphp
             </tr>
         @endif

@@ -71,6 +71,19 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
                 'L1:L15' => NumberFormat::FORMAT_GENERAL,
                 'K1:K15' => NumberFormat::FORMAT_GENERAL,
             ];
+        } elseif ($this->jenisLaporan == 'c'){
+            return [
+                'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'C1:C15' => NumberFormat::FORMAT_GENERAL,
+                'D' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'G' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'D12:H15' => NumberFormat::FORMAT_GENERAL,
+
+                'E' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'F' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'E1:E15' => NumberFormat::FORMAT_GENERAL,
+                'F1:F15' => NumberFormat::FORMAT_GENERAL,
+            ];
         }
     }
 
@@ -144,6 +157,11 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $opd = Opd::find($this->opdId);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
         $jenisLaporan = $this->jenisLaporan;
-        return view($this->jenisLaporan == 'a' ? 'exports.laporan-form-a-export' : 'exports.laporan-form-b-export', compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
+        $view = match($this->jenisLaporan) {
+            'a' => 'exports.laporan-form-a-export',
+            'b' => 'exports.laporan-form-b-export',
+            'c' => 'exports.laporan-form-c-export'
+        };
+        return view($view, compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
     }
 }

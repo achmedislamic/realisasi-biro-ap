@@ -68,7 +68,7 @@ class LaporanFormC extends Component
     {
         $this->validate();
 
-        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'b'), 'laporan-form-b.xlsx');
+        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'c'), 'laporan-form-c.xlsx');
     }
 
     public function render()
