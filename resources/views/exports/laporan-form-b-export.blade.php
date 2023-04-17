@@ -126,26 +126,19 @@
                 <td style="border:1px solid black;padding:5px;">{{ $opd->nama_program }}</td>
                 <td style="border:1px solid black;padding:5px">{{ $queryProgram->sum('anggaran') }}</td>
                 <td style="border:1px solid black;padding:5px"></td>
-                @php
-                    $realisasiBulanLalu = $queryProgram->sum('realisasi_bulan_lalu');
-                    $realisasiBulanIni = $queryProgram->sum('realisasi_bulan_ini');
-                    $realisasiSdBulanIni = $queryProgram->sum('realisasi_sd_bulan_ini');
-                    $anggaran = $queryProgram->sum('anggaran');
-                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
-                @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $program = $opd->nama_program;
                 @endphp
@@ -153,30 +146,23 @@
         @endif
         @if ($kegiatan != $opd->nama_kegiatan)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
-                <td style="border:1px solid black;padding:5px">Kegiatan: {{ $opd->nama_kegiatan }}</td>
+                <td style="border:1px solid black;padding:5px;">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
+                <td style="border:1px solid black;padding:5px;">{{ $opd->nama_kegiatan }}</td>
                 <td style="border:1px solid black;padding:5px">{{ $queryKegiatan->sum('anggaran') }}</td>
                 <td style="border:1px solid black;padding:5px"></td>
-                @php
-                    $realisasiBulanLalu = $queryKegiatan->sum('realisasi_bulan_lalu');
-                    $realisasiBulanIni = $queryKegiatan->sum('realisasi_bulan_ini');
-                    $realisasiSdBulanIni = $queryKegiatan->sum('realisasi_sd_bulan_ini');
-                    $anggaran = $queryKegiatan->sum('anggaran');
-                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
-                @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $kegiatan = $opd->nama_kegiatan;
                 @endphp
@@ -188,26 +174,24 @@
                 <td style="border:1px solid black;padding:5px">Sub Kegiatan: {{ $opd->nama_sub_kegiatan }}</td>
                 <td style="border:1px solid black;padding:5px">{{ $querySubKegiatan->sum('anggaran') }}</td>
                 <td style="border:1px solid black;padding:5px"></td>
-                @php
-                    $realisasiBulanLalu = $querySubKegiatan->sum('realisasi_bulan_lalu');
-                    $realisasiBulanIni = $querySubKegiatan->sum('realisasi_bulan_ini');
-                    $realisasiSdBulanIni = $querySubKegiatan->sum('realisasi_sd_bulan_ini');
-                    $anggaran = $querySubKegiatan->sum('anggaran');
-                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
-                @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
+
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
                 @endphp
