@@ -3,7 +3,8 @@
                               :active="request()->routeIs('laporan-form-a')" />
     <x-nav-dropdown-item-link text="Laporan Form B" :href="route('laporan-form-b')"
                               :active="request()->routeIs('laporan-form-b')" />
-    <x-nav-dropdown-item-link text="Laporan Form C" link="#" />
+    <x-nav-dropdown-item-link text="Laporan Form C" :href="route('laporan-form-c')"
+                              :active="request()->routeIs('laporan-form-c')" />
     <x-nav-dropdown-item-link text="Laporan Form D" link="#" />
     <x-nav-dropdown-item-link text="Laporan Form E" link="#" />
     <x-nav-dropdown-item-link text="Laporan Deviasi" :href="route('laporan-deviasi')"
