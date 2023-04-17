@@ -91,6 +91,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $belanja1 = $opd->nama_belanja_1;
                 @endphp
@@ -114,6 +115,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $belanja2 = $opd->nama_belanja_2;
@@ -139,6 +141,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $program = $opd->nama_program;
                 @endphp
@@ -163,6 +166,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $kegiatan = $opd->nama_kegiatan;
                 @endphp
@@ -179,10 +183,6 @@
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-
                 <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
@@ -216,6 +216,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $belanja3 = $opd->nama_belanja_3;
                 @endphp
@@ -240,6 +241,7 @@
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $belanja4 = $opd->nama_belanja_4;
                 @endphp
@@ -251,18 +253,29 @@
                 <td style="border:1px solid black;padding:5px;">{{ $opd->nama_belanja_5 }}</td>
                 <td style="border:1px solid black;padding:5px">{{ $queryBelanja5->sum('anggaran') }}</td>
                 <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                @php
+                    $realisasiTriwulanLalu = $queryBelanja5->sum('realisasi_bulan_lalu');
+                    $realisasiTriwulanIni = $queryBelanja5->sum('realisasi_bulan_ini');
+                    $realisasiSdBulanIni = $queryBelanja5->sum('realisasi_sd_bulan_ini');
+
+                    $anggaranTriwulanLalu = $queryBelanja5->sum('anggaran_bulan_lalu');
+                    $anggaranTriwulanIni = $queryBelanja5->sum('anggaran_bulan_ini');
+                    $anggaranSdBulanIni = $queryBelanja5->sum('anggaran_sd_bulan_ini');
+
+                    $prosentaseSdTriwulanIni = $realisasiSdBulanIni / $anggaranSdBulanIni;
+                @endphp
+                <td style="border:1px solid black;padding:5px">{{ $anggaranTriwulanLalu }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $realisasiTriwulanLalu }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $anggaranTriwulanIni }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $realisasiTriwulanIni }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $anggaranSdBulanIni }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
+
+                <td style="border:1px solid black;padding:5px">{{ $prosentaseSdTriwulanIni }}</td>
                 <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
                 <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-
                 <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $belanja5 = $opd->nama_belanja_5;
@@ -276,25 +289,29 @@
                 <td style="border:1px solid black;padding:5px">{{ $queryBelanja6->sum('anggaran') }}</td>
                 <td style="border:1px solid black;padding:5px"></td>
                 @php
-                    $realisasiBulanLalu = $queryBelanja6->sum('realisasi_bulan_lalu');
-                    $realisasiBulanIni = $queryBelanja6->sum('realisasi_bulan_ini');
+                    $realisasiTriwulanLalu = $queryBelanja6->sum('realisasi_bulan_lalu');
+                    $realisasiTriwulanIni = $queryBelanja6->sum('realisasi_bulan_ini');
                     $realisasiSdBulanIni = $queryBelanja6->sum('realisasi_sd_bulan_ini');
-                    $anggaran = $queryBelanja6->sum('anggaran');
-                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+
+                    $anggaranTriwulanLalu = $queryBelanja6->sum('anggaran_bulan_lalu');
+                    $anggaranTriwulanIni = $queryBelanja6->sum('anggaran_bulan_ini');
+                    $anggaranSdBulanIni = $queryBelanja6->sum('anggaran_sd_bulan_ini');
+
+                    $prosentaseSdTriwulanIni = $realisasiSdBulanIni / $anggaranSdBulanIni;
                 @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-
+                <td style="border:1px solid black;padding:5px">{{ $anggaranTriwulanLalu }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $realisasiTriwulanLalu }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $anggaranTriwulanIni }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $realisasiTriwulanIni }}</td>
+                <td style="border:1px solid black;padding:5px">{{ $anggaranSdBulanIni }}</td>
                 <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+
+                <td style="border:1px solid black;padding:5px">{{ $prosentaseSdTriwulanIni }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
                 <td style="border:1px solid black;padding:5px"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="border:1px solid black;padding:5px"></td>
+                <td style="border:1px solid black;padding:5px"></td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
                 @endphp
@@ -310,15 +327,17 @@
         <td style="border:1px solid black;padding:5px">{{ $opds->sum('anggaran') }}</td>
         <td style="border:1px solid black;padding:5px"></td>
 
+        <td style="border:1px solid black;padding:5px">{{ $opds->sum('anggaran_bulan_lalu') }}</td>
         <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
-        <td style="border:1px solid black;padding:5px"></td>
-        <td style="border:1px solid black;padding:5px"></td>
-
+        <td style="border:1px solid black;padding:5px">{{ $opds->sum('anggaran_bulan_ini') }}</td>
         <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_bulan_ini') }}</td>
-        <td style="border:1px solid black;padding:5px"></td>
+
+        <td style="border:1px solid black;padding:5px">{{ $opds->sum('anggaran_sd_bulan_ini') }}</td>
+        <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
         <td style="border:1px solid black;padding:5px"></td>
 
-        <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
+        <td style="border:1px solid black;padding:5px"></td>
+        <td style="border:1px solid black;padding:5px"></td>
         <td style="border:1px solid black;padding:5px"></td>
         <td style="border:1px solid black;padding:5px"></td>
     </tr>

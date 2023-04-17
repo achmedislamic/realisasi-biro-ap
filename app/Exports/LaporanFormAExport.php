@@ -39,25 +39,39 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
 
     public function columnFormats(): array
     {
-        return [
-            'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'C1:C15' => NumberFormat::FORMAT_GENERAL,
-            'E' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'E1:E15' => NumberFormat::FORMAT_GENERAL,
-            'H' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'H1:H15' => NumberFormat::FORMAT_GENERAL,
-            'K' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'K1:K15' => NumberFormat::FORMAT_GENERAL,
-            'N' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
-            'N1:N15' => NumberFormat::FORMAT_GENERAL,
+        if($this->jenisLaporan == 'a'){
+            return [
+                'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'C1:C15' => NumberFormat::FORMAT_GENERAL,
+                'E' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'E1:E15' => NumberFormat::FORMAT_GENERAL,
+                'H' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'H1:H15' => NumberFormat::FORMAT_GENERAL,
+                'K' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'K1:K15' => NumberFormat::FORMAT_GENERAL,
+                'N' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'N1:N15' => NumberFormat::FORMAT_GENERAL,
 
-            'L' => NumberFormat::FORMAT_PERCENTAGE_00,
-            'L1:L15' => NumberFormat::FORMAT_GENERAL,
-            'F' => NumberFormat::FORMAT_PERCENTAGE_00,
-            'F1:F15' => NumberFormat::FORMAT_GENERAL,
-            'I' => NumberFormat::FORMAT_PERCENTAGE_00,
-            'I1:I15' => NumberFormat::FORMAT_GENERAL,
-        ];
+                'L' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'L1:L15' => NumberFormat::FORMAT_GENERAL,
+                'F' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'F1:F15' => NumberFormat::FORMAT_GENERAL,
+                'I' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'I1:I15' => NumberFormat::FORMAT_GENERAL,
+            ];
+        } elseif ($this->jenisLaporan == 'b'){
+            return [
+                'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'C1:C15' => NumberFormat::FORMAT_GENERAL,
+                'E:K' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+                'E12:O15' => NumberFormat::FORMAT_GENERAL,
+
+                'K' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'L' => NumberFormat::FORMAT_PERCENTAGE_00,
+                'L1:L15' => NumberFormat::FORMAT_GENERAL,
+                'K1:K15' => NumberFormat::FORMAT_GENERAL,
+            ];
+        }
     }
 
     public function styles(Worksheet $sheet)
@@ -105,7 +119,11 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
             ->join('kelompok_belanjas AS kb', 'kb.id', '=', 'jb.kelompok_belanja_id')
             ->join('akun_belanjas AS ab', 'ab.id', '=', 'kb.akun_belanja_id')
 
-            ->selectRaw("u.kode AS kode_urusan, bu.kode AS kode_bidang_urusan, p.kode AS kode_program, k.kode AS kode_kegiatan, sk.kode AS kode_sub_kegiatan,ab.kode AS kode_belanja_1, ab.nama AS nama_belanja_1, kb.kode AS kode_belanja_2, kb.nama AS nama_belanja_2, jb.kode AS kode_belanja_3, jb.nama AS nama_belanja_3, ob.kode AS kode_belanja_4, ob.nama AS nama_belanja_4, rob.kode AS kode_belanja_5, rob.nama AS nama_belanja_5, srob.kode AS kode_belanja_6, srob.nama AS nama_belanja_6, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM( or.anggaran) AS anggaran, SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu, SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini, SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini")
+            ->selectRaw("u.kode AS kode_urusan, bu.kode AS kode_bidang_urusan, p.kode AS kode_program, k.kode AS kode_kegiatan, sk.kode AS kode_sub_kegiatan,ab.kode AS kode_belanja_1, ab.nama AS nama_belanja_1, kb.kode AS kode_belanja_2, kb.nama AS nama_belanja_2, jb.kode AS kode_belanja_3, jb.nama AS nama_belanja_3, ob.kode AS kode_belanja_4, ob.nama AS nama_belanja_4, rob.kode AS kode_belanja_5, rob.nama AS nama_belanja_5, srob.kode AS kode_belanja_6, srob.nama AS nama_belanja_6, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM(or.anggaran) AS anggaran, SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu, SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini, SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini,
+
+            SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', or.anggaran, 0)) AS anggaran_bulan_lalu,
+            SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', or.anggaran, 0)) AS anggaran_bulan_ini,
+            SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', or.anggaran, 0)) AS anggaran_sd_bulan_ini")
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
             ->where('or.anggaran', '!=', 0)
             ->where('u.id', $this->urusanId)
