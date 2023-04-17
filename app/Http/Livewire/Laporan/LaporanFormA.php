@@ -58,15 +58,18 @@ class LaporanFormA extends Component
     public function rules()
     {
         return [
-            'urusanDipilih' => 'required',
-            'bulan' => 'required',
-            'opdDipilih' => 'required',
-            'subOpdDipilih' => 'required',
+            'urusanDipilih' => 'required|numeric',
+            'bidangUrusanDipilih' => 'nullable|numeric',
+            'bulan' => 'required|string|max:15',
+            'opdDipilih' => 'required|numeric',
+            'subOpdDipilih' => 'nullable|numeric',
         ];
     }
 
     public function cetak()
     {
+        $this->validate();
+
         return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->bulan, $this->opdDipilih, $this->subOpdDipilih), 'laporan-form-a.xlsx');
     }
 

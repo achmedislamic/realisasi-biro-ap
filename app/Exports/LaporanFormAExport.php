@@ -65,10 +65,10 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $sheet->getStyle('A3:A5')->getFont()->setBold(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
         $sheet->getStyle('B')->getAlignment()->setWrapText(true);
-        $sheet->getStyle('A11:N15')->getAlignment()->setHorizontal('center')->setVertical('center');
+        $sheet->getStyle($this->jenisLaporan == 'a' ? 'A11:N15' : 'A11:O15')->getAlignment()->setHorizontal('center')->setVertical('center');
         $sheet->getStyle('C')->getAlignment()->setHorizontal('right')->setVertical('center');
         $sheet->getStyle('C1:C15')->getAlignment()->setHorizontal('center')->setVertical('center');
-        $sheet->getStyle('A11:N15')->getFont()->setBold(true);
+        $sheet->getStyle($this->jenisLaporan == 'a' ? 'A11:N15' : 'A11:O15')->getFont()->setBold(true);
     }
 
     public function view(): View
