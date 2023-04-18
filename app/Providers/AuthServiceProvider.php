@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,20 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('pilih-opd', function (User $user, int $opdId) {
+            if($user->isOpd()){
+                return $user->role->imageable_id === $opdId;
+            }
+
+            return true;
+        });
+
+        Gate::define('pilih-sub-opd', function (User $user, int $subOpdId) {
+            if($user->isSubOpd()){
+                return $user->role->imageable_id === $subOpdId;
+            }
+
+            return true;
+        });
     }
 }

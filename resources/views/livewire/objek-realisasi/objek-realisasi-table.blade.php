@@ -1,34 +1,4 @@
 <div>
-    @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
-    <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
-        <div class="w-1/2 flex gap-2">
-            @if (auth()->user()->isAdmin())
-                <div class="w-full">
-                    <x-native-select label="OPD" wire:model="opdPilihan">
-                        <option value="">Pilih OPD</option>
-                        @foreach ($pods as $opd)
-                        <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
-            @endif
-
-
-            @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
-                <div class="w-full">
-                    <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
-                        <option value="">Pilih Sub OPD (Unit)</option>
-                        @foreach ($subOpds as $subOpd)
-                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
-                        @endforeach
-                    </x-native-select>
-                </div>
-            @endif
-        </div>
-    </div>
-    @endif
-
-
     <div class="flex flex-col gap-y-4">
 
         <x-table.scrollable :model="$realisasiApbds" class="w-[2000px]">

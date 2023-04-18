@@ -20,7 +20,7 @@ class Program extends Model
     {
         return $query->when($cari, function ($query) use ($cari) {
             $query->where(function ($query) use ($cari) {
-                $query->search('kode', $cari)->search('nama', $cari);
+                $query->search('programs.kode', $cari)->search('programs.nama', $cari);
             });
         });
     }

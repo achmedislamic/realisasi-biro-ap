@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\{ObjekRealisasi, Opd, SubOpd, TahapanApbd};
+use App\Models\ObjekRealisasi;
+use App\Models\Opd;
+use App\Models\SubOpd;
+use App\Models\TahapanApbd;
 use App\Traits\Pencarian;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Livewire\{Component, WithPagination};
+use Livewire\Component;
+use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
 class ObjekRealisasiTable extends Component
@@ -16,44 +20,16 @@ class ObjekRealisasiTable extends Component
 
     public $tahapanApbds;
 
-    public $idTahapanApbd;
-
-    public $pods;
-
-    public $subOpds;
-
     public $opdPilihan;
-
     public $subOpdPilihan;
+
+    public $idTahapanApbd;
 
     protected $queryString = ['cari' => ['except' => ''], 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
 
     public function mount()
     {
         $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
-
-        if (auth()->user()->isAdmin()) {
-            $this->pods = Opd::orderBy('kode')->get();
-        }
-
-        $this->subOpds = collect();
-
-        if (auth()->user()->isOpd()) {
-            $this->opdPilihan = auth()->user()->role->imageable_id;
-            $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
-        }
-
-        if (auth()->user()->isSubOpd()) {
-            $this->subOpdPilihan = auth()->user()->role->imageable_id;
-        }
-    }
-
-    public function updatedOpdPilihan($opd)
-    {
-        $this->subOpds = SubOpd::where('opd_id', $opd)
-            ->orderBy('kode')
-            ->get();
-        $this->subOpdPilihan = null;
     }
 
     public function hapusObjekRealisasiBelanja(int $id): void
