@@ -217,7 +217,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td colspan="4"  style="text-align: center;">{{ $namaKepala ?? '(Belum mengisi nama kepala perangkat daerah/upt/biro)' }}</td>
+          <td colspan="4"  style="text-align: center;">{{ $opd->nama_kepala ?? '(Belum mengisi nama kepala perangkat daerah/upt/biro)' }}</td>
       </tr>
       <tr>
           <td></td>
@@ -230,7 +230,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td colspan="4" style="text-align: center;">NIP: {{ $nip ?? 'Belum mengisi nip' }}</td>
+          <td colspan="4" style="text-align: center;">NIP: {{ $opd->nip_kepala ?? 'Belum mengisi nip' }}</td>
       </tr>
   </tbody>
 </table>

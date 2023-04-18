@@ -155,6 +155,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $urusan = Urusan::find($this->urusanId);
         $namaBidangUrusan = filled($this->bidangUrusanId) ? BidangUrusan::find($this->bidangUrusanId)->nama : null;
         $opd = Opd::find($this->opdId);
+        // dd($opd);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
         $jenisLaporan = $this->jenisLaporan;
         $view = match($this->jenisLaporan) {
