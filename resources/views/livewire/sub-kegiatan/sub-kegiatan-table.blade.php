@@ -68,6 +68,7 @@
                     }" />
                     @endif
                     @if ($menu == 'realisasi')
+                    <x-button.circle orange xs icon="document" label="Rincian Masalah" href="{{ route('rincian-masalah.form', ['subKegiatan' => $subKegiatan->id, 'subOpd' => $subKegiatan->sub_opd_id]) }}" />
                     <x-button.circle spinner positive xs icon="folder-open"
                         wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" />
                     @endif

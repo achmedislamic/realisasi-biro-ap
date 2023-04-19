@@ -13,9 +13,10 @@ return new class extends Migration
             $table->year('tahun');
             $table->foreignId('sub_opd_id')->constrained();
             $table->foreignId('sub_kegiatan_id')->constrained();
+            $table->unsignedTinyInteger('triwulan'); //jika 0, maka tahunan
             $table->mediumText('kendala');
             $table->mediumText('tindak_lanjut');
-            $table->smallText('pihak');
+            $table->mediumText('pihak');
             $table->timestamps();
         });
     }
