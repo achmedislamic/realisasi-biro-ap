@@ -47,6 +47,7 @@
                     {{ $subKegiatan->nama }}
                 </x-table.td>
                 <x-table.td>
+                    @if ($menu != 'realisasi')
                     <x-button.circle warning xs icon="pencil"
                         :href="route('sub-kegiatan.form', [$idKegiatan, $subKegiatan->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
@@ -61,6 +62,11 @@
                             label: 'Batal'
                         }
                     }" />
+                    @endif
+                    @if ($menu == 'realisasi')
+                    <x-button.circle positive xs icon="folder-open"
+                        wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
+                    @endif
                 </x-table.td>
 
             </x-table.tr>

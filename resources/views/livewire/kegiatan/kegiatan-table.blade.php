@@ -43,22 +43,25 @@
                     {{ $kegiatan->nama }}
                 </x-table.td>
                 <x-table.td>
+                    @if ($menu != 'realisasi')
                     <x-button.circle warning xs icon="pencil"
-                        :href="route('kegiatan.form', [$idProgram, $kegiatan->id])" />
-                    <x-button.circle negative xs icon="trash" x-on:confirm="{
-                        title: 'Anda yakin akan menghapus data?',
-                        icon: 'question',
-                        accept: {
-                            label: 'Hapus',
-                            method: 'hapusKegiatan',
-                            params: {{ $kegiatan->id }}
-                        },
-                        reject: {
-                            label: 'Batal'
-                        }
-                    }" />
+                            :href="route('kegiatan.form', [$idProgram, $kegiatan->id])" />
+                        <x-button.circle negative xs icon="trash" x-on:confirm="{
+                            title: 'Anda yakin akan menghapus data?',
+                            icon: 'question',
+                            accept: {
+                                label: 'Hapus',
+                                method: 'hapusKegiatan',
+                                params: {{ $kegiatan->id }}
+                            },
+                            reject: {
+                                label: 'Batal'
+                            }
+                        }" />
+                    @endif
+
                     <x-button.circle positive xs icon="folder-open"
-                        wire:click="pilihIdKegiatanEvent({{ $kegiatan->id }})" />
+                        wire:click="pilihIdKegiatanEvent({{ $kegiatan->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
 
             </x-table.tr>

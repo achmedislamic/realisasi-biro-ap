@@ -36,7 +36,7 @@
             @endif
         </div>
         <div class="p-6 text-gray-900">
-            <div x-data="{ tab: @entangle('tabAktif').defer }">
+            <div x-data="{ tab: @entangle('tabAktif') }">
                 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
                         <li class="mr-2" role="presentation">
@@ -82,6 +82,12 @@
                 <div id="myTabContent">
                     <div x-show="tab == 'program'" x-transition>
                         @livewire('program.program-table', ['menu' => 'realisasi', 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
+                    </div>
+                    <div x-show="tab == 'kegiatan'" x-transition>
+                        @livewire('kegiatan.kegiatan-table')
+                    </div>
+                    <div x-show="tab == 'subKegiatan'" x-transition>
+                        @livewire('sub-kegiatan.sub-kegiatan-table')
                     </div>
                     <div x-show="tab == 'objekRealisasi'" x-transition>
                         @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])

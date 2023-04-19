@@ -20,27 +20,17 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
-        Gate::define('pilih-opd', function (User $user, int $opdId) {
-            if($user->isOpd()){
-                return $user->role->imageable_id === $opdId;
+        Gate::define('realisasi-menu', function (User $user, int $opdId = null, int|string $subOpdId = null) {
+            if($user->isAdmin()){
+                return true;
             }
 
-            return true;
-        });
-
-        Gate::define('pilih-sub-opd', function (User $user, int $subOpdId) {
-            if($user->isSubOpd()){
-                return $user->role->imageable_id === $subOpdId;
-            }
-
-            return true;
+            return $user->role->imageable_id === $opdId || $user->role->imageable_id == $subOpdId;
         });
     }
 }

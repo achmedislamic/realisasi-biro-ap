@@ -23,9 +23,9 @@ class ProgramTable extends Component
 
     protected $listeners = ['opdUpdated' => 'passOpdId', 'subOpdUpdated' => 'passSubOpdId'];
 
-    public function pilihIdProgramEvent(int $id)
+    public function pilihIdProgramEvent(int $id, string $menu = '', int|string $opdId = null, int|string $subOpdId = null)
     {
-        $this->emit('pilihIdProgramEvent', $id);
+        $this->emit('pilihIdProgramEvent', $id, $menu, $opdId, $subOpdId);
         $this->emit('proKegGantiTabEvent', 'kegiatan');
     }
 
@@ -58,8 +58,7 @@ class ProgramTable extends Component
 
     public function render()
     {
-        Gate::authorize('pilih-opd', $this->opdId);
-        Gate::authorize('pilih-sub-opd', $this->subOpdId);
+        Gate::authorize('realisasi-menu', [$this->opdId, $this->subOpdId]);
         $programs = Program::query()
             ->when($this->menu == 'realisasi', function ($query) {
                 // tampilkan daftar program berdasarkan sub_opd_id
@@ -71,7 +70,7 @@ class ProgramTable extends Component
                     ->join('opds AS o', 'so.opd_id', '=', 'o.id')
                     ->when(filled($this->opdId), function ($query) {
                         $query->where('o.id', $this->opdId);
-                    })->when(filled($this->subOpdId) && Gate::check('pilih-sub-opd', $this->subOpdId), function ($query) {
+                    })->when(filled($this->subOpdId), function ($query) {
                         $query->where('so.id', $this->subOpdId);
                     })
                     ->select('programs.nama', 'programs.id', 'programs.kode')

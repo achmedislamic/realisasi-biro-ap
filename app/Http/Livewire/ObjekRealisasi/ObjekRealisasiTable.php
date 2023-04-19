@@ -25,11 +25,18 @@ class ObjekRealisasiTable extends Component
 
     public $idTahapanApbd;
 
-    protected $queryString = ['cari' => ['except' => ''], 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
+    protected $queryString = ['cari' => ['except' => '']];
 
-    public function mount()
+    protected $listeners = ['subKegiatanClicked' => 'passData'];
+
+    public function mount(): void
     {
         $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
+    }
+
+    public function passData(string $menu, int|string $opdId = null, int|string $subOpdId = null): void
+    {
+        
     }
 
     public function hapusObjekRealisasiBelanja(int $id): void

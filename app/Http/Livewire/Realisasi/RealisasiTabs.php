@@ -22,9 +22,7 @@ class RealisasiTabs extends Component
 
     protected $queryString = ['tabAktif', 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
 
-    protected $listeners = [
-        'gantiTab' => 'gantiTab',
-    ];
+    protected $listeners = ['gantiTab'];
 
     public function mount(): void
     {
@@ -53,6 +51,7 @@ class RealisasiTabs extends Component
         $this->subOpdPilihan = null;
 
         $this->emit('opdUpdated', $opdId);
+        $this->emit('gantiTab', 'program');
     }
 
     public function updatedSubOpdPilihan($subOpdId)
@@ -60,7 +59,7 @@ class RealisasiTabs extends Component
         $this->emit('subOpdUpdated', $subOpdId);
     }
 
-    public function gantiTab(string $namaTab, $objekRealisasiId)
+    public function gantiTab(string $namaTab, $objekRealisasiId = null)
     {
         $this->tabAktif = $namaTab;
         $this->objekRealisasiId = $objekRealisasiId;

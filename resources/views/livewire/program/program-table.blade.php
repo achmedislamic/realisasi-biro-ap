@@ -52,7 +52,7 @@
                     @endif
 
                     <x-button.circle positive xs icon="folder-open"
-                        wire:click="pilihIdProgramEvent({{ $program->id }})" />
+                        wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
 
             </x-table.tr>
