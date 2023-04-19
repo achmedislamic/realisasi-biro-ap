@@ -35,21 +35,24 @@
                     {{ $program->nama }}
                 </x-table.td>
                 <x-table.td>
+                    @if ($menu != 'realisasi')
                     <x-button.circle warning xs icon="pencil" :href="route('program.form', $program->id)" />
-                    <x-button.circle negative xs icon="trash" x-on:confirm="{
-                        title: 'Anda yakin akan menghapus data?',
-                        icon: 'question',
-                        accept: {
-                            label: 'Hapus',
-                            method: 'hapusProgram',
-                            params: {{ $program->id }}
-                        },
-                        reject: {
-                            label: 'Batal'
-                        }
-                    }" />
+                        <x-button.circle negative xs icon="trash" x-on:confirm="{
+                            title: 'Anda yakin akan menghapus data?',
+                            icon: 'question',
+                            accept: {
+                                label: 'Hapus',
+                                method: 'hapusProgram',
+                                params: {{ $program->id }}
+                            },
+                            reject: {
+                                label: 'Batal'
+                            }
+                        }" />
+                    @endif
+
                     <x-button.circle positive xs icon="folder-open"
-                        wire:click="pilihIdProgramEvent({{ $program->id }})" />
+                        wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
 
             </x-table.tr>

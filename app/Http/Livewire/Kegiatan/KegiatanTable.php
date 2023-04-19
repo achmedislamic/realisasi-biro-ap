@@ -4,7 +4,10 @@ namespace App\Http\Livewire\Kegiatan;
 
 use App\Models\{Kegiatan, Program};
 use App\Traits\Pencarian;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Livewire\{Component, WithPagination};
+use PDO;
 use WireUi\Traits\Actions;
 
 class KegiatanTable extends Component
@@ -14,22 +17,36 @@ class KegiatanTable extends Component
     use Actions;
 
     public $idProgram = 0;
+    public $menu = '';
+    public $opdId = null;
+    public $subOpdId = null;
 
     protected $queryString = ['cari' => ['except' => '']];
 
     protected $listeners = [
-        'pilihIdProgramEvent' => 'pilihIdProgram',
+        'pilihIdProgramEvent' => 'pilihIdProgram', 'opdUpdated',
     ];
 
-    public function pilihIdKegiatanEvent(int $id)
+    public function opdUpdated()
     {
-        $this->emit('pilihIdKegiatanEvent', $id);
+        $this->reset();
+    }
+
+    public function pilihIdKegiatanEvent(int $id, string $menu = '', int|string $opdId = null, int|string $subOpdId = '')
+    {
+
+        $this->emit('pilihIdKegiatanEvent', $id, $menu, $opdId, $subOpdId);
         $this->emit('proKegGantiTabEvent', 'sub_kegiatan');
     }
 
-    public function pilihIdProgram(int $idProgram)
+    public function pilihIdProgram(int $idProgram, string $menu = '', int|string $opdId = null, int|string $subOpdId = null)
     {
+        $this->menu = $menu;
+        $this->opdId = $opdId;
+        $this->subOpdId = $subOpdId;
         $this->idProgram = $idProgram;
+
+        $this->emit('gantiTab', 'kegiatan');
     }
 
     public function hapusKegiatan(int $id): void
@@ -50,10 +67,27 @@ class KegiatanTable extends Component
 
     public function render()
     {
+        Gate::authorize('realisasi-menu', [$this->opdId, $this->subOpdId]);
         $kegiatans = Kegiatan::query()
-        ->whereProgramId($this->idProgram)
-        ->pencarian($this->cari)
-        ->paginate();
+            ->when(filled($this->menu), function (Builder $query) {
+                $query->join('sub_kegiatans AS sk', 'sk.kegiatan_id', '=', 'kegiatans.id')
+                    ->join('objek_realisasis AS ore', 'ore.sub_kegiatan_id', '=', 'sk.id')
+                    ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'ore.bidang_urusan_sub_opd_id')
+                    ->join('sub_opds AS so', 'buso.sub_opd_id', '=', 'so.id')
+                    ->join('opds AS o', 'so.opd_id', '=', 'o.id')
+                    ->when(filled($this->opdId), function ($query) {
+                        $query->where('o.id', $this->opdId);
+                    })->when(filled($this->subOpdId), function ($query) {
+                        $query->where('so.id', $this->subOpdId);
+                    })
+                    ->groupBy('kegiatans.id')
+                    ->orderBy('kegiatans.kode')
+                    ->orderBy('kegiatans.nama');
+            })
+            ->where('program_id', $this->idProgram)
+            ->select('kegiatans.nama', 'kegiatans.id', 'kegiatans.kode')
+            ->pencarian($this->cari)
+            ->paginate();
 
         $program = Program::find($this->idProgram);
 

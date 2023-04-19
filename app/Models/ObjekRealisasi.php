@@ -13,6 +13,13 @@ class ObjekRealisasi extends Model
 
     protected $guarded = [];
 
+    protected static function booted(): void
+    {
+        static::addGlobalScope('ancient', function (Builder $builder) {
+            $builder->where('tahapan_apbd_id', cache('tahapanApbd')->id);
+        });
+    }
+
     public function selisihRealisasi($realisasiId = null): float
     {
         $totalRealisasi = Realisasi::query()

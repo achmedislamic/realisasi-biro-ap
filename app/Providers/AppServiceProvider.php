@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,8 +16,15 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
-        Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+        Relation::enforceMorphMap([
+            'opd' => 'App\Models\Opd',
+            'sub_opd' => 'App\Models\SubOpd',
+        ]);
+
+        Model::shouldBeStrict(! $this->app->isProduction());
+
+        // Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
+        // Model::preventAccessingMissingAttributes(! $this->app->isProduction());
 
         Builder::macro('search', fn ($field, $string) => $string ?
                 $this->orWhere($field, 'like', '%'.$string.'%')

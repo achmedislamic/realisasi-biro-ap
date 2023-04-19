@@ -23,6 +23,8 @@
                 <x-table.th>
                     #
                 </x-table.th>
+                <x-table.th>Nama OPD</x-table.th>
+                <x-table.th>Nama UPT</x-table.th>
                 <x-table.th>
                     Kode
                 </x-table.th>
@@ -40,6 +42,8 @@
                 <x-table.td>
                     {{ $subKegiatans->firstItem() + $key }}
                 </x-table.td>
+                <x-table.td>{{ $subKegiatan->kode_opd . ' ' . $subKegiatan->nama_opd }}</x-table.td>
+                <x-table.td>{{ $subKegiatan->kode_sub_opd . ' ' . $subKegiatan->nama_sub_opd }}</x-table.td>
                 <x-table.td>
                     {{ $subKegiatan->kode }}
                 </x-table.td>
@@ -47,6 +51,7 @@
                     {{ $subKegiatan->nama }}
                 </x-table.td>
                 <x-table.td>
+                    @if ($menu != 'realisasi')
                     <x-button.circle warning xs icon="pencil"
                         :href="route('sub-kegiatan.form', [$idKegiatan, $subKegiatan->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
@@ -61,6 +66,12 @@
                             label: 'Batal'
                         }
                     }" />
+                    @endif
+                    @if ($menu == 'realisasi')
+                    <x-button.circle orange xs icon="document" label="Rincian Masalah" href="{{ route('rincian-masalah.form', ['subKegiatan' => $subKegiatan->id, 'subOpd' => $subKegiatan->sub_opd_id]) }}" />
+                    <x-button.circle spinner positive xs icon="folder-open"
+                        wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" />
+                    @endif
                 </x-table.td>
 
             </x-table.tr>

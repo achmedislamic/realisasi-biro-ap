@@ -25,13 +25,6 @@ class SubKegiatan extends Model
         });
     }
 
-     public function scopeWhereKegiatanId($query, int $id): Builder
-     {
-         return $query->whereHas('kegiatan', function ($query) use ($id) {
-             $query->where('kegiatan_id', $id);
-         });
-     }
-
     public function kegiatan(): BelongsTo
     {
         return $this->belongsTo(Kegiatan::class);
