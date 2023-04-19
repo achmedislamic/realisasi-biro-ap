@@ -3,6 +3,14 @@
         <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
             <div class="flex gap-x-1 items-center">
                 <div class="bg-slate-900 w-2 h-0.5"></div>
+                <p>{{ $subOpd->opd->kode ?? "" }} {{ $subOpd->opd->nama ?? "" }}</p>
+            </div>
+            <div class="flex gap-x-1 items-center">
+                <div class="bg-slate-900 w-2 h-0.5"></div>
+                <p>{{ $subOpd->kode ?? "" }} {{ $subOpd->nama ?? "" }}</p>
+            </div>
+            <div class="flex gap-x-1 items-center">
+                <div class="bg-slate-900 w-2 h-0.5"></div>
                 <p>{{ $subKegiatan->kegiatan->program->kode ?? "" }} {{ $subKegiatan->kegiatan->program->nama ?? "" }}</p>
             </div>
             <div class="flex gap-x-1 items-center">
@@ -30,15 +38,6 @@
                     </x-table.th>
                     <x-table.th>
                         #
-                    </x-table.th>
-                    <x-table.th>
-                        Opd
-                    </x-table.th>
-                    <x-table.th>
-                        Sub Opd
-                    </x-table.th>
-                    <x-table.th>
-                        Sub Kegiatan
                     </x-table.th>
                     <x-table.th>
                         Rekening Belanja
@@ -76,17 +75,7 @@
                         {{ $realisasiApbds->firstItem() + $key }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $objekRealisasi->kode_opd." ".$objekRealisasi->kode_sub_opd }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->kode_sub_opd." ".$objekRealisasi->nama_sub_opd }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->subKegiatan->kode." ".$objekRealisasi->subKegiatan->nama }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $objekRealisasi->kode_sub_rincian_objek_belanja."
-                        ".$objekRealisasi->nama_sub_rincian_objek_belanja
+                        {{ $objekRealisasi->subRincianObjekBelanja->rincianObjekBelanja->kode . ' ' .$objekRealisasi->subRincianObjekBelanja->kode.".".$objekRealisasi->subRincianObjekBelanja->nama
                         }}
                     </x-table.td>
                     <x-table.td class="text-right">

@@ -72,12 +72,25 @@ class ObjekRealisasiTable extends Component
     public function render()
     {
         $realisasiApbds = ObjekRealisasi::query()
-            ->with('realisasis', 'subKegiatan')
-            ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'opds.kode AS kode_opd', 'sub_opds.kode AS kode_sub_opd', 'sub_opds.nama AS nama_sub_opd', 'sub_rincian_objek_belanjas.kode AS kode_sub_rincian_objek_belanja', 'sub_rincian_objek_belanjas.nama AS nama_sub_rincian_objek_belanja')
-            ->join('sub_rincian_objek_belanjas', 'sub_rincian_objek_belanjas.id', '=', 'objek_realisasis.sub_rincian_objek_belanja_id')
+            ->with(['realisasis', 'subKegiatan', 'subRincianObjekBelanja:id,kode,nama,rincian_objek_belanja_id' => [
+                'rincianObjekBelanja:id,kode,nama,objek_belanja_id' => [
+                    'objekBelanja:id,kode,nama,jenis_belanja_id' => [
+                        'jenisBelanja:id,kode,nama,kelompok_belanja_id' => [
+                            'kelompokBelanja:id,kode,nama,akun_belanja_id' => [
+                                'akunBelanja:id,kode,nama'
+                            ]
+                        ]
+                    ]
+                ]
+            ]])
+            // ->with('realisasis', 'subKegiatan', 'subRincianObjekBelanja.rincianObjekBelanja.objekBelanja.jenisBelanja.kelompokBelanja.akunBelanja')
+
+            // ->join('sub_rincian_objek_belanjas', 'sub_rincian_objek_belanjas.id', '=', 'objek_realisasis.sub_rincian_objek_belanja_id')
             ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'objek_realisasis.bidang_urusan_sub_opd_id')
             ->join('sub_opds', 'sub_opds.id', '=', 'buso.sub_opd_id')
             ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
+
+            // ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran')
             ->where('objek_realisasis.sub_kegiatan_id', $this->subKegiatanId)
             ->when(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
                 $query->where('opds.id', $this->opdPilihan);
@@ -89,6 +102,7 @@ class ObjekRealisasiTable extends Component
             ->paginate();
 
         $subKegiatan = SubKegiatan::with('kegiatan.program')->find($this->subKegiatanId);
-        return view('livewire.objek-realisasi.objek-realisasi-table', compact('realisasiApbds', 'subKegiatan'));
+        $subOpd = SubOpd::with('opd')->find($this->subOpdPilihan);
+        return view('livewire.objek-realisasi.objek-realisasi-table', compact('realisasiApbds', 'subKegiatan', 'subOpd'));
     }
 }

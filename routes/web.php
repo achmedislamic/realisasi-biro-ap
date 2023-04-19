@@ -23,6 +23,7 @@ Route::middleware(['auth', 'isAllowed:admin,opd'])->group(function () {
 Route::middleware(['auth', 'hasTahapanApbd', 'admin'])->group(function () {
     Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
     Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
+    Route::get('/rincian-masalah/form/{subKegiatanId}/{subOpdId}', App\Http\Livewire\RincianMasalahForm::class)->name('rincian-masalah.form');
 
     Route::prefix('/master')->group(function () {
         Route::get('/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');
