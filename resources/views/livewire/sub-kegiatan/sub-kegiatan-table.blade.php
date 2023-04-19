@@ -64,7 +64,7 @@
                     }" />
                     @endif
                     @if ($menu == 'realisasi')
-                    <x-button.circle positive xs icon="folder-open"
+                    <x-button.circle spinner positive xs icon="folder-open"
                         wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
                     @endif
                 </x-table.td>

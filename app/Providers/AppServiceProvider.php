@@ -21,8 +21,10 @@ class AppServiceProvider extends ServiceProvider
             'sub_opd' => 'App\Models\SubOpd',
         ]);
 
-        Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
-        Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+        Model::shouldBeStrict(! $this->app->isProduction());
+
+        // Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
+        // Model::preventAccessingMissingAttributes(! $this->app->isProduction());
 
         Builder::macro('search', fn ($field, $string) => $string ?
                 $this->orWhere($field, 'like', '%'.$string.'%')
