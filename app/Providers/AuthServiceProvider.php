@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('realisasi-menu', function (User $user, int $opdId = null, int|string $subOpdId = null) {
+        Gate::define('realisasi-menu', function (User $user, int|string $opdId = null, int|string $subOpdId = null) {
             if($user->isAdmin()){
                 return true;
             }

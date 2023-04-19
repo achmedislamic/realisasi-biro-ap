@@ -22,6 +22,8 @@ class ObjekRealisasiTable extends Component
 
     public $opdPilihan;
     public $subOpdPilihan;
+    public $subKegiatanId;
+    public string $menu = '';
 
     public $idTahapanApbd;
 
@@ -34,9 +36,14 @@ class ObjekRealisasiTable extends Component
         $this->tahapanApbds = TahapanApbd::orderByDesc('tahun')->get();
     }
 
-    public function passData(string $menu, int|string $opdId = null, int|string $subOpdId = null): void
+    public function passData(int $subKegiatanId, string $menu = '', int|string $opdId = null, int|string $subOpdId = null): void
     {
-        
+        $this->subKegiatanId = $subKegiatanId;
+        $this->menu = $menu;
+        $this->opdPilihan = $opdId;
+        $this->subOpdPilihan = $subOpdId;
+
+        $this->emit('gantiTab', 'objekRealisasi');
     }
 
     public function hapusObjekRealisasiBelanja(int $id): void
@@ -70,7 +77,7 @@ class ObjekRealisasiTable extends Component
             ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'objek_realisasis.bidang_urusan_sub_opd_id')
             ->join('sub_opds', 'sub_opds.id', '=', 'buso.sub_opd_id')
             ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
-            ->where('tahapan_apbd_id', cache('tahapanApbd')->id)
+            ->where('sub_kegiatan_id', $this->subKegiatanId)
             ->when(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
                 $query->where('opds.id', $this->opdPilihan);
             })

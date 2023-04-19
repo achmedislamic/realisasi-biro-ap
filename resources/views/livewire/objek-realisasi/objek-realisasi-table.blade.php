@@ -76,10 +76,10 @@
                         ".$objekRealisasi->nama_sub_rincian_objek_belanja
                         }}
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($objekRealisasi->realisasis->sum('jumlah')) }}
                     </x-table.td>
                 </x-table.tr>

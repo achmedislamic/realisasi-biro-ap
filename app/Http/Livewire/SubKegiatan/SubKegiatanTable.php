@@ -5,6 +5,7 @@ namespace App\Http\Livewire\SubKegiatan;
 use App\Models\{Kegiatan, SubKegiatan};
 use App\Traits\Pencarian;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
@@ -53,6 +54,7 @@ class SubKegiatanTable extends Component
 
     public function render()
     {
+        Gate::authorize('realisasi-menu', [$this->opdId, $this->subOpdId]);
         $subKegiatans = SubKegiatan::query()
             ->when(filled($this->menu), function (Builder $query) {
                 $query->join('objek_realisasis AS ore', 'ore.sub_kegiatan_id', '=', 'sub_kegiatans.id')
