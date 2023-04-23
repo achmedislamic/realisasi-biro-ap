@@ -40,7 +40,7 @@ class OpdForm extends Component
             'opd.nama' => 'required|string|max:255',
             'opd.sektor' => 'required|max:20',
             'opd.nama_kepala' => 'required|max:255',
-            'opd.nip_kepala' => 'required|max:25'
+            'opd.nip_kepala' => 'required|max:25',
         ];
     }
 

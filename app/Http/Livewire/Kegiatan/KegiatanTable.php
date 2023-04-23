@@ -7,7 +7,6 @@ use App\Traits\Pencarian;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Gate;
 use Livewire\{Component, WithPagination};
-use PDO;
 use WireUi\Traits\Actions;
 
 class KegiatanTable extends Component
@@ -17,8 +16,11 @@ class KegiatanTable extends Component
     use Actions;
 
     public $programId = 0;
+
     public $menu = '';
+
     public $opdId = null;
+
     public $subOpdId = null;
 
     protected $queryString = ['cari' => ['except' => '']];

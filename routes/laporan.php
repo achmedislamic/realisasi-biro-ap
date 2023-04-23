@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\Laporan\LaporanFormAController;
 use App\Http\Livewire\CetakLaporanDeviasi;
-use App\Http\Livewire\Laporan\LaporanFormC;
-use App\Http\Livewire\Laporan\LaporanFormB;
-use App\Http\Livewire\Laporan\LaporanFormA;
+use App\Http\Livewire\Laporan\{LaporanFormA, LaporanFormB, LaporanFormC};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/laporan/cetak-deviasi', CetakLaporanDeviasi::class)->name('laporan-deviasi');

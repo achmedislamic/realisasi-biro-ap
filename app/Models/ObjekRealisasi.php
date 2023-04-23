@@ -61,12 +61,12 @@ class ObjekRealisasi extends Model
          return $query->when($cari, function ($query) use ($cari) {
              $query->where(function ($query) use ($cari) {
                  $query->search('anggaran', $cari)
-                    ->search('objek_realisasis.anggaran', $cari)
-                    ->search('opds.kode', $cari)
-                    ->search('sub_opds.kode', $cari)
-                    ->search('sub_opds.nama', $cari)
-                    ->search('sub_rincian_objek_belanjas.kode', $cari)
-                    ->search('sub_rincian_objek_belanjas.nama', $cari);
+                     ->search('objek_realisasis.anggaran', $cari)
+                     ->search('opds.kode', $cari)
+                     ->search('sub_opds.kode', $cari)
+                     ->search('sub_opds.nama', $cari)
+                     ->search('sub_rincian_objek_belanjas.kode', $cari)
+                     ->search('sub_rincian_objek_belanjas.nama', $cari);
              });
          });
      }

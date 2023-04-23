@@ -51,9 +51,9 @@ class ObjekBelanjaTable extends Component
     public function render()
     {
         $objekBelanjas = ObjekBelanja::query()
-                    ->whereJenisBelanjaId($this->idJenisBelanja)
-                    ->pencarian($this->cari)
-                    ->paginate();
+            ->whereJenisBelanjaId($this->idJenisBelanja)
+            ->pencarian($this->cari)
+            ->paginate();
 
         $jenisBelanja = JenisBelanja::find($this->idJenisBelanja);
 

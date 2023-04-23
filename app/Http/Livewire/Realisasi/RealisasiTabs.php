@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Realisasi;
 
-use App\Models\Opd;
-use App\Models\SubOpd;
+use App\Models\{Opd, SubOpd};
+use Illuminate\View\View;
 use Livewire\Component;
 
 class RealisasiTabs extends Component
@@ -35,7 +35,7 @@ class RealisasiTabs extends Component
         $this->opds = collect();
         $this->subOpds = collect();
 
-        if(auth()->user()->isAdmin()){
+        if (auth()->user()->isAdmin()) {
             $this->opds = Opd::orderBy('nama')->get();
         }
 
@@ -64,7 +64,7 @@ class RealisasiTabs extends Component
         $this->subKegiatanId = $subKegiatanId;
     }
 
-    public function updatedOpdPilihan($opdId)
+    public function updatedOpdPilihan($opdId): void
     {
         $this->subOpds = SubOpd::where('opd_id', $opdId)
             ->orderBy('kode')
@@ -75,18 +75,18 @@ class RealisasiTabs extends Component
         $this->emit('gantiTab', 'program');
     }
 
-    public function updatedSubOpdPilihan($subOpdId)
+    public function updatedSubOpdPilihan($subOpdId): void
     {
         $this->emit('subOpdUpdated', $subOpdId);
     }
 
-    public function gantiTab(string $namaTab, $objekRealisasiId = null)
+    public function gantiTab(string $namaTab, $objekRealisasiId = null): void
     {
         $this->tabAktif = $namaTab;
         $this->objekRealisasiId = $objekRealisasiId;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.realisasi.realisasi-tabs');
     }

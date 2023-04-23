@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\CetakLaporanDeviasiController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{CetakLaporanDeviasiController, ProfileController};
 use App\Http\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 

@@ -51,9 +51,9 @@ class RincianObjekBelanjaTable extends Component
     public function render()
     {
         $rincianObjekBelanjas = RincianObjekBelanja::query()
-                    ->whereObjekBelanjaId($this->idObjekBelanja)
-                    ->pencarian($this->cari)
-                    ->paginate();
+            ->whereObjekBelanjaId($this->idObjekBelanja)
+            ->pencarian($this->cari)
+            ->paginate();
 
         $objekBelanja = ObjekBelanja::find($this->idObjekBelanja);
 

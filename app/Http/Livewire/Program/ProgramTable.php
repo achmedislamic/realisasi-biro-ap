@@ -17,6 +17,7 @@ class ProgramTable extends Component
     public $menu = '';
 
     public $opdId;
+
     public $subOpdId;
 
     protected $queryString = ['cari' => ['except' => '']];

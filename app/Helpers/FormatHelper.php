@@ -8,9 +8,10 @@ class FormatHelper
 {
     public static function tanggal(string|Carbon $tanggal)
     {
-        if(is_string($tanggal)){
+        if (is_string($tanggal)) {
             return Carbon::parse($tanggal)->format('d F Y');
         }
+
         return $tanggal->format('d F Y');
     }
 

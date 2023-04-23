@@ -16,7 +16,7 @@ class Dashboard extends Component
             ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
             ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
 
-            ->selectRaw("o.nama AS nama_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi")
+            ->selectRaw('o.nama AS nama_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi')
             ->groupBy('o.nama')
             ->orderBy('o.nama')
             ->get();
@@ -27,11 +27,12 @@ class Dashboard extends Component
             ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
             ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
 
-            ->selectRaw("so.nama AS nama_sub_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi")
-            ->where('o.nama', 'like', "%Sekretariat Daerah%")
+            ->selectRaw('so.nama AS nama_sub_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi')
+            ->where('o.nama', 'like', '%Sekretariat Daerah%')
             ->groupBy('so.nama')
             ->orderBy('so.nama')
             ->get();
+
         return view('livewire.dashboard', compact('opds', 'biros'));
     }
 }

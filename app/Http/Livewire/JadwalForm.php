@@ -19,13 +19,13 @@ class JadwalForm extends Component
     {
         return [
             'jadwal.nama_bulan' => 'required|max:10',
-            'jadwal.tanggal_waktu' => 'required|date'
+            'jadwal.tanggal_waktu' => 'required|date',
         ];
     }
 
     public function updated($model, $value): void
     {
-        if($model == 'jadwal.nama_bulan'){
+        if ($model == 'jadwal.nama_bulan') {
             $this->jadwal = Jadwal::where('nama_bulan', $value)->firstOrNew();
             // dd($value);
             $this->jadwal->nama_bulan = $value;

@@ -40,8 +40,8 @@ class AkunBelanjaTable extends Component
     public function render()
     {
         $akuns = AkunBelanja::query()
-        ->pencarian($this->cari)
-        ->paginate();
+            ->pencarian($this->cari)
+            ->paginate();
 
         return view('livewire.akun-belanja.akun-belanja-table', compact('akuns'));
     }

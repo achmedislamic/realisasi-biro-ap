@@ -43,7 +43,7 @@ class SubOpdForm extends Component
             'subOpd.kode' => 'required',
             'subOpd.nama' => 'required|string|max:255',
             'subOpd.nama_kepala' => 'required|max:255',
-            'subOpd.nip_kepala' => 'required|max:25'
+            'subOpd.nip_kepala' => 'required|max:25',
         ];
     }
 

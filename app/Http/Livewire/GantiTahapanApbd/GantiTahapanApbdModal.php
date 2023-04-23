@@ -53,8 +53,8 @@ class GantiTahapanApbdModal extends ModalComponent
     public function updatedTahunTahapanPilihan($tahun)
     {
         $this->tahunTahapans = collect(TahapanApbd::query()
-        ->orderByDesc('tahun')
-        ->get())->unique('tahun')->values()->all();
+            ->orderByDesc('tahun')
+            ->get())->unique('tahun')->values()->all();
 
         $this->namaTahapans = collect(TahapanApbd::query()
             ->where('tahun', $tahun)

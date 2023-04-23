@@ -2,14 +2,12 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
-
 class TanggalHelper
 {
     public static function daftarBulan(): array
     {
-		$date = \Carbon\Carbon::createFromDate(cache('tahapanApbd')->tahun, 1, 1);
-		
+        $date = \Carbon\Carbon::createFromDate(cache('tahapanApbd')->tahun, 1, 1);
+
         $results = [];
         for ($month = 1; $month <= 12; $month++) {
             $endDate = $date->endOfMonth();
@@ -25,6 +23,6 @@ class TanggalHelper
             $date->addMonth();
         }
 
-		return $results;
+        return $results;
     }
 }

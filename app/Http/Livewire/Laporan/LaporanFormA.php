@@ -16,6 +16,7 @@ class LaporanFormA extends Component
     use WithPagination;
 
     public $urusanDipilih = null;
+
     public $bidangUrusanDipilih = null;
 
     public $bulan;
@@ -128,10 +129,10 @@ class LaporanFormA extends Component
         // }
 
         SimpleExcelWriter::streamDownload('your-export.xlsx')
-             ->addRow([
-                 'first_name' => 'John',
-                 'last_name' => 'Doe',
-             ])
+            ->addRow([
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+            ])
             ->addRow([
                 'first_name' => 'Jane',
                 'last_name' => 'Doe',
@@ -143,7 +144,7 @@ class LaporanFormA extends Component
     {
         return view('livewire.laporan.laporan-form-a', [
             'urusans' => Urusan::orderBy('kode')->get(),
-            'bulans' => \App\Helpers\TanggalHelper::daftarBulan()
+            'bulans' => \App\Helpers\TanggalHelper::daftarBulan(),
         ]);
     }
 }

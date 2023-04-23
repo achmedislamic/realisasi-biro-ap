@@ -16,8 +16,11 @@ class SubKegiatanTable extends Component
     use Actions;
 
     public $kegiatanId = 0;
+
     public $menu = '';
+
     public $opdId = null;
+
     public $subOpdId = null;
 
     protected $queryString = ['cari' => ['except' => '']];
@@ -63,10 +66,10 @@ class SubKegiatanTable extends Component
                     ->join('opds AS o', 'so.opd_id', '=', 'o.id')
                     ->when(filled($this->opdId), function ($query) {
                         $query->where('o.id', $this->opdId)
-                        ->groupByRaw('so.id, sub_kegiatans.id');
+                            ->groupByRaw('so.id, sub_kegiatans.id');
                     })->when(filled($this->subOpdId), function ($query) {
                         $query->where('so.id', $this->subOpdId)
-                        ->groupByRaw('so.id, sub_kegiatans.id');
+                            ->groupByRaw('so.id, sub_kegiatans.id');
                     })
                     ->select('sub_kegiatans.id', 'sub_kegiatans.kode', 'sub_kegiatans.nama', 'o.kode AS kode_opd', 'o.nama AS nama_opd', 'so.kode AS kode_sub_opd', 'so.nama AS nama_sub_opd', 'o.id AS opd_id', 'so.id AS sub_opd_id')
                     ->orderBy('sub_kegiatans.kode')

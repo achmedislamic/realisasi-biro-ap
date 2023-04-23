@@ -51,9 +51,9 @@ class JenisBelanjaTable extends Component
     public function render()
     {
         $jenisBelanjas = JenisBelanja::query()
-                    ->whereKelompokBelanjaId($this->idKelompokBelanja)
-                    ->pencarian($this->cari)
-                    ->paginate();
+            ->whereKelompokBelanjaId($this->idKelompokBelanja)
+            ->pencarian($this->cari)
+            ->paginate();
 
         $kelompokBelanja = KelompokBelanja::find($this->idKelompokBelanja);
 

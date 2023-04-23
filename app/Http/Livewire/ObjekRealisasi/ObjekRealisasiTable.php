@@ -2,15 +2,10 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\ObjekRealisasi;
-use App\Models\Opd;
-use App\Models\SubKegiatan;
-use App\Models\SubOpd;
-use App\Models\TahapanApbd;
+use App\Models\{ObjekRealisasi, Opd, SubKegiatan, SubOpd, TahapanApbd};
 use App\Traits\Pencarian;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
 class ObjekRealisasiTable extends Component
@@ -22,8 +17,11 @@ class ObjekRealisasiTable extends Component
     public $tahapanApbds;
 
     public $opdPilihan;
+
     public $subOpdPilihan;
+
     public $subKegiatanId;
+
     public string $menu = '';
 
     public $idTahapanApbd;
@@ -77,11 +75,11 @@ class ObjekRealisasiTable extends Component
                     'objekBelanja:id,kode,nama,jenis_belanja_id' => [
                         'jenisBelanja:id,kode,nama,kelompok_belanja_id' => [
                             'kelompokBelanja:id,kode,nama,akun_belanja_id' => [
-                                'akunBelanja:id,kode,nama'
-                            ]
-                        ]
-                    ]
-                ]
+                                'akunBelanja:id,kode,nama',
+                            ],
+                        ],
+                    ],
+                ],
             ]])
             // ->with('realisasis', 'subKegiatan', 'subRincianObjekBelanja.rincianObjekBelanja.objekBelanja.jenisBelanja.kelompokBelanja.akunBelanja')
 
@@ -103,6 +101,7 @@ class ObjekRealisasiTable extends Component
 
         $subKegiatan = SubKegiatan::with('kegiatan.program')->find($this->subKegiatanId);
         $subOpd = SubOpd::with('opd')->find($this->subOpdPilihan);
+
         return view('livewire.objek-realisasi.objek-realisasi-table', compact('realisasiApbds', 'subKegiatan', 'subOpd'));
     }
 }

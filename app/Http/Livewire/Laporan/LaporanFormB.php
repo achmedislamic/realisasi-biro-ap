@@ -14,6 +14,7 @@ class LaporanFormB extends Component
     use WithPagination;
 
     public $urusanDipilih = null;
+
     public $bidangUrusanDipilih = null;
 
     public $triwulan;

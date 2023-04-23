@@ -2,18 +2,11 @@
 
 namespace App\Exports;
 
-use App\Models\BidangUrusan;
-use App\Models\Opd;
-use App\Models\SubOpd;
-use App\Models\Urusan;
+use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\{FromView, ShouldAutoSize, WithColumnFormatting, WithColumnWidths, WithStyles};
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -21,7 +14,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
 {
     public function __construct(
         public int $urusanId,
-        public ?int $bidangUrusanId = null,
+        public ?int $bidangUrusanId,
         public string $waktu,
         public int $opdId,
         public ?int $subOpdId = null,
@@ -39,7 +32,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
 
     public function columnFormats(): array
     {
-        if($this->jenisLaporan == 'a'){
+        if ($this->jenisLaporan == 'a') {
             return [
                 'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
                 'C1:C15' => NumberFormat::FORMAT_GENERAL,
@@ -59,7 +52,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
                 'I' => NumberFormat::FORMAT_PERCENTAGE_00,
                 'I1:I15' => NumberFormat::FORMAT_GENERAL,
             ];
-        } elseif ($this->jenisLaporan == 'b'){
+        } elseif ($this->jenisLaporan == 'b') {
             return [
                 'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
                 'C1:C15' => NumberFormat::FORMAT_GENERAL,
@@ -71,7 +64,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
                 'L1:L15' => NumberFormat::FORMAT_GENERAL,
                 'K1:K15' => NumberFormat::FORMAT_GENERAL,
             ];
-        } elseif ($this->jenisLaporan == 'c'){
+        } elseif ($this->jenisLaporan == 'c') {
             return [
                 'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
                 'C1:C15' => NumberFormat::FORMAT_GENERAL,
@@ -101,7 +94,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
     public function view(): View
     {
         $waktu = CarbonImmutable::createFromFormat('Y-m-d', $this->waktu);
-        $namaPeriode = $this->jenisLaporan == 'a' ? 'Bulan ' . $waktu->translatedFormat('F') . ' ' . cache('tahapanApbd')->tahun : 'Triwulan ' . $waktu->quarter;
+        $namaPeriode = $this->jenisLaporan == 'a' ? 'Bulan '.$waktu->translatedFormat('F').' '.cache('tahapanApbd')->tahun : 'Triwulan '.$waktu->quarter;
 
         $bulanLaluMulai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->toDateString() : $waktu->startOfQuarter()->subQuarter(1)->toDateString();
         $bulanLaluSelesai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->endOfMonth()->toDateString() : $waktu->startOfQuarter()->subQuarter()->endOfQuarter()->toDateString();
@@ -158,11 +151,12 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         // dd($opd);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
         $jenisLaporan = $this->jenisLaporan;
-        $view = match($this->jenisLaporan) {
+        $view = match ($this->jenisLaporan) {
             'a' => 'exports.laporan-form-a-export',
             'b' => 'exports.laporan-form-b-export',
             'c' => 'exports.laporan-form-c-export'
         };
+
         return view($view, compact('opds', 'urusan', 'namaBidangUrusan', 'opd', 'subOpd', 'namaPeriode', 'jenisLaporan'));
     }
 }

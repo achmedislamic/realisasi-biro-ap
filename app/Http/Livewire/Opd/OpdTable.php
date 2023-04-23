@@ -58,16 +58,16 @@ class OpdTable extends Component
 
     public function render()
     {
-        if($this->mode == 'opd'){
+        if ($this->mode == 'opd') {
             $opds = Opd::orderBy('nama')->paginate();
         } else {
             // daftar opd yang memiliki bidang urusan terpilih
             $opds = Opd::query()
-            ->whereHas('subOpds.bidangUrusans', function (Builder $query) {
-                $query->where('bidang_urusans.id', $this->idBidangUrusan);
-            })
-            ->pencarian($this->cari)
-            ->paginate();
+                ->whereHas('subOpds.bidangUrusans', function (Builder $query) {
+                    $query->where('bidang_urusans.id', $this->idBidangUrusan);
+                })
+                ->pencarian($this->cari)
+                ->paginate();
         }
 
         $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);

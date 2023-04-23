@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
-use App\Models\Jadwal;
-use App\Models\User;
+use App\Models\{Jadwal, User};
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -27,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('ubah-realisasi', function (User $user) {
-            if($user->isAdmin()){
+            if ($user->isAdmin()) {
                 return true;
             }
 
@@ -37,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('realisasi-menu', function (User $user, int|string $opdId = null, int|string $subOpdId = null) {
-            if($user->isAdmin()){
+            if ($user->isAdmin()) {
                 return true;
             }
 

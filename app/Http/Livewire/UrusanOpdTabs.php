@@ -14,7 +14,7 @@ class UrusanOpdTabs extends Component
 
     public function mount()
     {
-        if(request()->segment(3) == 'opd'){
+        if (request()->segment(3) == 'opd') {
             $this->tabAktif = 'opd';
             $this->mode = 'opd';
         }

@@ -2,27 +2,28 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\ObjekRealisasi;
-use App\Models\Realisasi;
-use App\Models\RincianMasalah;
-use App\Models\SubKegiatan;
-use App\Models\SubOpd;
+use App\Models\{ObjekRealisasi, Realisasi, RincianMasalah, SubKegiatan, SubOpd};
 use Livewire\Component;
 
 class RincianMasalahForm extends Component
 {
     public $subKegiatan;
+
     public $subOpd;
+
     public $rincianMasalah;
+
     public $triwulan;
+
     public $jumlahAnggaran = null;
+
     public $jumlahRealisasi = null;
 
     public function mount(int $subKegiatan, int $subOpd): void
     {
         $this->subKegiatan = SubKegiatan::with('kegiatan.program')->find($subKegiatan);
         $this->subOpd = SubOpd::with('opd')->find($subOpd);
-        $this->rincianMasalah = new RincianMasalah;
+        $this->rincianMasalah = new RincianMasalah();
         $this->jumlahAnggaran = ObjekRealisasi::where('sub_kegiatan_id', $this->subKegiatan->id)
             ->whereRelation('bidangUrusanSubOpd', 'sub_opd_id', $this->subOpd->id)
             ->sum('anggaran');
@@ -34,7 +35,7 @@ class RincianMasalahForm extends Component
             'triwulan' => 'required|numeric',
             'rincianMasalah.kendala' => 'required|string',
             'rincianMasalah.tindak_lanjut' => 'required|string',
-            'rincianMasalah.pihak' => 'required|max:255'
+            'rincianMasalah.pihak' => 'required|max:255',
         ];
     }
 
