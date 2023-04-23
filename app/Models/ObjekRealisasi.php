@@ -15,7 +15,7 @@ class ObjekRealisasi extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope('ancient', function (Builder $builder) {
+        static::addGlobalScope('tahapan-apbd', function (Builder $builder) {
             $builder->where('tahapan_apbd_id', cache('tahapanApbd')->id);
         });
     }

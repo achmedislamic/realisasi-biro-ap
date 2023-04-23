@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Jadwal;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +25,16 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
+        Gate::define('ubah-realisasi', function (User $user) {
+            if($user->isAdmin()){
+                return true;
+            }
+
+            $jadwal = Jadwal::firstWhere('is_aktif', true);
+
+            return $jadwal->tanggal_waktu > now();
+        });
 
         Gate::define('realisasi-menu', function (User $user, int|string $opdId = null, int|string $subOpdId = null) {
             if($user->isAdmin()){

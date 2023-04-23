@@ -18,11 +18,17 @@ class RealisasiTabs extends Component
 
     public $opdPilihan;
 
+    public $programId;
+
+    public $kegiatanId;
+
+    public $subKegiatanId;
+
     public $subOpdPilihan = '';
 
-    protected $queryString = ['tabAktif', 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
+    protected $queryString = ['tabAktif', 'programId' => ['except' => ''], 'kegiatanId' => ['except' => ''], 'subKegiatanId' => ['except' => ''], 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
 
-    protected $listeners = ['gantiTab'];
+    protected $listeners = ['gantiTab', 'pilihIdProgramEvent', 'pilihIdKegiatanEvent', 'subKegiatanClicked'];
 
     public function mount(): void
     {
@@ -41,6 +47,21 @@ class RealisasiTabs extends Component
         if (auth()->user()->isSubOpd()) {
             $this->subOpdPilihan = auth()->user()->role->imageable_id;
         }
+    }
+
+    public function pilihIdProgramEvent($programId): void
+    {
+        $this->programId = $programId;
+    }
+
+    public function pilihIdKegiatanEvent($kegiatanId): void
+    {
+        $this->kegiatanId = $kegiatanId;
+    }
+
+    public function subKegiatanClicked($subKegiatanId): void
+    {
+        $this->subKegiatanId = $subKegiatanId;
     }
 
     public function updatedOpdPilihan($opdId)

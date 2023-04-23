@@ -13,8 +13,8 @@
     <x-table.index :model="$subKegiatans">
 
         <x-slot name="table_actions">
-            @if ($idKegiatan != 0)
-            <x-button primary :href="route('sub-kegiatan.form', $idKegiatan)" label="Tambah" />
+            @if ($kegiatanId != 0)
+            <x-button primary :href="route('sub-kegiatan.form', $kegiatanId)" label="Tambah" />
             @endif
         </x-slot>
 
@@ -53,7 +53,7 @@
                 <x-table.td>
                     @if ($menu != 'realisasi')
                     <x-button.circle warning xs icon="pencil"
-                        :href="route('sub-kegiatan.form', [$idKegiatan, $subKegiatan->id])" />
+                        :href="route('sub-kegiatan.form', [$kegiatanId, $subKegiatan->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                         title: 'Anda yakin akan menghapus data?',
                         icon: 'question',

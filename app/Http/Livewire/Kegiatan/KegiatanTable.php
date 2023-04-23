@@ -16,7 +16,7 @@ class KegiatanTable extends Component
     use WithPagination;
     use Actions;
 
-    public $idProgram = 0;
+    public $programId = 0;
     public $menu = '';
     public $opdId = null;
     public $subOpdId = null;
@@ -39,12 +39,12 @@ class KegiatanTable extends Component
         $this->emit('proKegGantiTabEvent', 'sub_kegiatan');
     }
 
-    public function pilihIdProgram(int $idProgram, string $menu = '', int|string $opdId = null, int|string $subOpdId = null)
+    public function pilihIdProgram(int $programId, string $menu = '', int|string $opdId = null, int|string $subOpdId = null)
     {
         $this->menu = $menu;
         $this->opdId = $opdId;
         $this->subOpdId = $subOpdId;
-        $this->idProgram = $idProgram;
+        $this->programId = $programId;
 
         $this->emit('gantiTab', 'kegiatan');
     }
@@ -84,12 +84,12 @@ class KegiatanTable extends Component
                     ->orderBy('kegiatans.kode')
                     ->orderBy('kegiatans.nama');
             })
-            ->where('program_id', $this->idProgram)
+            ->where('program_id', $this->programId)
             ->select('kegiatans.nama', 'kegiatans.id', 'kegiatans.kode')
             ->pencarian($this->cari)
             ->paginate();
 
-        $program = Program::find($this->idProgram);
+        $program = Program::find($this->programId);
 
         return view('livewire.kegiatan.kegiatan-table', compact(['kegiatans', 'program']));
     }

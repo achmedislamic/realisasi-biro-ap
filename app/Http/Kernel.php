@@ -64,7 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'hasTahapanApbd' => \App\Http\Middleware\EnsureTahunAnggaranCookies::class,
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'opd' => \App\Http\Middleware\IsOpd::class,
         'isAllowed' => \App\Http\Middleware\IsAllowedUser::class,

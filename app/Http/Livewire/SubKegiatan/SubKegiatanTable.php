@@ -15,7 +15,7 @@ class SubKegiatanTable extends Component
     use WithPagination;
     use Actions;
 
-    public $idKegiatan = 0;
+    public $kegiatanId = 0;
     public $menu = '';
     public $opdId = null;
     public $subOpdId = null;
@@ -26,12 +26,12 @@ class SubKegiatanTable extends Component
         'pilihIdKegiatanEvent' => 'pilihIdKegiatan',
     ];
 
-    public function pilihIdKegiatan(int $idKegiatan, string $menu = '', int|string $opdId = null, int|string $subOpdId = ''): void
+    public function pilihIdKegiatan(int $kegiatanId, string $menu = '', int|string $opdId = null, int|string $subOpdId = ''): void
     {
         $this->menu = $menu;
         $this->opdId = $opdId;
         $this->subOpdId = $subOpdId;
-        $this->idKegiatan = $idKegiatan;
+        $this->kegiatanId = $kegiatanId;
 
         $this->emit('gantiTab', 'subKegiatan');
     }
@@ -75,11 +75,11 @@ class SubKegiatanTable extends Component
             ->when(blank($this->menu), function (Builder $query) {
                 $query->select('sub_kegiatans.id', 'sub_kegiatans.kode', 'sub_kegiatans.nama');
             })
-            ->where('kegiatan_id', $this->idKegiatan)
+            ->where('kegiatan_id', $this->kegiatanId)
             ->pencarian($this->cari)
             ->paginate();
 
-        $kegiatan = Kegiatan::find($this->idKegiatan);
+        $kegiatan = Kegiatan::find($this->kegiatanId);
 
         return view('livewire.sub-kegiatan.sub-kegiatan-table', compact('subKegiatans', 'kegiatan'));
     }

@@ -84,13 +84,13 @@
                         @livewire('program.program-table', ['menu' => 'realisasi', 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'kegiatan'" x-transition>
-                        @livewire('kegiatan.kegiatan-table')
+                        @livewire('kegiatan.kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'subKegiatan'" x-transition>
-                        @livewire('sub-kegiatan.sub-kegiatan-table')
+                        @livewire('sub-kegiatan.sub-kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'objekRealisasi'" x-transition>
-                        @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
+                        @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'realisasi'" x-transition>
                         @livewire('realisasi.realisasi-table')
