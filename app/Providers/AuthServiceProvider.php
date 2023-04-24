@@ -40,7 +40,11 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
 
-            return $user->role->imageable_id === $opdId || $user->role->imageable_id == $subOpdId;
+            return $user->role->imageable_id == $opdId || $user->role->imageable_id == $subOpdId;
+        });
+
+        Gate::define('pengguna-menu', function (User $user) {
+            return auth()->user()->isAdmin() || auth()->user()->isOpd();
         });
     }
 }

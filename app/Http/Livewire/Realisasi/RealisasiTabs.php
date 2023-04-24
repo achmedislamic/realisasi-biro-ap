@@ -78,6 +78,7 @@ class RealisasiTabs extends Component
     public function updatedSubOpdPilihan($subOpdId): void
     {
         $this->emit('subOpdUpdated', $subOpdId);
+        $this->emit('gantiTab', 'program');
     }
 
     public function gantiTab(string $namaTab, $objekRealisasiId = null): void

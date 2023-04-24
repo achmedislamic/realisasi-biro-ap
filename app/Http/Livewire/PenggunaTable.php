@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Traits\{Pencarian, WithSorting};
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\View\View;
 use Livewire\{Component, WithPagination};
 
@@ -30,6 +31,9 @@ class PenggunaTable extends Component
     public function render(): View
     {
         $users = User::query()
+            ->when(auth()->user()->isOpd(), function (Builder $query) {
+                $query->whereRelation('role', 'imageable_id', auth()->user()->role->imageable_id);
+            })
             ->pencarian($this->cari)
             ->whenSort($this->sortField, $this->sort)
             ->paginate();

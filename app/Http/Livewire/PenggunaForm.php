@@ -45,9 +45,11 @@ class PenggunaForm extends Component
         $this->pods = Opd::orderBy('kode')->get();
         if (is_null($id)) {
             $this->buttonText = 'Simpan';
-            $this->subOpds = collect();
-            $this->rolePengguna = 'opd';
+            $this->subOpds = auth()->user()->isOpd() ? SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get() : collect();
+            $this->rolePengguna = auth()->user()->isAdmin() ? RoleName::OPD : auth()->user()->role->role_name;
             $this->user = new User();
+            $this->opdPilihan = auth()->user()->isOpd() || auth()->user()->isSubOpd() ? Opd::find(auth()->user()->role->imageable_id) : null;
+            $this->subOpdPilihan = auth()->user()->isSubOpd() ? auth()->user()->role->imageable_id : null;
         } else {
             $this->buttonText = 'Simpan Perubahan';
             $this->userId = $id;
@@ -128,6 +130,7 @@ class PenggunaForm extends Component
 
     public function render(): View
     {
+        // dd($this->rolePengguna);
         return view('livewire.pengguna-form');
     }
 }

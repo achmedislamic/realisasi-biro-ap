@@ -41,12 +41,17 @@
 
         <div class="flex gap-x-4">
             <div class="w-full">
-                <x-native-select label="OPD" wire:model="opdDipilih">
-                    <option value="">Pilih OPD</option>
-                    @foreach ($opds as $opd)
-                        <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
-                    @endforeach
-                </x-native-select>
+                @if (auth()->user()->isAdmin())
+                    <x-native-select label="OPD" wire:model="opdDipilih">
+                        <option value="">Pilih OPD</option>
+                        @foreach ($opds as $opd)
+                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
+                        @endforeach
+                    </x-native-select>
+                @else
+                <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
+                @endif
+
             </div>
 
             <div class="w-full">

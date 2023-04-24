@@ -26,9 +26,12 @@
             </div>
             <div class="w-full">
                 <x-datetime-picker
-                label="Tanggal"
-                wire:model.defer="jadwal.tanggal_waktu"
-            />
+                    label="Tanggal"
+                    wire:model.defer="jadwal.tanggal_waktu"
+                />
+                @if (filled($jadwal->tanggal_waktu))
+                    <p>Jadwal sebelumnya telah diatur. Silakan ubah tanggal dan waktu di atas jika diperlukan.</p>
+                @endif
             </div>
         </div>
         <div class="flex justify-between">

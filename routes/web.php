@@ -15,12 +15,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ta', \App\Http\Controllers\PilihTahunAnggaranController::class)
         ->name('pilih-ta');
 
+    Route::middleware('can:pengguna-menu')->group(function () {
+        Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
+        Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
+    });
+
     require __DIR__.'/realisasi.php';
+    require __DIR__.'/laporan.php';
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
-    Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
     Route::get('/jadwal/form', App\Http\Livewire\JadwalForm::class)->name('jadwal.form');
 
     Route::prefix('/master')->group(function () {
@@ -43,7 +47,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 
     require __DIR__.'/master/index.php';
-    require __DIR__.'/laporan.php';
 });
 
 require __DIR__.'/auth.php';

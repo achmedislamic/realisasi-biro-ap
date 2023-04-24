@@ -25,9 +25,9 @@
         <x-table.scrollable :model="$realisasiApbds" class="w-[2000px]">
 
             <x-slot name="table_actions">
-                <x-button primary label="Tambah" :href="route('objek-realisasi.form')" />
                 @if (auth()->user()->isAdmin())
-                <x-button positive label="Import Anggaran Realisasi" :href="route('objek-realisasi.import')" />
+                    <x-button primary label="Tambah" :href="route('objek-realisasi.form')" />
+                    <x-button positive label="Import Anggaran Realisasi" :href="route('objek-realisasi.import')" />
                 @endif
             </x-slot>
 
