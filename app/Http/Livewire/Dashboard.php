@@ -19,8 +19,8 @@ class Dashboard extends Component
 
             ->when(auth()->user()->isAdmin(), function (Builder $query) {
                 $query->selectRaw('o.nama AS nama_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi')
-                ->groupBy('o.nama')
-                ->orderBy('o.nama');
+                    ->groupBy('o.nama')
+                    ->orderBy('o.nama');
             }, function (Builder $query) {
                 $query->where('o.id', auth()->user()->role->imageable_id)
                     ->selectRaw('so.nama AS nama_sub_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi')
@@ -31,7 +31,7 @@ class Dashboard extends Component
             ->get();
 
         $biros = collect();
-        if(auth()->user()->isAdmin()){
+        if (auth()->user()->isAdmin()) {
             $biros = DB::table('opds AS o')
                 ->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')
                 ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id')

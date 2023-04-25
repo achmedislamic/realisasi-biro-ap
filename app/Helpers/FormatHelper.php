@@ -17,7 +17,7 @@ class FormatHelper
 
     public static function angka($angka)
     {
-        return number_format($angka, 2, ',', '.');
+        return number_format(is_null($angka) ? 0 : $angka, 2, ',', '.');
     }
 
     public static function angkaKeRoman(int $num): string

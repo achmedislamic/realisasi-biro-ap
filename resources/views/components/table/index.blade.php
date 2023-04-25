@@ -1,11 +1,11 @@
-@props(['model'])
+@props(['model', 'isPaginated' => true])
 <div class="flex flex-col space-y-3 overflow-auto">
     <div class="flex flex-row justify-between mb-3 p-1">
         <div>
             @isset($table_actions)
-            {{ $table_actions }}
+                {{ $table_actions }}
             @else
-            <x-button primary :href="route('pengguna.form')" label="Tambah" />
+                <x-button primary :href="route('pengguna.form')" label="Tambah" />
             @endisset
         </div>
 
@@ -19,7 +19,10 @@
         {{ $slot }}
     </table>
 
-    <div>
-        {{ $model->links() }}
-    </div>
+    @if ($isPaginated)
+        <div>
+            {{ $model->links() }}
+        </div>
+    @endif
+
 </div>

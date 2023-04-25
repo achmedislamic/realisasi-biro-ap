@@ -13,7 +13,7 @@ return new class extends Migration
             $table->enum('role_name', ['admin', 'opd', 'sub_opd']);
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('imageable_id')->nullable();
-            $table->string('imageable_type')->nullable();
+            $table->string('imageable_type', 20)->nullable();
             $table->timestamps();
         });
     }

@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/jadwal/form', App\Http\Livewire\JadwalForm::class)->name('jadwal.form');
+    Route::get('/target/form/{opd}/{mode?}', App\Http\Livewire\TargetForm::class)->name('target.form');
+    Route::get('/target', App\Http\Livewire\TargetTable::class)->name('target');
 
     Route::prefix('/master')->group(function () {
         Route::get('/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');

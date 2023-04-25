@@ -38,7 +38,7 @@ class LaporanFormA extends Component
         $this->anggarans = collect();
         $this->opds = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
-        if(auth()->user()->isOpd()){
+        if (auth()->user()->isOpd()) {
             $this->subOpds = SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get();
         }
         $this->bidangUrusans = collect();
