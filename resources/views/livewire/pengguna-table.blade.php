@@ -6,6 +6,9 @@
 
 <x-container>
     <x-table.index :model="$users">
+        <x-slot:table_actions>
+            <x-button primary :href="route('pengguna.form')" label="Tambah" />
+        </x-slot:table_actions>
         <x-table.thead>
             <tr>
                 <x-table.th-sort sortBy="name" :$sortField :$sortAsc>

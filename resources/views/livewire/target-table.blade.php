@@ -5,7 +5,7 @@
 </x-slot>
 
 <x-container>
-    <x-table.index :model="$opds" :isPaginated="false">
+    <x-table.index :model="$opds" :isPaginated="false" :searchable="false">
         <x-table.thead>
             <tr>
                 <x-table.th rowspan="2">Aksi</x-table.th>
