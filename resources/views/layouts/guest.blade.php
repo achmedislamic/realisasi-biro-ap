@@ -13,7 +13,7 @@
 
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @vite(['resources/css/app.css'])
     @livewireStyles
 </head>
 
@@ -22,7 +22,7 @@
         {{ $slot }}
     </div>
     @wireUiScripts
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    @vite(['resources/js/app.js'])
     @livewireScripts
 </body>
 
