@@ -113,6 +113,13 @@ class Dashboard extends Component
                 ->get();
         }
 
-        return view('livewire.dashboard', compact('opds', 'biros', 'targetBiros', 'targetOpds'));
+        $colspanRealisasi = match($this->periode){
+            'bulan' => 'colspan=36',
+            'triwulan' => 'colspan=12',
+            'semester' => 'colspan=6',
+            'tahun' => 'colspan=3'
+        };
+
+        return view('livewire.dashboard', compact('opds', 'biros', 'targetBiros', 'targetOpds', 'colspanRealisasi'));
     }
 }
