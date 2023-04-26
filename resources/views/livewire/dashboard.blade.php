@@ -102,19 +102,21 @@
 
                     {{-- dapatkan target, jumlah realisasi, persentase --}}
                     @for ($i = 1; $i <= 12; $i++)
-                        {{-- target --}}
+                        @php
+                            $target = $targetBiros->where('bulan', $i)->where('targetable_id', $biro->id)->first()->jumlah ?? 0;
+                            $realisasi = $biro->{'realisasi_' . $i} ?? 0;
+                            $persentase = $target == 0 ? 0 : $realisasi / $target;
+                        @endphp
                         <td class="px-6 py-4 text-right">
-                            {{ \App\Helpers\FormatHelper::angka($targetBiros->where('bulan', $i)->where('targetable_id', $biro->id)->first()->jumlah ?? 0) }}
+                            {{ \App\Helpers\FormatHelper::angka($target) }}
                         </td>
 
-                        {{-- realisasi --}}
                         <td class="px-6 py-4 text-right">
-                            {{ \App\Helpers\FormatHelper::angka($biro->{'realisasi_' . $i} ?? 0) }}
+                            {{ \App\Helpers\FormatHelper::angka($realisasi) }}
                         </td>
 
-                        {{-- persentase --}}
                         <td class="px-6 py-4 text-right">
-                            {{ \App\Helpers\FormatHelper::angka($biro->realisasi / $biro->anggaran) }}
+                            {{ \App\Helpers\FormatHelper::angka($persentase) }}
                         </td>
                     @endfor
 
@@ -129,12 +131,24 @@
                     <td class="px-6 py-4 text-right">
                         {{ \App\Helpers\FormatHelper::angka($opd->anggaran) }}
                     </td>
-                    <td class="px-6 py-4 text-right">
-                        {{ \App\Helpers\FormatHelper::angka($opd->realisasi) }}
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        {{ \App\Helpers\FormatHelper::angka($opd->realisasi / $opd->anggaran) }}
-                    </td>
+                    @for ($i = 1; $i <= 12; $i++)
+                        @php
+                            $target = $targetOpds->where('bulan', $i)->where('targetable_id', $opd->id)->first()->jumlah ?? 0;
+                            $realisasi = $opd->{'realisasi_' . $i} ?? 0;
+                            $persentase = $target == 0 ? 0 : $realisasi / $target;
+                        @endphp
+                        <td class="px-6 py-4 text-right">
+                            {{ \App\Helpers\FormatHelper::angka($target) }}
+                        </td>
+
+                        <td class="px-6 py-4 text-right">
+                            {{ \App\Helpers\FormatHelper::angka($realisasi) }}
+                        </td>
+
+                        <td class="px-6 py-4 text-right">
+                            {{ \App\Helpers\FormatHelper::angka($persentase) }}
+                        </td>
+                    @endfor
                 </tr>
             @endforeach
         </tbody>

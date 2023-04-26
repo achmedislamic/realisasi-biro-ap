@@ -38,7 +38,7 @@
                 </x-table.td-utama>
                 @for ($i = 1; $i <= 12; $i++)
                 <x-table.td>
-                    {{ \App\Helpers\FormatHelper::angka($biro->targets->where('bulan', $loop->iteration)->first()?->jumlah ?? 0) }}
+                    {{ \App\Helpers\FormatHelper::angka($biro->targets->where('bulan', $i)->first()?->jumlah ?? 0) }}
                 </x-table.td>
                 @endfor
             </x-table.tr>
