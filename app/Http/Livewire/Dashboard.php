@@ -14,7 +14,25 @@ class Dashboard extends Component
 
     private function realisasiBulananQuery(): string
     {
-        $januariMulai = today()->setYear(cache('tahapanApbd')->tahun)->setMonth(1)->startOfMonth()->toDateString();
+        $triwulan1Mulai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->toDateString();
+        $triwulan1Selesai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->endOfQuarter()->toDateString();
+
+        $triwulan2Mulai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->addQuarter()->toDateString();
+        $triwulan2Selesai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->addQuarter()->endOfQuarter()->toDateString();
+
+        $triwulan3Mulai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->addQuarter(2)->toDateString();
+        $triwulan3Selesai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->addQuarter(2)->endOfQuarter()->toDateString();
+
+        $triwulan4Mulai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->addQuarter(3)->toDateString();
+        $triwulan4Selesai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->addQuarter(3)->endOfQuarter()->toDateString();
+
+        $semester1Mulai = $triwulan1Mulai;
+        $semester1Selesai = $triwulan2Selesai;
+
+        $semester2Mulai = $triwulan3Mulai;
+        $semester2Selesai = $triwulan4Selesai;
+
+        $januariMulai = $triwulan1Mulai;
         $januariSelesai = today()->setYear(cache('tahapanApbd')->tahun)->setMonth(1)->endOfMonth()->toDateString();
 
         $februariMulai = today()->setYear(cache('tahapanApbd')->tahun)->setMonth(2)->startOfMonth()->toDateString();
@@ -48,9 +66,9 @@ class Dashboard extends Component
         $novemberSelesai = today()->setYear(cache('tahapanApbd')->tahun)->setMonth(11)->endOfMonth()->toDateString();
 
         $desemberMulai = today()->setYear(cache('tahapanApbd')->tahun)->setMonth(12)->startOfMonth()->toDateString();
-        $desemberSelesai = today()->setYear(cache('tahapanApbd')->tahun)->setMonth(12)->endOfMonth()->toDateString();
+        $desemberSelesai = $triwulan4Selesai;
 
-        return ", SUM(IF(r.tanggal BETWEEN '{$januariMulai}' AND '{$januariSelesai}', r.jumlah, 0)) AS realisasi_1, SUM(IF(r.tanggal BETWEEN '{$februariMulai}' AND '{$februariSelesai}', r.jumlah, 0)) AS realisasi_2, SUM(IF(r.tanggal BETWEEN '{$maretMulai}' AND '{$maretSelesai}', r.jumlah, 0)) AS realisasi_3, SUM(IF(r.tanggal BETWEEN '{$aprilMulai}' AND '{$aprilSelesai}', r.jumlah, 0)) AS realisasi_4, SUM(IF(r.tanggal BETWEEN '{$meiMulai}' AND '{$meiSelesai}', r.jumlah, 0)) AS realisasi_5, SUM(IF(r.tanggal BETWEEN '{$juniMulai}' AND '{$juniSelesai}', r.jumlah, 0)) AS realisasi_6, SUM(IF(r.tanggal BETWEEN '{$juliMulai}' AND '{$juliSelesai}', r.jumlah, 0)) AS realisasi_7, SUM(IF(r.tanggal BETWEEN '{$agustusMulai}' AND '{$agustusSelesai}', r.jumlah, 0)) AS realisasi_8, SUM(IF(r.tanggal BETWEEN '{$septemberMulai}' AND '{$septemberSelesai}', r.jumlah, 0)) AS realisasi_9, SUM(IF(r.tanggal BETWEEN '{$oktoberMulai}' AND '{$oktoberSelesai}', r.jumlah, 0)) AS realisasi_10, SUM(IF(r.tanggal BETWEEN '{$novemberMulai}' AND '{$novemberSelesai}', r.jumlah, 0)) AS realisasi_11, SUM(IF(r.tanggal BETWEEN '{$desemberMulai}' AND '{$desemberSelesai}', r.jumlah, 0)) AS realisasi_12";
+        return ", SUM(IF(r.tanggal BETWEEN '{$januariMulai}' AND '{$januariSelesai}', r.jumlah, 0)) AS realisasi_1, SUM(IF(r.tanggal BETWEEN '{$februariMulai}' AND '{$februariSelesai}', r.jumlah, 0)) AS realisasi_2, SUM(IF(r.tanggal BETWEEN '{$maretMulai}' AND '{$maretSelesai}', r.jumlah, 0)) AS realisasi_3, SUM(IF(r.tanggal BETWEEN '{$aprilMulai}' AND '{$aprilSelesai}', r.jumlah, 0)) AS realisasi_4, SUM(IF(r.tanggal BETWEEN '{$meiMulai}' AND '{$meiSelesai}', r.jumlah, 0)) AS realisasi_5, SUM(IF(r.tanggal BETWEEN '{$juniMulai}' AND '{$juniSelesai}', r.jumlah, 0)) AS realisasi_6, SUM(IF(r.tanggal BETWEEN '{$juliMulai}' AND '{$juliSelesai}', r.jumlah, 0)) AS realisasi_7, SUM(IF(r.tanggal BETWEEN '{$agustusMulai}' AND '{$agustusSelesai}', r.jumlah, 0)) AS realisasi_8, SUM(IF(r.tanggal BETWEEN '{$septemberMulai}' AND '{$septemberSelesai}', r.jumlah, 0)) AS realisasi_9, SUM(IF(r.tanggal BETWEEN '{$oktoberMulai}' AND '{$oktoberSelesai}', r.jumlah, 0)) AS realisasi_10, SUM(IF(r.tanggal BETWEEN '{$novemberMulai}' AND '{$novemberSelesai}', r.jumlah, 0)) AS realisasi_11, SUM(IF(r.tanggal BETWEEN '{$desemberMulai}' AND '{$desemberSelesai}', r.jumlah, 0)) AS realisasi_12, SUM(IF(r.tanggal BETWEEN '{$triwulan1Mulai}' AND '{$triwulan1Selesai}', r.jumlah, 0)) AS realisasi_triwulan_1, SUM(IF(r.tanggal BETWEEN '{$triwulan2Mulai}' AND '{$triwulan2Selesai}', r.jumlah, 0)) AS realisasi_triwulan_2, SUM(IF(r.tanggal BETWEEN '{$triwulan3Mulai}' AND '{$triwulan3Selesai}', r.jumlah, 0)) AS realisasi_triwulan_3, SUM(IF(r.tanggal BETWEEN '{$triwulan4Mulai}' AND '{$triwulan4Selesai}', r.jumlah, 0)) AS realisasi_triwulan_4, SUM(IF(r.tanggal BETWEEN '{$semester1Mulai}' AND '{$semester1Selesai}', r.jumlah, 0)) AS realisasi_semester_1, SUM(IF(r.tanggal BETWEEN '{$semester2Mulai}' AND '{$semester2Selesai}', r.jumlah, 0)) AS realisasi_semester_2";
     }
 
     public function render(): View
