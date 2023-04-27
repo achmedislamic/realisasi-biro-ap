@@ -50,14 +50,12 @@ class TargetForm extends Component
         DB::transaction(function () {
             $i = 0;
             foreach ($this->targets as $target) {
-                if (filled($target) && $target != 0) {
-                    $target = Target::updateOrCreate([
-                        'tahun' => cache('tahapanApbd')->tahun,
-                        'bulan' => ++$i,
-                        'targetable_id' => $this->opd->id,
-                        'targetable_type' => is_null($this->mode) ? 'opd' : 'sub_opd',
-                    ], ['jumlah' => $target]);
-                }
+                Target::updateOrCreate([
+                    'tahun' => cache('tahapanApbd')->tahun,
+                    'bulan' => ++$i,
+                    'targetable_id' => $this->opd->id,
+                    'targetable_type' => is_null($this->mode) ? 'opd' : 'sub_opd',
+                ], ['jumlah' => $target]);
             }
         });
 
