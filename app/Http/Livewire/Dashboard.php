@@ -12,6 +12,8 @@ class Dashboard extends Component
 {
     public $periode = 'bulan';
 
+    protected $queryString = ['periode' => ['except' => '']];
+
     private function realisasiBulananQuery(): string
     {
         $triwulan1Mulai = today()->setYear(cache('tahapanApbd')->tahun)->startOfYear()->toDateString();
@@ -96,8 +98,6 @@ class Dashboard extends Component
 
             ->get();
 
-        $biros = collect();
-        $targetBiros = collect();
         if (auth()->user()->isAdmin()) {
             $biros = DB::table('opds AS o')
                 ->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')

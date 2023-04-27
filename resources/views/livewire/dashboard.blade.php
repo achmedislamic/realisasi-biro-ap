@@ -82,26 +82,34 @@
                     {{-- dapatkan target, jumlah realisasi, persentase --}}
                     @for ($i = 1; $i <= $count; $i++)
                         @php
-                            $target = $targetBiros
-                                ->where('targetable_id', $biro->id)
+                            $target = $targetBiros->where('targetable_id', $biro->id)
                                 ->when($periode == 'bulan', function ($query) use ($i) {
-                                    $query->where('bulan', $i);
+                                    return $query->where('bulan', $i);
                                 })
                                 ->when($periode == 'triwulan', function ($query) use ($i) {
                                     if($i == 1){
-                                        $query->whereIn('bulan', [1,2,3]);
+                                        return $query->whereIn('bulan', [1,2,3]);
                                     }
 
                                     if($i == 2){
-                                        $query->whereIn('bulan', [4,5,6]);
+                                        return $query->whereIn('bulan', [4,5,6]);
                                     }
 
                                     if($i == 3){
-                                        $query->whereIn('bulan', [7,8,9]);
+                                        return $query->whereIn('bulan', [7,8,9]);
                                     }
 
                                     if($i == 4){
-                                        $query->whereIn('bulan', [10,11,12]);
+                                        return $query->whereIn('bulan', [10,11,12]);
+                                    }
+                                })
+                                ->when($periode == 'semester', function ($query) use ($i) {
+                                    if($i == 1){
+                                        return $query->whereIn('bulan', [1,2,3,4,5,6]);
+                                    }
+
+                                    if($i == 2){
+                                        return $query->whereIn('bulan', [7,8,9,10,11,12]);
                                     }
                                 });
 
@@ -117,6 +125,7 @@
                                 'tahun' => $biro->realisasi ?? 0,
                             };
                             $persentase = $target == 0 ? 0 : $realisasi / $target;
+
                         @endphp
                         <td class="px-6 py-4 text-right">
                             {{ \App\Helpers\FormatHelper::angka($target) }}
@@ -144,18 +153,50 @@
                     </td>
                     @for ($i = 1; $i <= $count; $i++)
                         @php
-                            $target =
-                                $targetOpds
-                                    ->where('bulan', $i)
-                                    ->where('targetable_id', $opd->id)
-                                    ->first()->jumlah ?? 0;
-                                $realisasi = match($periode) {
-                                    'bulan' => $opd->{'realisasi_' . $i} ?? 0,
-                                    'triwulan' => $opd->{'realisasi_triwulan_' . $i} ?? 0,
-                                    'semester' => $opd->{'realisasi_semester' . $i} ?? 0,
-                                    'tahun' => $opd->realisasi ?? 0,
-                                };
+                            $target = $targetOpds->where('targetable_id', $opd->id)
+                                ->when($periode == 'bulan', function ($query) use ($i) {
+                                    return $query->where('bulan', $i);
+                                })
+                                ->when($periode == 'triwulan', function ($query) use ($i) {
+                                    if($i == 1){
+                                        return $query->whereIn('bulan', [1,2,3]);
+                                    }
+
+                                    if($i == 2){
+                                        return $query->whereIn('bulan', [4,5,6]);
+                                    }
+
+                                    if($i == 3){
+                                        return $query->whereIn('bulan', [7,8,9]);
+                                    }
+
+                                    if($i == 4){
+                                        return $query->whereIn('bulan', [10,11,12]);
+                                    }
+                                })
+                                ->when($periode == 'semester', function ($query) use ($i) {
+                                    if($i == 1){
+                                        return $query->whereIn('bulan', [1,2,3,4,5,6]);
+                                    }
+
+                                    if($i == 2){
+                                        return $query->whereIn('bulan', [7,8,9,10,11,12]);
+                                    }
+                                });
+
+                            if($periode == 'bulan'){
+                                $target = $target->first()->jumlah ?? 0;
+                            } else {
+                                $target = $target->sum('jumlah') ?? 0;
+                            }
+                            $realisasi = match($periode) {
+                                'bulan' => $opd->{'realisasi_' . $i} ?? 0,
+                                'triwulan' => $opd->{'realisasi_triwulan_' . $i} ?? 0,
+                                'semester' => $opd->{'realisasi_semester' . $i} ?? 0,
+                                'tahun' => $opd->realisasi ?? 0,
+                            };
                             $persentase = $target == 0 ? 0 : $realisasi / $target;
+
                         @endphp
                         <td class="px-6 py-4 text-right">
                             {{ \App\Helpers\FormatHelper::angka($target) }}
