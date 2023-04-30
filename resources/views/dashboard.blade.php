@@ -5,6 +5,7 @@
             <canvas id="myChart"></canvas>
         </div>
         <div class="w-full">
+            @livewire('sub-opd-modal-dashboard')
             @livewire('table-dashboard')
         </div>
     </div>

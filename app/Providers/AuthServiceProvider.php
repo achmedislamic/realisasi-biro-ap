@@ -44,5 +44,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('pengguna-menu', function (User $user) {
             return auth()->user()->isAdmin() || auth()->user()->isOpd();
         });
+
+        Gate::define('is-admin', function (User $user) {
+            return auth()->user()->isAdmin();
+        });
     }
 }
