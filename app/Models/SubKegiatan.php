@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 class SubKegiatan extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    // use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     protected $guarded = [];
 

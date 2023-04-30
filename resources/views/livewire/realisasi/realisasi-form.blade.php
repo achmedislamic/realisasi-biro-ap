@@ -67,7 +67,7 @@
 
             <div class="flex justify-between">
                 <x-button gray label="Kembali ke halaman realisasi" :href="route('realisasi')" />
-                <x-button type="submit" positive label="{{ $submitText }}" />
+                <x-button spinner type="submit" positive label="{{ $submitText }}" />
             </div>
         </div>
     </form>

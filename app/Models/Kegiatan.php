@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 class Kegiatan extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    // use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     protected $guarded = [];
 
@@ -41,13 +41,13 @@ class Kegiatan extends Model
         );
     }
 
-    public function realisasis()
-    {
-        return $this->hasManyDeep(
-            Realisasi::class,
-            [SubKegiatan::class, ObjekRealisasi::class],
-            ['kegiatan_id', 'sub_kegiatan_id', 'objek_realisasi_id'],
-            ['id', 'id', 'id']
-        );
-    }
+    // public function realisasis()
+    // {
+    //     return $this->hasManyDeep(
+    //         Realisasi::class,
+    //         [SubKegiatan::class, ObjekRealisasi::class],
+    //         ['kegiatan_id', 'sub_kegiatan_id', 'objek_realisasi_id'],
+    //         ['id', 'id', 'id']
+    //     );
+    // }
 }
