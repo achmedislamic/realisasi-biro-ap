@@ -8,7 +8,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class Dashboard extends Component
+final class TableDashboard extends Component
 {
     public $periode = 'bulan';
 
@@ -78,6 +78,7 @@ class Dashboard extends Component
         // nama_opd, anggaran, realisasi, persentase
         $targetOpds = Target::where('targetable_type', 'opd')->get();
         $targetBiros = Target::where('targetable_type', 'sub_opd')->get();
+        $biros = collect();
         $opds = DB::table('opds AS o')
             ->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')
             ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id')
@@ -120,6 +121,6 @@ class Dashboard extends Component
             'tahun' => 'colspan=3'
         };
 
-        return view('livewire.dashboard', compact('opds', 'biros', 'targetBiros', 'targetOpds', 'colspanRealisasi'));
+        return view('livewire.table-dashboard', compact('opds', 'biros', 'targetBiros', 'targetOpds', 'colspanRealisasi'));
     }
 }
