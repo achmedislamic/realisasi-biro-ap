@@ -36,20 +36,15 @@ class LaporanFormE extends Component
         $this->reset('subOpdDipilih');
     }
 
-    public function rules()
+    public function cetak()
     {
-        return [
+        $this->validate([
             'periode' => 'required|string|max:15',
             'opdDipilih' => 'required|numeric',
             'subOpdDipilih' => 'nullable|numeric',
-        ];
-    }
+        ]);
 
-    public function cetak()
-    {
-        $this->validate();
-
-        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'c'), 'laporan-form-c.xlsx');
+        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'c'), 'laporan-form-e.xlsx');
     }
 
     public function render()

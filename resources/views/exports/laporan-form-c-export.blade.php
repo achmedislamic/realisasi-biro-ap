@@ -228,4 +228,6 @@
         <td style="border:1px solid black;padding:5px;">{{ $opds->sum('anggaran_bulan_ini') }}</td>
         <td style="border:1px solid black;padding:5px;"></td>
     </tr>
+
+    <x-laporan.sum-kelompok-belanja :rows="$opds" />
 </x-laporan>
