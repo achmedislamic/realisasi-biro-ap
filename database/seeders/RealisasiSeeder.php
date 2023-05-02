@@ -12,11 +12,11 @@ class RealisasiSeeder extends Seeder
         Realisasi::truncate();
 
         Realisasi::factory()->count(500)->create([
-            'tanggal' => now()->addYear()->startOfYear(),
+            'tanggal' => now()->setYear(cache('tahapanApbd')->tahun)->startOfYear(),
         ]);
 
         Realisasi::factory()->count(500)->create([
-            'tanggal' => now()->addYear(),
+            'tanggal' => now()->setYear(cache('tahapanApbd')->tahun),
         ]);
     }
 }
