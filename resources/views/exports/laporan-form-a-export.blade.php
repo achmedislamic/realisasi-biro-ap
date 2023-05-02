@@ -336,4 +336,6 @@
         <td style="border:1px solid black;padding:5px"></td>
         <td style="border:1px solid black;padding:5px"></td>
     </tr>
+
+    <x-laporan.sum-kelompok-belanja :rows="$opds" />
 </x-laporan>

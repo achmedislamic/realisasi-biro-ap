@@ -129,7 +129,11 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
 
             SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', or.anggaran, 0)) AS anggaran_bulan_lalu,
             SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', or.anggaran, 0)) AS anggaran_bulan_ini,
-            SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', or.anggaran, 0)) AS anggaran_sd_bulan_ini")
+            SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', or.anggaran, 0)) AS anggaran_sd_bulan_ini,
+            SUM(IF(kb.kode = 1, or.anggaran, 0)) AS anggaran_belanja_operasi,
+            SUM(IF(kb.kode = 2, or.anggaran, 0)) AS anggaran_belanja_modal,
+            SUM(IF(kb.kode = 3, or.anggaran, 0)) AS anggaran_belanja_tidak_terduga,
+            SUM(IF(kb.kode = 4, or.anggaran, 0)) AS anggaran_belanja_transfer")
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
             ->where('or.anggaran', '!=', 0)
             ->where('u.id', $this->urusanId)

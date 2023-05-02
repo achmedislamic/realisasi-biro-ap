@@ -2,22 +2,25 @@
 <form wire:submit.prevent="cetak">
     <div class="flex flex-col space-y-3">
         <div class="flex gap-4">
-            <div class="w-full">
-                <x-native-select label="Urusan" wire:model="urusanDipilih">
-                    <option value="">Pilih urusan</option>
-                    @foreach ($urusans as $urusan)
-                        <option value="{{ $urusan->id }}">{{ $urusan->kode }} - {{ $urusan->nama }}</option>
-                    @endforeach
-                </x-native-select>
-            </div>
-            <div class="w-full">
-                <x-native-select label="Bidang Urusan" wire:model.defer="bidangUrusanDipilih">
-                    <option value="">Pilih Bidang Urusan</option>
-                    @foreach ($bidangUrusans as $bidangUrusan)
-                        <option value="{{ $bidangUrusan->id }}">{{ $bidangUrusan->kode }} - {{ $bidangUrusan->nama }}</option>
-                    @endforeach
-                </x-native-select>
-            </div>
+            @if ($jenisLaporan != 'e')
+                <div class="w-full">
+                    <x-native-select label="Urusan" wire:model="urusanDipilih">
+                        <option value="">Pilih urusan</option>
+                        @foreach ($urusans as $urusan)
+                            <option value="{{ $urusan->id }}">{{ $urusan->kode }} - {{ $urusan->nama }}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+                <div class="w-full">
+                    <x-native-select label="Bidang Urusan" wire:model.defer="bidangUrusanDipilih">
+                        <option value="">Pilih Bidang Urusan</option>
+                        @foreach ($bidangUrusans as $bidangUrusan)
+                            <option value="{{ $bidangUrusan->id }}">{{ $bidangUrusan->kode }} - {{ $bidangUrusan->nama }}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+            @endif
+
             <div class="w-3/4">
                 @if ($jenisLaporan == 'a')
                     <x-native-select label="Bulan" wire:model.defer="bulan">
@@ -49,7 +52,7 @@
                         @endforeach
                     </x-native-select>
                 @else
-                <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
+                    <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
                 @endif
 
             </div>
