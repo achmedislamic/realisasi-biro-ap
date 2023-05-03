@@ -8,20 +8,20 @@
     <form wire:submit.prevent="simpan">
         <div class="flex flex-row space-x-3 mb-3">
             <div class="w-full">
-                <x-native-select wire:model="jadwal.nama_bulan" label="Bulan">
+                <x-native-select wire:model="jadwal.bulan" label="Bulan">
                     <option value="">Silakan Pilih</option>
-                    <option value="Januari">Januari</option>
-                    <option value="Februari">Februari</option>
-                    <option value="Maret">Maret</option>
-                    <option value="April">April</option>
-                    <option value="Mei">Mei</option>
-                    <option value="Juni">Juni</option>
-                    <option value="Juli">Juli</option>
-                    <option value="Agustus">Agustus</option>
-                    <option value="September">September</option>
-                    <option value="Oktober">Oktober</option>
-                    <option value="November">November</option>
-                    <option value="Desember">Desember</option>
+                    <option value="{{ today()->setMonth(1)->startOfMonth() }}">Januari</option>
+                    <option value="{{ today()->setMonth(2)->startOfMonth() }}">Februari</option>
+                    <option value="{{ today()->setMonth(3)->startOfMonth() }}">Maret</option>
+                    <option value="{{ today()->setMonth(4)->startOfMonth() }}">April</option>
+                    <option value="{{ today()->setMonth(5)->startOfMonth() }}">Mei</option>
+                    <option value="{{ today()->setMonth(6)->startOfMonth() }}">Juni</option>
+                    <option value="{{ today()->setMonth(7)->startOfMonth() }}">Juli</option>
+                    <option value="{{ today()->setMonth(8)->startOfMonth() }}">Agustus</option>
+                    <option value="{{ today()->setMonth(9)->startOfMonth() }}">September</option>
+                    <option value="{{ today()->setMonth(10)->startOfMonth() }}">Oktober</option>
+                    <option value="{{ today()->setMonth(11)->startOfMonth() }}">November</option>
+                    <option value="{{ today()->setMonth(12)->startOfMonth() }}">Desember</option>
                 </x-native-select>
             </div>
             <div class="w-full">
@@ -36,7 +36,7 @@
         </div>
         <div class="flex justify-between">
             <x-button gray label="Kembali" href="{{ url()->previous() }}" />
-            <x-button type="submit" positive label="Simpan" />
+            <x-button spinner type="submit" positive label="Simpan" />
         </div>
     </form>
 

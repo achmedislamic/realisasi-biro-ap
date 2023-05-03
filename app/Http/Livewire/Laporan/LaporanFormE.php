@@ -12,7 +12,7 @@ class LaporanFormE extends Component
 {
     use Actions;
 
-    public $periode;
+    // public $periode;
 
     public $opds;
 
@@ -39,7 +39,7 @@ class LaporanFormE extends Component
     public function cetak()
     {
         $this->validate([
-            'periode' => 'required|string|max:15',
+            // 'periode' => 'required|string|max:15',
             'opdDipilih' => 'required|numeric',
             'subOpdDipilih' => 'nullable|numeric',
         ]);

@@ -20,8 +20,6 @@ class ProgramTable extends Component
 
     public $subOpdId;
 
-    protected $queryString = ['cari' => ['except' => '']];
-
     protected $listeners = ['opdUpdated' => 'passOpdId', 'subOpdUpdated' => 'passSubOpdId'];
 
     public function pilihIdProgramEvent(int $id, string $menu = '', int|string $opdId = null, int|string $subOpdId = null)

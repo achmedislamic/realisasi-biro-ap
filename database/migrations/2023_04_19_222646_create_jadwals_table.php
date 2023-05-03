@@ -10,8 +10,7 @@ return new class extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->year('tahun');
-            $table->string('nama_bulan', 10);
+            $table->date('bulan')->comment('yang diperlukan hanya bulan dan tahun saja');
             $table->dateTime('tanggal_waktu');
             $table->boolean('is_aktif')->default(false);
             $table->timestamps();

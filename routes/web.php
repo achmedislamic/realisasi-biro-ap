@@ -1,6 +1,16 @@
 <?php
 
-use App\Http\Controllers\{CetakLaporanDeviasiController, ProfileController};
+use App\Http\Controllers\Laporan\LaporanFormAController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\CetakLaporanDeviasi;
+use App\Http\Livewire\Laporan\LaporanFormA;
+use App\Http\Livewire\Laporan\LaporanFormB;
+use App\Http\Livewire\Laporan\LaporanFormC;
+use App\Http\Livewire\Laporan\LaporanFormE;
+use App\Http\Livewire\ObjekRealisasi\ImportObjekRealisasi;
+use App\Http\Livewire\ObjekRealisasi\ObjekRealisasiForm;
+use App\Http\Livewire\Realisasi\RealisasiForm;
+use App\Http\Livewire\Realisasi\RealisasiTabs;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -19,8 +29,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
     });
 
-    require __DIR__.'/realisasi.php';
-    require __DIR__.'/laporan.php';
+    //realisasi
+    Route::get('/realisasi', RealisasiTabs::class)->name('realisasi');
+    Route::get('/realisasi/{objekRealisasiId}/form/{id?}', RealisasiForm::class)->name('realisasi.form');
+    Route::get('/objek-realisasi/import', ImportObjekRealisasi::class)->name('objek-realisasi.import');
+    Route::get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
+
+    Route::prefix('/laporan')->group(function () {
+        Route::get('/cetak-deviasi', CetakLaporanDeviasi::class)->name('laporan-deviasi');
+        Route::get('/form-a', LaporanFormA::class)->name('laporan-form-a');
+        Route::get('/form-b', LaporanFormB::class)->name('laporan-form-b');
+        Route::get('/form-c', LaporanFormC::class)->name('laporan-form-c');
+        Route::get('/form-e', LaporanFormE::class)->name('laporan-form-e');
+        Route::post('/form-a/export', [LaporanFormAController::class, 'export'])->name('laporan-form-a.export');
+    });
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

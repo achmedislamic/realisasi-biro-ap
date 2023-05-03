@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Realisasi;
 
 use App\Helpers\FormatHelper;
+use App\Models\Jadwal;
 use App\Models\{ObjekRealisasi, Realisasi};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
@@ -74,10 +75,15 @@ class RealisasiForm extends Component
         $this->totalRealisasi = FormatHelper::angka($this->totalRealisasi);
     }
 
+    private function getJadwalByMonthYear()
+    {
+        $jadwal = Jadwal::where('is_aktif', true)->first()->bulan;
+    }
+
     protected function rules(): array
     {
         return [
-            'realisasi.tanggal' => 'required|date',
+            'realisasi.tanggal' => ['required', 'date'],
             'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];
     }

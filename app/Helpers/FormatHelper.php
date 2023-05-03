@@ -9,10 +9,10 @@ class FormatHelper
     public static function tanggal(string|Carbon $tanggal)
     {
         if (is_string($tanggal)) {
-            return Carbon::parse($tanggal)->format('d F Y');
+            return Carbon::parse($tanggal)->translatedFormat('d F Y');
         }
 
-        return $tanggal->format('d F Y');
+        return $tanggal->translatedFormat('d F Y');
     }
 
     public static function angka($angka)

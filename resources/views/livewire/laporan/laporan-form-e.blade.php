@@ -1,9 +1,9 @@
 <x-slot:header>
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Laporan Form C
+        Laporan Form E
     </h2>
 </x-slot:header>
 
 <x-container>
-    <x-laporan.form :$opds :$subOpds :$urusans :$bidangUrusans jenis-laporan="e" />
+    <x-laporan.form :$opds :$subOpds jenis-laporan="e" />
 </x-container>

@@ -23,8 +23,6 @@ class KegiatanTable extends Component
 
     public $subOpdId = null;
 
-    protected $queryString = ['cari' => ['except' => '']];
-
     protected $listeners = [
         'pilihIdProgramEvent' => 'pilihIdProgram', 'opdUpdated',
     ];

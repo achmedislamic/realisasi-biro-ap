@@ -20,7 +20,8 @@ class SubKegiatan extends Model
     {
         return $query->when($cari, function ($query) use ($cari) {
             $query->where(function ($query) use ($cari) {
-                $query->search('kode', $cari)->search('nama', $cari);
+                $query->search('sub_kegiatans.kode', $cari)
+                    ->search('sub_kegiatans.nama', $cari);
             });
         });
     }

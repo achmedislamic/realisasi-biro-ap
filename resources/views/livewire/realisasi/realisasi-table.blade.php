@@ -44,10 +44,7 @@
 
     <x-table.index :model="$realisasis">
         <x-slot name="table_actions">
-            @can('ubah-realisasi')
-                <x-button primary label="Tambah" :href="route('realisasi.form', $objekRealisasiId)" />
-            @endcan
-
+            <x-button primary label="Tambah" :href="route('realisasi.form', $objekRealisasiId)" />
         </x-slot>
 
         <x-table.thead>
