@@ -4,7 +4,7 @@
     @endif
     @if (auth()->user()->isAdmin())
         <x-nav-dropdown-item-link text="Pengaturan Jadwal" :href="route('jadwal.form')" :active="request()->routeIs('jadwal')" />
-        <x-nav-dropdown-item-link text="Pengaturan Target Tiap OPD" :href="route('target')" :active="request()->routeIs('target')" />
+        <x-nav-dropdown-item-link text="Pengaturan Kas APBD" :href="route('target')" :active="request()->routeIs('target')" />
     @endif
 
     <form method="POST" action="{{ route('logout') }}">

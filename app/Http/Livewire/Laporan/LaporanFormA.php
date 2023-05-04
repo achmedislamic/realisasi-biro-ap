@@ -63,7 +63,7 @@ class LaporanFormA extends Component
     {
         return [
             'urusanDipilih' => 'required|numeric',
-            'bidangUrusanDipilih' => 'nullable|numeric',
+            'bidangUrusanDipilih' => 'nullable|string',
             'bulan' => 'required|string|max:15',
             'opdDipilih' => 'required|numeric',
             'subOpdDipilih' => 'nullable|numeric',
