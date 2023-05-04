@@ -48,6 +48,12 @@
                     <x-table.th>
                         Realisasi
                     </x-table.th>
+                    <x-table.th>
+                        Target
+                    </x-table.th>
+                    <x-table.th>
+                        Satuan
+                    </x-table.th>
                 </tr>
             </x-table.thead>
             <tbody>
@@ -83,6 +89,12 @@
                     </x-table.td>
                     <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($objekRealisasi->realisasis->sum('jumlah')) }}
+                    </x-table.td>
+                    <x-table.td class="text-right">
+                        {{ \App\Helpers\FormatHelper::angka($objekRealisasi->target) }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $objekRealisasi->nama_satuan }}
                     </x-table.td>
                 </x-table.tr>
                 @endforeach

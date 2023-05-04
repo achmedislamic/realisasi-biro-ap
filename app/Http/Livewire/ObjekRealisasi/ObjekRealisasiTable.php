@@ -87,8 +87,9 @@ class ObjekRealisasiTable extends Component
             ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'objek_realisasis.bidang_urusan_sub_opd_id')
             ->join('sub_opds', 'sub_opds.id', '=', 'buso.sub_opd_id')
             ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
+            ->leftJoin('satuans AS s', 's.id', '=', 'objek_realisasis.satuan_id')
 
-            ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'objek_realisasis.sub_rincian_objek_belanja_id')
+            ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'objek_realisasis.sub_rincian_objek_belanja_id', 'objek_realisasis.target', 's.nama AS nama_satuan')
             ->where('objek_realisasis.sub_kegiatan_id', $this->subKegiatanId)
             ->when(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
                 $query->where('opds.id', $this->opdPilihan);

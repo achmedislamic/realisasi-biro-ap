@@ -11,7 +11,7 @@ class ObjekRealisasi extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected static function booted(): void
     {
@@ -51,9 +51,19 @@ class ObjekRealisasi extends Model
         return $this->belongsTo(SubRincianObjekBelanja::class);
     }
 
+    public function satuan(): BelongsTo
+    {
+        return $this->belongsTo(Satuan::class);
+    }
+
     public function realisasis(): HasMany
     {
         return $this->hasMany(Realisasi::class);
+    }
+
+    public function realisasiFisiks(): HasMany
+    {
+        return $this->hasMany(RealisasiFisik::class);
     }
 
      public function scopePencarian(Builder $query, string $cari = ''): Builder

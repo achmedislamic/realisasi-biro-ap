@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Realisasi;
 
-use App\Models\{ObjekRealisasi, Realisasi};
+use App\Models\{ObjekRealisasi, Realisasi, RealisasiFisik};
 use App\Traits\Pencarian;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
@@ -50,8 +50,14 @@ class RealisasiTable extends Component
             ->pencarian($this->cari)
             ->paginate();
 
+        $realisasiFisiks = RealisasiFisik::query()
+            ->where('objek_realisasi_id', $this->objekRealisasiId)
+            ->orderByDesc('tanggal')
+            ->pencarian($this->cari)
+            ->get();
+
         $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd')->find($this->objekRealisasiId);
 
-        return view('livewire.realisasi.realisasi-table', compact(['realisasis', 'objekRealisasi']));
+        return view('livewire.realisasi.realisasi-table', compact(['realisasis', 'objekRealisasi', 'realisasiFisiks']));
     }
 }
