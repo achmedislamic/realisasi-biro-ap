@@ -28,6 +28,8 @@ class ObjekRealisasiForm extends Component
     public $bidangUrusans;
 
     public $anggaran;
+    public $satuanId;
+    public $target;
 
     public $urusanPilihan = null;
 
@@ -148,6 +150,8 @@ class ObjekRealisasiForm extends Component
             'subKegiatanPilihan' => 'required|numeric',
             'rekeningBelanjaPilihan' => 'required|numeric',
             'anggaran' => 'required',
+            'target' => 'required',
+            'satuanId' => 'required|numeric',
         ];
     }
 
@@ -181,6 +185,8 @@ class ObjekRealisasiForm extends Component
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
             'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
+            'target' => $this->target,
+            'satuan_id' => $this->satuanId
         ]);
 
         if (! $realisasi) {
@@ -205,6 +211,8 @@ class ObjekRealisasiForm extends Component
             $this->subKegiatans = collect();
             $this->anggaran = 0;
         }
+
+        return back();
     }
 
     public function updateObjekRealisasi(int $id)
@@ -215,6 +223,8 @@ class ObjekRealisasiForm extends Component
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
             'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
+            'target' => $this->target,
+            'satuan_id' => $this->satuanId
         ]);
 
         if (! $realisasi) {
@@ -228,6 +238,8 @@ class ObjekRealisasiForm extends Component
                 'Berhasil update objek realisasi.'
             );
         }
+
+        return back();
     }
 
     public function flushSession()

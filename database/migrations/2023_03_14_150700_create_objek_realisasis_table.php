@@ -15,6 +15,8 @@ return new class extends Migration
             $table->foreignId('sub_kegiatan_id')->constrained();
             $table->foreignId('sub_rincian_objek_belanja_id')->constrained();
             $table->unsignedDecimal('anggaran', 15)->default(0);
+            $table->unsignedDecimal('target', 7)->nullable();
+            $table->foreignId('satuan_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

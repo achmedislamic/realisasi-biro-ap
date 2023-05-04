@@ -92,6 +92,27 @@
                     />
             </div>
 
+            <div class="flex flex-row space-x-3">
+                <div class="w-full">
+                    <x-inputs.currency
+                        label="Target"
+                        thousands="."
+                        decimal=","
+                        precision="4"
+                        wire:model.lazy="target"
+                    />
+                </div>
+
+                <div class="w-full">
+                    <x-native-select label="Satuan" wire:model.defer="satuanId">
+                        <option value="">Silakan Pilih</option>
+                        @foreach (App\Models\Satuan::all() as $satuan)
+                        <option value="{{ $satuan->id }}">{{ str($satuan->nama)->title() }}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+            </div>
+
             <div class="flex justify-between">
                 <x-button gray label="Kembali ke halaman realisasi" :href="route('realisasi')" />
                 <x-button type="submit" positive label="{{ $submitText }}" />
