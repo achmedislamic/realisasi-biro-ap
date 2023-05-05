@@ -27,6 +27,22 @@
 
             </div>
 
+            @if ($rolePengguna == \App\Enums\RoleName::SEKTOR)
+                <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
+                    <div class="w-full">
+                        @if (auth()->user()->isAdmin())
+                            <x-native-select label="Sektor" wire:model="sektorPilihan">
+                                <option selected>Pilih Sektor</option>
+                                @foreach (\App\Models\Sektor::all() as $sektor)
+                                    <option value="{{ $sektor->id }}">{{ $sektor->nama }}</option>
+                                @endforeach
+                            </x-native-select>
+                        @endif
+
+                    </div>
+                </div>
+            @endif
+
             @if ($rolePengguna == \App\Enums\RoleName::OPD || $rolePengguna == \App\Enums\RoleName::SUB_OPD)
                 <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                     <div class="w-full">

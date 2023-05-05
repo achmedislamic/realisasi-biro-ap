@@ -65,6 +65,12 @@
                     @endforeach
                 </x-native-select>
             </div>
+
+            @if ($jenisLaporan == 'e')
+                <div class="w-full">
+                    <x-periode-rincian-masalah />
+                </div>
+            @endif
         </div>
 
         <div class="flex">

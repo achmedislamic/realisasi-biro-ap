@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::enforceMorphMap([
             'opd' => 'App\Models\Opd',
             'sub_opd' => 'App\Models\SubOpd',
+            'sektor' => 'App\Models\Sektor',
         ]);
 
         Model::shouldBeStrict(! $this->app->isProduction());
