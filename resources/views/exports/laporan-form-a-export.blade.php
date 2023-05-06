@@ -1,48 +1,48 @@
 <x-laporan :$jenisLaporan :$urusan :$subOpd :$opd :$namaPeriode>
     <tr style="text-align: center; vertical-align: center;">
-        <td rowspan="4" style="border:1px solid black;padding:5px">Kode</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Nama Program/Kegiatan/Subkegiatan</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Jumlah Anggaran (Rp)</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Bobot (%)</td>
-        <td colspan="9" style="border:1px solid black;padding:5px">Realisasi Pelaksanaan Anggaran</td>
-        <td rowspan="4" style="border:1px solid black;padding:5px">Sisa Anggaran (Rp)</td>
+        <td rowspan="4" style="{{ config('app.td_style') }}">Kode</td>
+        <td rowspan="4" style="{{ config('app.td_style') }}">Nama Program/Kegiatan/Subkegiatan</td>
+        <td rowspan="4" style="{{ config('app.td_style') }}">Jumlah Anggaran (Rp)</td>
+        <td rowspan="4" style="{{ config('app.td_style') }}">Bobot (%)</td>
+        <td colspan="9" style="{{ config('app.td_style') }}">Realisasi Pelaksanaan Anggaran</td>
+        <td rowspan="4" style="{{ config('app.td_style') }}">Sisa Anggaran (Rp)</td>
     </tr>
     <tr>
-        <td colspan="3" style="border:1px solid black;padding:5px">Bulan Lalu</td>
-        <td colspan="3" style="border:1px solid black;padding:5px">Bulan Ini</td>
-        <td colspan="3" style="border:1px solid black;padding:5px">s.d. Bulan Ini</td>
+        <td colspan="3" style="{{ config('app.td_style') }}">Bulan Lalu</td>
+        <td colspan="3" style="{{ config('app.td_style') }}">Bulan Ini</td>
+        <td colspan="3" style="{{ config('app.td_style') }}">s.d. Bulan Ini</td>
     </tr>
     <tr>
-        <td colspan="2" style="border:1px solid black;padding:5px">Keuangan</td>
-        <td rowspan="2" style="border:1px solid black;padding:5px">Fisik (%)</td>
-        <td colspan="2" style="border:1px solid black;padding:5px">Keuangan</td>
-        <td rowspan="2" style="border:1px solid black;padding:5px">Fisik (%)</td>
-        <td colspan="2" style="border:1px solid black;padding:5px">Keuangan</td>
-        <td rowspan="2" style="border:1px solid black;padding:5px">Fisik (%)</td>
+        <td colspan="2" style="{{ config('app.td_style') }}">Keuangan</td>
+        <td rowspan="2" style="{{ config('app.td_style') }}">Fisik (%)</td>
+        <td colspan="2" style="{{ config('app.td_style') }}">Keuangan</td>
+        <td rowspan="2" style="{{ config('app.td_style') }}">Fisik (%)</td>
+        <td colspan="2" style="{{ config('app.td_style') }}">Keuangan</td>
+        <td rowspan="2" style="{{ config('app.td_style') }}">Fisik (%)</td>
     </tr>
     <tr>
-        <td style="border:1px solid black;padding:5px">Rp.</td>
-        <td style="border:1px solid black;padding:5px">%</td>
-        <td style="border:1px solid black;padding:5px">Rp.</td>
-        <td style="border:1px solid black;padding:5px">%</td>
-        <td style="border:1px solid black;padding:5px">Rp.</td>
-        <td style="border:1px solid black;padding:5px">%</td>
+        <td style="{{ config('app.td_style') }}">Rp.</td>
+        <td style="{{ config('app.td_style') }}">%</td>
+        <td style="{{ config('app.td_style') }}">Rp.</td>
+        <td style="{{ config('app.td_style') }}">%</td>
+        <td style="{{ config('app.td_style') }}">Rp.</td>
+        <td style="{{ config('app.td_style') }}">%</td>
     </tr>
     <tr>
-        <td style="border:1px solid black;padding:5px">1</td>
-        <td style="border:1px solid black;padding:5px">2</td>
-        <td style="border:1px solid black;padding:5px">3</td>
-        <td style="border:1px solid black;padding:5px">4</td>
-        <td style="border:1px solid black;padding:5px">5</td>
-        <td style="border:1px solid black;padding:5px">6</td>
-        <td style="border:1px solid black;padding:5px">7</td>
-        <td style="border:1px solid black;padding:5px">8</td>
-        <td style="border:1px solid black;padding:5px">9</td>
-        <td style="border:1px solid black;padding:5px">10</td>
-        <td style="border:1px solid black;padding:5px">11</td>
-        <td style="border:1px solid black;padding:5px">12</td>
-        <td style="border:1px solid black;padding:5px">13</td>
-        <td style="border:1px solid black;padding:5px">14</td>
+        <td style="{{ config('app.td_style') }}">1</td>
+        <td style="{{ config('app.td_style') }}">2</td>
+        <td style="{{ config('app.td_style') }}">3</td>
+        <td style="{{ config('app.td_style') }}">4</td>
+        <td style="{{ config('app.td_style') }}">5</td>
+        <td style="{{ config('app.td_style') }}">6</td>
+        <td style="{{ config('app.td_style') }}">7</td>
+        <td style="{{ config('app.td_style') }}">8</td>
+        <td style="{{ config('app.td_style') }}">9</td>
+        <td style="{{ config('app.td_style') }}">10</td>
+        <td style="{{ config('app.td_style') }}">11</td>
+        <td style="{{ config('app.td_style') }}">12</td>
+        <td style="{{ config('app.td_style') }}">13</td>
+        <td style="{{ config('app.td_style') }}">14</td>
     </tr>
     @php
         $belanja1 = null;
@@ -72,23 +72,23 @@
         @endphp
         @if ($belanja1 != $opd->nama_belanja_1)
             <tr>
-                <td style="border:1px solid black;padding:5px; text-align: left;">{{ $opd->kode_belanja_1 }}</td>
+                <td style="{{ config('app.td_style') }} text-align: left;">{{ $opd->kode_belanja_1 }}</td>
                 <td>{{ $opd->nama_belanja_1 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryBelanja1->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $queryBelanja1->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja1 = $opd->nama_belanja_1;
                 @endphp
@@ -96,23 +96,23 @@
         @endif
         @if ($belanja2 != $opd->nama_belanja_2)
             <tr>
-                <td style="border:1px solid black;padding:5px; text-align: left;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 }}</td>
-                <td style="border:1px solid black;padding:5px;">{{ $opd->nama_belanja_2 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryBelanja2->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }} text-align: left;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_2 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryBelanja2->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja2 = $opd->nama_belanja_2;
                 @endphp
@@ -120,10 +120,10 @@
         @endif
         @if ($program != $opd->nama_program)
             <tr>
-                <td style="border:1px solid black;padding:5px;">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program }}</td>
-                <td style="border:1px solid black;padding:5px;">{{ $opd->nama_program }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryProgram->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->nama_program }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryProgram->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $queryProgram->sum('realisasi_bulan_lalu');
                     $realisasiBulanIni = $queryProgram->sum('realisasi_bulan_ini');
@@ -131,19 +131,19 @@
                     $anggaran = $queryProgram->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
                 @php
                     $program = $opd->nama_program;
                 @endphp
@@ -151,10 +151,10 @@
         @endif
         @if ($kegiatan != $opd->nama_kegiatan)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
-                <td style="border:1px solid black;padding:5px">Kegiatan: {{ $opd->nama_kegiatan }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryKegiatan->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }}">Kegiatan: {{ $opd->nama_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryKegiatan->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $queryKegiatan->sum('realisasi_bulan_lalu');
                     $realisasiBulanIni = $queryKegiatan->sum('realisasi_bulan_ini');
@@ -162,19 +162,19 @@
                     $anggaran = $queryKegiatan->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
                 @php
                     $kegiatan = $opd->nama_kegiatan;
                 @endphp
@@ -182,10 +182,10 @@
         @endif
         @if ($subKegiatan != $opd->nama_sub_kegiatan)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan . '.' . $opd->kode_sub_kegiatan }}</td>
-                <td style="border:1px solid black;padding:5px">Sub Kegiatan: {{ $opd->nama_sub_kegiatan }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $querySubKegiatan->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan . '.' . $opd->kode_sub_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }}">Sub Kegiatan: {{ $opd->nama_sub_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $querySubKegiatan->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $querySubKegiatan->sum('realisasi_bulan_lalu');
                     $realisasiBulanIni = $querySubKegiatan->sum('realisasi_bulan_ini');
@@ -193,19 +193,19 @@
                     $anggaran = $querySubKegiatan->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
                 @endphp
@@ -213,23 +213,23 @@
         @endif
         @if ($belanja3 != $opd->nama_belanja_3)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 }}</td>
-                <td style="border:1px solid black;padding:5px;">{{ $opd->nama_belanja_3 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryBelanja3->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_3 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryBelanja3->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja3 = $opd->nama_belanja_3;
                 @endphp
@@ -237,23 +237,23 @@
         @endif
         @if ($belanja4 != $opd->nama_belanja_4)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 }}</td>
-                <td style="border:1px solid black;padding:5px;">{{ $opd->nama_belanja_4 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryBelanja4->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_4 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryBelanja4->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja4 = $opd->nama_belanja_4;
                 @endphp
@@ -261,23 +261,23 @@
         @endif
         @if ($belanja5 != $opd->nama_belanja_5)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 }}</td>
-                <td style="border:1px solid black;padding:5px;">{{ $opd->nama_belanja_5 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryBelanja5->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_5 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryBelanja5->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja5 = $opd->nama_belanja_5;
                 @endphp
@@ -285,10 +285,10 @@
         @endif
         @if ($belanja6 != $opd->nama_belanja_6)
             <tr>
-                <td style="border:1px solid black;padding:5px">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 . '.' . $opd->kode_belanja_6 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $opd->nama_belanja_6 }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $queryBelanja6->sum('anggaran') }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 . '.' . $opd->kode_belanja_6 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_6 }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $queryBelanja6->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $queryBelanja6->sum('realisasi_bulan_lalu');
                     $realisasiBulanIni = $queryBelanja6->sum('realisasi_bulan_ini');
@@ -296,19 +296,19 @@
                     $anggaran = $queryBelanja6->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanLalu }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $realisasiSdBulanIni }}</td>
-                <td style="border:1px solid black;padding:5px">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="border:1px solid black;padding:5px"></td>
+                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="border:1px solid black;padding:5px">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
                 @endphp
@@ -320,21 +320,21 @@
     @endforeach
 
     <tr>
-        <td colspan="2" style="border:1px solid black;padding:5px; text-align: right; font-weight: bold;">Jumlah Belanja</td>
-        <td style="border:1px solid black;padding:5px">{{ $opds->sum('anggaran') }}</td>
-        <td style="border:1px solid black;padding:5px"></td>
+        <td colspan="2" style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">Jumlah Belanja</td>
+        <td style="{{ config('app.td_style') }}">{{ $opds->sum('anggaran') }}</td>
+        <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
-        <td style="border:1px solid black;padding:5px"></td>
-        <td style="border:1px solid black;padding:5px"></td>
+        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
+        <td style="{{ config('app.td_style') }}"></td>
+        <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_bulan_ini') }}</td>
-        <td style="border:1px solid black;padding:5px"></td>
-        <td style="border:1px solid black;padding:5px"></td>
+        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }}"></td>
+        <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="border:1px solid black;padding:5px">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
-        <td style="border:1px solid black;padding:5px"></td>
-        <td style="border:1px solid black;padding:5px"></td>
+        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }}"></td>
+        <td style="{{ config('app.td_style') }}"></td>
     </tr>
 
     <x-laporan.sum-kelompok-belanja :rows="$opds" />

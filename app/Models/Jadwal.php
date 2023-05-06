@@ -11,6 +11,7 @@ class Jadwal extends Model
 
     protected $casts = [
         'tanggal_waktu' => 'datetime',
+        'bulan' => 'datetime',
     ];
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
@@ -18,7 +19,7 @@ class Jadwal extends Model
     protected static function booted(): void
     {
         static::addGlobalScope('tahapan-apbd', function (Builder $builder) {
-            $builder->where('tahun', cache('tahapanApbd')->tahun);
+            $builder->whereYear('bulan', cache('tahapanApbd')->tahun);
         });
     }
 }

@@ -23,8 +23,6 @@ class SubKegiatanTable extends Component
 
     public $subOpdId = null;
 
-    protected $queryString = ['cari' => ['except' => '']];
-
     protected $listeners = [
         'pilihIdKegiatanEvent' => 'pilihIdKegiatan',
     ];

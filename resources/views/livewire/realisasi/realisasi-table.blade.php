@@ -50,7 +50,7 @@
                             :class="tab == 'uang' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                             class="inline-block p-4 border-b-2 rounded-t-lg" id="uang-tab"
                             data-tabs-target="#uang" type="button" role="tab"
-                            aria-selected="false">Uang</button>
+                            aria-selected="false">Keuangan</button>
                 </li>
 
                 <li class="mr-2" role="presentation">

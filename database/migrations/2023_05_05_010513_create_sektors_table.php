@@ -6,16 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('sub_opds', function (Blueprint $table) {
+        Schema::create('sektors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('opd_id')->constrained();
-            $table->string('kode')->nullable();
             $table->string('nama');
-            $table->string('nama_kepala')->nullable();
-            $table->string('nip_kepala')->nullable();
-            $table->boolean('is_biro')->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_units');
+        Schema::dropIfExists('sektors');
     }
 };

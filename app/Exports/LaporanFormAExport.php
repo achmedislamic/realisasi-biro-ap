@@ -80,7 +80,7 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         }
     }
 
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): void
     {
         $sheet->getStyle('A3:A5')->getFont()->setBold(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);

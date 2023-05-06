@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
-            $table->enum('role_name', ['admin', 'opd', 'sub_opd']);
+            $table->enum('role_name', ['admin', 'opd', 'sub_opd', 'sektor']);
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('imageable_id')->nullable();
             $table->string('imageable_type', 20)->nullable();

@@ -18,7 +18,8 @@ class Kegiatan extends Model
     {
         return $query->when($cari, function ($query) use ($cari) {
             $query->where(function ($query) use ($cari) {
-                $query->search('kode', $cari)->search('nama', $cari);
+                $query->search('kegiatans.kode', $cari)
+                    ->search('kegiatans.nama', $cari);
             });
         });
     }

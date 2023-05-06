@@ -18,17 +18,17 @@ class JadwalForm extends Component
     protected function rules(): array
     {
         return [
-            'jadwal.nama_bulan' => 'required|max:10',
-            'jadwal.tanggal_waktu' => 'required|date',
+            'jadwal.bulan' => 'required|date|after_or_equal:' . today()->startOfYear(),
+            'jadwal.tanggal_waktu' => 'required|date|after_or_equal:' . today()->startOfYear(),
         ];
     }
 
     public function updated($model, $value): void
     {
-        if ($model == 'jadwal.nama_bulan') {
-            $this->jadwal = Jadwal::where('nama_bulan', $value)->firstOrNew();
+        if ($model == 'jadwal.bulan') {
+            $this->jadwal = Jadwal::where('bulan', $value)->firstOrNew();
             // dd($value);
-            $this->jadwal->nama_bulan = $value;
+            $this->jadwal->bulan = $value;
         }
     }
 
@@ -38,7 +38,6 @@ class JadwalForm extends Component
 
         DB::table('jadwals')->update(['is_aktif' => false]);
 
-        $this->jadwal->tahun = cache('tahapanApbd')->tahun;
         $this->jadwal->is_aktif = true;
 
         $this->jadwal->save();
