@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nama_kepala')->nullable();
             $table->string('nip_kepala')->nullable();
+            $table->boolean('is_biro')->default(false);
             $table->timestamps();
         });
     }

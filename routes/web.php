@@ -9,6 +9,7 @@ use App\Http\Livewire\Laporan\LaporanFormC;
 use App\Http\Livewire\Laporan\LaporanFormE;
 use App\Http\Livewire\ObjekRealisasi\ImportObjekRealisasi;
 use App\Http\Livewire\ObjekRealisasi\ObjekRealisasiForm;
+use App\Http\Livewire\Realisasi\RealisasiFisikForm;
 use App\Http\Livewire\Realisasi\RealisasiForm;
 use App\Http\Livewire\Realisasi\RealisasiTabs;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     //realisasi
     Route::get('/realisasi', RealisasiTabs::class)->name('realisasi');
     Route::get('/realisasi/{objekRealisasiId}/form/{id?}', RealisasiForm::class)->name('realisasi.form');
+    Route::get('/realisasi-fisik/{objekRealisasiId}/form/{id?}', RealisasiFisikForm::class)->name('realisasi-fisik.form');
     Route::get('/objek-realisasi/import', ImportObjekRealisasi::class)->name('objek-realisasi.import');
     Route::get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
 

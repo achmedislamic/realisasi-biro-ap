@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\{ObjekRealisasi, Realisasi, RincianMasalah, SubKegiatan, SubOpd};
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class RincianMasalahForm extends Component
 {
+    use Actions;
+
     public $subKegiatan;
 
     public $subOpd;
@@ -34,9 +37,25 @@ class RincianMasalahForm extends Component
         return [
             'triwulan' => 'required|numeric',
             'rincianMasalah.kendala' => 'required|string',
+            'triwulan' => 'required|numeric',
             'rincianMasalah.tindak_lanjut' => 'required|string',
             'rincianMasalah.pihak' => 'required|max:255',
         ];
+    }
+
+    public function simpan()
+    {
+        $this->validate();
+
+        $this->rincianMasalah->tahun = cache('tahapanApbd')->tahun;
+        $this->rincianMasalah->sub_opd_id = $this->subOpd->id;
+        $this->rincianMasalah->sub_kegiatan_id = $this->subKegiatan->id;
+        $this->rincianMasalah->triwulan = $this->triwulan;
+        $this->rincianMasalah->save();
+
+        $this->notification()->success(title: 'Rincian Masalah', description: 'Berhasil disimpan!');
+
+        return redirect("/realisasi?tabAktif=subKegiatan&opdPilihan={$this->subOpd->opd_id}&programId={$this->subKegiatan->kegiatan->program_id}&kegiatanId={$this->subKegiatan->kegiatan->id}");
     }
 
     public function updatedTriwulan($value)
@@ -45,7 +64,7 @@ class RincianMasalahForm extends Component
             ->where('sub_kegiatan_id', $this->subKegiatan->id)
             ->where('sub_opd_id', $this->subOpd->id)
             ->where('triwulan', $value)
-            ->first();
+            ->firstOrNew();
 
         $this->jumlahRealisasi = Realisasi::whereRelation('objekRealisasi.bidangUrusanSubOpd', 'sub_opd_id', $this->subOpd->id)
             ->whereHas('objekRealisasi', function ($query) {

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    // custom variable
+    'td_style' => 'border:1px solid black;padding:5px; text-align: left;',
+    // end custom variable
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -2,20 +2,34 @@
 
 namespace App\Exports;
 
+use App\Models\Opd;
 use App\Models\RincianMasalah;
+use App\Models\SubOpd;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths
+class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths, WithStyles
 {
     public function __construct(
-        public string $periode,
+        public int $triwulan,
         public int $opdId,
         public ?int $subOpdId = null,
     ) {
         //
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+        $sheet->getStyle('A2:F2')->getFont()->setBold(true);
+        $sheet->getStyle('A3:F3')->getFont()->setBold(true);
+        $sheet->getStyle('A1:F1')->getAlignment()->setHorizontal('center')->setVertical('center');
+        $sheet->getStyle('A2:F2')->getAlignment()->setHorizontal('center')->setVertical('center');
+        $sheet->getStyle('A3:F3')->getAlignment()->setHorizontal('center')->setVertical('center');
     }
 
     public function columnWidths(): array
@@ -28,7 +42,9 @@ class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths
     public function view(): View
     {
         return view('exports.laporan-form-e-export', [
-            'periodeTeks' => match($this->periode) {
+            'opd' => Opd::find($this->opdId),
+            'subOpd' => SubOpd::find($this->subOpdId),
+            'periodeTeks' => match($this->triwulan) {
                 1 => 'TRIWULAN I TAHUN ' . cache('tahapanApbd')->tahun,
                 2 => 'TRIWULAN II TAHUN ' . cache('tahapanApbd')->tahun,
                 3 => 'TRIWULAN III TAHUN ' . cache('tahapanApbd')->tahun,
@@ -44,8 +60,6 @@ class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths
                 ->join('opds AS o', 'o.id', '=', 'so.opd_id')
 
                 ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id')
-                ->join('bidang_urusans AS bu', 'bu.id', '=', 'buso.bidang_urusan_id')
-                ->join('urusans AS u', 'u.id', '=', 'bu.urusan_id')
                 ->join('bidang_urusans AS bu', 'bu.id', '=', 'buso.bidang_urusan_id')
                 ->join('urusans AS u', 'u.id', '=', 'bu.urusan_id')
 

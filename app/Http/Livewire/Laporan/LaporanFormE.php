@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Laporan;
 
 use App\Exports\LaporanFormAExport;
+use App\Exports\LaporanFormEExport;
 use App\Models\{Opd, SubOpd};
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
@@ -12,7 +13,7 @@ class LaporanFormE extends Component
 {
     use Actions;
 
-    public $periode;
+    public $triwulan;
 
     public $opds;
 
@@ -24,7 +25,7 @@ class LaporanFormE extends Component
 
     public function mount()
     {
-        $this->opds = Opd::orderBy('kode')->get();
+        $this->opds = Opd::orderBy('nama')->get();
         $this->subOpds = collect();
     }
 
@@ -39,12 +40,12 @@ class LaporanFormE extends Component
     public function cetak()
     {
         $this->validate([
-            'periode' => 'required|numeric',
+            'triwulan' => 'required|numeric',
             'opdDipilih' => 'required|numeric',
             'subOpdDipilih' => 'nullable|numeric',
         ]);
 
-        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->triwulan, $this->opdDipilih, $this->subOpdDipilih, 'c'), 'laporan-form-e.xlsx');
+        return Excel::download(new LaporanFormEExport($this->triwulan, $this->opdDipilih, $this->subOpdDipilih), 'laporan-form-e.xlsx');
     }
 
     public function render()

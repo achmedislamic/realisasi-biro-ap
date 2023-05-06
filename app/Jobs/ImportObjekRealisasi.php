@@ -47,6 +47,7 @@ class ImportObjekRealisasi implements ShouldQueue
                 'opd_id' => $opd->id,
                 'kode' => str($item['Sub Unit'])->before(' ')->after($opd->kode.'.'),
                 'nama' => str($item['Sub Unit'])->after(' '),
+                'is_biro' => str($item['Sub Unit'])->contains('Biro') ? true : false,
             ]);
 
             $bidangUrusanSubOpd = BidangUrusanSubOpd::firstOrCreate([

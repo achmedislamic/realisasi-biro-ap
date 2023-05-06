@@ -54,7 +54,7 @@
                     <x-textarea wire:model.defer="rincianMasalah.tindak_lanjut" label="Tindak Lanjut" />
                 </div>
                 <div class="w-full">
-                    <x-input wire:model.defer="rincianMasalah.pihak" label="Pihak" />
+                    <x-input wire:model.defer="rincianMasalah.pihak" label="Pihak yang diharapkan dapat membantu penyelesaian masalah" />
                 </div>
                 <div class="flex justify-between">
                     <x-button gray label="Kembali" href="{{ url()->previous() }}" />

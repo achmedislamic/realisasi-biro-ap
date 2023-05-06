@@ -17,7 +17,7 @@
 
             @foreach ($opds as $opd)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th {{ isset($opd->nama_opd) ? "wire:click=\"$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" }} scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ isset($opd->nama_opd) ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
+                    <th {{ isset($opd->nama_opd) ? 'wire:click="$emit(\'opdDashboardClicked\', {$opd->id}, \'{$periode}\')"' : "" }} scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ isset($opd->nama_opd) ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
                         {{ $opd->nama_opd ?? $opd->nama_sub_opd }}
                     </th>
                     <td class="px-6 py-4 text-right">
