@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Realisasi;
 
+use App\Models\Jadwal;
 use App\Models\{Opd, SubOpd};
 use Illuminate\View\View;
 use Livewire\Component;
@@ -89,6 +90,8 @@ class RealisasiTabs extends Component
 
     public function render(): View
     {
-        return view('livewire.realisasi.realisasi-tabs');
+        return view('livewire.realisasi.realisasi-tabs', [
+            'jadwal' => Jadwal::where('is_aktif', true)->first()
+        ]);
     }
 }

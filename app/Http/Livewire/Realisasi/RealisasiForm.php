@@ -75,24 +75,36 @@ class RealisasiForm extends Component
         $this->totalRealisasi = FormatHelper::angka($this->totalRealisasi);
     }
 
-    private function getJadwalByMonthYear()
+    private function getJadwal(): string
     {
-        $jadwal = Jadwal::where('is_aktif', true)->first()->bulan;
+        return Jadwal::where('is_aktif', true)
+            ->first()
+            ->tanggal_waktu->toString();
     }
 
     protected function rules(): array
     {
         return [
-            'realisasi.tanggal' => ['required', 'date'],
+            'realisasi.tanggal_waktu' => [
+                'required',
+                'date',
+                'date_format:d F Y mm:ss',
+                'after_or_equal:' . $this->getJadwal()
+            ],
             'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];
     }
 
     public function simpan()
     {
+        $temp = $this->realisasi->tanggal_waktu;
+        $this->realisasi->tanggal_waktu = FormatHelper::tanggal($this->realisasi->tanggal_waktu, true);
+        dd($this->realisasi->tanggal_waktu);
+
         $this->validate();
 
         $this->realisasi->objek_realisasi_id = $this->objekRealisasiId;
+        $this->realisasi->tanggal_waktu = $temp;
 
         $this->realisasi->save();
 

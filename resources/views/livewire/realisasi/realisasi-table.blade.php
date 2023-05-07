@@ -66,10 +66,7 @@
             <div x-show="tab == 'uang'" x-transition>
                 <x-table.index :model="$realisasis">
                     <x-slot name="table_actions">
-                        @can('ubah-realisasi')
-                            <x-button primary label="Tambah" :href="route('realisasi.form', $objekRealisasiId)" />
-                        @endcan
-
+                        <x-button primary label="Tambah" :href="route('realisasi.form', $objekRealisasiId)" />
                     </x-slot>
 
                     <x-table.thead>
@@ -124,10 +121,7 @@
             <div x-show="tab == 'fisik'" x-transition>
                 <x-table.index :model="$realisasiFisiks" :isPaginated="false">
                     <x-slot name="table_actions">
-                        @can('ubah-realisasi')
-                            <x-button primary label="Tambah" :href="route('realisasi-fisik.form', $objekRealisasiId)" />
-                        @endcan
-
+                        <x-button primary label="Tambah" :href="route('realisasi-fisik.form', $objekRealisasiId)" />
                     </x-slot>
 
                     <x-table.thead>

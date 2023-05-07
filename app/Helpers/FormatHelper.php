@@ -6,13 +6,18 @@ use Carbon\Carbon;
 
 class FormatHelper
 {
-    public static function tanggal(string|Carbon $tanggal)
+    public static function tanggal(string|Carbon $tanggal, bool $withTime = false)
     {
-        if (is_string($tanggal)) {
-            return Carbon::parse($tanggal)->translatedFormat('d F Y');
+        $format = 'd F Y';
+        if($withTime){
+            $format = $format . ' H:i';
         }
 
-        return $tanggal->translatedFormat('d F Y');
+        if (is_string($tanggal)) {
+            return Carbon::parse($tanggal)->translatedFormat($format);
+        }
+
+        return $tanggal->translatedFormat($format);
     }
 
     public static function angka($angka)

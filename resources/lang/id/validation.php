@@ -4,6 +4,7 @@ return [
     'accepted' => 'Isian :attribute harus diterima.',
     'active_url' => 'Isian :attribute bukan URL yang sah.',
     'after' => 'Isian :attribute harus tanggal setelah :date.',
+    'after_or_equal' => ':attribute harus berada di setelah atau sama dengan :date.',
     'alpha' => 'Isian :attribute hanya boleh berisi huruf.',
     'alpha_dash' => 'Isian :attribute hanya boleh berisi huruf, angka, dan strip.',
     'alpha_num' => 'Isian :attribute hanya boleh berisi huruf dan angka.',
