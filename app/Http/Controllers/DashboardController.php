@@ -11,9 +11,6 @@ class DashboardController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // saya ada fitur baru nih
-
-        //fitur baru lagi
         $anggaran = ObjekRealisasi::query()
             ->doesntHave('realisasis')
             ->when(auth()->user()->isOpd(), function (Builder $query) {

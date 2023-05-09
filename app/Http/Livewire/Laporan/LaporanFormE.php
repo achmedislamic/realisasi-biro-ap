@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Laporan;
 
-use App\Exports\LaporanFormAExport;
 use App\Exports\LaporanFormEExport;
 use App\Models\{Opd, SubOpd};
 use Livewire\Component;

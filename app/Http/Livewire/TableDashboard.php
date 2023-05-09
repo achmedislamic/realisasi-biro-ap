@@ -13,6 +13,8 @@ final class TableDashboard extends Component
 
     public $periode = 'bulan';
 
+    public $urutan = 'asc';
+
     protected $queryString = ['periode' => ['except' => '']];
 
     public function render(): View
@@ -23,8 +25,10 @@ final class TableDashboard extends Component
         $biros = collect();
         $opds = $this->opds();
 
+
         if (auth()->user()->isAdmin()) {
             $biros = $this->subOpds('sekretariat daerah');
+            // dd($opds->merge($biros));
         }
 
         $colspanRealisasi = $this->colspanRealisasi($this->periode);

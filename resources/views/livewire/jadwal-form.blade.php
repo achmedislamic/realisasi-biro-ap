@@ -8,7 +8,7 @@
     <form wire:submit.prevent="simpan">
         <div class="flex flex-row space-x-3 mb-3">
             <div class="w-full">
-                <x-native-select wire:model="jadwal.bulan" label="Bulan">
+                <x-native-select wire:model="bulan" label="Bulan">
                     <option value="">Silakan Pilih</option>
                     <option value="{{ today()->setMonth(1)->startOfMonth() }}">Januari</option>
                     <option value="{{ today()->setMonth(2)->startOfMonth() }}">Februari</option>
