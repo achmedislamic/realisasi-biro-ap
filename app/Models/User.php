@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->role->role_name === RoleName::SUB_OPD;
     }
 
+    public function isSektor(): bool
+    {
+        return $this->role->role_name === RoleName::SEKTOR;
+    }
+
     public function scopePencarian(Builder $query, string $cari = ''): Builder
     {
         return $query->when($cari, function ($query) use ($cari) {

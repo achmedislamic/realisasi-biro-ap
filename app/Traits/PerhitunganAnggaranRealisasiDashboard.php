@@ -74,18 +74,21 @@ trait PerhitunganAnggaranRealisasiDashboard
             ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
             ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
-            ->when(auth()->user()->isAdmin(), function (Builder $query) {
+            ->when(auth()->user()->isSektor(), function (Builder $query) {
+                $query->where('o.sektor_id', auth()->user()->role->imageable_id);
+            })
+            ->when(auth()->user()->isAdmin() || auth()->user()->isSektor(), function (Builder $query) {
                 $query->selectRaw("o.id AS id, o.nama AS nama_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}")
                     ->where('o.nama', '!=', 'Sekretariat Daerah')
                     ->groupByRaw('o.nama, o.id')
                     ->orderBy('o.nama');
-            }, function (Builder $query) {
+            })
+            ->when(auth()->user()->isSubOpd(), function (Builder $query) {
                 $query->where('o.id', auth()->user()->role->imageable_id)
                     ->selectRaw("so.id AS id, so.nama AS nama_sub_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}")
                     ->groupByRaw('so.nama, so.id')
                     ->orderBy('so.nama');
             })
-
             ->get();
     }
 

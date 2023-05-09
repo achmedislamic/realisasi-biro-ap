@@ -27,6 +27,8 @@
             <div class="w-full">
                 <x-datetime-picker
                     label="Tanggal"
+                    time-format="24"
+                    interval="30"
                     wire:model.defer="jadwal.tanggal_waktu"
                 />
                 @if (filled($jadwal->tanggal_waktu))

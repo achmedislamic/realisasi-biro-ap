@@ -7,7 +7,8 @@
 <div x-data="{ pemberitahuan: true }" class="pb-12">
     <div class="bg-white shadow-sm sm:rounded-lg">
         <div>
-            @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
+            @if (auth()->user()->isAdmin() ||
+                    auth()->user()->isOpd())
                 <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
                     <div class="w-1/2 flex gap-2">
                         @if (auth()->user()->isAdmin())
@@ -21,7 +22,8 @@
                             </div>
                         @endif
 
-                        @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
+                        @if (auth()->user()->isAdmin() ||
+                                auth()->user()->isOpd())
                             <div class="w-full">
                                 <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
                                     <option value="">Semua Sub OPD (Unit)</option>
@@ -100,10 +102,15 @@
         </div>
     </div>
 
-    <div x-show="pemberitahuan" x-transition class="fixed bottom-0 left-0 z-20 w-full p-2 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-4 dark:bg-gray-800 dark:border-gray-600">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-            Jadwal input realisasi untuk bulan {{ $jadwal->bulan->translatedFormat('M Y') }} adalah hingga <span class="text-red-400">{{ \App\Helpers\FormatHelper::tanggal($jadwal->tanggal_waktu, true) }}</span>
-        </span>
-        <x-button xs @click="pemberitahuan = false" negative label="Saya mengerti, tutup pemberitahuan ini" />
-    </div>
+    @if (filled($jadwal))
+        <div x-show="pemberitahuan" x-transition class="fixed bottom-0 left-0 z-20 w-full p-2 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-4 dark:bg-gray-800 dark:border-gray-600">
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+
+                Jadwal input realisasi untuk bulan {{ $jadwal->bulan->translatedFormat('M Y') }} adalah hingga <span class="text-red-400">{{ \App\Helpers\FormatHelper::tanggal($jadwal->tanggal_waktu, true) }}</span>
+            </span>
+            <x-button xs @click="pemberitahuan = false" negative label="Saya mengerti, tutup pemberitahuan ini" />
+        </div>
+    @endif
+
+
 </div>

@@ -22,10 +22,10 @@
         <div class="flex flex-col space-y-3">
             <x-input label="Kode OPD" wire:model.defer="opd.kode" placeholder="Kode OPD" />
             <x-input label="Nama OPD" wire:model.defer="opd.nama" placeholder="Nama OPD" />
-            <x-native-select label="Sektor" wire:model.defer="opd.sektor">
+            <x-native-select label="Sektor" wire:model.defer="opd.sektor_id">
                 <option value="">Silakan Pilih</option>
-                @foreach (\App\Enums\Sektor::cases() as $sektor)
-                    <option value="{{ $sektor->value }}">{{ str($sektor->value)->headline() }}</option>
+                @foreach (\App\Models\Sektor::all() as $sektor)
+                    <option value="{{ $sektor->id }}">{{ str($sektor->nama)->headline() }}</option>
                 @endforeach
             </x-native-select>
             <x-input label="Nama Kepala Perangkat Daerah" wire:model.defer="opd.nama_kepala" />

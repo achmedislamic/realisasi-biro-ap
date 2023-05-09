@@ -30,6 +30,10 @@ class AuthServiceProvider extends ServiceProvider
 
             $jadwal = Jadwal::firstWhere('is_aktif', true);
 
+            if(blank($jadwal) && $user->isNotAdmin()){
+                return false;
+            }
+
             return $jadwal->tanggal_waktu > now();
         });
 

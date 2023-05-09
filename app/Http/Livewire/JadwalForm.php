@@ -42,7 +42,7 @@ class JadwalForm extends Component
 
         $this->jadwal->save();
 
-        return to_route('pengguna');
+        return to_route('jadwal.form');
     }
 
     public function render()
