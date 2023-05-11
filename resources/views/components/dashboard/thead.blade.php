@@ -1,51 +1,48 @@
 @props(['colspanRealisasi', 'periode', 'foreachCount'])
 <x-table.thead>
   <tr>
-      <th rowspan="3" scope="col" class="px-6 py-3">
+      <x-table.th rowspan="3">
           {{ auth()->user()->isOpd()? 'Sub ': '' }}OPD
-      </th>
-      <th rowspan="3" scope="col" class="px-6 py-3 text-right">
+      </x-table.th>
+      <x-table.th rowspan="3" class="text-right">
           Anggaran
-      </th>
-      <th {{ $colspanRealisasi }} scope="col" class="px-6 py-3 text-center">
+      </x-table.th>
+      <x-table.th colspan="{{ $colspanRealisasi }}" class="text-center">
           Realisasi
-      </th>
-      <th scope="col" class="px-6 py-3 text-right">
-          Persentase
-      </th>
+      </x-table.th>
   </tr>
   <tr>
       @if ($periode == 'bulan')
-          <th colspan="3" class="text-center">Januari</th>
-          <th colspan="3" class="text-center">Februari</th>
-          <th colspan="3" class="text-center">Maret</th>
-          <th colspan="3" class="text-center">April</th>
-          <th colspan="3" class="text-center">Mei</th>
-          <th colspan="3" class="text-center">Juni</th>
-          <th colspan="3" class="text-center">Juli</th>
-          <th colspan="3" class="text-center">Agustus</th>
-          <th colspan="3" class="text-center">September</th>
-          <th colspan="3" class="text-center">Oktober</th>
-          <th colspan="3" class="text-center">November</th>
-          <th colspan="3" class="text-center">Desember</th>
+          <x-table.th colspan="3" class="text-center">Januari</x-table.th>
+          <x-table.th colspan="3" class="text-center">Februari</x-table.th>
+          <x-table.th colspan="3" class="text-center">Maret</x-table.th>
+          <x-table.th colspan="3" class="text-center">April</x-table.th>
+          <x-table.th colspan="3" class="text-center">Mei</x-table.th>
+          <x-table.th colspan="3" class="text-center">Juni</x-table.th>
+          <x-table.th colspan="3" class="text-center">Juli</x-table.th>
+          <x-table.th colspan="3" class="text-center">Agustus</x-table.th>
+          <x-table.th colspan="3" class="text-center">September</x-table.th>
+          <x-table.th colspan="3" class="text-center">Oktober</x-table.th>
+          <x-table.th colspan="3" class="text-center">November</x-table.th>
+          <x-table.th colspan="3" class="text-center">Desember</x-table.th>
       @elseif($periode == 'triwulan')
-          <th colspan="3" class="text-center">Triwulan 1</th>
-          <th colspan="3" class="text-center">Triwulan 2</th>
-          <th colspan="3" class="text-center">Triwulan 3</th>
-          <th colspan="3" class="text-center">Triwulan 4</th>
+          <x-table.th colspan="3" class="text-center">Triwulan 1</x-table.th>
+          <x-table.th colspan="3" class="text-center">Triwulan 2</x-table.th>
+          <x-table.th colspan="3" class="text-center">Triwulan 3</x-table.th>
+          <x-table.th colspan="3" class="text-center">Triwulan 4</x-table.th>
       @elseif($periode == 'semester')
-          <th colspan="3" class="text-center">Semester 1</th>
-          <th colspan="3" class="text-center">Semester 2</th>
+          <x-table.th colspan="3" class="text-center">Semester 1</x-table.th>
+          <x-table.th colspan="3" class="text-center">Semester 2</x-table.th>
       @elseif($periode == 'tahun')
-          <th colspan="3" class="text-center">Tahunan</th>
+          <x-table.th colspan="3" class="text-center">Tahunan</x-table.th>
       @endif
 
   </tr>
   <tr>
       @for ($i = 1; $i <= $foreachCount; $i++)
-          <th class="text-center">Target</th>
-          <th class="text-center">Jumlah</th>
-          <th class="text-center">Persentase</th>
+          <x-table.th class="text-center">Target</x-table.th>
+          <x-table.th class="text-center">Jumlah</x-table.th>
+          <x-table.th class="text-center">Persentase</x-table.th>
       @endfor
   </tr>
 </x-table.thead>

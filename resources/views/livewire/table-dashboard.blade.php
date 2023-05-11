@@ -36,19 +36,19 @@
             </div>
         </div>
     </div>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
         <tbody>
             <x-dashboard.sub-opd-foreach :$subOpds :$periode :$targetSubOpds :$foreachCount />
 
             @foreach ($opds as $opd)
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <x-table.tr>
                     <th {{ isset($opd->nama_opd) ? 'wire:click="$emit(\'opdDashboardClicked\', {$opd->id}, \'{$periode}\')"' : "" }} scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white {{ isset($opd->nama_opd) ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
                         {{ $opd->nama_opd ?? $opd->nama_sub_opd }}
                     </th>
-                    <td class="px-6 py-4 text-right">
+                    <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($opd->anggaran) }}
-                    </td>
+                    </x-table.td>
                     @for ($i = 1; $i <= $foreachCount; $i++)
                         @php
                             $target = $targetOpds->where('targetable_id', $opd->id)
@@ -96,19 +96,19 @@
                             $persentase = $target == 0 ? 0 : $realisasi / $target;
 
                         @endphp
-                        <td class="px-6 py-4 text-right">
+                        <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($target) }}
-                        </td>
+                        </x-table.td>
 
-                        <td class="px-6 py-4 text-right">
+                        <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($realisasi) }}
-                        </td>
+                        </x-table.td>
 
-                        <td class="px-6 py-4 text-right">
+                        <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($persentase) }}
-                        </td>
+                        </x-table.td>
                     @endfor
-                </tr>
+                </x-table.tr>
             @endforeach
         </tbody>
     </table>

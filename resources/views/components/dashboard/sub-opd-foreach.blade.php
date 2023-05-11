@@ -1,13 +1,13 @@
 @props(['subOpds', 'periode', 'targetSubOpds', 'foreachCount'])
 
 @foreach ($subOpds as $subOpd)
-    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    <x-table.tr>
+        <x-table.th>
             {{ $subOpd->nama_sub_opd }}
-        </th>
-        <td class="px-6 py-4 text-right">
+        </x-table.th>
+        <x-table.td class="text-right">
             {{ \App\Helpers\FormatHelper::angka($subOpd->anggaran) }}
-        </td>
+        </x-table.td>
 
         {{-- dapatkan target, jumlah realisasi, persentase --}}
         @for ($i = 1; $i <= $foreachCount; $i++)
@@ -58,18 +58,18 @@
                 $persentase = $target == 0 ? 0 : $realisasi / $target;
 
             @endphp
-            <td class="px-6 py-4 text-right">
+            <x-table.td class="text-right">
                 {{ \App\Helpers\FormatHelper::angka($target) }}
-            </td>
+            </x-table.td>
 
-            <td class="px-6 py-4 text-right">
+            <x-table.td class="text-right">
                 {{ \App\Helpers\FormatHelper::angka($realisasi) }}
-            </td>
+            </x-table.td>
 
-            <td class="px-6 py-4 text-right">
+            <x-table.td class="text-right">
                 {{ \App\Helpers\FormatHelper::angka($persentase) }}
-            </td>
+            </x-table.td>
         @endfor
 
-    </tr>
+    </x-table.tr>
 @endforeach
