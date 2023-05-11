@@ -39,19 +39,19 @@
     <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
         <tbody>
-            <x-dashboard.sub-opd-foreach :$subOpds :$periode :$targetSubOpds :$foreachCount />
-
             @foreach ($opds as $opd)
                 <x-table.tr>
-                    <th {!! isset($opd->nama_opd) ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" !!} scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ isset($opd->nama_opd) ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
-                        {{ $opd->nama_opd ?? $opd->nama_sub_opd }}
+                    <th {!! $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" !!} scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
+                        {{ $opd->nama_pd }}
                     </th>
                     <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($opd->anggaran) }}
                     </x-table.td>
                     @for ($i = 1; $i <= $foreachCount; $i++)
                         @php
-                            $target = $targetOpds->where('targetable_id', $opd->id)
+                            $target = $targetOpds
+                                ->where('targetable_id', $opd->id)
+                                // ->where('is_biro', $opd->is_biro)
                                 ->when($periode == 'bulan', function ($query) use ($i) {
                                     return $query->where('bulan', $i);
                                 })

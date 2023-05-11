@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 trait PerhitunganAnggaranRealisasiDashboard
@@ -78,24 +79,29 @@ trait PerhitunganAnggaranRealisasiDashboard
                 $query->where('o.sektor_id', auth()->user()->role->imageable_id);
             })
             ->when(auth()->user()->isAdmin() || auth()->user()->isSektor(), function (Builder $query) {
-                $query->selectRaw("o.id AS id, o.nama AS nama_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}")
+                $query->selectRaw("o.id AS id, o.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}, 0 AS is_biro")
                     ->where('o.nama', '!=', 'Sekretariat Daerah')
                     ->groupByRaw('o.nama, o.id')
                     ->orderBy('o.nama');
             })
             ->when(auth()->user()->isSubOpd(), function (Builder $query) {
                 $query->where('o.id', auth()->user()->role->imageable_id)
-                    ->selectRaw("so.id AS id, so.nama AS nama_sub_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}")
+                    ->selectRaw("so.id AS id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}, 0 AS is_biro")
                     ->groupByRaw('so.nama, so.id')
                     ->orderBy('so.nama');
             })
             ->get();
     }
 
-    protected function subOpds(string|int $where = null)
+    protected function subOpds(string|int $where = null): Collection
     {
         if(is_null($where)){
             return collect();
+        }
+
+        $select = "so.id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}";
+        if($where == 'sekretariat daerah'){
+            $select = $select . ', 1 AS is_biro';
         }
 
         return DB::table('opds AS o')
@@ -104,7 +110,7 @@ trait PerhitunganAnggaranRealisasiDashboard
                 ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
                 ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
                 ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
-                ->selectRaw("so.id, so.nama AS nama_sub_opd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}")
+                ->selectRaw($select)
                 ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
                 ->when(is_int($where), fn ($query) => $query->where('o.id', $where))
                 ->groupByRaw('so.nama, so.id')
