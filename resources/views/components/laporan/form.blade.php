@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="flex gap-x-4">
+        <div class="flex items-end gap-x-4">
             <div class="w-full">
                 @if (auth()->user()->isAdmin())
                     <x-native-select label="OPD" wire:model="opdDipilih">

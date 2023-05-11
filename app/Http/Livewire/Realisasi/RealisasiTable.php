@@ -56,7 +56,7 @@ class RealisasiTable extends Component
             ->pencarian($this->cari)
             ->get();
 
-        $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd')->find($this->objekRealisasiId);
+        $objekRealisasi = ObjekRealisasi::with(['bidangUrusanSubOpd.subOpd', 'realisasiFisiks'])->find($this->objekRealisasiId);
 
         return view('livewire.realisasi.realisasi-table', compact(['realisasis', 'objekRealisasi', 'realisasiFisiks']));
     }

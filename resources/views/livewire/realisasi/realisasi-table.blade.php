@@ -33,8 +33,16 @@
                     <td>Rp. {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}</td>
                 </tr>
                 <tr>
-                    <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi</td>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi Keuangan</td>
                     <td>Rp. {{ \App\Helpers\FormatHelper::angka($realisasis->sum('jumlah')) }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Target Fisik</td>
+                    <td>{{ blank($objekRealisasi->target) ? '(Belum di-input)' : $objekRealisasi->target . '' . $objekRealisasi->satuan->nama }}</td>
+                </tr>
+                <tr>
+                    <td class="pr-5 font-semibold text-sm text-gray-400">Realisasi Fisik</td>
+                    <td>{{ $objekRealisasi->realisasiFisiks->sum('jumlah') }}%</td>
                 </tr>
             </tbody>
         </table>

@@ -21,20 +21,23 @@ final class TableDashboard extends Component
     {
         // nama_opd, anggaran, realisasi, persentase
         $targetOpds = Target::where('targetable_type', 'opd')->get();
-        $targetBiros = Target::where('targetable_type', 'sub_opd')->get();
-        $biros = collect();
-        $opds = $this->opds();
-
+        $targetSubOpds = Target::where('targetable_type', 'sub_opd')->get();
+        $subOpds = collect();
+        $opds = collect();
 
         if (auth()->user()->isAdmin()) {
-            $biros = $this->subOpds('sekretariat daerah');
-            // dd($opds->merge($biros));
+            $opds = $this->opds();
+            $subOpds = $this->subOpds('sekretariat daerah');
+        }
+
+        if(auth()->user()->isOpd()){
+            $subOpds = $this->subOpds(auth()->user()->role->imageable_id);
         }
 
         $colspanRealisasi = $this->colspanRealisasi($this->periode);
 
         $foreachCount = $this->foreachCount($this->periode);
 
-        return view('livewire.table-dashboard', compact('opds', 'biros', 'targetBiros', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
+        return view('livewire.table-dashboard', compact('opds', 'subOpds', 'targetSubOpds', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
     }
 }

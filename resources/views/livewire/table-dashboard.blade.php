@@ -39,7 +39,7 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
         <tbody>
-            <x-dashboard.sub-opd-foreach :subOpds="$biros" :$periode :targetSubOpds="$targetBiros" :$foreachCount />
+            <x-dashboard.sub-opd-foreach :$subOpds :$periode :$targetSubOpds :$foreachCount />
 
             @foreach ($opds as $opd)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">

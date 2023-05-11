@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/realisasi/{objekRealisasiId}/form/{id?}', RealisasiForm::class)->name('realisasi.form');
     Route::get('/realisasi-fisik/{objekRealisasiId}/form/{id?}', RealisasiFisikForm::class)->name('realisasi-fisik.form');
     Route::get('/objek-realisasi/import', ImportObjekRealisasi::class)->name('objek-realisasi.import');
-    Route::get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
+    Route::middleware('can:is-admin')->get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
 
     Route::prefix('/laporan')->group(function () {
         Route::get('/cetak-deviasi', CetakLaporanDeviasi::class)->name('laporan-deviasi');
