@@ -1,15 +1,15 @@
 <table style="font-family: Arial, Helvetica, sans-serif; border: 1px solid black; border-collapse: collapse;">
 	<tr>
-		<td colspan="9" style="text-align: center; font-weight: 500">SERAPAN KEUANGAN PER OPD SAMPAI DENGAN {{ $periode }}</td>
+		<td colspan="12" style="text-align: center; font-weight: 500">SERAPAN KEUANGAN PER OPD SAMPAI DENGAN {{ $periode }}</td>
 	</tr>
 	<tr>
-		<td colspan="9" style="text-align: center; font-weight: 500">PEMERINTAH PROVINSI NUSA TENGGARA BARAT</td>
+		<td colspan="12" style="text-align: center; font-weight: 500">PEMERINTAH PROVINSI NUSA TENGGARA BARAT</td>
 	</tr>
 </table>
 <table style="font-family: Arial, Helvetica, sans-serif; border: 1px solid black; border-collapse: collapse;">
-	<tr style="border: 1px solid black; border-collapse: collapse;">
+	<tr style="border: 1px solid black; border-collapse: collapse; background-color: gray;">
 		<td rowspan="2">No.</td>
-		<td rowspan="2">Nama</td>
+		<td rowspan="2" colspan="4">Nama</td>
 		<td rowspan="2">Pagu(Rp)</td>
 		<td rowspan="2">Realisasi(Rp)</td>
 		<td rowspan="2">Deviasi Serapan(Rp)</td>
@@ -45,24 +45,24 @@
 	@endphp
 	<tr>
 		<td>{{ $loop->iteration }}</td>
-		<td style="white-space: no-wrap;">{{ $row->nama_opd }}</td>
-		<td>{{ $row->pagu }}</td>
-		<td>{{ $row->realisasi }}</td>
-		<td>{{ $row->deviasi }}</td>
-		<td>{{ $row->persen_realisasi_keuangan }}</td>
+		<td style="white-space: no-wrap;" colspan="4">{{ $row->nama_opd }}</td>
+		<td style="text-align: right;">{{ \App\Helpers\FormatHelper::angka($row->pagu) }}</td>
+		<td style="text-align: right;">{{ \App\Helpers\FormatHelper::angka($row->realisasi) }}</td>
+		<td style="text-align: right;">{{ $row->deviasi }}</td>
+		<td style="text-align: right;">{{ $row->persen_realisasi_keuangan }}</td>
 		<td></td>
 		<td style="background-color: {{ $warnaPersenDeviasiKeuangan }};">{{ $row->persen_deviasi_keuangan }}</td>
 		<td></td>
 	</tr>
 	@endforeach
 	<tr style="font-weight: 500;">
-		<td colspan="2" style="text-align: right;">Jumlah Belanja</td>
-		<td>{{ $jumlahPagu }}</td>
-		<td>{{ $jumlahRealisasi }}</td>
-		<td>{{ $jumlahDeviasi }}</td>
-		<td>{{ $jumlahRealisasiKeuangan }}</td>
+		<td colspan="5" style="text-align: right;">Jumlah Belanja</td>
+		<td>{{ \App\Helpers\FormatHelper::angka($jumlahPagu) }}</td>
+		<td>{{ \App\Helpers\FormatHelper::angka($jumlahRealisasi) }}</td>
+		<td>{{ \App\Helpers\FormatHelper::angka($jumlahDeviasi) }}</td>
+		<td>{{ \App\Helpers\FormatHelper::angka($jumlahRealisasiKeuangan) }}</td>
 		<td></td>
-		<td>{{ $jumlahDeviasiKeuangan }}</td>
+		<td>{{ \App\Helpers\FormatHelper::angka($jumlahDeviasiKeuangan) }}</td>
 		<td></td>
 	</tr>
 </table>

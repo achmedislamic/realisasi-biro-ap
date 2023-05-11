@@ -41,6 +41,10 @@ class LaporanFormA extends Component
         if (auth()->user()->isOpd()) {
             $this->subOpds = SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get();
         }
+
+        if(auth()->user()->isSubOpd()){
+            $this->subOpdDipilih = auth()->user()->role->imageable_id;
+        }
         $this->bidangUrusans = collect();
     }
 

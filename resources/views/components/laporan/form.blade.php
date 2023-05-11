@@ -1,6 +1,40 @@
 @props(['jenisLaporan' => 'a', 'bulans', 'urusans', 'bidangUrusans', 'opds', 'subOpds'])
 <form wire:submit.prevent="cetak">
     <div class="flex flex-col space-y-3">
+        <div class="flex items-end gap-x-4">
+            <div class="w-full">
+                @if (auth()->user()->isAdmin())
+                    <x-native-select label="OPD" wire:model="opdDipilih">
+                        <option value="">Pilih OPD</option>
+                        @foreach ($opds as $opd)
+                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
+                        @endforeach
+                    </x-native-select>
+                @else
+                    <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
+                @endif
+
+            </div>
+
+            <div class="w-full">
+                @if (auth()->user()->isSubOpd())
+                <p>Sub Unit: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
+                @else
+                <x-native-select label="Sub OPD" wire:model.defer="subOpdDipilih">
+                    <option value="">Pilih Sub OPD (Unit)</option>
+                    @foreach ($subOpds as $subOpd)
+                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
+                    @endforeach
+                </x-native-select>
+                @endif
+            </div>
+
+            @if ($jenisLaporan == 'e')
+                <div class="w-full">
+                    <x-periode-rincian-masalah />
+                </div>
+            @endif
+        </div>
         <div class="flex gap-4">
             @if ($jenisLaporan != 'e')
                 <div class="w-full">
@@ -42,36 +76,7 @@
             </div>
         </div>
 
-        <div class="flex items-end gap-x-4">
-            <div class="w-full">
-                @if (auth()->user()->isAdmin())
-                    <x-native-select label="OPD" wire:model="opdDipilih">
-                        <option value="">Pilih OPD</option>
-                        @foreach ($opds as $opd)
-                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
-                        @endforeach
-                    </x-native-select>
-                @else
-                    <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
-                @endif
 
-            </div>
-
-            <div class="w-full">
-                <x-native-select label="Sub OPD" wire:model.defer="subOpdDipilih">
-                    <option value="">Pilih Sub OPD (Unit)</option>
-                    @foreach ($subOpds as $subOpd)
-                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
-                    @endforeach
-                </x-native-select>
-            </div>
-
-            @if ($jenisLaporan == 'e')
-                <div class="w-full">
-                    <x-periode-rincian-masalah />
-                </div>
-            @endif
-        </div>
 
         <div class="flex">
             <div class="ml-auto">

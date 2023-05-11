@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Laporan\LaporanFormAController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Livewire\CetakLaporanDeviasi;
+use App\Http\Livewire\Laporan\LaporanDeviasi;
 use App\Http\Livewire\Laporan\LaporanFormA;
 use App\Http\Livewire\Laporan\LaporanFormB;
 use App\Http\Livewire\Laporan\LaporanFormC;
@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('can:is-admin')->get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
 
     Route::prefix('/laporan')->group(function () {
-        Route::get('/cetak-deviasi', CetakLaporanDeviasi::class)->name('laporan-deviasi');
+        Route::get('/deviasi', LaporanDeviasi::class)->name('laporan-deviasi');
         Route::get('/form-a', LaporanFormA::class)->name('laporan-form-a');
         Route::get('/form-b', LaporanFormB::class)->name('laporan-form-b');
         Route::get('/form-c', LaporanFormC::class)->name('laporan-form-c');

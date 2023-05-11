@@ -1,5 +1,5 @@
 @props(['colspanRealisasi', 'periode', 'foreachCount'])
-<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<x-table.thead>
   <tr>
       <th rowspan="3" scope="col" class="px-6 py-3">
           {{ auth()->user()->isOpd()? 'Sub ': '' }}OPD
@@ -48,4 +48,4 @@
           <th class="text-center">Persentase</th>
       @endfor
   </tr>
-</thead>
+</x-table.thead>
