@@ -19,25 +19,17 @@ final class TableDashboard extends Component
 
     public function render(): View
     {
-        // nama_opd, anggaran, realisasi, persentase
-        $targetOpds = Target::where('targetable_type', 'opd')->get();
-        $targetSubOpds = Target::where('targetable_type', 'sub_opd')->get();
-        $subOpds = collect();
-        $opds = collect();
+        $targetOpds = Target::all();
 
-        if (auth()->user()->isAdmin()) {
-            $opds = $this->opds();
-            $subOpds = $this->subOpds('sekretariat daerah');
-        }
-
-        if(auth()->user()->isOpd()){
-            $subOpds = $this->subOpds(auth()->user()->role->imageable_id);
-        }
+        $subOpds = auth()->user()->isAdmin() ? $this->subOpds('sekretariat daerah') : $this->subOpds(auth()->user()->role->imageable_id);
+        $opds = auth()->user()->isAdmin() ? $this->opds() : collect();
 
         $colspanRealisasi = $this->colspanRealisasi($this->periode);
 
         $foreachCount = $this->foreachCount($this->periode);
 
-        return view('livewire.table-dashboard', compact('opds', 'subOpds', 'targetSubOpds', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
+        $opds = $opds->merge($subOpds)->sortBy('nama_pd');
+
+        return view('livewire.table-dashboard', compact('opds', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
     }
 }
