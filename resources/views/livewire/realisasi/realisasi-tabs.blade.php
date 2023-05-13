@@ -9,28 +9,30 @@
         <div>
             @if (auth()->user()->isAdmin() ||
                     auth()->user()->isOpd())
-                <div class="mb-4 bg-slate-100 p-3 rounded-md flex gap-2 justify-end">
+                <div class="mb-4 bg-slate-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
                     <div class="w-1/2 flex gap-2">
                         @if (auth()->user()->isAdmin())
-                            <div class="w-full">
+                            <div class="w-full flex flex-row items-end space-x-3">
                                 <x-native-select label="OPD" wire:model="opdPilihan">
                                     <option value="">Semua OPD</option>
                                     @foreach ($opds as $opd)
                                         <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
                                     @endforeach
                                 </x-native-select>
+                                <x-loading-indicator target="opdPilihan" />
                             </div>
                         @endif
 
                         @if (auth()->user()->isAdmin() ||
                                 auth()->user()->isOpd())
-                            <div class="w-full">
+                            <div class="w-full flex flex-row items-end space-x-3">
                                 <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
                                     <option value="">Semua Sub OPD (Unit)</option>
                                     @foreach ($subOpds as $subOpd)
                                         <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
                                     @endforeach
                                 </x-native-select>
+                                <x-loading-indicator target="subOpdPilihan" />
                             </div>
                         @endif
                     </div>

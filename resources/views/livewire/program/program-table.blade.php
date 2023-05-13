@@ -1,4 +1,4 @@
-x<div class="flex flex-col gap-y-4">
+<div class="flex flex-col gap-y-4">
 
     <x-table.index :model="$programs">
 

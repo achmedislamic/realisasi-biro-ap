@@ -41,8 +41,16 @@
         <tbody>
             @foreach ($opds as $opd)
                 <x-table.tr>
-                    <th {!! $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" !!} scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
-                        {{ $opd->nama_pd }}
+                    <th scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
+                        <div class="flex flex-row justify-between ">
+                            <p {!! $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" !!}>{{ $opd->nama_pd }}</p>
+                            @can('is-admin')
+                                <div>
+                                    <x-button xs href="{{ route('realisasi', ['opdPilihan' => $opd->id, 'subOpdPilihan' => $opd->is_biro == 1 ? $opd->id : '']) }}" primary label="Detail" />
+                                </div>
+                            @endcan
+                        </div>
+
                     </th>
                     <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($opd->anggaran) }}

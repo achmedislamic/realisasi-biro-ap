@@ -42,11 +42,15 @@ class RealisasiTabs extends Component
 
         if (auth()->user()->isOpd()) {
             $this->opdPilihan = auth()->user()->role->imageable_id;
-            $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
+
         }
 
         if (auth()->user()->isSubOpd()) {
             $this->subOpdPilihan = auth()->user()->role->imageable_id;
+        }
+
+        if(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd())){
+            $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
         }
     }
 
