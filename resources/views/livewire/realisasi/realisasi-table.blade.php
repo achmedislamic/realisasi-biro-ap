@@ -129,7 +129,7 @@
             <div x-show="tab == 'fisik'" x-transition>
                 <x-table.index :model="$realisasiFisiks" :isPaginated="false">
                     <x-slot name="table_actions">
-                        @if (blank($objekRealisasi->target))
+                        @if (blank($objekRealisasi?->target))
                             <p>Tidak bisa mengisi realisasi fisik karena belum mengisi target fisik</p>
                         @else
                             <x-button primary label="Tambah" :href="route('realisasi-fisik.form', $objekRealisasiId)" />

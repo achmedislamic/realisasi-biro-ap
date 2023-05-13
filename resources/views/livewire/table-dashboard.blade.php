@@ -89,11 +89,17 @@
                             $realisasi = match($periode) {
                                 'bulan' => $opd->{'realisasi_' . $i} ?? 0,
                                 'triwulan' => $opd->{'realisasi_triwulan_' . $i} ?? 0,
-                                'semester' => $opd->{'realisasi_semester' . $i} ?? 0,
+                                'semester' => $opd->{'realisasi_semester_' . $i} ?? 0,
                                 'tahun' => $opd->realisasi ?? 0,
                             };
-                            $persentase = $target == 0 ? 0 : $realisasi / $target;
 
+                            $realisasiFisik = match($periode) {
+                                'bulan' => $opd->{'realisasi_fisik_' . $i} ?? 0,
+                                'triwulan' => $opd->{'realisasi_triwulan_fisik_' . $i} ?? 0,
+                                'semester' => $opd->{'realisasi_semester_fisik_' . $i} ?? 0,
+                                'tahun' => $opd->realisasi_fisik ?? 0,
+                            };
+                            $persentase = $target == 0 ? 0 : $realisasi / $target;
                         @endphp
                         <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($target) }}
@@ -104,7 +110,7 @@
                         </x-table.td>
 
                         <x-table.td class="text-right">
-                            {{ \App\Helpers\FormatHelper::angka($persentase) }}
+                            {{ \App\Helpers\FormatHelper::angka($realisasiFisik) }}
                         </x-table.td>
                     @endfor
                 </x-table.tr>
