@@ -50,11 +50,10 @@
                     @for ($i = 1; $i <= $foreachCount; $i++)
                         @php
                             $target = $targetOpds
+                                ->when($opd->is_biro == 0, fn ($query) => $query->where('targetable_type', 'opd'))
+                                ->when($opd->is_biro == 1, fn ($query) => $query->where('targetable_type', 'sub_opd'))
                                 ->where('targetable_id', $opd->id)
-                                // ->where('is_biro', $opd->is_biro)
-                                ->when($periode == 'bulan', function ($query) use ($i) {
-                                    return $query->where('bulan', $i);
-                                })
+                                ->when($periode == 'bulan', fn ($query) => $query->where('bulan', $i))
                                 ->when($periode == 'triwulan', function ($query) use ($i) {
                                     if($i == 1){
                                         return $query->whereIn('bulan', [1,2,3]);

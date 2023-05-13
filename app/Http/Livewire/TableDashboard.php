@@ -19,8 +19,7 @@ final class TableDashboard extends Component
 
     public function render(): View
     {
-        $targetOpds = Target::where('targetable_type', 'opd')->get();
-        $targetSubOpds = Target::where('targetable_type', 'sub_opd')->get();
+        $targetOpds = Target::all();
 
         $subOpds = auth()->user()->isAdmin() ? $this->subOpds('sekretariat daerah') : $this->subOpds(auth()->user()->role->imageable_id);
         $opds = auth()->user()->isAdmin() ? $this->opds() : collect();
@@ -31,6 +30,6 @@ final class TableDashboard extends Component
 
         $opds = $opds->merge($subOpds)->sortBy('nama_pd');
 
-        return view('livewire.table-dashboard', compact('opds', 'targetSubOpds', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
+        return view('livewire.table-dashboard', compact('opds', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
     }
 }
