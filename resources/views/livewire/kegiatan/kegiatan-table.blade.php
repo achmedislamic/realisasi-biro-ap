@@ -39,8 +39,9 @@
                 <x-table.td>
                     {{ $kegiatan->kode }}
                 </x-table.td>
-                <x-table.td>
+                <x-table.td class="hover:underline hover:cursor-pointer hover:text-blue-500" wire:click="pilihIdKegiatanEvent({{ $kegiatan->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')">
                     {{ $kegiatan->nama }}
+                    <x-loading-indicator target="pilihIdKegiatanEvent({{ $kegiatan->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
                 <x-table.td>
                     @if ($menu != 'realisasi')

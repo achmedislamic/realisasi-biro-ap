@@ -41,7 +41,7 @@
                         <td>{{ blank($objekRealisasi->target) ? '(Belum di-input)' : str($objekRealisasi->target)->replace('.', ',')->toString() . ' ' . $objekRealisasi->satuan->nama }}</td>
                     </tr>
                     <tr>
-                        <td class="pr-5 font-semibold text-sm text-gray-400">Realisasi Fisik</td>
+                        <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi Fisik</td>
                         <td>{{ $objekRealisasi->realisasiFisiks->sum('jumlah') }}%</td>
                     </tr>
                 </tbody>

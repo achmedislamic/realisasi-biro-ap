@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-y-4">
+x<div class="flex flex-col gap-y-4">
 
     <x-table.index :model="$programs">
 
@@ -31,8 +31,9 @@
                 <x-table.td>
                     {{ $program->kode }}
                 </x-table.td>
-                <x-table.td>
+                <x-table.td class="hover:underline hover:cursor-pointer hover:text-blue-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')">
                     {{ $program->nama }}
+                    <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $opdId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
                 <x-table.td>
                     @if ($menu != 'realisasi')

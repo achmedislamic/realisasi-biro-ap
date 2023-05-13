@@ -71,32 +71,34 @@ trait PerhitunganAnggaranRealisasiDashboard
         SUM(IF(r.tanggal BETWEEN '{$januariMulai}' AND '{$januariSelesai}', r.jumlah, 0)) AS realisasi_1, SUM(IF(r.tanggal BETWEEN '{$februariMulai}' AND '{$februariSelesai}', r.jumlah, 0)) AS realisasi_2, SUM(IF(r.tanggal BETWEEN '{$maretMulai}' AND '{$maretSelesai}', r.jumlah, 0)) AS realisasi_3, SUM(IF(r.tanggal BETWEEN '{$aprilMulai}' AND '{$aprilSelesai}', r.jumlah, 0)) AS realisasi_4, SUM(IF(r.tanggal BETWEEN '{$meiMulai}' AND '{$meiSelesai}', r.jumlah, 0)) AS realisasi_5, SUM(IF(r.tanggal BETWEEN '{$juniMulai}' AND '{$juniSelesai}', r.jumlah, 0)) AS realisasi_6, SUM(IF(r.tanggal BETWEEN '{$juliMulai}' AND '{$juliSelesai}', r.jumlah, 0)) AS realisasi_7, SUM(IF(r.tanggal BETWEEN '{$agustusMulai}' AND '{$agustusSelesai}', r.jumlah, 0)) AS realisasi_8, SUM(IF(r.tanggal BETWEEN '{$septemberMulai}' AND '{$septemberSelesai}', r.jumlah, 0)) AS realisasi_9, SUM(IF(r.tanggal BETWEEN '{$oktoberMulai}' AND '{$oktoberSelesai}', r.jumlah, 0)) AS realisasi_10, SUM(IF(r.tanggal BETWEEN '{$novemberMulai}' AND '{$novemberSelesai}', r.jumlah, 0)) AS realisasi_11, SUM(IF(r.tanggal BETWEEN '{$desemberMulai}' AND '{$desemberSelesai}', r.jumlah, 0)) AS realisasi_12, SUM(IF(r.tanggal BETWEEN '{$triwulan1Mulai}' AND '{$triwulan1Selesai}', r.jumlah, 0)) AS realisasi_triwulan_1, SUM(IF(r.tanggal BETWEEN '{$triwulan2Mulai}' AND '{$triwulan2Selesai}', r.jumlah, 0)) AS realisasi_triwulan_2, SUM(IF(r.tanggal BETWEEN '{$triwulan3Mulai}' AND '{$triwulan3Selesai}', r.jumlah, 0)) AS realisasi_triwulan_3, SUM(IF(r.tanggal BETWEEN '{$triwulan4Mulai}' AND '{$triwulan4Selesai}', r.jumlah, 0)) AS realisasi_triwulan_4, SUM(IF(r.tanggal BETWEEN '{$semester1Mulai}' AND '{$semester1Selesai}', r.jumlah, 0)) AS realisasi_semester_1, SUM(IF(r.tanggal BETWEEN '{$semester2Mulai}' AND '{$semester2Selesai}', r.jumlah, 0)) AS realisasi_semester_2";
     }
 
-    private function table()
+    private function table(): Builder
     {
         return DB::table('opds AS o')
             ->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')
             ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id')
             ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
             ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
-            ->leftJoin('realisasi_fisiks AS rf', 'rf.objek_realisasi_id', '=', 'or.id');
+            ->leftJoin('realisasi_fisiks AS rf', 'rf.objek_realisasi_id', '=', 'or.id')
+            ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id);
     }
 
     protected function opds()
     {
+        $select = "o.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}, 0 AS is_biro";
+        
         return $this->table()
-            ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
             ->when(auth()->user()->isSektor(), function (Builder $query) {
                 $query->where('o.sektor_id', auth()->user()->role->imageable_id);
             })
-            ->when(auth()->user()->isAdmin() || auth()->user()->isSektor(), function (Builder $query) {
-                $query->selectRaw("o.id AS id, o.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}, 0 AS is_biro")
+            ->when(auth()->user()->isAdmin() || auth()->user()->isSektor(), function (Builder $query) use ($select) {
+                $query->selectRaw("o.id AS id, " . $select)
                     ->where('o.nama', '!=', 'Sekretariat Daerah')
                     ->groupByRaw('o.nama, o.id')
                     ->orderBy('o.nama');
             })
-            ->when(auth()->user()->isSubOpd(), function (Builder $query) {
+            ->when(auth()->user()->isSubOpd(), function (Builder $query) use ($select) {
                 $query->where('o.id', auth()->user()->role->imageable_id)
-                    ->selectRaw("so.id AS id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi{$this->realisasiBulananQuery()}, 0 AS is_biro")
+                    ->selectRaw("so.id AS id, " . $select)
                     ->groupByRaw('so.nama, so.id')
                     ->orderBy('so.nama');
             })
@@ -115,7 +117,6 @@ trait PerhitunganAnggaranRealisasiDashboard
         }
 
         return $this->table()
-                ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id)
                 ->selectRaw($select)
                 ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
                 ->when(is_int($where), fn ($query) => $query->where('o.id', $where))

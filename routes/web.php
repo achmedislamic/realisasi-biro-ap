@@ -71,6 +71,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
     });
 
+    Route::prefix('/master')->group(function (){
+        Route::prefix('/program-kegiatan')->group(function (){
+            Route::get('', App\Http\Livewire\ProgramKegiatanTabs::class)->name('program-kegiatan');
+            Route::get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
+            Route::get('/kegiatan/{idProgram}/form/{id?}', App\Http\Livewire\Kegiatan\KegiatanForm::class)->name('kegiatan.form');
+            Route::get('/sub-kegiatan/{idKegiatan}/form/{id?}', App\Http\Livewire\SubKegiatan\SubKegiatanForm::class)->name('sub-kegiatan.form');
+        });
+    });
+
     require __DIR__.'/master/index.php';
 });
 

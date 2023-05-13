@@ -53,12 +53,13 @@
                 <x-table.td>
                     {{ $subKegiatan->kode }}
                 </x-table.td>
-                <x-table.td>
+                <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-blue-500">
                     {{ $subKegiatan->nama }}
+                    <x-loading-indicator />
                 </x-table.td>
                 <x-table.td>
                     @if ($menu != 'realisasi')
-                    <x-button.circle warning xs icon="pencil"
+                    <x-button.circle spinner warning xs icon="pencil"
                         :href="route('sub-kegiatan.form', [$kegiatanId, $subKegiatan->id])" />
                     <x-button.circle negative xs icon="trash" x-on:confirm="{
                         title: 'Anda yakin akan menghapus data?',
