@@ -13,7 +13,7 @@
                     <x-native-select label="Urusan" wire:model="urusanPilihan">
                         <option selected>Pilih Urusan</option>
                         @foreach ($urusans as $urusan)
-                        <option value="{{ $urusan->id }}">{{ $urusan->kode }} - {{ $urusan->nama}}</option>
+                            <option value="{{ $urusan->id }}">{{ $urusan->kode }} - {{ $urusan->nama }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -22,7 +22,7 @@
                     <x-native-select label="Bidang Urusan" wire:model.defer="bidangUrusanPilihan">
                         <option selected>Pilih Bidang Urusan</option>
                         @foreach ($bidangUrusans as $bidangUrusan)
-                        <option value="{{ $bidangUrusan->id }}">{{ $bidangUrusan->kode }} - {{ $bidangUrusan->nama}}</option>
+                            <option value="{{ $bidangUrusan->id }}">{{ $bidangUrusan->kode }} - {{ $bidangUrusan->nama }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -33,7 +33,7 @@
                     <x-native-select label="OPD" wire:model="opdPilihan">
                         <option selected>Pilih OPD</option>
                         @foreach ($pods as $opd)
-                        <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama}}</option>
+                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -42,7 +42,7 @@
                     <x-native-select label="Sub OPD" wire:model.defer="subOpdPilihan">
                         <option selected>Pilih Sub OPD (Unit)</option>
                         @foreach ($subOpds as $subOpd)
-                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama}}</option>
+                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -53,7 +53,7 @@
                     <x-native-select label="Program" wire:model="programPilihan">
                         <option selected>Pilih Program</option>
                         @foreach ($programs as $program)
-                        <option value="{{ $program->id }}">{{ $program->kode }} - {{ $program->nama}}</option>
+                            <option value="{{ $program->id }}">{{ $program->kode }} - {{ $program->nama }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -62,7 +62,7 @@
                     <x-native-select label="Kegiatan" wire:model="kegiatanPilihan">
                         <option selected>Pilih Kegiatan</option>
                         @foreach ($kegiatans as $kegiatan)
-                        <option value="{{ $kegiatan->id }}">{{ $kegiatan->kode }} - {{ $kegiatan->nama}}</option>
+                            <option value="{{ $kegiatan->id }}">{{ $kegiatan->kode }} - {{ $kegiatan->nama }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -71,43 +71,41 @@
             <x-native-select label="Sub Kegiatan" wire:model.defer="subKegiatanPilihan">
                 <option selected>Pilih Sub Kegiatan</option>
                 @foreach ($subKegiatans as $subKegiatan)
-                <option value="{{ $subKegiatan->id }}">{{ $subKegiatan->kode }} - {{ $subKegiatan->nama}}</option>
+                    <option value="{{ $subKegiatan->id }}">{{ $subKegiatan->kode }} - {{ $subKegiatan->nama }}</option>
                 @endforeach
             </x-native-select>
 
             <x-native-select label="Rekening Belanja" wire:model.defer="rekeningBelanjaPilihan">
                 <option selected>Pilih Rekenig Belanja (Sub Rincian Objek)</option>
                 @foreach ($subRincianObjekBelanjas as $rekening)
-                <option value="{{ $rekening->id }}">{{ $rekening->kode }} - {{ $rekening->nama}}</option>
+                    <option value="{{ $rekening->id }}">{{ $rekening->kode }} - {{ $rekening->nama }}</option>
                 @endforeach
             </x-native-select>
 
             <div class="w-full">
                 <x-inputs.currency
-                        label="Realisasi"
-                        thousands="."
-                        decimal=","
-                        precision="4"
-                        wire:model.lazy="anggaran"
-                    />
+                                   label="Anggaran"
+                                   thousands="."
+                                   decimal=","
+                                   precision="4"
+                                   wire:model.lazy="anggaran" />
             </div>
 
             <div class="flex flex-row space-x-3">
                 <div class="w-full">
                     <x-inputs.currency
-                        label="Target"
-                        thousands="."
-                        decimal=","
-                        precision="4"
-                        wire:model.lazy="target"
-                    />
+                                       label="Target Fisik"
+                                       thousands="."
+                                       decimal=","
+                                       precision="4"
+                                       wire:model.lazy="target" />
                 </div>
 
                 <div class="w-full">
                     <x-native-select label="Satuan" wire:model.defer="satuanId">
                         <option value="">Silakan Pilih</option>
                         @foreach (App\Models\Satuan::all() as $satuan)
-                        <option value="{{ $satuan->id }}">{{ str($satuan->nama)->title() }}</option>
+                            <option value="{{ $satuan->id }}">{{ str($satuan->nama)->title() }}</option>
                         @endforeach
                     </x-native-select>
                 </div>
@@ -115,7 +113,7 @@
 
             <div class="flex justify-between">
                 <x-button gray label="Kembali ke halaman realisasi" :href="route('realisasi')" />
-                <x-button type="submit" positive label="{{ $submitText }}" />
+                <x-button spinner type="submit" positive label="{{ $submitText }}" />
             </div>
         </div>
     </form>

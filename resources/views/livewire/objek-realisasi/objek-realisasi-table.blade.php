@@ -33,9 +33,6 @@
 
             <x-table.thead>
                 <tr>
-                    <x-table.th class="w-36">
-                        Aksi
-                    </x-table.th>
                     <x-table.th>
                         #
                     </x-table.th>
@@ -54,29 +51,14 @@
                     <x-table.th>
                         Satuan
                     </x-table.th>
+                    <x-table.th class="w-36">
+                        Aksi
+                    </x-table.th>
                 </tr>
             </x-table.thead>
             <tbody>
                 @foreach ($realisasiApbds as $key => $objekRealisasi)
                 <x-table.tr>
-                    <x-table.td>
-                        <x-button.circle warning xs icon="pencil"
-                            :href="route('objek-realisasi.form', [$objekRealisasi->id])" />
-                        <x-button.circle negative xs icon="trash" x-on:confirm="{
-                                title: 'Anda yakin akan menghapus data objek realisasi ini?',
-                                icon: 'question',
-                                accept: {
-                                    label: 'Hapus',
-                                    method: 'hapusObjekRealisasiBelanja',
-                                    params: {{ $objekRealisasi->id }}
-                                },
-                                reject: {
-                                    label: 'Batal'
-                                }
-                            }" />
-                        <x-button.circle positive xs icon="folder-open"
-                            wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" />
-                    </x-table.td>
                     <x-table.td>
                         {{ $realisasiApbds->firstItem() + $key }}
                     </x-table.td>
@@ -95,6 +77,24 @@
                     </x-table.td>
                     <x-table.td>
                         {{ $objekRealisasi->nama_satuan }}
+                    </x-table.td>
+                    <x-table.td>
+                        <x-button.circle warning xs icon="pencil"
+                            :href="route('objek-realisasi.form', [$objekRealisasi->id])" />
+                        <x-button.circle negative xs icon="trash" x-on:confirm="{
+                                title: 'Anda yakin akan menghapus data objek realisasi ini?',
+                                icon: 'question',
+                                accept: {
+                                    label: 'Hapus',
+                                    method: 'hapusObjekRealisasiBelanja',
+                                    params: {{ $objekRealisasi->id }}
+                                },
+                                reject: {
+                                    label: 'Batal'
+                                }
+                            }" />
+                        <x-button.circle positive xs icon="folder-open"
+                            wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" />
                     </x-table.td>
                 </x-table.tr>
                 @endforeach

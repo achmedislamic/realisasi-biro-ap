@@ -44,6 +44,7 @@ class ObjekRealisasiForm extends Component
     public $kegiatanPilihan = null;
 
     public $subKegiatanPilihan = null;
+    public $subKegiatan = null;
 
     public $rekeningBelanjaPilihan = null;
 
@@ -81,6 +82,9 @@ class ObjekRealisasiForm extends Component
             $this->anggaran = $objekRealisasi->anggaran;
             $this->rekeningBelanjaPilihan = $objekRealisasi->sub_rincian_objek_belanja_id;
 
+            $this->target = str($objekRealisasi->target)->replace('.', ',')->toString();
+            $this->satuanId = $objekRealisasi->satuan_id;
+
             $subOpd = SubOpd::find($objekRealisasi->bidangUrusanSubOpd->sub_opd_id);
             if ($subOpd) {
                 $this->subOpds = SubOpd::query()
@@ -91,7 +95,7 @@ class ObjekRealisasiForm extends Component
                 $this->opdPilihan = $subOpd->opd_id;
             }
 
-            $subKegiatan = SubKegiatan::find($objekRealisasi->sub_kegiatan_id);
+            $subKegiatan = SubKegiatan::with('kegiatan.program')->find($objekRealisasi->sub_kegiatan_id);
             if ($subKegiatan) {
                 $this->programPilihan = $subKegiatan->kegiatan->program->id;
 
@@ -105,6 +109,7 @@ class ObjekRealisasiForm extends Component
 
                 $this->kegiatanPilihan = $subKegiatan->kegiatan->id;
                 $this->subKegiatanPilihan = $subKegiatan->id;
+                $this->subKegiatan = $subKegiatan;
             }
         }
     }
@@ -212,14 +217,14 @@ class ObjekRealisasiForm extends Component
             $this->anggaran = 0;
         }
 
-        return back();
+        return redirect()->back();
     }
 
     public function updateObjekRealisasi(int $id)
     {
-        $realisasi = ObjekRealisasi::where('id', $id)->update([
-            'tahapan_apbd_id' => cache('tahapanApbd')->id,
-            'bidang_urusan_sub_opd_id' => BidangUrusanSubOpd::where('bidang_urusan_id', $this->bidangUrusanPilihan)->where('sub_opd_id', $this->subOpdPilihan)->first()->id,
+        ObjekRealisasi::where('id', $id)->update([
+            // 'tahapan_apbd_id' => cache('tahapanApbd')->id,
+            // 'bidang_urusan_sub_opd_id' => BidangUrusanSubOpd::where('bidang_urusan_id', $this->bidangUrusanPilihan)->where('sub_opd_id', $this->subOpdPilihan)->first()->id,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
             'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
@@ -227,19 +232,12 @@ class ObjekRealisasiForm extends Component
             'satuan_id' => $this->satuanId
         ]);
 
-        if (! $realisasi) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Gagal update objek realisasi.'
-            );
-        } else {
-            $this->notification()->success(
-                'BERHASIL',
-                'Berhasil update objek realisasi.'
-            );
-        }
+        $this->notification()->success(
+            'BERHASIL',
+            'Berhasil mengubah data Rekening Belanja.'
+        );
 
-        return back();
+        return redirect("realisasi?tabAktif=objekRealisasi&programId={$this->subKegiatan->kegiatan->program_id}&kegiatanId={$this->subKegiatan->kegiatan->id}&subKegiatanId={$this->subKegiatan->id}&objekRealisasiId={$id}");
     }
 
     public function flushSession()
