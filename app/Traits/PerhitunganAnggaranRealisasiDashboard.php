@@ -85,7 +85,7 @@ trait PerhitunganAnggaranRealisasiDashboard
     protected function opds()
     {
         $select = "o.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}, 0 AS is_biro";
-        
+
         return $this->table()
             ->when(auth()->user()->isSektor(), function (Builder $query) {
                 $query->where('o.sektor_id', auth()->user()->role->imageable_id);
@@ -111,7 +111,7 @@ trait PerhitunganAnggaranRealisasiDashboard
             return collect();
         }
 
-        $select = "so.id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
+        $select = "so.id, so.opd_id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
         if($where == 'sekretariat daerah'){
             $select = $select . ', 1 AS is_biro';
         }

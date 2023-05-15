@@ -46,7 +46,7 @@
                             <p {!! $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" !!}>{{ $opd->nama_pd }}</p>
                             @can('is-admin')
                                 <div>
-                                    <x-button xs href="{{ route('realisasi', ['opdPilihan' => $opd->id, 'subOpdPilihan' => $opd->is_biro == 1 ? $opd->id : '']) }}" primary label="Detail" />
+                                    <x-button xs target="_blank" href="{!! route('realisasi', ['opdPilihan' => $opd->is_biro == 1 ? $opd->opd_id : $opd->id, 'subOpdPilihan' => $opd->is_biro == 1 ? $opd->id : '']) !!}" primary label="Detail" />
                                 </div>
                             @endcan
                         </div>
