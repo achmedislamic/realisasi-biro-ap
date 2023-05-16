@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Satuan;
 
 use App\Models\Satuan;
 use App\Traits\WithLiveValidation;
@@ -21,17 +21,12 @@ class SatuanForm extends Component
         $this->satuan = is_null($id) ? new Satuan() : Satuan::find($id);
     }
 
-    protected function rules(): array
-    {
-        return [
-            'satuan.nama' => 'required|string|max:255',
-            'satuan.satuan' => 'required|string|max:50',
-        ];
-    }
-
     public function simpan()
     {
-        $this->validate();
+        $this->validate([
+            'satuan.nama' => 'required|string|max:255',
+        ]);
+
         $this->satuan->save();
 
         return to_route('satuan');
@@ -39,6 +34,6 @@ class SatuanForm extends Component
 
     public function render(): view
     {
-        return view('livewire.satuan-form');
+        return view('livewire.satuan.satuan-form');
     }
 }

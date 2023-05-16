@@ -17,9 +17,6 @@
                     Nama
                 </x-table.th>
                 <x-table.th>
-                    Satuan
-                </x-table.th>
-                <x-table.th>
                     Aksi
                 </x-table.th>
             </tr>
@@ -30,9 +27,6 @@
                 <x-table.td-utama>
                     {{ $satuan->nama }}
                 </x-table.td-utama>
-                <x-table.td>
-                    {{ $satuan->satuan }}
-                </x-table.td>
                 <x-table.td>
                     <x-button :href="route('satuan.form', $satuan->id)" label="Ubah" warning icon="pencil" />
                     <x-button label="Hapus" negative icon="x" x-on:confirm="{

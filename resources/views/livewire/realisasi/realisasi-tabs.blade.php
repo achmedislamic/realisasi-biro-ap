@@ -7,8 +7,7 @@
 <div x-data="{ pemberitahuan: true }" class="pb-12">
     <div class="bg-white shadow-sm sm:rounded-lg">
         <div>
-            @if (auth()->user()->isAdmin() ||
-                    auth()->user()->isOpd())
+            @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
                 <div class="mb-4 bg-slate-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
                     <div class="w-1/2 flex gap-2">
                         @if (auth()->user()->isAdmin())
@@ -23,15 +22,16 @@
                             </div>
                         @endif
 
-                        @if (auth()->user()->isAdmin() ||
-                                auth()->user()->isOpd())
+                        @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
                             <div class="w-full flex flex-row items-end space-x-3">
-                                <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
-                                    <option value="">Semua Sub OPD (Unit)</option>
-                                    @foreach ($subOpds as $subOpd)
-                                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
-                                    @endforeach
-                                </x-native-select>
+                                <div class="w-full">
+                                    <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
+                                        <option value="">Semua Sub OPD (Unit)</option>
+                                        @foreach ($subOpds as $subOpd)
+                                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
+                                        @endforeach
+                                    </x-native-select>
+                                </div>
                                 <x-loading-indicator target="subOpdPilihan" />
                             </div>
                         @endif

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Satuan;
 
 use App\Models\Satuan;
 use App\Traits\Pencarian;
@@ -25,6 +25,6 @@ class SatuanTable extends Component
     {
         $satuans = Satuan::query()->pencarian($this->cari)->paginate();
 
-        return view('livewire.satuan-table', compact('satuans'));
+        return view('livewire.satuan.satuan-table', compact('satuans'));
     }
 }

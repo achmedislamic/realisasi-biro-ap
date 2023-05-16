@@ -57,8 +57,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/pekerjaan/form/{id?}', App\Http\Livewire\Pekerjaan\PekerjaanForm::class)->name('pekerjaan.form');
         Route::get('/pekerjaan/form-upload', App\Http\Livewire\Pekerjaan\UploadExcel::class)->name('pekerjaan.form-upload');
 
-        Route::get('/satuan', App\Http\Livewire\SatuanTable::class)->name('satuan');
-        Route::get('/satuan/form/{id?}', App\Http\Livewire\SatuanForm::class)->name('satuan.form');
+        Route::get('/satuan', App\Http\Livewire\Satuan\SatuanTable::class)->name('satuan');
+        Route::get('/satuan/form/{id?}', App\Http\Livewire\Satuan\SatuanForm::class)->name('satuan.form');
 
         Route::get('/rekening-belanja', App\Http\Livewire\RekeningBelanja\RekeningBelanjaTable::class)->name('rekening-belanja');
         Route::get('/rekening-belanja/form/{id?}', App\Http\Livewire\RekeningBelanja\RekeningBelanjaForm::class)->name('rekening-belanja.form');
