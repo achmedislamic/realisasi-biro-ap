@@ -41,18 +41,11 @@ class ProgramTable extends Component
 
     public function hapusProgram(int $id): void
     {
-        try {
-            Program::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data program terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data program tidak terhapus karena digunakan tabel lain.'
-            );
-        }
+        Program::destroy($id);
+        $this->notification()->success(
+            'BERHASIL',
+            'Data program terhapus.'
+        );
     }
 
     public function render()

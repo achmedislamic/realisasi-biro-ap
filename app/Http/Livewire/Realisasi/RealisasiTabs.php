@@ -49,7 +49,7 @@ class RealisasiTabs extends Component
             $this->subOpdPilihan = auth()->user()->role->imageable_id;
         }
 
-        if(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd())){
+        if (filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd())) {
             $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
         }
     }
@@ -95,7 +95,7 @@ class RealisasiTabs extends Component
     public function render(): View
     {
         return view('livewire.realisasi.realisasi-tabs', [
-            'jadwal' => Jadwal::where('is_aktif', true)->first()
+            'jadwal' => Jadwal::where('is_aktif', true)->first(),
         ]);
     }
 }

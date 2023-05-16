@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Urusan;
 
 use App\Models\Urusan;
 use App\Traits\Pencarian;
+use Illuminate\Contracts\View\View;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
@@ -17,27 +18,20 @@ class UrusanTable extends Component
 
     public function hapusUrusan(int $id): void
     {
-        try {
-            Urusan::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data urusan terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data urusan tidak terhapus karena digunakan tabel lain.'
-            );
-        }
+        Urusan::destroy($id);
+        $this->notification()->success(
+            'BERHASIL',
+            'Data urusan terhapus.'
+        );
     }
 
-    public function pilihIdUrusanEvent(int $id)
+    public function pilihIdUrusanEvent(int $id): void
     {
         $this->emit('pilihIdUrusanEvent', $id);
         $this->emit('gantiTab', 'bidang_urusan');
     }
 
-    public function render()
+    public function render(): View
     {
         $urusans = Urusan::query()->pencarian($this->cari)->paginate();
 

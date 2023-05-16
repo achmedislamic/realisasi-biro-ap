@@ -25,8 +25,7 @@ class TargetForm extends Component
 
         $this->targets = [];
 
-        for($i = 1; $i <= 12; $i++)
-        {
+        for ($i = 1; $i <= 12; $i++) {
             array_push($this->targets, Target::select('jumlah')->where('targetable_id', $opd)->where('bulan', $i)->first()->jumlah ?? 0);
         }
     }

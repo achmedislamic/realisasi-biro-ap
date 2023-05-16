@@ -9,8 +9,8 @@ class FormatHelper
     public static function tanggal(string|Carbon $tanggal, bool $withTime = false)
     {
         $format = 'd F Y';
-        if($withTime){
-            $format = $format . ' H:i';
+        if ($withTime) {
+            $format = $format.' H:i';
         }
 
         if (is_string($tanggal)) {

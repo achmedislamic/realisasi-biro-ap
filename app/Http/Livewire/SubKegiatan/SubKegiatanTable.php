@@ -39,18 +39,11 @@ class SubKegiatanTable extends Component
 
     public function hapusSubKegiatan(int $id): void
     {
-        try {
-            SubKegiatan::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data sub kegiatan terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data sub kegiatan tidak terhapus karena digunakan tabel lain.'
-            );
-        }
+        SubKegiatan::destroy($id);
+        $this->notification()->success(
+            'BERHASIL',
+            'Data sub kegiatan terhapus.'
+        );
     }
 
     public function render()

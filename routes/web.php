@@ -2,16 +2,9 @@
 
 use App\Http\Controllers\Laporan\LaporanFormAController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Livewire\Laporan\LaporanDeviasi;
-use App\Http\Livewire\Laporan\LaporanFormA;
-use App\Http\Livewire\Laporan\LaporanFormB;
-use App\Http\Livewire\Laporan\LaporanFormC;
-use App\Http\Livewire\Laporan\LaporanFormE;
-use App\Http\Livewire\ObjekRealisasi\ImportObjekRealisasi;
-use App\Http\Livewire\ObjekRealisasi\ObjekRealisasiForm;
-use App\Http\Livewire\Realisasi\RealisasiFisikForm;
-use App\Http\Livewire\Realisasi\RealisasiForm;
-use App\Http\Livewire\Realisasi\RealisasiTabs;
+use App\Http\Livewire\Laporan\{LaporanDeviasi, LaporanFormA, LaporanFormB, LaporanFormC, LaporanFormE};
+use App\Http\Livewire\ObjekRealisasi\{ImportObjekRealisasi, ObjekRealisasiForm};
+use App\Http\Livewire\Realisasi\{RealisasiFisikForm, RealisasiForm, RealisasiTabs};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -71,8 +64,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
     });
 
-    Route::prefix('/master')->group(function (){
-        Route::prefix('/program-kegiatan')->group(function (){
+    Route::prefix('/master')->group(function () {
+        Route::prefix('/program-kegiatan')->group(function () {
             Route::get('', App\Http\Livewire\ProgramKegiatanTabs::class)->name('program-kegiatan');
             Route::get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
             Route::get('/kegiatan/{idProgram}/form/{id?}', App\Http\Livewire\Kegiatan\KegiatanForm::class)->name('kegiatan.form');

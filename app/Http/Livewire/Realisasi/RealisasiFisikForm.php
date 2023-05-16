@@ -3,8 +3,7 @@
 namespace App\Http\Livewire\Realisasi;
 
 use App\Helpers\FormatHelper;
-use App\Models\ObjekRealisasi;
-use App\Models\RealisasiFisik;
+use App\Models\{ObjekRealisasi, RealisasiFisik};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
 use WireUi\Traits\Actions;

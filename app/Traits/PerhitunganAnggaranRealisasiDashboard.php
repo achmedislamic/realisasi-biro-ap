@@ -91,14 +91,14 @@ trait PerhitunganAnggaranRealisasiDashboard
                 $query->where('o.sektor_id', auth()->user()->role->imageable_id);
             })
             ->when(auth()->user()->isAdmin() || auth()->user()->isSektor(), function (Builder $query) use ($select) {
-                $query->selectRaw("o.id AS id, " . $select)
+                $query->selectRaw('o.id AS id, '.$select)
                     ->where('o.nama', '!=', 'Sekretariat Daerah')
                     ->groupByRaw('o.nama, o.id')
                     ->orderBy('o.nama');
             })
             ->when(auth()->user()->isSubOpd(), function (Builder $query) use ($select) {
                 $query->where('o.id', auth()->user()->role->imageable_id)
-                    ->selectRaw("so.id AS id, " . $select)
+                    ->selectRaw('so.id AS id, '.$select)
                     ->groupByRaw('so.nama, so.id')
                     ->orderBy('so.nama');
             })
@@ -107,28 +107,28 @@ trait PerhitunganAnggaranRealisasiDashboard
 
     protected function subOpds(string|int $where = null): Collection
     {
-        if(is_null($where)){
+        if (is_null($where)) {
             return collect();
         }
 
         $select = "so.id, so.opd_id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
-        if($where == 'sekretariat daerah'){
-            $select = $select . ', 1 AS is_biro';
+        if ($where == 'sekretariat daerah') {
+            $select = $select.', 1 AS is_biro';
         }
 
         return $this->table()
-                ->selectRaw($select)
-                ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
-                ->when(is_int($where), fn ($query) => $query->where('o.id', $where))
-                ->groupByRaw('so.nama, so.id')
-                ->orderBy('so.nama')
+            ->selectRaw($select)
+            ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
+            ->when(is_int($where), fn ($query) => $query->where('o.id', $where))
+            ->groupByRaw('so.nama, so.id')
+            ->orderBy('so.nama')
                 // ->dd()
-                ->get();
+            ->get();
     }
 
     protected function colspanRealisasi(string $periode): int
     {
-        return match($periode){
+        return match ($periode) {
             'bulan' => 36,
             'triwulan' => 12,
             'semester' => 6,

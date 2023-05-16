@@ -47,18 +47,11 @@ class ObjekRealisasiTable extends Component
 
     public function hapusObjekRealisasiBelanja(int $id): void
     {
-        try {
-            ObjekRealisasi::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data realisasi belanja terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data realisasi belanja tidak dapat dihapus.'
-            );
-        }
+        ObjekRealisasi::destroy($id);
+        $this->notification()->success(
+            'BERHASIL',
+            'Data realisasi belanja terhapus.'
+        );
     }
 
     public function pilihIdObjekRealisasiEvent(int $idObjekRealisasi)

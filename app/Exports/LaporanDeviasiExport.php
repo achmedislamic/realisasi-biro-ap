@@ -23,7 +23,7 @@ class LaporanDeviasiExport implements FromView
             ->join('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
             ->leftJoin('realisasis AS r', function (JoinClause $join) {
                 $join->on('or.id', '=', 'r.objek_realisasi_id')
-                ->whereBetween('r.tanggal', [cache('tahapanApbd')->tahun.'-01-01', $this->bulan]);
+                    ->whereBetween('r.tanggal', [cache('tahapanApbd')->tahun.'-01-01', $this->bulan]);
             })
             ->groupBy('opds.id')
             ->orderBy('opds.nama')

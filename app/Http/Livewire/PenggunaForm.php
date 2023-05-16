@@ -33,6 +33,7 @@ class PenggunaForm extends Component
     public $opdPilihan = null;
 
     public $subOpdPilihan = null;
+
     public $sektorPilihan = null;
 
     public $rolePengguna;
@@ -120,12 +121,12 @@ class PenggunaForm extends Component
                 ['user_id' => $this->user->id],
                 [
                     'role_name' => $this->rolePengguna,
-                    'imageable_id' => match($this->rolePengguna) {
+                    'imageable_id' => match ($this->rolePengguna) {
                         RoleName::SUB_OPD => $this->subOpdPilihan,
                         RoleName::OPD => $this->opdPilihan,
                         RoleName::SEKTOR => $this->sektorPilihan
                     },
-                    'imageable_type' => match($this->rolePengguna) {
+                    'imageable_type' => match ($this->rolePengguna) {
                         RoleName::SUB_OPD => 'sub_opd',
                         RoleName::OPD => 'opd',
                         RoleName::SEKTOR => 'sektor'

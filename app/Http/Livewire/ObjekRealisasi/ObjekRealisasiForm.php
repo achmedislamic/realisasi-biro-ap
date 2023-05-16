@@ -28,7 +28,9 @@ class ObjekRealisasiForm extends Component
     public $bidangUrusans;
 
     public $anggaran;
+
     public $satuanId;
+
     public $target;
 
     public $urusanPilihan = null;
@@ -44,6 +46,7 @@ class ObjekRealisasiForm extends Component
     public $kegiatanPilihan = null;
 
     public $subKegiatanPilihan = null;
+
     public $subKegiatan = null;
 
     public $rekeningBelanjaPilihan = null;
@@ -191,7 +194,7 @@ class ObjekRealisasiForm extends Component
             'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
             'target' => $this->target,
-            'satuan_id' => $this->satuanId
+            'satuan_id' => $this->satuanId,
         ]);
 
         if (! $realisasi) {
@@ -229,7 +232,7 @@ class ObjekRealisasiForm extends Component
             'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
             'target' => $this->target,
-            'satuan_id' => $this->satuanId
+            'satuan_id' => $this->satuanId,
         ]);
 
         $this->notification()->success(

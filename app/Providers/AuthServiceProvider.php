@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
             $jadwal = Jadwal::firstWhere('is_aktif', true);
 
-            if(blank($jadwal) && $user->isNotAdmin()){
+            if (blank($jadwal) && $user->isNotAdmin()) {
                 return false;
             }
 

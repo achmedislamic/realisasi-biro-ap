@@ -19,14 +19,10 @@ final class TableDashboard extends Component
 
     public function render(): View
     {
-        $targetOpds = Target::all();
-
         $subOpds = auth()->user()->isAdmin() ? $this->subOpds('sekretariat daerah') : $this->subOpds(auth()->user()->role->imageable_id);
         $opds = auth()->user()->isAdmin() ? $this->opds() : collect();
 
-        $colspanRealisasi = $this->colspanRealisasi($this->periode);
-
-        $foreachCount = $this->foreachCount($this->periode);
+        [$targetOpds, $colspanRealisasi, $foreachCount] = [Target::all(), $this->colspanRealisasi($this->periode), $this->foreachCount($this->periode)];
 
         $opds = $opds->merge($subOpds)->sortBy('nama_pd');
 

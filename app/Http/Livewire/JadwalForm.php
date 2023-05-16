@@ -20,8 +20,8 @@ class JadwalForm extends Component
     protected function rules(): array
     {
         return [
-            'bulan' => 'required|date|after_or_equal:' . today()->startOfYear(),
-            'jadwal.tanggal_waktu' => 'required|date|after_or_equal:' . today()->startOfYear(),
+            'bulan' => 'required|date|after_or_equal:'.today()->startOfYear(),
+            'jadwal.tanggal_waktu' => 'required|date|after_or_equal:'.today()->startOfYear(),
         ];
     }
 

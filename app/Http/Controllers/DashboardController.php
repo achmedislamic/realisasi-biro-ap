@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ObjekRealisasi;
-use App\Models\Realisasi;
+use App\Models\{ObjekRealisasi, Realisasi};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -30,6 +29,7 @@ class DashboardController extends Controller
                 $query->whereRelation('objekRealisasi.bidangUrusanSubOpd.subOpd', 'id', '=', auth()->id());
             })
             ->sum('jumlah');
+
         return view('dashboard', compact('anggaran', 'realisasi'));
     }
 }

@@ -89,7 +89,7 @@ class RealisasiForm extends Component
                 'required',
                 'date',
                 'date_format:d F Y mm:ss',
-                'after_or_equal:' . $this->getJadwal()
+                'after_or_equal:'.$this->getJadwal(),
             ],
             'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];

@@ -2,14 +2,9 @@
 
 namespace App\Exports;
 
-use App\Models\Opd;
-use App\Models\RincianMasalah;
-use App\Models\SubOpd;
+use App\Models\{Opd, RincianMasalah, SubOpd};
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\{FromView, ShouldAutoSize, WithColumnWidths, WithStyles};
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths, WithStyles
@@ -44,12 +39,12 @@ class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths, 
         return view('exports.laporan-form-e-export', [
             'opd' => Opd::find($this->opdId),
             'subOpd' => SubOpd::find($this->subOpdId),
-            'periodeTeks' => match($this->triwulan) {
-                1 => 'TRIWULAN I TAHUN ' . cache('tahapanApbd')->tahun,
-                2 => 'TRIWULAN II TAHUN ' . cache('tahapanApbd')->tahun,
-                3 => 'TRIWULAN III TAHUN ' . cache('tahapanApbd')->tahun,
-                4 => 'TRIWULAN IV TAHUN ' . cache('tahapanApbd')->tahun,
-                0 => 'TAHUN ' . cache('tahapanApbd')->tahun
+            'periodeTeks' => match ($this->triwulan) {
+                1 => 'TRIWULAN I TAHUN '.cache('tahapanApbd')->tahun,
+                2 => 'TRIWULAN II TAHUN '.cache('tahapanApbd')->tahun,
+                3 => 'TRIWULAN III TAHUN '.cache('tahapanApbd')->tahun,
+                4 => 'TRIWULAN IV TAHUN '.cache('tahapanApbd')->tahun,
+                0 => 'TAHUN '.cache('tahapanApbd')->tahun
             },
             'rincianMasalahs' => RincianMasalah::query()
                 ->join('sub_kegiatans AS sk', 'sk.id', '=', 'rincian_masalahs.sub_kegiatan_id')
@@ -64,7 +59,7 @@ class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths, 
                 ->join('urusans AS u', 'u.id', '=', 'bu.urusan_id')
 
                 ->selectRaw('u.kode AS kode_urusan, bu.kode AS kode_bidang_urusan, p.kode AS kode_program, k.kode AS kode_kegiatan, sk.kode AS kode_sub_kegiatan, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, rincian_masalahs.kendala, rincian_masalahs.tindak_lanjut, rincian_masalahs.pihak')
-                ->get()
+                ->get(),
         ]);
     }
 }

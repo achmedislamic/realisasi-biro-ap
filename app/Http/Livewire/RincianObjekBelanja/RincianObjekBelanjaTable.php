@@ -34,18 +34,11 @@ class RincianObjekBelanjaTable extends Component
 
     public function hapusRincianObjekBelanja(int $id): void
     {
-        try {
-            RincianObjekBelanja::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data rincian objek belanja terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data rincian objek belanja tidak terhapus karena digunakan tabel lain.'
-            );
-        }
+        RincianObjekBelanja::destroy($id);
+        $this->notification()->success(
+            'BERHASIL',
+            'Data rincian objek belanja terhapus.'
+        );
     }
 
     public function render()

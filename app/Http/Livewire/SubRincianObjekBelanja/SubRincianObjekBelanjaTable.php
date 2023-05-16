@@ -28,18 +28,11 @@ class SubRincianObjekBelanjaTable extends Component
 
     public function hapusSubRincianObjekBelanja(int $id): void
     {
-        try {
-            SubRincianObjekBelanja::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data sub rincian objek belanja terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data sub rincian objek belanja tidak terhapus karena digunakan tabel lain.'
-            );
-        }
+        SubRincianObjekBelanja::destroy($id);
+        $this->notification()->success(
+            'BERHASIL',
+            'Data sub rincian objek belanja terhapus.'
+        );
     }
 
     public function render()
