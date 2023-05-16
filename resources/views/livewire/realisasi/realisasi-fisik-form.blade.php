@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="w-full">
-                    <p>Realisasi yang sudah terinput sebelumnya: Rp. {{ $totalRealisasi }}</p>
+                    <p>Realisasi yang sudah terinput sebelumnya: {{ $totalRealisasi }}%</p>
                 </div>
             </div>
 

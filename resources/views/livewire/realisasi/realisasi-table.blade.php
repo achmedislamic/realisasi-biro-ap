@@ -173,7 +173,7 @@
                                     icon: 'question',
                                     accept: {
                                         label: 'Hapus',
-                                        method: 'hapusRealisasi',
+                                        method: 'hapusRealisasiFisik',
                                         params: {{ $realisasiFisik->id }}
                                     },
                                     reject: {

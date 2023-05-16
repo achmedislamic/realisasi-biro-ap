@@ -28,18 +28,22 @@ class RealisasiTable extends Component
 
     public function hapusRealisasi(int $id): void
     {
-        try {
-            Realisasi::destroy($id);
-            $this->notification()->success(
-                'BERHASIL',
-                'Data realisasi terhapus.'
-            );
-        } catch (\Throwable $th) {
-            $this->notification()->error(
-                'GAGAL !!!',
-                'Data realisasi tidak terhapus karena digunakan tabel lain.'
-            );
-        }
+        Realisasi::destroy($id);
+
+        $this->notification()->success(
+            'BERHASIL',
+            'Data realisasi terhapus.'
+        );
+    }
+
+    public function hapusRealisasiFisik(int $id): void
+    {
+        RealisasiFisik::destroy($id);
+
+        $this->notification()->success(
+            'BERHASIL',
+            'Data realisasi fisik terhapus.'
+        );
     }
 
     public function render()

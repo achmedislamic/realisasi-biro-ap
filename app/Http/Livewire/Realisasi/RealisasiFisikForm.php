@@ -79,7 +79,7 @@ class RealisasiFisikForm extends Component
     {
         return [
             'realisasiFisik.tanggal' => 'required|date',
-            'realisasiFisik.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
+            'realisasiFisik.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasiFisik($this->idRealisasi),
         ];
     }
 

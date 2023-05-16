@@ -31,6 +31,17 @@ class ObjekRealisasi extends Model
         return $this->anggaran - $totalRealisasi;
     }
 
+    public function selisihRealisasiFisik($realisasiId = null): float
+    {
+        $totalRealisasi = RealisasiFisik::query()
+            ->where('objek_realisasi_id', $this->id)
+            ->when(filled($realisasiId), function ($query) use ($realisasiId) {
+                $query->where('id', '!=', $realisasiId);
+            })->sum('jumlah');
+
+        return 100 - $totalRealisasi;
+    }
+
     public function bidangUrusanSubOpd(): BelongsTo
     {
         return $this->belongsTo(BidangUrusanSubOpd::class);
