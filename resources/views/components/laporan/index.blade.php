@@ -65,7 +65,7 @@
       <tr>
           <td>Organisasi</td>
           <td style="font-weight: bold;">
-              {{ filled($subOpd) ? $opd->kode . '. ' . $opd->nama . ' - ' . $subOpd->nama : $opd->kode . '. ' . $opd->nama }}
+              : {{ filled($subOpd) ? $opd->kode . '. ' . $opd->nama . ' - ' . $subOpd->nama : $opd->kode . '. ' . $opd->nama }}
           </td>
           <td></td>
           <td></td>

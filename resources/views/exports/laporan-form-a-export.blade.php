@@ -253,18 +253,24 @@
                     $realisasiSdBulanIni = $queryBelanja3->sum('realisasi_sd_bulan_ini');
                     $anggaran = $queryBelanja3->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+
+                    $pembagiFisik = $queryBelanja3->count();
+
+                    $realisasiFisikBulanLalu = $queryBelanja3->sum('realisasi_fisik_bulan_lalu') / $pembagiFisik;
+                    $realisasiFisikBulanIni = $queryBelanja3->sum('realisasi_fisik_bulan_ini') / $pembagiFisik;
+                    $realisasiFisikSdBulanIni = $queryBelanja3->sum('realisasi_fisik_sd_bulan_ini') / $pembagiFisik;
                 @endphp
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikBulanLalu }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikSdBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
@@ -288,18 +294,24 @@
                     $realisasiSdBulanIni = $queryBelanja4->sum('realisasi_sd_bulan_ini');
                     $anggaran = $queryBelanja4->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+
+                    $pembagiFisik = $queryBelanja4->count();
+
+                    $realisasiFisikBulanLalu = $queryBelanja4->sum('realisasi_fisik_bulan_lalu') / $pembagiFisik;
+                    $realisasiFisikBulanIni = $queryBelanja4->sum('realisasi_fisik_bulan_ini') / $pembagiFisik;
+                    $realisasiFisikSdBulanIni = $queryBelanja4->sum('realisasi_fisik_sd_bulan_ini') / $pembagiFisik;
                 @endphp
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikBulanLalu }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikSdBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
@@ -322,18 +334,24 @@
                     $realisasiSdBulanIni = $queryBelanja5->sum('realisasi_sd_bulan_ini');
                     $anggaran = $queryBelanja5->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+
+                    $pembagiFisik = $queryBelanja5->count();
+
+                    $realisasiFisikBulanLalu = $queryBelanja5->sum('realisasi_fisik_bulan_lalu') / $pembagiFisik;
+                    $realisasiFisikBulanIni = $queryBelanja5->sum('realisasi_fisik_bulan_ini') / $pembagiFisik;
+                    $realisasiFisikSdBulanIni = $queryBelanja5->sum('realisasi_fisik_sd_bulan_ini') / $pembagiFisik;
                 @endphp
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikBulanLalu }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiFisikSdBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
@@ -354,18 +372,21 @@
                     $realisasiSdBulanIni = $queryBelanja6->sum('realisasi_sd_bulan_ini');
                     $anggaran = $queryBelanja6->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+
+                    $realisasiFisikBulanLalu = $queryBelanja6->sum('realisasi_fisik_bulan_lalu');
+                    $realisasiFisikBulanIni = $queryBelanja6->sum('realisasi_fisik_bulan_ini');                    $realisasiFisikSdBulanIni = $queryBelanja6->sum('realisasi_fisik_sd_bulan_ini');
                 @endphp
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiBulanLalu }}</td>
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiFisikBulanLalu }}</td>
 
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiFisikBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiSdBulanIni }}</td>
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiFisikSdBulanIni }}</td>
 
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $sisaAnggaran }}</td>
                 @php

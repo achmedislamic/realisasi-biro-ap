@@ -106,7 +106,8 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
         $sdBulanIniSelesai = $waktu->toDateString();
 
         $opds = DB::table('objek_realisasis AS or')
-            ->join('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
+            ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
+            ->leftJoin('realisasi_fisiks AS rf', 'rf.objek_realisasi_id', '=', 'or.id')
             ->join('sub_kegiatans AS sk', 'sk.id', '=', 'or.sub_kegiatan_id')
             ->join('kegiatans AS k', 'sk.kegiatan_id', '=', 'k.id')
             ->join('programs AS p', 'k.program_id', '=', 'p.id')
@@ -125,11 +126,20 @@ class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, WithCo
             ->join('kelompok_belanjas AS kb', 'kb.id', '=', 'jb.kelompok_belanja_id')
             ->join('akun_belanjas AS ab', 'ab.id', '=', 'kb.akun_belanja_id')
 
-            ->selectRaw("u.kode AS kode_urusan, bu.kode AS kode_bidang_urusan, p.kode AS kode_program, k.kode AS kode_kegiatan, sk.kode AS kode_sub_kegiatan,ab.kode AS kode_belanja_1, ab.nama AS nama_belanja_1, kb.kode AS kode_belanja_2, kb.nama AS nama_belanja_2, jb.kode AS kode_belanja_3, jb.nama AS nama_belanja_3, ob.kode AS kode_belanja_4, ob.nama AS nama_belanja_4, rob.kode AS kode_belanja_5, rob.nama AS nama_belanja_5, srob.kode AS kode_belanja_6, srob.nama AS nama_belanja_6, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM(or.anggaran) AS anggaran, SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu, SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini, SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini,
+            ->selectRaw("u.kode AS kode_urusan, bu.kode AS kode_bidang_urusan, p.kode AS kode_program, k.kode AS kode_kegiatan, sk.kode AS kode_sub_kegiatan,ab.kode AS kode_belanja_1, ab.nama AS nama_belanja_1, kb.kode AS kode_belanja_2, kb.nama AS nama_belanja_2, jb.kode AS kode_belanja_3, jb.nama AS nama_belanja_3, ob.kode AS kode_belanja_4, ob.nama AS nama_belanja_4, rob.kode AS kode_belanja_5, rob.nama AS nama_belanja_5, srob.kode AS kode_belanja_6, srob.nama AS nama_belanja_6, p.nama AS nama_program, k.nama AS nama_kegiatan, sk.nama AS nama_sub_kegiatan, SUM(or.anggaran) AS anggaran,
+
+            SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu,
+            SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', r.jumlah, 0)) AS realisasi_bulan_ini,
+            SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', r.jumlah, 0)) AS realisasi_sd_bulan_ini,
 
             SUM(IF(r.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', or.anggaran, 0)) AS anggaran_bulan_lalu,
             SUM(IF(r.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', or.anggaran, 0)) AS anggaran_bulan_ini,
             SUM(IF(r.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', or.anggaran, 0)) AS anggaran_sd_bulan_ini,
+
+            SUM(IF(rf.tanggal BETWEEN '{$bulanLaluMulai}' AND '{$bulanLaluSelesai}', rf.jumlah, 0)) AS realisasi_fisik_bulan_lalu,
+            SUM(IF(rf.tanggal BETWEEN '{$bulanIniMulai}' AND '{$bulanIniSelesai}', rf.jumlah, 0)) AS realisasi_fisik_bulan_ini,
+            SUM(IF(rf.tanggal BETWEEN '{$sdBulanIniMulai}' AND '{$sdBulanIniSelesai}', rf.jumlah, 0)) AS realisasi_fisik_sd_bulan_ini,
+
             SUM(IF(kb.kode = 1, or.anggaran, 0)) AS anggaran_belanja_operasi,
             SUM(IF(kb.kode = 2, or.anggaran, 0)) AS anggaran_belanja_modal,
             SUM(IF(kb.kode = 3, or.anggaran, 0)) AS anggaran_belanja_tidak_terduga,

@@ -240,7 +240,7 @@ class ObjekRealisasiForm extends Component
             'Berhasil mengubah data Rekening Belanja.'
         );
 
-        return redirect("realisasi?tabAktif=objekRealisasi&programId={$this->subKegiatan->kegiatan->program_id}&kegiatanId={$this->subKegiatan->kegiatan->id}&subKegiatanId={$this->subKegiatan->id}&objekRealisasiId={$id}");
+        return redirect("realisasi?tabAktif=objekRealisasi&programId={$this->subKegiatan->kegiatan->program_id}&kegiatanId={$this->subKegiatan->kegiatan->id}&subKegiatanId={$this->subKegiatan->id}&objekRealisasiId={$id}&opdPilihan={$this->opdPilihan}");
     }
 
     public function flushSession()
