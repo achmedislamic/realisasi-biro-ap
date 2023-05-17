@@ -54,7 +54,7 @@
         $program = null;
         $kegiatan = null;
         $subKegiatan = null;
-        $i = 1;
+        // $i = 1;
     @endphp
     @foreach ($opds as $opd)
         @php
@@ -91,6 +91,14 @@
                 <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja1 = $opd->nama_belanja_1;
+                    $belanja2 = null;
+                    $program = null;
+                    $kegiatan = null;
+                    $subKegiatan = null;
+                    $belanja3 = null;
+                    $belanja4 = null;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -115,6 +123,13 @@
                 <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $belanja2 = $opd->nama_belanja_2;
+                    $program = null;
+                    $kegiatan = null;
+                    $subKegiatan = null;
+                    $belanja3 = null;
+                    $belanja4 = null;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -146,6 +161,12 @@
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $program = $opd->nama_program;
+                    $kegiatan = null;
+                    $subKegiatan = null;
+                    $belanja3 = null;
+                    $belanja4 = null;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -177,6 +198,11 @@
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $kegiatan = $opd->nama_kegiatan;
+                    $subKegiatan = null;
+                    $belanja3 = null;
+                    $belanja4 = null;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -208,6 +234,10 @@
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
+                    $belanja3 = null;
+                    $belanja4 = null;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -239,6 +269,9 @@
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $belanja3 = $opd->nama_belanja_3;
+                    $belanja4 = null;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -271,6 +304,8 @@
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $belanja4 = $opd->nama_belanja_4;
+                    $belanja5 = null;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -303,6 +338,7 @@
                 <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $belanja5 = $opd->nama_belanja_5;
+                    $belanja6 = null;
                 @endphp
             </tr>
         @endif
@@ -333,13 +369,13 @@
 
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
-                    $subKegiatan = $opd->nama_sub_kegiatan;
+                    $belanja6 = $opd->nama_belanja_6;
                 @endphp
             </tr>
         @endif
-        @php
+        {{-- @php
             $i++;
-        @endphp
+        @endphp --}}
     @endforeach
 
     <tr>
