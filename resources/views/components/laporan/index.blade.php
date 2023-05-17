@@ -48,7 +48,7 @@
       </tr>
       <tr>
           <td>Nama Urusan</td>
-          <td>: {{ $urusan->kode . '. ' .$urusan->nama }}</td>
+          <td style="font-weight: bold;">: {{ $urusan->kode . '. ' .$urusan->nama }}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -64,7 +64,7 @@
       </tr>
       <tr>
           <td>Organisasi</td>
-          <td>
+          <td style="font-weight: bold;">
               {{ filled($subOpd) ? $opd->kode . '. ' . $opd->nama . ' - ' . $subOpd->nama : $opd->kode . '. ' . $opd->nama }}
           </td>
           <td></td>
@@ -82,7 +82,7 @@
       </tr>
       <tr>
           <td>Periode</td>
-          <td>: {{ $namaPeriode }}</td>
+          <td style="font-weight: bold;">: {{ $namaPeriode }}</td>
           <td></td>
           <td></td>
           <td></td>

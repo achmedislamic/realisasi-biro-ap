@@ -72,9 +72,9 @@
         @endphp
         @if ($belanja1 != $opd->nama_belanja_1)
             <tr>
-                <td style="{{ config('app.td_style') }} text-align: left;">{{ $opd->kode_belanja_1 }}</td>
-                <td>{{ $opd->nama_belanja_1 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryBelanja1->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $opd->kode_belanja_1 }}</td>
+                <td style="font-weight: bold;">{{ $opd->nama_belanja_1 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $queryBelanja1->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
                 <td style="{{ config('app.td_style') }}"></td>
                 <td style="{{ config('app.td_style') }}"></td>
@@ -96,9 +96,9 @@
         @endif
         @if ($belanja2 != $opd->nama_belanja_2)
             <tr>
-                <td style="{{ config('app.td_style') }} text-align: left;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_2 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryBelanja2->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_belanja_2 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $queryBelanja2->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
                 <td style="{{ config('app.td_style') }}"></td>
                 <td style="{{ config('app.td_style') }}"></td>
@@ -120,9 +120,9 @@
         @endif
         @if ($program != $opd->nama_program)
             <tr>
-                <td style="{{ config('app.td_style') }}">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $opd->nama_program }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryProgram->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_program }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $queryProgram->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $queryProgram->sum('realisasi_bulan_lalu');
@@ -131,19 +131,19 @@
                     $anggaran = $queryProgram->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $program = $opd->nama_program;
                 @endphp
@@ -151,9 +151,9 @@
         @endif
         @if ($kegiatan != $opd->nama_kegiatan)
             <tr>
-                <td style="{{ config('app.td_style') }}">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
-                <td style="{{ config('app.td_style') }}">Kegiatan: {{ $opd->nama_kegiatan }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryKegiatan->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $queryKegiatan->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $queryKegiatan->sum('realisasi_bulan_lalu');
@@ -162,19 +162,19 @@
                     $anggaran = $queryKegiatan->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $kegiatan = $opd->nama_kegiatan;
                 @endphp
@@ -182,9 +182,9 @@
         @endif
         @if ($subKegiatan != $opd->nama_sub_kegiatan)
             <tr>
-                <td style="{{ config('app.td_style') }}">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan . '.' . $opd->kode_sub_kegiatan }}</td>
-                <td style="{{ config('app.td_style') }}">Sub Kegiatan: {{ $opd->nama_sub_kegiatan }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $querySubKegiatan->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan . '.' . $opd->kode_sub_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_sub_kegiatan }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $querySubKegiatan->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $querySubKegiatan->sum('realisasi_bulan_lalu');
@@ -193,19 +193,19 @@
                     $anggaran = $querySubKegiatan->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
                 @endphp
@@ -213,23 +213,30 @@
         @endif
         @if ($belanja3 != $opd->nama_belanja_3)
             <tr>
-                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_3 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryBelanja3->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_belanja_3 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $queryBelanja3->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                @php
+                    $realisasiBulanLalu = $queryBelanja3->sum('realisasi_bulan_lalu');
+                    $realisasiBulanIni = $queryBelanja3->sum('realisasi_bulan_ini');
+                    $realisasiSdBulanIni = $queryBelanja3->sum('realisasi_sd_bulan_ini');
+                    $anggaran = $queryBelanja3->sum('anggaran');
+                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+                @endphp
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
-
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
+
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $belanja3 = $opd->nama_belanja_3;
                 @endphp
@@ -237,23 +244,31 @@
         @endif
         @if ($belanja4 != $opd->nama_belanja_4)
             <tr>
-                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_4 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryBelanja4->sum('anggaran') }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_belanja_4 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $queryBelanja4->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                @php
+                    $realisasiBulanLalu = $queryBelanja4->sum('realisasi_bulan_lalu');
+                    $realisasiBulanIni = $queryBelanja4->sum('realisasi_bulan_ini');
+                    $realisasiSdBulanIni = $queryBelanja4->sum('realisasi_sd_bulan_ini');
+                    $anggaran = $queryBelanja4->sum('anggaran');
+                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+                @endphp
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
+
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $belanja4 = $opd->nama_belanja_4;
                 @endphp
@@ -261,23 +276,31 @@
         @endif
         @if ($belanja5 != $opd->nama_belanja_5)
             <tr>
-                <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_5 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryBelanja5->sum('anggaran') }}</td>
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_belanja_5 }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $queryBelanja5->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                @php
+                    $realisasiBulanLalu = $queryBelanja5->sum('realisasi_bulan_lalu');
+                    $realisasiBulanIni = $queryBelanja5->sum('realisasi_bulan_ini');
+                    $realisasiSdBulanIni = $queryBelanja5->sum('realisasi_sd_bulan_ini');
+                    $anggaran = $queryBelanja5->sum('anggaran');
+                    $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
+                @endphp
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}"></td>
-                <td style="{{ config('app.td_style') }}"></td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
+
+                <td style="{{ config('app.td_style') }} font-weight: bold; text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $belanja5 = $opd->nama_belanja_5;
                 @endphp
@@ -287,7 +310,7 @@
             <tr>
                 <td style="{{ config('app.td_style') }}">{{ $opd->kode_belanja_1 . $opd->kode_belanja_2 . '.' . $opd->kode_belanja_3 . '.' . $opd->kode_belanja_4 . '.' . $opd->kode_belanja_5 . '.' . $opd->kode_belanja_6 }}</td>
                 <td style="{{ config('app.td_style') }}">{{ $opd->nama_belanja_6 }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $queryBelanja6->sum('anggaran') }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $queryBelanja6->sum('anggaran') }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
                 @php
                     $realisasiBulanLalu = $queryBelanja6->sum('realisasi_bulan_lalu');
@@ -296,19 +319,19 @@
                     $anggaran = $queryBelanja6->sum('anggaran');
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
                 @endphp
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanLalu }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiBulanLalu }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $realisasiSdBulanIni }}</td>
-                <td style="{{ config('app.td_style') }}">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiSdBulanIni }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiSdBulanIni / $anggaran }}</td>
                 <td style="{{ config('app.td_style') }}"></td>
 
-                <td style="{{ config('app.td_style') }}">{{ $sisaAnggaran }}</td>
+                <td style="{{ config('app.td_style') }} text-align: right;">{{ $sisaAnggaran }}</td>
                 @php
                     $subKegiatan = $opd->nama_sub_kegiatan;
                 @endphp
@@ -321,18 +344,18 @@
 
     <tr>
         <td colspan="2" style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">Jumlah Belanja</td>
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('anggaran') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('anggaran') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
-        <td style="{{ config('app.td_style') }}"></td>
-        <td style="{{ config('app.td_style') }}"></td>
-
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
         <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('realisasi_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }}"></td>
+        <td style="{{ config('app.td_style') }}"></td>
+
+        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
         <td style="{{ config('app.td_style') }}"></td>
     </tr>
