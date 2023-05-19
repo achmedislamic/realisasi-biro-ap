@@ -42,9 +42,9 @@
             @foreach ($opds as $opd)
                 @php
                     $totalAnggaran = 0;
-                    $totalTarget = 0;
-                    $totalRealisasi = 0;
-                    $totalRealisasiFisik = 0;
+                    $totalTarget = [];
+                    $totalRealisasi = [];
+                    $totalRealisasiFisik = [];
                 @endphp
                 <x-table.tr>
                     <th scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
@@ -144,16 +144,28 @@
 
                 @php
                     $totalAnggaran = $totalAnggaran + $opd->anggaran;
-                    $totalTarget = $totalTarget + $jumlahTarget;
-                    $totalRealisasi = $totalRealisasi + $jumlahRealisasi;
+                    // dump($totalTarget, $jumlahTarget);
+
+                    array_push($totalTarget, array_map(fn () => array_sum(func_get_args()), $totalTarget, $jumlahTarget));
+                    dump($totalTarget);
+                    // $totalTarget = $totalTarget + $jumlahTarget;
+                    // $totalRealisasi = $totalRealisasi + $jumlahRealisasi;
+                    array_push($totalRealisasi, array_map(fn () => array_sum(func_get_args()), $totalRealisasi, $jumlahRealisasi));
+                    array_push($totalRealisasiFisik, array_map(fn () => array_sum(func_get_args()), $totalRealisasiFisik, $jumlahRealisasiFisik));
+                    // $totalRealisasiFisik = ;
                 @endphp
             @endforeach
             <tr>
-                <td style="{{ config('app.td_style') text-align: left; font-weight: bold; }}">Total</td>
-                <td style="{{ config('app.td_style') text-align: left; font-weight: bold; }}">{{ $totalAnggaran }}</td>
-                @for ($i = 1; $i <= $foreachCount; $i++)
-                    <td style="{{ config('app.td_style') text-align: left; font-weight: bold; }}">{{ $totalTarget[$i] }}</td>
-
+                <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">Total</td>
+                <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalAnggaran }}</td>
+                @php
+                    // dd($totalRealisasi);
+                    dd('tes');
+                @endphp
+                @for ($j = 0; $j < $foreachCount; $j++)
+                    <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalTarget[$j] }}</td>
+                    <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalRealisasi[$j] }}</td>
+                    <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalRealisasiFisik[$j] }}</td>
                 @endfor
             </tr>
         </tbody>
