@@ -28,10 +28,10 @@
                     </x-native-select>
                 </div>
                 @if ($periode == 'tahun')
-                <x-native-select label="Periode" wire:model="urutan">
-                    <option value="asc">Realisasi terendah ke tinggi</option>
-                    <option value="desc">Realisasi tertinggi ke rendah</option>
-                </x-native-select>
+                    <x-native-select label="Periode" wire:model="urutan">
+                        <option value="asc">Realisasi terendah ke tinggi</option>
+                        <option value="desc">Realisasi tertinggi ke rendah</option>
+                    </x-native-select>
                 @endif
             </div>
         </div>
@@ -40,10 +40,16 @@
         <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
         <tbody>
             @foreach ($opds as $opd)
+                @php
+                    $totalAnggaran = 0;
+                    $totalTarget = 0;
+                    $totalRealisasi = 0;
+                    $totalRealisasiFisik = 0;
+                @endphp
                 <x-table.tr>
                     <th scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
                         <div class="flex flex-row justify-between ">
-                            <p {!! $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : "" !!}>{{ $opd->nama_pd }}</p>
+                            <p {!! $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : '' !!}>{{ $opd->nama_pd }}</p>
                             @can('is-admin')
                                 <div>
                                     <x-button xs target="_blank" href="{!! route('realisasi', ['opdPilihan' => $opd->is_biro == 1 ? $opd->opd_id : $opd->id, 'subOpdPilihan' => $opd->is_biro == 1 ? $opd->id : '']) !!}" primary label="Detail" />
@@ -55,53 +61,58 @@
                     <x-table.td class="text-right">
                         {{ \App\Helpers\FormatHelper::angka($opd->anggaran) }}
                     </x-table.td>
+                    @php
+                        $jumlahRealisasi = [];
+                        $jumlahRealisasiFisik = [];
+                        $jumlahTarget = [];
+                    @endphp
                     @for ($i = 1; $i <= $foreachCount; $i++)
                         @php
                             $target = $targetOpds
-                                ->when($opd->is_biro == 0, fn ($query) => $query->where('targetable_type', 'opd'))
-                                ->when($opd->is_biro == 1, fn ($query) => $query->where('targetable_type', 'sub_opd'))
+                                ->when($opd->is_biro == 0, fn($query) => $query->where('targetable_type', 'opd'))
+                                ->when($opd->is_biro == 1, fn($query) => $query->where('targetable_type', 'sub_opd'))
                                 ->where('targetable_id', $opd->id)
-                                ->when($periode == 'bulan', fn ($query) => $query->where('bulan', $i))
+                                ->when($periode == 'bulan', fn($query) => $query->where('bulan', $i))
                                 ->when($periode == 'triwulan', function ($query) use ($i) {
-                                    if($i == 1){
-                                        return $query->whereIn('bulan', [1,2,3]);
+                                    if ($i == 1) {
+                                        return $query->whereIn('bulan', [1, 2, 3]);
                                     }
 
-                                    if($i == 2){
-                                        return $query->whereIn('bulan', [4,5,6]);
+                                    if ($i == 2) {
+                                        return $query->whereIn('bulan', [4, 5, 6]);
                                     }
 
-                                    if($i == 3){
-                                        return $query->whereIn('bulan', [7,8,9]);
+                                    if ($i == 3) {
+                                        return $query->whereIn('bulan', [7, 8, 9]);
                                     }
 
-                                    if($i == 4){
-                                        return $query->whereIn('bulan', [10,11,12]);
+                                    if ($i == 4) {
+                                        return $query->whereIn('bulan', [10, 11, 12]);
                                     }
                                 })
                                 ->when($periode == 'semester', function ($query) use ($i) {
-                                    if($i == 1){
-                                        return $query->whereIn('bulan', [1,2,3,4,5,6]);
+                                    if ($i == 1) {
+                                        return $query->whereIn('bulan', [1, 2, 3, 4, 5, 6]);
                                     }
 
-                                    if($i == 2){
-                                        return $query->whereIn('bulan', [7,8,9,10,11,12]);
+                                    if ($i == 2) {
+                                        return $query->whereIn('bulan', [7, 8, 9, 10, 11, 12]);
                                     }
                                 });
 
-                            if($periode == 'bulan'){
+                            if ($periode == 'bulan') {
                                 $target = $target->first()->jumlah ?? 0;
                             } else {
                                 $target = $target->sum('jumlah') ?? 0;
                             }
-                            $realisasi = match($periode) {
+                            $realisasi = match ($periode) {
                                 'bulan' => $opd->{'realisasi_' . $i} ?? 0,
                                 'triwulan' => $opd->{'realisasi_triwulan_' . $i} ?? 0,
                                 'semester' => $opd->{'realisasi_semester_' . $i} ?? 0,
                                 'tahun' => $opd->realisasi ?? 0,
                             };
 
-                            $realisasiFisik = match($periode) {
+                            $realisasiFisik = match ($periode) {
                                 'bulan' => $opd->{'realisasi_fisik_' . $i} ?? 0,
                                 'triwulan' => $opd->{'realisasi_triwulan_fisik_' . $i} ?? 0,
                                 'semester' => $opd->{'realisasi_semester_fisik_' . $i} ?? 0,
@@ -120,9 +131,31 @@
                         <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($realisasiFisik) }}
                         </x-table.td>
+                        @php
+                            array_push($jumlahTarget, $target);
+                            array_push($jumlahRealisasi, $realisasi);
+                            array_push($jumlahRealisasiFisik, $realisasiFisik);
+                            // $jumlahTarget = $target;
+                            // $jumlahRealisasi = $realisasi;
+                            // $jumlahRealisasiFisik = $realisasiFisik;
+                        @endphp
                     @endfor
                 </x-table.tr>
+
+                @php
+                    $totalAnggaran = $totalAnggaran + $opd->anggaran;
+                    $totalTarget = $totalTarget + $jumlahTarget;
+                    $totalRealisasi = $totalRealisasi + $jumlahRealisasi;
+                @endphp
             @endforeach
+            <tr>
+                <td style="{{ config('app.td_style') text-align: left; font-weight: bold; }}">Total</td>
+                <td style="{{ config('app.td_style') text-align: left; font-weight: bold; }}">{{ $totalAnggaran }}</td>
+                @for ($i = 1; $i <= $foreachCount; $i++)
+                    <td style="{{ config('app.td_style') text-align: left; font-weight: bold; }}">{{ $totalTarget[$i] }}</td>
+
+                @endfor
+            </tr>
         </tbody>
     </table>
 </div>
