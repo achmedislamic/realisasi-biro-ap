@@ -171,6 +171,7 @@
             </tr>
         @endif
         @if ($kegiatan != $opd->nama_kegiatan)
+            <x-table.baris-kosong jumlah="14" />
             <tr>
                 <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->kode_urusan . '.' . $opd->kode_bidang_urusan . '.' . $opd->kode_program . '.' . $opd->kode_kegiatan }}</td>
                 <td style="{{ config('app.td_style') }} font-weight: bold;">{{ $opd->nama_kegiatan }}</td>
