@@ -8,7 +8,7 @@
     <form wire:submit.prevent="simpan">
         <div class="flex flex-col space-y-3 px-16">
 
-                @foreach ($bulans as $bulan)
+            @foreach ($bulans as $bulan)
                 <div class="flex flex-row space-x-3 px-16">
                     <div class="w-1/2">
                         <p>Bulan: {{ $bulan }}</p>
@@ -22,7 +22,7 @@
                             wire:model.defer="targets.{{ $loop->index }}" />
                     </div>
                 </div>
-                @endforeach
+            @endforeach
 
             <div class="ml-auto">
                 <x-button type="submit" positive label="Simpan" />

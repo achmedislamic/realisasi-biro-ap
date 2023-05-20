@@ -129,10 +129,10 @@ trait PerhitunganAnggaranRealisasiDashboard
     protected function colspanRealisasi(string $periode): int
     {
         return match ($periode) {
-            'bulan' => 36,
-            'triwulan' => 12,
-            'semester' => 6,
-            'tahun' => 3,
+            'bulan' => 48,
+            'triwulan' => 16,
+            'semester' => 8,
+            'tahun' => 4,
             default => 0
         };
     }
