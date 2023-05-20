@@ -16,9 +16,9 @@ class ObjekRealisasiTable extends Component
 
     public $tahapanApbds;
 
-    public $opdPilihan;
+    public $opdId;
 
-    public $subOpdPilihan;
+    public $subOpdId;
 
     public $subKegiatanId;
 
@@ -39,8 +39,8 @@ class ObjekRealisasiTable extends Component
     {
         $this->subKegiatanId = $subKegiatanId;
         $this->menu = $menu;
-        $this->opdPilihan = $opdId;
-        $this->subOpdPilihan = $subOpdId;
+        $this->opdId = $opdId;
+        $this->subOpdId = $subOpdId;
 
         $this->emit('gantiTab', 'objekRealisasi');
     }
@@ -62,6 +62,7 @@ class ObjekRealisasiTable extends Component
 
     public function render()
     {
+        // dd($this->opdId);
         $realisasiApbds = ObjekRealisasi::query()
             ->with(['realisasis', 'subKegiatan', 'subRincianObjekBelanja:id,kode,nama,rincian_objek_belanja_id' => [
                 'rincianObjekBelanja:id,kode,nama,objek_belanja_id' => [
@@ -84,17 +85,18 @@ class ObjekRealisasiTable extends Component
 
             ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'objek_realisasis.sub_rincian_objek_belanja_id', 'objek_realisasis.target', 's.nama AS nama_satuan')
             ->where('objek_realisasis.sub_kegiatan_id', $this->subKegiatanId)
-            ->when(filled($this->opdPilihan) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
-                $query->where('opds.id', $this->opdPilihan);
+            ->when(filled($this->opdId) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
+                $query->where('opds.id', $this->opdId);
             })
-            ->when(filled($this->subOpdPilihan), function (Builder $query) {
-                $query->where('sub_opds.id', $this->subOpdPilihan);
+            ->when(filled($this->subOpdId), function (Builder $query) {
+                $query->where('sub_opds.id', $this->subOpdId);
             })
             ->pencarian($this->cari)
+            // ->dd()
             ->paginate();
 
         $subKegiatan = SubKegiatan::with('kegiatan.program')->find($this->subKegiatanId);
-        $subOpd = SubOpd::with('opd')->find($this->subOpdPilihan);
+        $subOpd = SubOpd::with('opd')->find($this->subOpdId);
 
         return view('livewire.objek-realisasi.objek-realisasi-table', compact('realisasiApbds', 'subKegiatan', 'subOpd'));
     }

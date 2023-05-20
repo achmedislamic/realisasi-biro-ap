@@ -130,11 +130,11 @@
                 <x-table.index :model="$realisasiFisiks" :isPaginated="false">
                     <x-slot name="table_actions">
                         @if (blank($objekRealisasi?->target))
-                            <p>Tidak bisa mengisi realisasi fisik karena belum mengisi target fisik</p>
+                            <p>Tidak bisa mengisi realisasi fisik karena belum mengisi target fisik.</p>
+                            <a href="{{ route('objek-realisasi.form', [$objekRealisasi?->id]) }}" class="hover:underline text-blue-500">Klik di sini untuk mengisi Target Fisik.</a>
                         @else
                             <x-button primary label="Tambah" :href="route('realisasi-fisik.form', $objekRealisasiId)" />
                         @endif
-
                     </x-slot>
 
                     <x-table.thead>
