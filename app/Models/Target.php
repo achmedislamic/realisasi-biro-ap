@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, MorphTo};
@@ -18,6 +19,13 @@ class Target extends Model
         static::addGlobalScope('tahun', function (Builder $builder) {
             $builder->where('tahun', cache('tahapanApbd')->tahun);
         });
+    }
+
+    protected function jumlah(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => (float) str($value)->replace('.', ',')->toString()
+        );
     }
 
     public function imageable(): MorphTo

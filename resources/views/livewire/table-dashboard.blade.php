@@ -39,13 +39,13 @@
     <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
         <tbody>
+            @php
+                $totalAnggaran = 0;
+                $totalTarget = [];
+                $totalRealisasi = [];
+                $totalRealisasiFisik = [];
+            @endphp
             @foreach ($opds as $opd)
-                @php
-                    $totalAnggaran = 0;
-                    $totalTarget = [];
-                    $totalRealisasi = [];
-                    $totalRealisasiFisik = [];
-                @endphp
                 <x-table.tr>
                     <th scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
                         <div class="flex flex-row justify-between ">
@@ -129,43 +129,48 @@
                         </x-table.td>
 
                         <x-table.td class="text-right">
+                            {{ \App\Helpers\FormatHelper::angka($target == 0 ? 0 : $realisasi / $target) }}
+                        </x-table.td>
+
+                        <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($realisasiFisik) }}
                         </x-table.td>
                         @php
-                            array_push($jumlahTarget, $target);
+                            array_push($jumlahTarget, $target); //per periode
                             array_push($jumlahRealisasi, $realisasi);
                             array_push($jumlahRealisasiFisik, $realisasiFisik);
-                            // $jumlahTarget = $target;
-                            // $jumlahRealisasi = $realisasi;
-                            // $jumlahRealisasiFisik = $realisasiFisik;
                         @endphp
                     @endfor
                 </x-table.tr>
 
                 @php
                     $totalAnggaran = $totalAnggaran + $opd->anggaran;
-                    // dump($totalTarget, $jumlahTarget);
 
-                    array_push($totalTarget, array_map(fn () => array_sum(func_get_args()), $totalTarget, $jumlahTarget));
-                    dump($totalTarget);
-                    // $totalTarget = $totalTarget + $jumlahTarget;
-                    // $totalRealisasi = $totalRealisasi + $jumlahRealisasi;
-                    array_push($totalRealisasi, array_map(fn () => array_sum(func_get_args()), $totalRealisasi, $jumlahRealisasi));
-                    array_push($totalRealisasiFisik, array_map(fn () => array_sum(func_get_args()), $totalRealisasiFisik, $jumlahRealisasiFisik));
-                    // $totalRealisasiFisik = ;
+                    $totalTarget = array_map(fn () => array_sum(func_get_args()), $totalTarget, $jumlahTarget);
+                    $totalRealisasi = array_map(fn () => array_sum(func_get_args()), $totalRealisasi, $jumlahRealisasi);
+                    $totalRealisasiFisik = array_map(fn () => array_sum(func_get_args()), $totalRealisasiFisik, $jumlahRealisasiFisik);
                 @endphp
             @endforeach
             <tr>
-                <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">Total</td>
-                <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalAnggaran }}</td>
-                @php
-                    // dd($totalRealisasi);
-                    dd('tes');
-                @endphp
+                <x-table.td class="text-right font-bold">
+                    Total
+                </x-table.td>
+                <x-table.td class="text-right font-bold">
+                    {{ \App\Helpers\FormatHelper::angka($totalAnggaran) }}
+                </x-table.td>
                 @for ($j = 0; $j < $foreachCount; $j++)
-                    <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalTarget[$j] }}</td>
-                    <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalRealisasi[$j] }}</td>
-                    <td style="{{ config('app.td_style') }} text-align: left; font-weight: bold;">{{ $totalRealisasiFisik[$j] }}</td>
+                    <x-table.td class="text-right font-bold">
+                        {{ \App\Helpers\FormatHelper::angka($totalTarget[$j]) }}
+                    </x-table.td>
+                    <x-table.td class="text-right font-bold">
+                        {{ \App\Helpers\FormatHelper::angka($totalRealisasi[$j]) }}
+                    </x-table.td>
+                    <x-table.td class="text-right font-bold">
+                        
+                    </x-table.td>
+                    <x-table.td class="text-right font-bold">
+                        {{ \App\Helpers\FormatHelper::angka($totalRealisasiFisik[$j]) }}
+                    </x-table.td>
                 @endfor
             </tr>
         </tbody>
