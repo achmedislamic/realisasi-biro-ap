@@ -4,14 +4,13 @@ namespace App\Http\Livewire\Laporan;
 
 use App\Exports\LaporanFormAExport;
 use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
-use Livewire\{Component, WithPagination};
+use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 use WireUi\Traits\Actions;
 
-class LaporanFormB extends Component
+final class LaporanFormB extends Component
 {
     use Actions;
-    use WithPagination;
 
     public $urusanDipilih = null;
 

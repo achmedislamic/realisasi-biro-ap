@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
-class LaporanDeviasi extends Component
+final class LaporanDeviasi extends Component
 {
     public $bulan;
 

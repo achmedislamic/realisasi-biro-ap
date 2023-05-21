@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Laporan;
 
 use App\Exports\LaporanFormAExport;
-use App\Models\{BidangUrusan, Kegiatan, ObjekRealisasi, Opd, Program, SubKegiatan, SubOpd, Urusan};
+use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;

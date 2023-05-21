@@ -8,7 +8,7 @@ use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 use WireUi\Traits\Actions;
 
-class LaporanFormE extends Component
+final class LaporanFormE extends Component
 {
     use Actions;
 
