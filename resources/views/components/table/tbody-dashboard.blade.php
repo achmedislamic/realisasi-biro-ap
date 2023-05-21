@@ -81,12 +81,6 @@
                     'tahun' => $opd->realisasi_fisik ?? 0,
                 };
                 $persentase = $target == 0 ? 0 : $realisasi / $target;
-                $warnaTd = 'bg-red-500 text-white';
-                if ($persentase >= 41 && $persentase <= 70) {
-                    $warnaTd = 'bg-yellow-500';
-                } elseif ($persentase >= 71) {
-                    $warnaTd = 'bg-green-500';
-                }
             @endphp
             <x-table.td class="text-right">
                 {{ \App\Helpers\FormatHelper::angka($target) }}
@@ -96,7 +90,12 @@
                 {{ \App\Helpers\FormatHelper::angka($realisasi) }}
             </x-table.td>
 
-            <x-table.td class="text-right {{ $warnaTd }}">
+            <x-table.td @class([
+                'text-right',
+                'bg-yellow-500' => $persentase >= 41 && $persentase <= 70,
+                'bg-green-500' => $persentase >= 71,
+                'bg-red-500 text-white' => $persentase <= 40,
+            ])>
                 {{ \App\Helpers\FormatHelper::angka($persentase) }}
             </x-table.td>
 
