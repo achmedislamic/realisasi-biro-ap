@@ -4,7 +4,8 @@
             <table class="text-sm text-left text-gray-500 dark:text-gray-400">
                 <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
                 <tbody>
-                    <x-dashboard.sub-opd-foreach :$subOpds :$periode :$targetSubOpds :$foreachCount />
+                    <x-table.tbody-dashboard :opds="$subOpds" :targetOpds="$targetSubOpds" :$periode :$foreachCount />
+                    {{-- <x-dashboard.sub-opd-foreach :$subOpds :$periode :$targetSubOpds :$foreachCount /> --}}
                 </tbody>
             </table>
         </x-card>
