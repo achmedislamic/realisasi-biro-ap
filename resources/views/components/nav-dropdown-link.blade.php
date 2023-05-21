@@ -10,7 +10,7 @@ ease-in-out flex gap-2 items-center';
 @endphp
 
 <li class="relative" x-data="{ open: false }">
-    <a {{ $attributes->merge(['class' => $classes]) }} x-on:click="open = !open" x-on:click.outside="open = false"
+    <a {{ $attributes->merge(['class' => $classes]) }} @click="open = !open" @click.outside="open = false"
         href="#">
         {{ $text }}
         <svg xmlns="http://www.w3.org/2000/svg"

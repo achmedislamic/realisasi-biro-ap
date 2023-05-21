@@ -3,14 +3,13 @@
 namespace App\Http\Livewire\Laporan;
 
 use App\Exports\LaporanFormAExport;
-use App\Models\{BidangUrusan, Kegiatan, ObjekRealisasi, Opd, Program, SubKegiatan, SubOpd, Urusan};
-use Illuminate\Support\Facades\DB;
+use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
 use Livewire\{Component, WithPagination};
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use WireUi\Traits\Actions;
 
-class LaporanFormA extends Component
+final class LaporanFormA extends Component
 {
     use Actions;
     use WithPagination;

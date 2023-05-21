@@ -3,6 +3,8 @@
                               :active="request()->routeIs('laporan-form-a')" />
     <x-nav-dropdown-item-link text="Laporan Triwulanan (Form B)" :href="route('laporan-form-b')"
                               :active="request()->routeIs('laporan-form-b')" />
+    <x-nav-dropdown-item-link text="Laporan Semester" :href="route('laporan-semester')"
+                              :active="request()->routeIs('laporan-semester')" />
     <x-nav-dropdown-item-link text="Laporan Tahunan (Form C)" :href="route('laporan-form-c')"
                               :active="request()->routeIs('laporan-form-c')" />
     <x-nav-dropdown-item-link text="Laporan Rincian Masalah (Form E)" :href="route('laporan-form-e')"

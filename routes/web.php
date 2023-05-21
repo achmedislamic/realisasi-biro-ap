@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Laporan\LaporanFormAController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Laporan\LaporanSemester;
 use App\Http\Livewire\Laporan\{LaporanDeviasi, LaporanFormA, LaporanFormB, LaporanFormC, LaporanFormE};
 use App\Http\Livewire\ObjekRealisasi\{ImportObjekRealisasi, ObjekRealisasiForm};
 use App\Http\Livewire\Realisasi\{RealisasiFisikForm, RealisasiForm, RealisasiTabs};
@@ -33,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/laporan')->group(function () {
         Route::get('/deviasi', LaporanDeviasi::class)->name('laporan-deviasi');
         Route::get('/form-a', LaporanFormA::class)->name('laporan-form-a');
+        Route::get('/semester', LaporanSemester::class)->name('laporan-semester');
         Route::get('/form-b', LaporanFormB::class)->name('laporan-form-b');
         Route::get('/form-c', LaporanFormC::class)->name('laporan-form-c');
         Route::get('/form-e', LaporanFormE::class)->name('laporan-form-e');

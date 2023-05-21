@@ -1,4 +1,4 @@
-<x-laporan :$jenisLaporan :$urusan :$subOpd :$opd :$namaPeriode>
+<x-laporan :$jenisLaporan :$urusan :$subOpd :$opd :$namaPeriode lebar-margin-kiri="15">
     <tr>
         <td colspan="14"></td>
     </tr>

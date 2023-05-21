@@ -63,6 +63,12 @@
                             <option value="{{ $value }}">{{ $bulan }}</option>
                         @endforeach
                     </x-native-select>
+                @elseif($jenisLaporan == 'semester')
+                    <x-native-select label="Semester" wire:model.defer="semester">
+                        <option value="">Pilih Semester</option>
+                        <option value="{{ cache('tahapanApbd')->tahun . '-01-01' }}">Semester 1</option>
+                        <option value="{{ cache('tahapanApbd')->tahun . '-07-01' }}">Semester 2</option>
+                    </x-native-select>
                 @elseif($jenisLaporan == 'b' || $jenisLaporan == 'c')
                     <x-native-select label="Triwulan" wire:model.defer="triwulan">
                         <option value="">Pilih Triwulan</option>
@@ -75,8 +81,6 @@
 
             </div>
         </div>
-
-
 
         <div class="flex">
             <div class="ml-auto">
