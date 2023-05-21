@@ -10,10 +10,12 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-    {{-- @vite(['resources/css/app.css']) --}}
     @vite(['resources/css/app.css'])
     @livewireStyles
 
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
 
 <body class="relative antialiased bg-gray-100">

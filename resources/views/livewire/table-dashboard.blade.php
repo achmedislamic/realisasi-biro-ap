@@ -1,5 +1,11 @@
-<div wire:poll.10000ms class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white p-3">
-    Waktu saat ini: {{ \App\Helpers\FormatHelper::tanggal(now(), true) }}
+<div wire:poll.10s class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white p-3 flex flex-col space-y-3">
+    <div class="flex flex-col">
+        <h2 class="text-center font-bold text-xl">Laporan Anggaran dan Realisasi Tiap OPD/UPT/Biro</h2>
+        <small class="text-center text-xs">Tersinkron setiap 10 Detik</small>
+    </div>
+    <div>
+        <span class="font-bold">Terakhir data disinkron:</span> {{ \App\Helpers\FormatHelper::tanggal(now(), true) }}
+    </div>
     <div class="flex flex-row space-x-3">
         <div class="w-full flex flex-col align-center">
             <div class="flex flex-row space-x-2">
@@ -12,7 +18,7 @@
                 <p>Realisasi 41% - 70%</p>
             </div>
 
-            <div class="flex flex-row space-x-2">
+            <div class="flex flex-row space-x-2 mb-3">
                 <div class="w-16 h-8 bg-green-500"></div>
                 <p>Realisasi 71% - 100%</p>
             </div>

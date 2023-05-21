@@ -4,13 +4,13 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 
-class FormatHelper
+final class FormatHelper
 {
     public static function tanggal(string|Carbon $tanggal, bool $withTime = false)
     {
         $format = 'd F Y';
         if ($withTime) {
-            $format = $format.' H:i';
+            $format = $format.' - H:i:s';
         }
 
         if (is_string($tanggal)) {
