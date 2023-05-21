@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->role->role_name === RoleName::ADMIN;
     }
 
+    public function isAdminOrSektor(): bool
+    {
+        return $this->isAdmin() || $this->isSektor();
+    }
+
     public function isNotAdmin(): bool
     {
         return ! $this->isAdmin();

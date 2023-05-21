@@ -2,9 +2,11 @@
 
     <x-table.index :model="$programs">
 
-        <x-slot name="table_actions">
-            <x-button primary :href="route('program.form')" label="Tambah" />
-        </x-slot>
+        @can('is-sektor')
+            <x-slot name="table_actions">
+                <x-button primary :href="route('program.form')" label="Tambah" />
+            </x-slot>
+        @endcan
 
         <x-table.thead>
             <tr>

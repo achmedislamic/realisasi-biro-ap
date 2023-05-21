@@ -46,11 +46,15 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('pengguna-menu', function (User $user) {
-            return $user->isAdmin() || $user->isOpd();
+            return $user->isAdmin() || $user->isOpd() || $user->isSektor();
         });
 
         Gate::define('is-admin', function (User $user) {
             return $user->isAdmin();
+        });
+
+        Gate::define('crud-program', function (User $user) {
+            return $user->isAdmin() || $user->isSektor();
         });
     }
 }

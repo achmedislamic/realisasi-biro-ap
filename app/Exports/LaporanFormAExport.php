@@ -116,7 +116,7 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
         $periodeLaluSelesai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->subMonth(1)->endOfMonth()->toDateString() : $waktu->startOfQuarter()->subQuarter()->endOfQuarter()->toDateString();
 
         $periodeIniMulai = $this->jenisLaporan == 'a' ? $waktu->startOfMonth()->toDateString() : $waktu->startOfQuarter()->toDateString();
-        $periodeIniSelesai = match($this->jenisLaporan) {
+        $periodeIniSelesai = match ($this->jenisLaporan) {
             'a' => $waktu->endOfMonth()->toDateString(),
             'semester' => $waktu->endOfYear()->toDateString(),
             default => $waktu->endOfQuarter()->toDateString()
@@ -127,7 +127,7 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
 
         $selectUntukPeriodeLalu = '';
         $selectUntukPeriodeSdIni = '';
-        if($this->jenisLaporan != 'semester'){
+        if ($this->jenisLaporan != 'semester') {
             $selectUntukPeriodeLalu = "SUM(IF(r.tanggal BETWEEN '{$periodeLaluMulai}' AND '{$periodeLaluSelesai}', r.jumlah, 0)) AS realisasi_bulan_lalu,
             SUM(IF(r.tanggal BETWEEN '{$periodeLaluMulai}' AND '{$periodeLaluSelesai}', or.anggaran, 0)) AS anggaran_bulan_lalu,
             SUM(IF(rf.tanggal BETWEEN '{$periodeLaluMulai}' AND '{$periodeLaluSelesai}', rf.jumlah, 0)) AS realisasi_fisik_bulan_lalu,";

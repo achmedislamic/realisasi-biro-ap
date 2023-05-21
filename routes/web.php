@@ -2,10 +2,15 @@
 
 use App\Http\Controllers\Laporan\LaporanFormAController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Livewire\Laporan\LaporanSemester;
-use App\Http\Livewire\Laporan\{LaporanDeviasi, LaporanFormA, LaporanFormB, LaporanFormC, LaporanFormE};
+use App\Http\Livewire\AkunBelanja\AkunBelanjaForm;
+use App\Http\Livewire\JenisBelanja\JenisBelanjaForm;
+use App\Http\Livewire\KelompokBelanja\KelompokBelanjaForm;
+use App\Http\Livewire\Laporan\{LaporanDeviasi, LaporanFormA, LaporanFormB, LaporanFormC, LaporanFormE, LaporanSemester};
+use App\Http\Livewire\ObjekBelanja\ObjekBelanjaForm;
 use App\Http\Livewire\ObjekRealisasi\{ImportObjekRealisasi, ObjekRealisasiForm};
 use App\Http\Livewire\Realisasi\{RealisasiFisikForm, RealisasiForm, RealisasiTabs};
+use App\Http\Livewire\RincianObjekBelanja\RincianObjekBelanjaForm;
+use App\Http\Livewire\SubRincianObjekBelanja\SubRincianObjekBelanjaForm;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -24,12 +29,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
     });
 
-    //realisasi
     Route::get('/realisasi', RealisasiTabs::class)->name('realisasi');
     Route::get('/realisasi/{objekRealisasiId}/form/{id?}', RealisasiForm::class)->name('realisasi.form');
     Route::get('/realisasi-fisik/{objekRealisasiId}/form/{id?}', RealisasiFisikForm::class)->name('realisasi-fisik.form');
     Route::get('/objek-realisasi/import', ImportObjekRealisasi::class)->name('objek-realisasi.import');
-    Route::middleware('can:is-admin')->get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
+    Route::get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
 
     Route::prefix('/laporan')->group(function () {
         Route::get('/deviasi', LaporanDeviasi::class)->name('laporan-deviasi');
@@ -42,10 +46,13 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/jadwal/form', App\Http\Livewire\JadwalForm::class)->name('jadwal.form');
     Route::get('/target/form/{opd}/{mode?}', App\Http\Livewire\TargetForm::class)->name('target.form');
     Route::get('/target', App\Http\Livewire\TargetTable::class)->name('target');
+
+    Route::get('/tahapan-apbd', App\Http\Livewire\TahapanApbd\TahapanApbdTable::class)->name('tahapan-apbd');
+    Route::get('/tahapan-apbd/form/{id?}', App\Http\Livewire\TahapanApbd\TahapanApbdForm::class)->name('tahapan-apbd.form');
 
     Route::prefix('/master')->group(function () {
         Route::get('/pekerjaan', App\Http\Livewire\Pekerjaan\PekerjaanTable::class)->name('pekerjaan');
@@ -64,18 +71,33 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         Route::get('/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
         Route::get('/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
-    });
 
-    Route::prefix('/master')->group(function () {
         Route::prefix('/program-kegiatan')->group(function () {
             Route::get('', App\Http\Livewire\ProgramKegiatanTabs::class)->name('program-kegiatan');
-            Route::get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
+            Route::middleware('can:crud-program')->get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
             Route::get('/kegiatan/{idProgram}/form/{id?}', App\Http\Livewire\Kegiatan\KegiatanForm::class)->name('kegiatan.form');
             Route::get('/sub-kegiatan/{idKegiatan}/form/{id?}', App\Http\Livewire\SubKegiatan\SubKegiatanForm::class)->name('sub-kegiatan.form');
         });
-    });
 
-    require __DIR__.'/master/index.php';
+        Route::prefix('/rekening-belanja')->group(function () {
+            Route::get('/', App\Http\Livewire\RekeningBelanjaTabs::class)->name('rekening');
+            Route::get('/akun/form/{id?}', AkunBelanjaForm::class)->name('akun.form');
+            Route::get('/kelompok/{idAkunBelanja}/form/{id?}', KelompokBelanjaForm::class)->name('kelompok.form');
+            Route::get('/jenis/{idKelompokBelanja}/form/{id?}', JenisBelanjaForm::class)->name('jenis.form');
+            Route::get('/objek/{idJenisBelanja}/form/{id?}', ObjekBelanjaForm::class)->name('objek.form');
+            Route::get('/rincian-objek/{idObjekBelanja}/form/{id?}', RincianObjekBelanjaForm::class)->name('rincian-objek.form');
+            Route::get('/sub-rincian-objek/{idRincianObjekBelanja}/form/{id?}', SubRincianObjekBelanjaForm::class)->name('sub-rincian-objek.form');
+        });
+
+        Route::prefix('/urusan-opd')->group(function () {
+            Route::get('/', App\Http\Livewire\UrusanOpdTabs::class)->name('perangkat-daerah');
+            Route::get('/opd', App\Http\Livewire\UrusanOpdTabs::class)->name('master.informasi-perangkat-daerah');
+            Route::get('/urusan/form/{id?}', App\Http\Livewire\Urusan\UrusanForm::class)->name('urusan.form');
+            Route::get('/bidang-urusan/{urusanId}/form/{id?}', App\Http\Livewire\BidangUrusan\BidangUrusanForm::class)->name('bidang-urusan.form');
+            Route::get('/opd/{idBidangUrusan}/form/{id?}', App\Http\Livewire\Opd\OpdForm::class)->name('opd.form');
+            Route::get('/sub-opd/{idOpd}/{idBidangUrusan}/form/{id?}', App\Http\Livewire\SubOpd\SubOpdForm::class)->name('sub-opd.form');
+        });
+    });
 });
 
 require __DIR__.'/auth.php';

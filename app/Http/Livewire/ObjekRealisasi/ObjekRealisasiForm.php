@@ -4,6 +4,7 @@ namespace App\Http\Livewire\ObjekRealisasi;
 
 use App\Models\{BidangUrusan, Urusan};
 use App\Models\{BidangUrusanSubOpd, Kegiatan, ObjekRealisasi, Opd, Program, Realisasi, SubKegiatan, SubOpd, SubRincianObjekBelanja};
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -225,15 +226,21 @@ class ObjekRealisasiForm extends Component
 
     public function updateObjekRealisasi(int $id)
     {
-        ObjekRealisasi::where('id', $id)->update([
-            // 'tahapan_apbd_id' => cache('tahapanApbd')->id,
-            // 'bidang_urusan_sub_opd_id' => BidangUrusanSubOpd::where('bidang_urusan_id', $this->bidangUrusanPilihan)->where('sub_opd_id', $this->subOpdPilihan)->first()->id,
-            'sub_kegiatan_id' => $this->subKegiatanPilihan,
-            'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
-            'anggaran' => floatval($this->anggaran),
+        $update = [
             'target' => $this->target,
             'satuan_id' => $this->satuanId,
-        ]);
+        ];
+
+        if (auth()->user()->isAdminOrSektor()) {
+            $update = [
+                'sub_kegiatan_id' => $this->subKegiatanPilihan,
+                'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
+                'anggaran' => floatval($this->anggaran),
+                ...$update,
+            ];
+        }
+
+        ObjekRealisasi::where('id', $id)->update($update);
 
         $this->notification()->success(
             'BERHASIL',
@@ -243,17 +250,12 @@ class ObjekRealisasiForm extends Component
         return redirect("realisasi?tabAktif=objekRealisasi&programId={$this->subKegiatan->kegiatan->program_id}&kegiatanId={$this->subKegiatan->kegiatan->id}&subKegiatanId={$this->subKegiatan->id}&objekRealisasiId={$id}&opdPilihan={$this->opdPilihan}");
     }
 
-    public function flushSession()
-    {
-        session()->forget('message');
-    }
-
     public function hapusObjekRealisasi(int $id): void
     {
         ObjekRealisasi::destroy($id);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.objek-realisasi.objek-realisasi-form');
     }
