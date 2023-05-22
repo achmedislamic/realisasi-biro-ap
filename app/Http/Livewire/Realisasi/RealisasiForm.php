@@ -85,10 +85,9 @@ class RealisasiForm extends Component
     protected function rules(): array
     {
         return [
-            'realisasi.tanggal_waktu' => [
+            'realisasi.tanggal' => [
                 'required',
                 'date',
-                'date_format:d F Y mm:ss',
                 'after_or_equal:'.$this->getJadwal(),
             ],
             'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
@@ -97,14 +96,9 @@ class RealisasiForm extends Component
 
     public function simpan()
     {
-        $temp = $this->realisasi->tanggal_waktu;
-        $this->realisasi->tanggal_waktu = FormatHelper::tanggal($this->realisasi->tanggal_waktu, true);
-        dd($this->realisasi->tanggal_waktu);
-
         $this->validate();
 
         $this->realisasi->objek_realisasi_id = $this->objekRealisasiId;
-        $this->realisasi->tanggal_waktu = $temp;
 
         $this->realisasi->save();
 
