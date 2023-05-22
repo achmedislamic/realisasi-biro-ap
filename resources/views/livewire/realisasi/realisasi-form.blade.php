@@ -39,8 +39,7 @@
 
             <div class="flex flex-row">
                 <div class="w-full">
-                    <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD"
-                        display-format="DD-MM-YYYY" wire:model.defer="realisasi.tanggal" without-time
+                    <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD" wire:model.defer="realisasi.tanggal" without-time
                         display-format="DD-MM-YYYY" />
                 </div>
             </div>

@@ -69,6 +69,7 @@ class RealisasiForm extends Component
             $this->realisasi = Realisasi::find($id);
         } elseif (is_null($id)) {
             $this->realisasi = new Realisasi();
+            $this->realisasi->tanggal = today();
             $this->totalRealisasi = Realisasi::where('objek_realisasi_id', $objekRealisasiId)->sum('jumlah');
         }
 
@@ -88,7 +89,7 @@ class RealisasiForm extends Component
             'realisasi.tanggal' => [
                 'required',
                 'date',
-                'after_or_equal:'.$this->getJadwal(),
+                'before_or_equal:'.$this->getJadwal(),
             ],
             'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];
