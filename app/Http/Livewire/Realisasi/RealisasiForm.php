@@ -69,7 +69,7 @@ class RealisasiForm extends Component
             $this->realisasi = Realisasi::find($id);
         } elseif (is_null($id)) {
             $this->realisasi = new Realisasi();
-            $this->realisasi->tanggal = today();
+            $this->realisasi->tanggal = today()->format('Y-m-d');
             $this->totalRealisasi = Realisasi::where('objek_realisasi_id', $objekRealisasiId)->sum('jumlah');
         }
 

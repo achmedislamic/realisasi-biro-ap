@@ -68,7 +68,7 @@ class RealisasiFisikForm extends Component
             $this->realisasiFisik = RealisasiFisik::find($id);
         } elseif (is_null($id)) {
             $this->realisasiFisik = new RealisasiFisik();
-            $this->realisasiFisik->tanggal = today();
+            $this->realisasiFisik->tanggal = today()->format('Y-m-d');
             $this->totalRealisasi = RealisasiFisik::where('objek_realisasi_id', $objekRealisasiId)->sum('jumlah');
         }
 
