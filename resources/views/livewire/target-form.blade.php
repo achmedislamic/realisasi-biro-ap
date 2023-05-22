@@ -16,9 +16,7 @@
                     <div class="w-full">
                         <x-inputs.currency
                             label="Target"
-                            thousands="."
-                            decimal=","
-                            precision="4"
+                            hint="Jika angka memiliki desimal, gunakan tanda titik (.) sebagai pemisah"
                             wire:model.defer="targets.{{ $loop->index }}" />
                     </div>
                 </div>

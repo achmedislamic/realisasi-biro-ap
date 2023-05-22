@@ -86,20 +86,16 @@
                 <x-inputs.currency
                 :disabled="auth()->user()->isNotAdmin()"
                                    label="Anggaran"
-                                   thousands="."
-                                   decimal=","
-                                   precision="4"
-                                   wire:model.lazy="anggaran" />
+                                   hint="Jika angka memiliki desimal, gunakan tanda titik (.) sebagai pemisah"
+                                   wire:model.defer="anggaran" />
             </div>
 
             <div class="flex flex-row space-x-3">
                 <div class="w-full">
                     <x-inputs.currency
                                        label="Target Fisik"
-                                       thousands="."
-                                       decimal=","
-                                       precision="4"
-                                       wire:model.lazy="target" />
+                                       hint="Jika angka memiliki desimal, gunakan tanda titik (.) sebagai pemisah"
+                                       wire:model.defer="target" />
                 </div>
 
                 <div class="w-full">

@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="flex gap-x-4 items-end">
+            <div class="flex gap-x-4 items-start">
                 <div class="w-full flex flex-row space-x-3 items-end">
                     <div class="w-full">
                         <x-input label="Target Fisik" disabled wire:model="target" />
@@ -58,10 +58,8 @@
                 <div class="w-full">
                     <x-inputs.currency
                         label="Realisasi Fisik (Dalam Persen)"
-                        thousands="."
-                        decimal=","
-                        precision="4"
-                        wire:model.lazy="realisasiFisik.jumlah"
+                        hint="Jika angka memiliki desimal, gunakan tanda titik (.) sebagai pemisah"
+                        wire:model.defer="realisasiFisik.jumlah"
                     />
                 </div>
 

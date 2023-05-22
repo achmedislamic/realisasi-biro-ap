@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="flex gap-x-4 items-end">
+            <div class="flex gap-x-4 items-start">
                 <div class="w-full">
                     <x-input label="Anggaran" disabled wire:model="anggaran" />
                 </div>
@@ -52,10 +52,8 @@
                 <div class="w-full">
                     <x-inputs.currency
                         label="Realisasi"
-                        thousands="."
-                        decimal=","
-                        precision="4"
-                        wire:model.lazy="realisasi.jumlah"
+                        hint="Jika angka memiliki desimal, gunakan tanda titik (.) sebagai pemisah"
+                        wire:model.defer="realisasi.jumlah"
                     />
                 </div>
 

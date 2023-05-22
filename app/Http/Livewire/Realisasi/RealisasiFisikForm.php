@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Realisasi;
 
 use App\Helpers\FormatHelper;
+use App\Models\Jadwal;
 use App\Models\{ObjekRealisasi, RealisasiFisik};
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
@@ -75,6 +76,13 @@ class RealisasiFisikForm extends Component
         $this->totalRealisasi = FormatHelper::angka($this->totalRealisasi);
     }
 
+    private function getJadwal(): string
+    {
+        return Jadwal::where('is_aktif', true)
+            ->first()
+            ->tanggal_waktu->toString();
+    }
+
     protected function rules(): array
     {
         return [
@@ -100,7 +108,10 @@ class RealisasiFisikForm extends Component
             'Berhasil menyimpan realisasi fisik.'
         );
 
-        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId='.$this->objekRealisasiId);
+        return to_route('realisasi', [
+            'tabAktif' => 'realisasi',
+            'objekRealisasiId' => $this->objekRealisasiId
+        ]);
     }
 
     public function hapusRealisasi(int $id): void

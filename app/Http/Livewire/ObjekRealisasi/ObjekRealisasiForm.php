@@ -86,7 +86,7 @@ class ObjekRealisasiForm extends Component
             $this->anggaran = $objekRealisasi->anggaran;
             $this->rekeningBelanjaPilihan = $objekRealisasi->sub_rincian_objek_belanja_id;
 
-            $this->target = str($objekRealisasi->target)->replace('.', ',')->toString();
+            $this->target = $objekRealisasi->target;
             $this->satuanId = $objekRealisasi->satuan_id;
 
             $subOpd = SubOpd::find($objekRealisasi->bidangUrusanSubOpd->sub_opd_id);
@@ -247,7 +247,16 @@ class ObjekRealisasiForm extends Component
             'Berhasil mengubah data Rekening Belanja.'
         );
 
-        return redirect("realisasi?tabAktif=objekRealisasi&programId={$this->subKegiatan->kegiatan->program_id}&kegiatanId={$this->subKegiatan->kegiatan->id}&subKegiatanId={$this->subKegiatan->id}&objekRealisasiId={$id}&opdPilihan={$this->opdPilihan}");
+        $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd')->find($id);
+
+        return to_route('realisasi', [
+            'tabAktif' => 'objekRealisasi',
+            'programId' => $this->subKegiatan->kegiatan->program_id,
+            'kegiatanId' => $this->subKegiatan->kegiatan->id,
+            'subKegiatanId' => $this->subKegiatan->id,
+            'opdPilihan' => $objekRealisasi->bidangUrusanSubOpd->subOpd->opd_id,
+            'subOpdPilihan' => $objekRealisasi->bidangUrusanSubOpd->subOpd->id
+        ]);
     }
 
     public function hapusObjekRealisasi(int $id): void

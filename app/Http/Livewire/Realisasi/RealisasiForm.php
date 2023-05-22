@@ -108,7 +108,10 @@ class RealisasiForm extends Component
             'Berhasil menyimpan realisasi.'
         );
 
-        return redirect('/realisasi/?tabAktif=realisasi&objekRealisasiId='.$this->objekRealisasiId);
+        return to_route('realisasi', [
+            'tabAktif' => 'realisasi',
+            'objekRealisasiId' => $this->objekRealisasiId
+        ]);
     }
 
     public function hapusRealisasi(int $id): void
