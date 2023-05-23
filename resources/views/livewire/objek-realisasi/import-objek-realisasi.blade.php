@@ -10,7 +10,13 @@
     <form wire:submit.prevent="upload">
         <div class="flex flex-col space-y-3">
 
-            <x-input label="File Excel Anggaran Realisasi" wire:model.defer="file" type="file" accept=".xls,.xlsx" />
+            <x-input
+                label="File Excel Anggaran Realisasi"
+                wire:model.defer="file"
+                type="file"
+                accept=".xls,.xlsx" />
+
+            <small><a href="{{ asset('dokumen/format-import.xlsx') }}" class="text-blue-500 hover:underline hover:text-blue-700">Format Excel-nya bisa diunduh di sini</a></small>
 
             <div class="ml-auto">
                 @if (!$hideButton)

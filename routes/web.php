@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/form-e', LaporanFormE::class)->name('laporan-form-e');
         Route::post('/form-a/export', [LaporanFormAController::class, 'export'])->name('laporan-form-a.export');
     });
+
+    Route::get('/select/opd', App\Http\Controllers\Select\OpdController::class)->name('select.opd');
 });
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {

@@ -55,7 +55,7 @@ class OpdForm extends Component
             'Data OPD tersimpan.'
         );
 
-        return to_route('perangkat-daerah');
+        return to_route('master.informasi-perangkat-daerah');
         // if ($this->opd->id) {
         //     $bidangUrusan = BidangUrusan::find($this->idBidangUrusan);
         //     $bidangUrusan->opds()->attach($this->opd->id);

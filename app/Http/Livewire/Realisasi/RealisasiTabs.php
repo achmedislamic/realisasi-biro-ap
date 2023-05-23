@@ -13,8 +13,6 @@ class RealisasiTabs extends Component
 
     public $objekRealisasiId;
 
-    public $opds;
-
     public $subOpds;
 
     public $opdPilihan;
@@ -33,12 +31,7 @@ class RealisasiTabs extends Component
 
     public function mount(): void
     {
-        $this->opds = collect();
         $this->subOpds = collect();
-
-        if (auth()->user()->isAdmin()) {
-            $this->opds = Opd::orderBy('nama')->get();
-        }
 
         if (auth()->user()->isOpd()) {
             $this->opdPilihan = auth()->user()->role->imageable_id;

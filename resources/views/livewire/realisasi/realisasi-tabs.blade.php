@@ -7,22 +7,26 @@
 <div x-data="{ pemberitahuan: true }" class="pb-12">
     <div class="bg-white shadow-sm sm:rounded-lg">
         <div>
-            @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
+            @if (auth()->user()->isAdmin() || auth()->user()->isSektor())
                 <div class="mb-4 bg-slate-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
                     <div class="w-1/2 flex gap-2">
-                        @if (auth()->user()->isAdmin())
+                        @if (auth()->user()->isAdmin() || auth()->user()->isSektor())
                             <div class="w-full flex flex-row items-end space-x-3">
-                                <x-native-select label="OPD" wire:model="opdPilihan">
-                                    <option value="">Semua OPD</option>
-                                    @foreach ($opds as $opd)
-                                        <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
-                                    @endforeach
-                                </x-native-select>
+                                <div class="w-full">
+                                    <x-select
+                                        label="OPD"
+                                        placeholder="Semua OPD"
+                                        wire:model="opdPilihan"
+                                        :async-data="route('select.opd')"
+                                        option-label="nama"
+                                        option-value="id"
+                                    />
+                                </div>
                                 <x-loading-indicator target="opdPilihan" />
                             </div>
                         @endif
 
-                        @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
+                        @if (auth()->user()->isAdmin() || auth()->user()->isOpd() || auth()->user()->isSektor())
                             <div class="w-full flex flex-row items-end space-x-3">
                                 <div class="w-full">
                                     <x-native-select label="Sub OPD" wire:model="subOpdPilihan">

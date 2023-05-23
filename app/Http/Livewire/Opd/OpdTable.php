@@ -59,7 +59,10 @@ class OpdTable extends Component
     public function render()
     {
         if ($this->mode == 'opd') {
-            $opds = Opd::orderBy('nama')->paginate();
+            $opds = Opd::query()
+                ->pencarian($this->cari)
+                ->orderBy('nama')
+                ->paginate();
         } else {
             // daftar opd yang memiliki bidang urusan terpilih
             $opds = Opd::query()

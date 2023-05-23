@@ -65,7 +65,7 @@ class ObjekRealisasiForm extends Component
         $this->programs = Program::orderBy('kode')->get();
         $this->kegiatans = collect();
         $this->subKegiatans = collect();
-        $this->subRincianObjekBelanjas = SubRincianObjekBelanja::orderBy('kode')->get();
+        $this->subRincianObjekBelanjas = SubRincianObjekBelanja::orderBy('nama')->get();
         $this->urusans = Urusan::orderBy('kode')->get();
 
         if (is_null($id)) {

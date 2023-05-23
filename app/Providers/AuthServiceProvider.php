@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Opd;
 use App\Models\{Jadwal, User};
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -39,6 +40,15 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('realisasi-menu', function (User $user, int|string $opdId = null, int|string $subOpdId = null) {
             if ($user->isAdmin()) {
+                return true;
+            }
+
+            $matchOpd = Opd::query()
+                ->where('sektor_id', $user->role->imageable_id)
+                ->where('id', $opdId)
+                ->first();
+
+            if($user->isSektor() && ! is_null($matchOpd)){
                 return true;
             }
 
