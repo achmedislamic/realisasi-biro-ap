@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('/select')->group(function () {
         Route::get('/opd', App\Http\Controllers\Select\OpdController::class)->name('select.opd');
+        Route::get('/sub-opd', App\Http\Controllers\Select\SubOpdController::class)->name('select.sub-opd');
         Route::get('/sub-rincian-objek-belanja', App\Http\Controllers\Select\SubRincianObjekBelanjaController::class)->name('select.sub-rincian-objek-belanja');
     });
 

@@ -29,12 +29,14 @@
                         @if (auth()->user()->isAdmin() || auth()->user()->isOpd() || auth()->user()->isSektor())
                             <div class="w-full flex flex-row items-end space-x-3">
                                 <div class="w-full">
-                                    <x-native-select label="Sub OPD" wire:model="subOpdPilihan">
-                                        <option value="">Semua Sub OPD (Unit)</option>
-                                        @foreach ($subOpds as $subOpd)
-                                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
-                                        @endforeach
-                                    </x-native-select>
+                                    <x-select
+                                        label="Sub OPD"
+                                        placeholder="Semua Sub OPD (Unit)"
+                                        wire:model="subOpdPilihan"
+                                        :async-data="route('select.sub-opd', ['opdId' => $opdPilihan])"
+                                        option-label="nama"
+                                        option-value="id"
+                                    />
                                 </div>
                                 <x-loading-indicator target="subOpdPilihan" />
                             </div>
