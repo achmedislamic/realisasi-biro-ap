@@ -123,6 +123,7 @@ trait PerhitunganAnggaranRealisasiDashboard
                 fn ($query) => $query->where('o.id', $where)
             )
             ->groupByRaw('so.nama, so.id')
+            ->orderBy('so.kode')
             ->orderBy('so.nama')
                 // ->dd()
             ->get();
