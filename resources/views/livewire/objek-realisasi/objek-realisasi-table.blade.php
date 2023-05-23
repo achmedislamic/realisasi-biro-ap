@@ -30,11 +30,11 @@
                         primary
                         label="Tambah"
                         :href="route('objek-realisasi.form', [
-                            'opdPilihan' => $subOpd->opd_id,
-                            'subOpdPilihan' => $subOpd->id,
-                            'programPilihan' => $subKegiatan->kegiatan->program_id,
-                            'kegiatanPilihan' => $subKegiatan->kegiatan_id,
-                            'subKegiatanPilihan' => $subKegiatan->id
+                            'opdPilihan' => $subOpd?->opd_id,
+                            'subOpdPilihan' => $subOpd?->id,
+                            'programPilihan' => $subKegiatan?->kegiatan?->program_id,
+                            'kegiatanPilihan' => $subKegiatan?->kegiatan_id,
+                            'subKegiatanPilihan' => $subKegiatan?->id
                         ])" />
                     <x-button positive label="Import Anggaran Realisasi" :href="route('objek-realisasi.import')" />
                 @endif
