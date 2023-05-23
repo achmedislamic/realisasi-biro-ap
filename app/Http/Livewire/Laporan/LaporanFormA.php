@@ -20,8 +20,6 @@ final class LaporanFormA extends Component
 
     public $bulan;
 
-    public $opds;
-
     public $subOpds;
 
     public $opdDipilih = null;
@@ -35,7 +33,6 @@ final class LaporanFormA extends Component
     public function mount()
     {
         $this->anggarans = collect();
-        $this->opds = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
         if (auth()->user()->isOpd()) {
             $this->subOpds = SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get();

@@ -12,8 +12,6 @@ class ObjekRealisasiForm extends Component
 {
     use Actions;
 
-    public $pods;
-
     public $subOpds;
 
     public $programs;
@@ -21,8 +19,6 @@ class ObjekRealisasiForm extends Component
     public $kegiatans;
 
     public $subKegiatans;
-
-    public $subRincianObjekBelanjas;
 
     public $urusans;
 
@@ -60,12 +56,10 @@ class ObjekRealisasiForm extends Component
     {
         $this->submitText = 'Simpan';
 
-        $this->pods = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
         $this->programs = Program::orderBy('kode')->get();
         $this->kegiatans = collect();
         $this->subKegiatans = collect();
-        $this->subRincianObjekBelanjas = SubRincianObjekBelanja::orderBy('nama')->get();
         $this->urusans = Urusan::orderBy('kode')->get();
 
         if (is_null($id)) {

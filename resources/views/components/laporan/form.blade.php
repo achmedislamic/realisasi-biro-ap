@@ -4,12 +4,13 @@
         <div class="flex items-end gap-x-4">
             <div class="w-full">
                 @if (auth()->user()->isAdmin())
-                    <x-native-select label="OPD" wire:model="opdDipilih">
-                        <option value="">Pilih OPD</option>
-                        @foreach ($opds as $opd)
-                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
-                        @endforeach
-                    </x-native-select>
+                    <x-select
+                              label="OPD"
+                              placeholder="Pilih OPD"
+                              wire:model="opdDipilih"
+                              :async-data="route('select.opd')"
+                              option-label="nama"
+                              option-value="id" />
                 @else
                     <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
                 @endif
@@ -18,14 +19,14 @@
 
             <div class="w-full">
                 @if (auth()->user()->isSubOpd())
-                <p>Sub Unit: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
+                    <p>Sub Unit: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
                 @else
-                <x-native-select label="Sub OPD" wire:model.defer="subOpdDipilih">
-                    <option value="">Pilih Sub OPD (Unit)</option>
-                    @foreach ($subOpds as $subOpd)
-                        <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
-                    @endforeach
-                </x-native-select>
+                    <x-native-select label="Sub OPD" wire:model.defer="subOpdDipilih">
+                        <option value="">Pilih Sub OPD (Unit)</option>
+                        @foreach ($subOpds as $subOpd)
+                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
+                        @endforeach
+                    </x-native-select>
                 @endif
             </div>
 

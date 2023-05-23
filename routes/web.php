@@ -45,7 +45,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/form-a/export', [LaporanFormAController::class, 'export'])->name('laporan-form-a.export');
     });
 
-    Route::get('/select/opd', App\Http\Controllers\Select\OpdController::class)->name('select.opd');
+    Route::prefix('/select')->group(function () {
+        Route::get('/opd', App\Http\Controllers\Select\OpdController::class)->name('select.opd');
+        Route::get('/sub-rincian-objek-belanja', App\Http\Controllers\Select\SubRincianObjekBelanjaController::class)->name('select.sub-rincian-objek-belanja');
+    });
+
 });
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {

@@ -5,5 +5,5 @@
 </x-slot:header>
 
 <x-container>
-    <x-laporan.form :$opds :$subOpds jenis-laporan="e" />
+    <x-laporan.form :$subOpds jenis-laporan="e" />
 </x-container>

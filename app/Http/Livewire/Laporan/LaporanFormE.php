@@ -14,8 +14,6 @@ final class LaporanFormE extends Component
 
     public $triwulan;
 
-    public $opds;
-
     public $subOpds;
 
     public $opdDipilih = null;
@@ -24,7 +22,6 @@ final class LaporanFormE extends Component
 
     public function mount()
     {
-        $this->opds = Opd::orderBy('nama')->get();
         $this->subOpds = collect();
     }
 

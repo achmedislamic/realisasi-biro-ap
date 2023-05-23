@@ -30,12 +30,15 @@
 
             <div class="flex gap-x-4">
                 <div class="w-full">
-                    <x-native-select :disabled="auth()->user()->isNotAdmin()" label="OPD" wire:model="opdPilihan">
-                        <option selected>Pilih OPD</option>
-                        @foreach ($pods as $opd)
-                            <option value="{{ $opd->id }}">{{ $opd->kode }} - {{ $opd->nama }}</option>
-                        @endforeach
-                    </x-native-select>
+                    <x-select
+                        :disabled="auth()->user()->isNotAdmin()"
+                        label="OPD"
+                        placeholder="Pilih OPD"
+                        wire:model="opdPilihan"
+                        :async-data="route('select.opd')"
+                        option-label="nama"
+                        option-value="id"
+                    />
                 </div>
 
                 <div class="w-full">
@@ -75,12 +78,17 @@
                 @endforeach
             </x-native-select>
 
-            <x-native-select :disabled="auth()->user()->isNotAdmin()" label="Rekening Belanja" wire:model.defer="rekeningBelanjaPilihan">
-                <option selected>Pilih Rekenig Belanja (Sub Rincian Objek)</option>
-                @foreach ($subRincianObjekBelanjas as $rekening)
-                    <option value="{{ $rekening->id }}">{{ $rekening->kode }} - {{ $rekening->nama }}</option>
-                @endforeach
-            </x-native-select>
+            <div class="w-full">
+                <x-select
+                    :disabled="auth()->user()->isNotAdmin()"
+                    label="Rekening Belanja"
+                    placeholder="Pilih Rekenig Belanja (Sub Rincian Objek)"
+                    wire:model.defer="rekeningBelanjaPilihan"
+                    :async-data="route('select.sub-rincian-objek-belanja')"
+                    option-label="nama"
+                    option-value="id"
+                />
+            </div>
 
             <div class="w-full">
                 <x-inputs.currency

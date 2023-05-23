@@ -18,8 +18,6 @@ final class LaporanFormB extends Component
 
     public $triwulan;
 
-    public $opds;
-
     public $subOpds;
 
     public $opdDipilih = null;
@@ -33,7 +31,6 @@ final class LaporanFormB extends Component
     public function mount()
     {
         $this->anggarans = collect();
-        $this->opds = Opd::orderBy('kode')->get();
         $this->subOpds = collect();
         $this->bidangUrusans = collect();
     }

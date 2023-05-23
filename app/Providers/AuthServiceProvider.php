@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('ubah-realisasi', function (User $user) {
-            if ($user->isAdmin()) {
+            if ($user->isAdminOrSektor()) {
                 return true;
             }
 
@@ -56,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('pengguna-menu', function (User $user) {
-            return $user->isAdmin() || $user->isOpd() || $user->isSektor();
+            return $user->isAdminOrSektor() || $user->isOpd();
         });
 
         Gate::define('is-admin', function (User $user) {
@@ -64,7 +64,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('crud-program', function (User $user) {
-            return $user->isAdmin() || $user->isSektor();
+            return $user->isAdminOrSektor();
         });
     }
 }
