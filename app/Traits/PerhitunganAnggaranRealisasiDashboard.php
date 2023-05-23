@@ -90,7 +90,7 @@ trait PerhitunganAnggaranRealisasiDashboard
             ->when(auth()->user()->isSektor(), function (Builder $query) {
                 $query->where('o.sektor_id', auth()->user()->role->imageable_id);
             })
-            ->when(auth()->user()->isAdmin() || auth()->user()->isSektor(), function (Builder $query) use ($select) {
+            ->when(auth()->user()->isAdminOrSektor(), function (Builder $query) use ($select) {
                 $query->selectRaw('o.id AS id, '.$select)
                     ->where('o.nama', '!=', 'Sekretariat Daerah')
                     ->groupByRaw('o.nama, o.id')
@@ -111,28 +111,40 @@ trait PerhitunganAnggaranRealisasiDashboard
             return collect();
         }
 
-        $select = "so.id, so.opd_id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
+        $select = "so.kode, so.id, so.opd_id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
         if ($where == 'sekretariat daerah') {
             $select = $select.', 1 AS is_biro';
         }
 
         return $this->table()
             ->selectRaw($select)
-            ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
-            ->when(is_int($where), fn ($query) => $query->where('o.id', $where))
+            ->when($where == 'sekretariat daerah',
+                fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'),
+                fn ($query) => $query->where('o.id', $where)
+            )
             ->groupByRaw('so.nama, so.id')
             ->orderBy('so.nama')
                 // ->dd()
             ->get();
     }
 
-    protected function colspanRealisasi(string $periode): int
+    protected function colspanRealisasi(string $periode, bool $denganTarget = true): int
     {
+        if($denganTarget){
+            return match ($periode) {
+                'bulan' => 48,
+                'triwulan' => 16,
+                'semester' => 8,
+                'tahun' => 4,
+                default => 0
+            };
+        }
+
         return match ($periode) {
-            'bulan' => 48,
-            'triwulan' => 16,
-            'semester' => 8,
-            'tahun' => 4,
+            'bulan' => 24,
+            'triwulan' => 8,
+            'semester' => 4,
+            'tahun' => 2,
             default => 0
         };
     }

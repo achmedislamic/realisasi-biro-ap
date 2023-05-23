@@ -33,7 +33,7 @@ class SubOpdModalDashboard extends Component
 
         return view('livewire.sub-opd-modal-dashboard', [
             'subOpds' => $this->subOpds($this->opdId),
-            'colspanRealisasi' => $this->colspanRealisasi($this->periode),
+            'colspanRealisasi' => $this->colspanRealisasi($this->periode, denganTarget: false),
             'foreachCount' => $this->foreachCount($this->periode),
             'targetSubOpds' => Target::where('targetable_type', 'sub_opd')->get(),
         ]);
