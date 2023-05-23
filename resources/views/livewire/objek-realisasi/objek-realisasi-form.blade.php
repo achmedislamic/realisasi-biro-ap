@@ -82,7 +82,7 @@
                 <x-select
                     :disabled="auth()->user()->isNotAdmin()"
                     label="Rekening Belanja"
-                    placeholder="Pilih Rekenig Belanja (Sub Rincian Objek)"
+                    placeholder="Pilih Rekening Belanja (Sub Rincian Objek)"
                     wire:model.defer="rekeningBelanjaPilihan"
                     :async-data="route('select.sub-rincian-objek-belanja')"
                     option-label="nama"

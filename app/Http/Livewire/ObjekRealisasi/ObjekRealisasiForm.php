@@ -52,14 +52,35 @@ class ObjekRealisasiForm extends Component
 
     public $idObjekRealisasi;
 
+    protected $queryString = ['opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => ''], 'programPilihan' => ['except' => ''], 'kegiatanPilihan' => ['except' => ''], 'subKegiatanPilihan' => ['except' => '']];
+
     public function mount(int $id = null)
     {
-        $this->submitText = 'Simpan';
-
         $this->subOpds = collect();
-        $this->programs = Program::orderBy('kode')->get();
+        if(filled($this->opdPilihan) && filled($this->subOpdPilihan)){
+            $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
+        }
+
+        $this->programs = Program::orderBy('kode')->orderBy('nama')->get();
         $this->kegiatans = collect();
         $this->subKegiatans = collect();
+        if(filled($this->programPilihan) && filled($this->kegiatanPilihan)){
+            $this->kegiatans = Kegiatan::query()
+                ->where('program_id', $this->programPilihan)
+                ->orderBy('kode')
+                ->orderBy('nama')
+                ->get();
+
+            if(filled($this->subKegiatanPilihan)){
+                $this->subKegiatans = SubKegiatan::query()
+                    ->where('kegiatan_id', $this->kegiatanPilihan)
+                    ->orderBy('kode')
+                    ->orderBy('nama')
+                    ->get();
+            }
+        }
+
+        $this->submitText = 'Simpan';
         $this->urusans = Urusan::orderBy('kode')->get();
 
         if (is_null($id)) {
