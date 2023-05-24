@@ -42,11 +42,13 @@ class RealisasiTabs extends Component
     public function pilihIdProgramEvent($programId): void
     {
         $this->programId = $programId;
+        $this->reset(['kegiatanId', 'subKegiatanId', 'objekRealisasiId']);
     }
 
     public function pilihIdKegiatanEvent($kegiatanId): void
     {
         $this->kegiatanId = $kegiatanId;
+        $this->reset(['subKegiatanId', 'objekRealisasiId']);
     }
 
     public function subKegiatanClicked($subKegiatanId): void
@@ -56,9 +58,6 @@ class RealisasiTabs extends Component
 
     public function updatedOpdPilihan($opdId): void
     {
-        $this->subOpds = SubOpd::where('opd_id', $opdId)
-            ->orderBy('kode')
-            ->get();
         $this->subOpdPilihan = null;
 
         $this->emit('opdUpdated', $opdId);

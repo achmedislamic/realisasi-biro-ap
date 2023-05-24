@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\{ObjekRealisasi, Opd, SubKegiatan, SubOpd, TahapanApbd};
+use App\Models\{ObjekRealisasi, SubKegiatan, SubOpd, TahapanApbd};
 use App\Traits\Pencarian;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
