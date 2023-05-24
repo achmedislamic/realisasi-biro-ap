@@ -123,7 +123,7 @@ class PenggunaForm extends Component
                     'role_name' => $this->rolePengguna,
                     'imageable_id' => match ($this->rolePengguna) {
                         RoleName::SUB_OPD => $this->subOpdPilihan,
-                        RoleName::OPD => $this->opdPilihan,
+                        RoleName::OPD => $this->opdPilihan->id,
                         RoleName::SEKTOR => $this->sektorPilihan
                     },
                     'imageable_type' => match ($this->rolePengguna) {

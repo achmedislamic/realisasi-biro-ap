@@ -6,6 +6,7 @@ use App\Exports\LaporanFormAExport;
 use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use WireUi\Traits\Actions;
 
 final class LaporanFormC extends Component
@@ -32,6 +33,13 @@ final class LaporanFormC extends Component
     {
         $this->anggarans = collect();
         $this->subOpds = collect();
+        if (auth()->user()->isOpd()) {
+            $this->subOpds = SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get();
+        }
+
+        if (auth()->user()->isSubOpd()) {
+            $this->subOpdDipilih = auth()->user()->role->imageable_id;
+        }
         $this->bidangUrusans = collect();
     }
 
@@ -61,7 +69,7 @@ final class LaporanFormC extends Component
         ];
     }
 
-    public function cetak()
+    public function cetak(): BinaryFileResponse
     {
         $this->validate();
 

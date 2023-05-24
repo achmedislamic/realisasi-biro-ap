@@ -3,10 +3,11 @@
 namespace App\Http\Livewire\Laporan;
 
 use App\Exports\LaporanFormAExport;
-use App\Models\{BidangUrusan, Opd, SubOpd, Urusan};
+use App\Models\{BidangUrusan, SubOpd, Urusan};
 use Livewire\{Component, WithPagination};
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use WireUi\Traits\Actions;
 
 final class LaporanFormA extends Component
@@ -70,7 +71,7 @@ final class LaporanFormA extends Component
         ];
     }
 
-    public function cetak()
+    public function cetak(): BinaryFileResponse
     {
         $this->validate();
 

@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
 
     Route::prefix('/laporan')->group(function () {
-        Route::get('/deviasi', LaporanDeviasi::class)->name('laporan-deviasi');
+        Route::middleware('can:is-admin')->get('/deviasi', LaporanDeviasi::class)->name('laporan-deviasi');
         Route::get('/form-a', LaporanFormA::class)->name('laporan-form-a');
         Route::get('/semester', LaporanSemester::class)->name('laporan-semester');
         Route::get('/form-b', LaporanFormB::class)->name('laporan-form-b');

@@ -9,6 +9,9 @@
                               :active="request()->routeIs('laporan-form-c')" />
     <x-nav-dropdown-item-link text="Laporan Rincian Masalah (Form E)" :href="route('laporan-form-e')"
                               :active="request()->routeIs('laporan-form-e')" />
-    <x-nav-dropdown-item-link text="Laporan Deviasi" :href="route('laporan-deviasi')"
-                              :active="request()->routeIs('laporan-deviasi')" />
+    @can('is-admin')
+        <x-nav-dropdown-item-link text="Laporan Deviasi" :href="route('laporan-deviasi')"
+        :active="request()->routeIs('laporan-deviasi')" />
+    @endcan
+
 </x-nav-dropdown-link>
