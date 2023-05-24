@@ -76,20 +76,21 @@ class RealisasiForm extends Component
         $this->totalRealisasi = FormatHelper::angka($this->totalRealisasi);
     }
 
-    private function getJadwal(): string
+    private function getJadwal(): ?string
     {
         return Jadwal::where('is_aktif', true)
             ->first()
-            ->tanggal_waktu->toString();
+            ?->tanggal_waktu?->toString();
     }
 
     protected function rules(): array
     {
+        $jadwal = $this->getJadwal();
         return [
             'realisasi.tanggal' => [
                 'required',
                 'date',
-                'before_or_equal:'.$this->getJadwal(),
+                is_null($jadwal) ? '' : 'before_or_equal:'.$jadwal
             ],
             'realisasi.jumlah' => 'required|numeric|lte:'.ObjekRealisasi::find($this->objekRealisasiId)->selisihRealisasi($this->idRealisasi),
         ];
