@@ -86,8 +86,8 @@ class ObjekRealisasi extends Model
                      ->search('opds.kode', $cari)
                      ->search('sub_opds.kode', $cari)
                      ->search('sub_opds.nama', $cari)
-                     ->search('sub_rincian_objek_belanjas.kode', $cari)
-                     ->search('sub_rincian_objek_belanjas.nama', $cari);
+                     ->search('srob.kode', $cari)
+                     ->search('srob.nama', $cari);
              });
          });
      }

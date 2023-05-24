@@ -91,6 +91,9 @@ class ObjekRealisasiTable extends Component
             ->when(filled($this->subOpdId), function (Builder $query) {
                 $query->where('sub_opds.id', $this->subOpdId);
             })
+            ->when(filled($this->cari), function (Builder $query) {
+                $query->join('sub_rincian_objek_belanjas AS srob', 'srob.id', '=', 'objek_realisasis.sub_rincian_objek_belanja_id');
+            })
             ->pencarian($this->cari)
             // ->dd()
             ->paginate();

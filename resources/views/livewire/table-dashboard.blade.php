@@ -43,9 +43,9 @@
         </div>
     </div>
     <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount />
+        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="auth()->user()->isOpdOrSubOpd() ? false : true" />
         <tbody>
-            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount />
+            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="auth()->user()->isOpdOrSubOpd() ? false : true" />
         </tbody>
     </table>
 </div>

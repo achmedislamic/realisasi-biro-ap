@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->isAdmin() || $this->isSektor();
     }
 
+    public function isOpdOrSubOpd(): bool
+    {
+        return $this->isOpd() || $this->isSubOpd();
+    }
+
     public function isNotAdmin(): bool
     {
         return ! $this->isAdmin();
