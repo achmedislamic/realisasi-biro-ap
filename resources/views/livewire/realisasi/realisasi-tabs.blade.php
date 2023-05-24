@@ -7,7 +7,7 @@
 <div x-data="{ pemberitahuan: true }" class="pb-12">
     <div class="bg-white shadow-sm sm:rounded-lg">
         <div>
-            @if (auth()->user()->isAdmin() || auth()->user()->isSektor())
+            @if (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd())
                 <div class="mb-4 bg-slate-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
                     <div class="w-1/2 flex gap-2">
                         @if (auth()->user()->isAdmin() || auth()->user()->isSektor())
@@ -26,7 +26,7 @@
                             </div>
                         @endif
 
-                        @if (auth()->user()->isAdmin() || auth()->user()->isOpd() || auth()->user()->isSektor())
+                        @if (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd())
                             <div class="w-full flex flex-row items-end space-x-3">
                                 <div class="w-full">
                                     <x-select
