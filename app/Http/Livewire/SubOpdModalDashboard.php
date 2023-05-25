@@ -29,8 +29,6 @@ class SubOpdModalDashboard extends Component
 
     public function render(): View
     {
-        // Gate::authorize('is-admin');
-
         return view('livewire.sub-opd-modal-dashboard', [
             'subOpds' => $this->subOpds($this->opdId),
             'colspanRealisasi' => $this->colspanRealisasi($this->periode, denganTarget: false),

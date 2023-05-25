@@ -144,17 +144,17 @@
     @for ($j = 0; $j < $foreachCount; $j++)
         @if ($denganTarget)
             <x-table.td class="text-right font-bold">
-                {{ \App\Helpers\FormatHelper::angka($totalTarget[$j]) }}
+                {{ \App\Helpers\FormatHelper::angka($totalTarget[$j] ?? 0) }}
             </x-table.td>
         @endif
         <x-table.td class="text-right font-bold">
-            {{ \App\Helpers\FormatHelper::angka($totalRealisasi[$j]) }}
+            {{ \App\Helpers\FormatHelper::angka($totalRealisasi[$j] ?? 0) }}
         </x-table.td>
         @if ($denganTarget)
             <x-table.td class="text-right font-bold"></x-table.td>
         @endif
         <x-table.td class="text-right font-bold">
-            {{ \App\Helpers\FormatHelper::angka($totalRealisasiFisik[$j]) }}
+            {{ \App\Helpers\FormatHelper::angka($totalRealisasiFisik[$j] ?? 0) }}
         </x-table.td>
     @endfor
 </tr>
