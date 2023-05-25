@@ -44,14 +44,14 @@ class UserSeeder extends Seeder
             'role_name' => 'opd',
             'user_id' => $userOpd->id,
             'imageable_id' => Opd::firstWhere('nama', 'like', '%dinas pendidikan%')->id,
-            'imageable_type' => 'App\Models\Opd',
+            'imageable_type' => 'opd',
         ]);
 
         UserRole::create([
             'role_name' => 'sub_opd',
             'user_id' => $userSubOpd->id,
             'imageable_id' => SubOpd::firstWhere('nama', 'like', '%dinas pendidikan%')->id,
-            'imageable_type' => 'App\Models\SubOpd',
+            'imageable_type' => 'sub_opd',
         ]);
     }
 }

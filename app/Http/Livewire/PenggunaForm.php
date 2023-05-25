@@ -48,7 +48,10 @@ class PenggunaForm extends Component
         if (is_null($id)) {
             $this->buttonText = 'Simpan';
             $this->subOpds = auth()->user()->isOpd() ? SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get() : collect();
-            $this->rolePengguna = auth()->user()->isAdmin() ? RoleName::OPD : auth()->user()->role->role_name;
+            $this->rolePengguna = RoleName::OPD;
+            if(auth()->user()->isOpd()){
+                $this->rolePengguna = RoleName::SUB_OPD;
+            }
             $this->user = new User();
             $this->opdPilihan = auth()->user()->isOpd() || auth()->user()->isSubOpd() ? Opd::find(auth()->user()->role->imageable_id) : null;
             $this->subOpdPilihan = auth()->user()->isSubOpd() ? auth()->user()->role->imageable_id : null;
