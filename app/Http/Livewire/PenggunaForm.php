@@ -158,7 +158,7 @@ class PenggunaForm extends Component
             'Data pengguna tersimpan.'
         );
 
-        return to_route('pengguna');
+        return auth()->user()->isSubOpd() ? to_route('dashboard') : to_route('pengguna');
     }
 
     public function render(): View

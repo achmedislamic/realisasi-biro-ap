@@ -26,8 +26,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('can:pengguna-menu')->group(function () {
         Route::get('/pengguna', App\Http\Livewire\PenggunaTable::class)->name('pengguna');
-        Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
     });
+    Route::get('/pengguna/form/{id?}', App\Http\Livewire\PenggunaForm::class)->name('pengguna.form');
 
     Route::get('/realisasi', RealisasiTabs::class)->name('realisasi');
     Route::get('/realisasi/{objekRealisasiId}/form/{id?}', RealisasiForm::class)->name('realisasi.form');
