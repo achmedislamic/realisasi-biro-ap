@@ -9,6 +9,7 @@ use App\Traits\{Pencarian, WithSorting};
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\View\View;
 use Livewire\{Component, WithPagination};
+use Matrix\Builder as MatrixBuilder;
 
 class PenggunaTable extends Component
 {
@@ -27,7 +28,11 @@ class PenggunaTable extends Component
 
     public function destroy($id): void
     {
-        User::destroy($id);
+        $user = User::find($id);
+
+        $user->role->delete();
+
+        $user->delete();
     }
 
     public function render(): View
@@ -38,8 +43,9 @@ class PenggunaTable extends Component
                     $query->where('opd_id', auth()->user()->role->imageable_id);
                 });
             })
-            ->with('user')
-            // ->pencarian($this->cari)
+            ->withWhereHas('user', function (Builder $query) {
+                $query->pencarian($this->cari);
+            })
             // ->whenSort($this->sortField, $this->sort)
             ->paginate();
 

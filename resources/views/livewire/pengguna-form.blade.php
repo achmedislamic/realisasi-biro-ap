@@ -15,7 +15,7 @@
                     <x-input type="email" wire:model.defer="user.email" label="Email"
                              placeholder="Masukkan email Anda" />
                 </div>
-                @if (auth()->user()->isAdmin())
+                @if (blank($userId) && auth()->user()->isAdmin())
                     <div class="w-full">
                         <x-native-select label="Jenis Pengguna" wire:model="rolePengguna">
                             @foreach (\App\Enums\RoleName::cases() as $roleName)
@@ -43,7 +43,7 @@
                 </div>
             @endif
 
-            @if ($rolePengguna == \App\Enums\RoleName::OPD || $rolePengguna == \App\Enums\RoleName::SUB_OPD)
+            @if (blank($userId) && auth()->user()->isAdminOrSektor())
                 <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                     <div class="w-full">
                         @if (auth()->user()->isAdmin())
@@ -61,7 +61,7 @@
                 </div>
             @endif
 
-            @if (blank($userId) && ($rolePengguna == \App\Enums\RoleName::SUB_OPD || $rolePengguna == \App\Enums\RoleName::OPD))
+            @if (blank($userId) && (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd()))
                 <div class="w-full">
                     <x-native-select label="Sub OPD" wire:model.defer="subOpdPilihan">
                         <option selected>Pilih Sub OPD (Unit)</option>
