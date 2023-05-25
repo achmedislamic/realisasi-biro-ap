@@ -1,4 +1,5 @@
 <x-nav-dropdown-user-link text="{{ auth()->user()->name }}">
+    <x-nav-dropdown-item-link text="Ubah Akun Anda" :href="route('pengguna.form', auth()->id())" :active="request()->routeIs('pengguna.form')" />
     @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
         <x-nav-dropdown-item-link text="Pengguna" :href="route('pengguna')" :active="request()->routeIs('pengguna')" />
     @endif
