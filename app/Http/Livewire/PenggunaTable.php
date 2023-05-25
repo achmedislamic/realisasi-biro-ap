@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\SubOpd;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Traits\{Pencarian, WithSorting};
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\View\View;
@@ -30,14 +32,17 @@ class PenggunaTable extends Component
 
     public function render(): View
     {
-        $users = User::query()
+        $userRoles = UserRole::query()
             ->when(auth()->user()->isOpd(), function (Builder $query) {
-                $query->whereRelation('role', 'imageable_id', auth()->user()->role->imageable_id);
+                $query->whereHasMorph('imageable', SubOpd::class, function (Builder $query) {
+                    $query->where('opd_id', auth()->user()->role->imageable_id);
+                });
             })
-            ->pencarian($this->cari)
-            ->whenSort($this->sortField, $this->sort)
+            ->with('user')
+            // ->pencarian($this->cari)
+            // ->whenSort($this->sortField, $this->sort)
             ->paginate();
 
-        return view('livewire.pengguna-table', compact('users'));
+        return view('livewire.pengguna-table', compact('userRoles'));
     }
 }

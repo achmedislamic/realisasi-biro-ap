@@ -5,7 +5,7 @@
 </x-slot>
 
 <x-container>
-    <x-table.index :model="$users">
+    <x-table.index :model="$userRoles">
         <x-slot:table_actions>
             <x-button primary :href="route('pengguna.form')" label="Tambah" />
         </x-slot:table_actions>
@@ -26,24 +26,24 @@
             </tr>
         </x-table.thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($userRoles as $userRole)
             <x-table.tr>
                 <x-table.td-utama>
-                    {{ $user->name }}
+                    {{ $userRole->user->name }}
                 </x-table.td-utama>
                 <x-table.td>
-                    {{ $user->email }}
+                    {{ $userRole->user->email }}
                 </x-table.td>
                 <x-table.td>
-                    {{ \App\Models\UserRole::find($user->role->id)->imageable->nama ?? '-' }}
+                    {{ \App\Models\UserRole::find($userRole->id)->imageable->nama ?? '-' }}
                 </x-table.td>
                 <x-table.td>
-                    <x-button :href="route('pengguna.form', $user->id)" label="Ubah" warning icon="pencil" />
+                    <x-button :href="route('pengguna.form', $userRole->user->id)" label="Ubah" warning icon="pencil" />
 
-                    @if ($konfirmasi === $user->id)
-                    <x-button wire:click="destroy({{ $user->id }})" icon="x" dark label="Anda Yakin?" />
+                    @if ($konfirmasi === $userRole->user->id)
+                    <x-button wire:click="destroy({{ $userRole->user->id }})" icon="x" dark label="Anda Yakin?" />
                     @else
-                    <x-button wire:click="konfirmasiHapus({{ $user->id }})" icon="x" negative label="Hapus" />
+                    <x-button wire:click="konfirmasiHapus({{ $userRole->user->id }})" icon="x" negative label="Hapus" />
                     @endif
                 </x-table.td>
             </x-table.tr>

@@ -30,6 +30,8 @@ class PenggunaForm extends Component
 
     public $subOpds;
 
+    public $opd;
+
     public $opdPilihan = null;
 
     public $subOpdPilihan = null;
@@ -45,15 +47,23 @@ class PenggunaForm extends Component
     public function mount(int $id = null): void
     {
         $this->pods = Opd::orderBy('kode')->get();
+        $this->subOpds = auth()->user()->isOpd() ? SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get() : collect();
         if (is_null($id)) {
             $this->buttonText = 'Simpan';
-            $this->subOpds = auth()->user()->isOpd() ? SubOpd::where('opd_id', auth()->user()->role->imageable_id)->orderBy('nama')->get() : collect();
             $this->rolePengguna = RoleName::OPD;
             if(auth()->user()->isOpd()){
                 $this->rolePengguna = RoleName::SUB_OPD;
             }
             $this->user = new User();
-            $this->opdPilihan = auth()->user()->isOpd() || auth()->user()->isSubOpd() ? Opd::find(auth()->user()->role->imageable_id) : null;
+
+            // jika admin, maka null. jika opd, maka imageable_id. jika subopd maka role->imageable->opd_id
+            $this->opdPilihan = null;
+            if(auth()->user()->isOpd()){
+                $this->opdPilihan = auth()->user()->role->imageable_id;
+            }
+            if(auth()->user()->isSubOpd()){
+                $this->opdPilihan = auth()->user()->role->imageable->opd_id;
+            }
             $this->subOpdPilihan = auth()->user()->isSubOpd() ? auth()->user()->role->imageable_id : null;
         } else {
             $this->buttonText = 'Simpan Perubahan';
@@ -77,6 +87,9 @@ class PenggunaForm extends Component
                 $this->opdPilihan = $userRole->imageable->id;
             }
         }
+
+        $this->opd = Opd::find($this->opdPilihan);
+        // dd($this->opdPilihan);
     }
 
     public function updatedRolePengguna($value)

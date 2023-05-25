@@ -54,14 +54,14 @@
                                 @endforeach
                             </x-native-select>
                         @else
-                            <p>Opd: {{ $opdPilihan->kode . ' ' . $opdPilihan->nama }}</p>
+                            <p>Opd: {{ $opd->kode . ' ' . $opd->nama }}</p>
                         @endif
 
                     </div>
                 </div>
             @endif
 
-            @if ($rolePengguna == \App\Enums\RoleName::SUB_OPD || $rolePengguna == \App\Enums\RoleName::OPD)
+            @if (blank($userId) && ($rolePengguna == \App\Enums\RoleName::SUB_OPD || $rolePengguna == \App\Enums\RoleName::OPD))
                 <div class="w-full">
                     <x-native-select label="Sub OPD" wire:model.defer="subOpdPilihan">
                         <option selected>Pilih Sub OPD (Unit)</option>
