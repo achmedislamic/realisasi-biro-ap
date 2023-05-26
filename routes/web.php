@@ -110,7 +110,3 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('/', function () {
-    return view('index');
-});
