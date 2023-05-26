@@ -13,6 +13,8 @@ use App\Http\Livewire\RincianObjekBelanja\RincianObjekBelanjaForm;
 use App\Http\Livewire\SubRincianObjekBelanja\SubRincianObjekBelanjaForm;
 use Illuminate\Support\Facades\Route;
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
@@ -108,3 +110,7 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/', function () {
+    return view('index');
+});

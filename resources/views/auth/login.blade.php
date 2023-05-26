@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-auth-card>
-        <h1 class="font-bold leading-10 tracking-widest text-2xl mb-8">LOGIN</h1>
+        <h1 class="font-bold leading-10 tracking-widest text-2xl mb-8">Masuk</h1>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -9,7 +9,7 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label for="email" :value="__('Surel (Email)')" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required autofocus />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
