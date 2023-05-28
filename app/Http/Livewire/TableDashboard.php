@@ -19,8 +19,14 @@ final class TableDashboard extends Component
 
     public function render(): View
     {
-        $subOpds = auth()->user()->isAdmin() ? $this->subOpds('sekretariat daerah') : $this->subOpds(auth()->user()->role->imageable_id);
-        $opds = auth()->user()->isAdmin() ? $this->opds() : collect();
+        $subOpds = collect();
+        if(auth()->user()->isOpdOrSubOpd()){
+            $subOpds = $this->subOpds(auth()->user()->role->imageable_id);
+        }
+        if(auth()->user()->isAdminOrSektor()){
+            $subOpds = $this->subOpds('sekretariat daerah');
+        }
+        $opds = auth()->user()->isAdminOrSektor() ? $this->opds() : collect();
 
         [$targetOpds, $colspanRealisasi, $foreachCount] = [Target::all(), $this->colspanRealisasi($this->periode), $this->foreachCount($this->periode)];
 

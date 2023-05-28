@@ -43,7 +43,7 @@
                 </div>
             @endif
 
-            @if (blank($userId) && auth()->user()->isAdminOrSektor())
+            @if (blank($userId) && (auth()->user()->isAdminOrSektor()) && ($rolePengguna == \App\Enums\RoleName::OPD || $rolePengguna == \App\Enums\RoleName::SUB_OPD))
                 <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                     <div class="w-full">
                         @if (auth()->user()->isAdmin())
@@ -61,7 +61,7 @@
                 </div>
             @endif
 
-            @if (blank($userId) && (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd()))
+            @if (blank($userId) && (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd()) && ($rolePengguna == \App\Enums\RoleName::SUB_OPD))
                 <div class="w-full">
                     <x-native-select label="Sub OPD" wire:model.defer="subOpdPilihan">
                         <option selected>Pilih Sub OPD (Unit)</option>

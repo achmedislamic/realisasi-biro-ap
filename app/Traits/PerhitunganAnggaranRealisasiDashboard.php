@@ -118,13 +118,10 @@ trait PerhitunganAnggaranRealisasiDashboard
 
         return $this->table()
             ->selectRaw($select)
-            ->when($where == 'sekretariat daerah',
-                fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%')
-            )
-            ->when(auth()->user()->isOpd() || auth()->user()->isAdminOrSektor(), fn ($query) => $query->where('o.id', $where))
-            ->when(auth()->user()->isSubOpd(), function ($query) {
-                $query->where('so.id', auth()->user()->role->imageable_id);
-            })
+            ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
+            ->when(auth()->user()->isSektor(), fn (Builder $query) => $query->where('o.sektor_id', auth()->user()->role->imageable_id))
+            ->when(auth()->user()->isOpd(), fn ($query) => $query->where('o.id', $where))
+            ->when(auth()->user()->isSubOpd(), fn ($query) => $query->where('so.id', auth()->user()->role->imageable_id))
             ->groupByRaw('so.kode, so.nama, so.id')
             ->orderBy('so.kode')
             ->orderBy('so.nama')

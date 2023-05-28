@@ -3,7 +3,7 @@
     <div class="flex flex-col space-y-3">
         <div class="flex items-end gap-x-4">
             <div class="w-full">
-                @if (auth()->user()->isAdmin())
+                @if (auth()->user()->isAdminOrSektor())
                     <x-select
                               label="OPD"
                               placeholder="Pilih OPD"
