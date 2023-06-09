@@ -12,11 +12,13 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
         <script>
             const ctx = document.getElementById('myChart');
 
             new Chart(ctx, {
                 type: 'pie',
+                plugins: [ChartDataLabels],
                 data: {
                     labels: ['Realisasi', 'Anggaran'],
                     datasets: [{
@@ -29,6 +31,14 @@
                     scales: {
                         y: {
                             beginAtZero: true
+                        }
+                    },
+                    responsive : true,
+                    plugins: {
+                        datalabels: {
+                            backgroundColor: 'white',
+                            color: 'black',
+                            padding: 3
                         }
                     }
                 }

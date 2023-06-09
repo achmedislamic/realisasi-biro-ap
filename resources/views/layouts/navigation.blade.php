@@ -5,7 +5,9 @@
             <ul class="hidden lg:flex items-center space-x-4 text-sm font-semibold">
                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" text="Beranda" />
 
-                <x-nav-link href="/telescope" text="Monitoring Aplikasi" target="_blank" />
+                @can('is-admin')
+                    <x-nav-link href="/telescope" text="Monitoring Aplikasi" target="_blank" />
+                @endcan
 
                 @if (auth()->user()->isAdmin())
                 <x-nav-link :href="route('tahapan-apbd')"

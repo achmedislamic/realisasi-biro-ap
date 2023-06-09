@@ -26,7 +26,7 @@ class RealisasiForm extends Component
 
     public ObjekRealisasi $objekRealisasi;
 
-    public $pod;
+    public $opd;
 
     public $subOpd;
 
@@ -50,7 +50,7 @@ class RealisasiForm extends Component
         $this->objekRealisasiId = $objekRealisasiId;
         $this->objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd.opd')->find($objekRealisasiId);
 
-        $this->pod = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama;
+        $this->opd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama;
         $this->subOpd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->nama;
         $this->program = $this->objekRealisasi->subKegiatan->kegiatan->program->nama;
         $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
