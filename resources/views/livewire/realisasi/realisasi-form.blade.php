@@ -1,6 +1,6 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Form Realisasi
+        Form Realisasi Keuangan
     </h2>
 </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="flex flex-col space-y-3">
             <div class="flex gap-x-4">
                 <div class="w-full">
-                    <x-input label="OPD" disabled wire:model="pod" />
+                    <x-input label="OPD" disabled wire:model="opd" />
                 </div>
 
                 <div class="w-full">
