@@ -13,10 +13,12 @@ use App\Http\Livewire\RincianObjekBelanja\RincianObjekBelanjaForm;
 use App\Http\Livewire\SubRincianObjekBelanja\SubRincianObjekBelanjaForm;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', \App\Http\Controllers\DashboardController::class)->name('dashboard');
+    Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\{ObjekRealisasi, Realisasi};
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+final class DashboardController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         $anggaran = ObjekRealisasi::query()
             ->doesntHave('realisasis')
