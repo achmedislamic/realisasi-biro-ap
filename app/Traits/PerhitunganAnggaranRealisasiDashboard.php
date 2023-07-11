@@ -87,20 +87,11 @@ trait PerhitunganAnggaranRealisasiDashboard
         $select = "o.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}, 0 AS is_biro";
 
         return $this->table()
-            ->when(auth()->user()->isSektor(), function (Builder $query) {
-                $query->where('o.sektor_id', auth()->user()->role->imageable_id);
-            })
-            ->when(auth()->user()->isAdminOrSektor(), function (Builder $query) use ($select) {
+            ->when(auth()->user()->isAdmin(), function (Builder $query) use ($select) {
                 $query->selectRaw('o.id AS id, '.$select)
                     ->where('o.nama', '!=', 'Sekretariat Daerah')
                     ->groupByRaw('o.nama, o.id')
                     ->orderBy('o.nama');
-            })
-            ->when(auth()->user()->isSubOpd(), function (Builder $query) use ($select) {
-                $query->where('o.id', auth()->user()->role->imageable_id)
-                    ->selectRaw('so.id AS id, '.$select)
-                    ->groupByRaw('so.nama, so.id')
-                    ->orderBy('so.nama');
             })
             ->get();
     }
@@ -118,10 +109,7 @@ trait PerhitunganAnggaranRealisasiDashboard
 
         return $this->table()
             ->selectRaw($select)
-            ->when($where == 'sekretariat daerah', fn ($query) => $query->where('o.nama', 'like', '%Sekretariat Daerah%'))
-            ->when(auth()->user()->isSektor(), fn (Builder $query) => $query->where('o.sektor_id', auth()->user()->role->imageable_id))
-            ->when(auth()->user()->isOpd() || auth()->user()->isAdminOrSektor(), fn ($query) => $query->where('o.id', $where))
-            ->when(auth()->user()->isSubOpd(), fn ($query) => $query->where('so.id', auth()->user()->role->imageable_id))
+            ->when(auth()->user()->isAdmin(), fn ($query) => $query->where('o.id', $where))
             ->groupByRaw('so.kode, so.nama, so.id')
             ->orderBy('so.kode')
             ->orderBy('so.nama')

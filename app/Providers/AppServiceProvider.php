@@ -17,15 +17,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Relation::enforceMorphMap([
-            'opd' => 'App\Models\Opd',
-            'sub_opd' => 'App\Models\SubOpd',
-            'sektor' => 'App\Models\Sektor',
+            'bidang' => 'App\Models\Bidang',
+            'upt' => 'App\Models\Upt',
         ]);
 
-        Model::shouldBeStrict(! $this->app->isProduction());
-
-        // Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
-        // Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+        Model::shouldBeStrict(! app()->isProduction());
 
         Builder::macro('search', fn ($field, $string) => $string ?
                 $this->orWhere($field, 'like', '%'.$string.'%')

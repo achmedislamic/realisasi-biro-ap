@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Opd, SubOpd};
+use App\Models\Bidang;
+use App\Models\Upt;
 use App\Models\{User, UserRole};
 use Illuminate\Database\Seeder;
 
@@ -11,8 +12,8 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $emailAdmin = 'admin@example.com';
-        $emailDikbud = 'dikbud@example.com';
-        $emailSubOpd = 'sub_opd_dikbud@example.com';
+        $emailBidang = 'bidang@example.com';
+        $emailUpt = 'upt@example.com';
 
         $user = User::create([
             'name' => 'Administrator',
@@ -21,17 +22,17 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        $userOpd = User::create([
-            'name' => 'Dikbud',
-            'email' => $emailDikbud,
-            'password' => bcrypt($emailDikbud),
+        $userBidang = User::create([
+            'name' => 'Cipta Karya',
+            'email' => $emailBidang,
+            'password' => bcrypt($emailBidang),
             'email_verified_at' => now(),
         ]);
 
-        $userSubOpd = User::create([
-            'name' => 'Sub OPD Dikbud',
-            'email' => $emailSubOpd,
-            'password' => bcrypt($emailSubOpd),
+        $userUpt = User::create([
+            'name' => 'UPT',
+            'email' => $emailUpt,
+            'password' => bcrypt($emailUpt),
             'email_verified_at' => now(),
         ]);
 
@@ -41,17 +42,17 @@ class UserSeeder extends Seeder
         ]);
 
         UserRole::create([
-            'role_name' => 'opd',
-            'user_id' => $userOpd->id,
-            'imageable_id' => Opd::firstWhere('nama', 'like', '%dinas pendidikan%')->id,
-            'imageable_type' => 'opd',
+            'role_name' => 'bidang',
+            'user_id' => $userBidang->id,
+            'imageable_id' => Bidang::firstWhere('nama', 'like', '%Cipta Karya%')->id,
+            'imageable_type' => 'bidang',
         ]);
 
         UserRole::create([
-            'role_name' => 'sub_opd',
-            'user_id' => $userSubOpd->id,
-            'imageable_id' => SubOpd::firstWhere('nama', 'like', '%dinas pendidikan%')->id,
-            'imageable_type' => 'sub_opd',
+            'role_name' => 'upt',
+            'user_id' => $userUpt->id,
+            'imageable_id' => Upt::firstWhere('nama', 'like', '%Balai Pengujian Material Konstruksi%')->id,
+            'imageable_type' => 'upt',
         ]);
     }
 }

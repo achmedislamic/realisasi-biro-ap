@@ -17,7 +17,7 @@ class ImportObjekRealisasi implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private $realisasiChunk, private $idTahapanApbd)
+    public function __construct(private $realisasiChunk, private int $idTahapanApbd)
     {
     }
 

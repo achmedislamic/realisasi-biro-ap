@@ -41,11 +41,6 @@ class User extends Authenticatable
         return $this->role->role_name === RoleName::ADMIN;
     }
 
-    public function isAdminOrSektor(): bool
-    {
-        return $this->isAdmin() || $this->isSektor();
-    }
-
     public function isOpdOrSubOpd(): bool
     {
         return $this->isOpd() || $this->isSubOpd();
@@ -64,11 +59,6 @@ class User extends Authenticatable
     public function isSubOpd(): bool
     {
         return $this->role->role_name === RoleName::SUB_OPD;
-    }
-
-    public function isSektor(): bool
-    {
-        return $this->role->role_name === RoleName::SEKTOR;
     }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder

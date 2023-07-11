@@ -2,7 +2,7 @@
     <div class="bg-white shadow-lg max-w-3xl rounded-xl overflow-clip p-6 w-full h-96">
 
         <h1 class="font-bold tracking-widest text-2xl">DASHBOARD REALISASI</h1>
-        <h3 class="font-bold tracking-widest text-XL mb-8">BIRO-AP</h3>
+        <h3 class="font-bold tracking-widest text-XL mb-8">Dinas PUPR</h3>
 
         <div class="flex flex-wrap gap-4 justify-center mb-5 max-h-60 overflow-y-scroll hide-scrollbar p-2">
             @foreach ($tahunAnggarans as $ta)

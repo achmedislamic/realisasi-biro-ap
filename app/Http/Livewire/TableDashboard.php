@@ -23,10 +23,10 @@ final class TableDashboard extends Component
         if(auth()->user()->isOpdOrSubOpd()){
             $subOpds = $this->subOpds(auth()->user()->role->imageable_id);
         }
-        if(auth()->user()->isAdminOrSektor()){
+        if(auth()->user()->isAdmin()){
             $subOpds = $this->subOpds('sekretariat daerah');
         }
-        $opds = auth()->user()->isAdminOrSektor() ? $this->opds() : collect();
+        $opds = auth()->user()->isAdmin() ? $this->opds() : collect();
 
         [$targetOpds, $colspanRealisasi, $foreachCount] = [Target::all(), $this->colspanRealisasi($this->periode), $this->foreachCount($this->periode)];
 

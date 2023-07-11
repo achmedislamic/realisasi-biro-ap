@@ -6,6 +6,7 @@ return [
 
     // custom variable
     'td_style' => 'border:1px solid black;padding:5px; text-align: left;',
+    'mode' => env('MODE', 'pupr'),
     // end custom variable
     /*
     |--------------------------------------------------------------------------
