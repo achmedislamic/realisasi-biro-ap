@@ -4,14 +4,17 @@
         @if ($objekRealisasi)
             <table>
                 <tbody>
-                    <tr>
-                        <td class="pr-5 font-semibold text-sm text-gray-400">OPD</td>
-                        <td class="text-sm">{{ $objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama }}</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-5 font-semibold text-sm text-gray-400">Sub OPD</td>
-                        <td class="text-sm">{{ $objekRealisasi->bidangUrusanSubOpd->subOpd->nama }}</td>
-                    </tr>
+                    @if (config('app.mode') != 'pupr')
+                        <tr>
+                            <td class="pr-5 font-semibold text-sm text-gray-400">OPD</td>
+                            <td class="text-sm">{{ $objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama }}</td>
+                        </tr>
+                        <tr>
+                            <td class="pr-5 font-semibold text-sm text-gray-400">Sub OPD</td>
+                            <td class="text-sm">{{ $objekRealisasi->bidangUrusanSubOpd->subOpd->nama }}</td>
+                        </tr>
+                    @endif
+
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Program</td>
                         <td class="text-sm">{{ $objekRealisasi->subKegiatan->kegiatan->program->nama }}</td>
@@ -38,7 +41,7 @@
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Target Fisik</td>
-                        <td>{{ blank($objekRealisasi->target) ? '(Belum di-input)' : str($objekRealisasi->target)->replace('.', ',')->toString() . ' ' . $objekRealisasi->satuan->nama }}</td>
+                        <td>{{ blank($objekRealisasi->target)? '(Belum di-input)': str($objekRealisasi->target)->replace('.', ',')->toString() .' ' .$objekRealisasi->satuan->nama }}</td>
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi Fisik</td>
