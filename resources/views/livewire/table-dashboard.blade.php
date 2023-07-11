@@ -7,22 +7,24 @@
         <span class="font-bold">Terakhir data disinkron:</span> {{ \App\Helpers\FormatHelper::tanggal(now(), true) }}
     </div>
     <div class="flex flex-row space-x-3">
-        <div class="w-full flex flex-col align-center">
-            <div class="flex flex-row space-x-2">
-                <div class="w-16 h-8 bg-red-500"></div>
-                <p>Realisasi < 40%</p>
-            </div>
+        @if (! auth()->user()->isOpd() && ! auth()->user()->isSubOpd())
+            <div class="w-full flex flex-col align-center">
+                <div class="flex flex-row space-x-2">
+                    <div class="w-16 h-8 bg-red-500"></div>
+                    <p>Realisasi < 40%</p>
+                </div>
 
-            <div class="flex flex-row space-x-2">
-                <div class="w-16 h-8 bg-yellow-500"></div>
-                <p>Realisasi 41% - 70%</p>
-            </div>
+                <div class="flex flex-row space-x-2">
+                    <div class="w-16 h-8 bg-yellow-500"></div>
+                    <p>Realisasi 41% - 70%</p>
+                </div>
 
-            <div class="flex flex-row space-x-2 mb-3">
-                <div class="w-16 h-8 bg-green-500"></div>
-                <p>Realisasi 71% - 100%</p>
+                <div class="flex flex-row space-x-2 mb-3">
+                    <div class="w-16 h-8 bg-green-500"></div>
+                    <p>Realisasi 71% - 100%</p>
+                </div>
             </div>
-        </div>
+        @endif
         <div class="w-full">
             <div class="flex flex-row space-x-3">
                 <div class="w-full">
@@ -42,10 +44,11 @@
             </div>
         </div>
     </div>
+
     <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="auth()->user()->isOpdOrSubOpd() ? false : true" />
+        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="! auth()->user()->isOpdOrSubOpd()" />
         <tbody>
-            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="auth()->user()->isOpdOrSubOpd() ? false : true" />
+            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="! auth()->user()->isOpdOrSubOpd()" />
         </tbody>
     </table>
 </div>
