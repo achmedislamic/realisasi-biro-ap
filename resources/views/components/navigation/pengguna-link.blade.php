@@ -1,11 +1,7 @@
 <x-nav-dropdown-user-link text="{{ auth()->user()->name }}">
     <x-nav-dropdown-item-link text="Ubah Akun Anda" :href="route('pengguna.form', auth()->id())" :active="request()->routeIs('pengguna.form')" />
-    @if (auth()->user()->isAdmin() || auth()->user()->isOpd())
-        <x-nav-dropdown-item-link text="Pengguna" :href="route('pengguna')" :active="request()->routeIs('pengguna')" />
-    @endif
     @if (auth()->user()->isAdmin())
-        <x-nav-dropdown-item-link text="Pengaturan Jadwal" :href="route('jadwal.form')" :active="request()->routeIs('jadwal')" />
-        <x-nav-dropdown-item-link text="Pengaturan Kas APBD" :href="route('target')" :active="request()->routeIs('target')" />
+        <x-nav-dropdown-item-link text="Pengguna" :href="route('pengguna')" :active="request()->routeIs('pengguna')" />
     @endif
 
     <form method="POST" action="{{ route('logout') }}">

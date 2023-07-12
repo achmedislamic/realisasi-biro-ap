@@ -55,16 +55,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role->imageable_id == $opdId || $user->role->imageable_id == $subOpdId;
         });
 
-        Gate::define('pengguna-menu', function (User $user) {
-            return $user->isAdminOrSektor() || $user->isOpd();
-        });
+        Gate::define('pengguna-menu', fn (User $user) => $user->isAdmin());
 
-        Gate::define('is-admin', function (User $user) {
-            return $user->isAdmin();
-        });
+        Gate::define('is-admin', fn (User $user) => $user->isAdmin());
 
-        Gate::define('crud-program', function (User $user) {
-            return $user->isAdminOrSektor();
-        });
+        Gate::define('crud-program', fn (User $user) => $user->isAdmin());
     }
 }

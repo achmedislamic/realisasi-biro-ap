@@ -5,6 +5,15 @@ namespace App\Enums;
 enum RoleName: string
 {
     case ADMIN = 'admin';
-    case OPD = 'bidang';
-    case SUB_OPD = 'upt';
+    case BIDANG = 'bidang';
+    case UPT = 'upt';
+
+    public function teks(): string
+    {
+        return match($this) {
+            self::ADMIN => __('Administrator'),
+            self::BIDANG => __('Bidang'),
+            self::UPT => __('UPT'),
+        };
+    }
 }

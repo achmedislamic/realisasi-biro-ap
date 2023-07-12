@@ -7,15 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, MorphTo};
 
-class UserRole extends Model
+final class UserRole extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    protected $casts = [
-        'role_name' => RoleName::class,
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function imageable(): MorphTo
     {

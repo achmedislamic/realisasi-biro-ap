@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:is-admin'])->group(function () {
-    Route::get('/jadwal/form', App\Http\Livewire\JadwalForm::class)->name('jadwal.form');
+    // Route::get('/jadwal/form', App\Http\Livewire\JadwalForm::class)->name('jadwal.form');
     Route::get('/target/form/{opd}/{mode?}', App\Http\Livewire\TargetForm::class)->name('target.form');
     Route::get('/target', App\Http\Livewire\TargetTable::class)->name('target');
 

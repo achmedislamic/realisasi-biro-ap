@@ -37,19 +37,17 @@ class UserSeeder extends Seeder
         ]);
 
         UserRole::create([
-            'role_name' => 'admin',
             'user_id' => $user->id,
+            'imageable_type' => null,
         ]);
 
         UserRole::create([
-            'role_name' => 'bidang',
             'user_id' => $userBidang->id,
             'imageable_id' => Bidang::firstWhere('nama', 'like', '%Cipta Karya%')->id,
             'imageable_type' => 'bidang',
         ]);
 
         UserRole::create([
-            'role_name' => 'upt',
             'user_id' => $userUpt->id,
             'imageable_id' => Upt::firstWhere('nama', 'like', '%Balai Pengujian Material Konstruksi%')->id,
             'imageable_type' => 'upt',

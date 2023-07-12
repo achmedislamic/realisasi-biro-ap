@@ -9,7 +9,6 @@ use App\Traits\{Pencarian, WithSorting};
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\View\View;
 use Livewire\{Component, WithPagination};
-use Matrix\Builder as MatrixBuilder;
 
 class PenggunaTable extends Component
 {
@@ -38,11 +37,6 @@ class PenggunaTable extends Component
     public function render(): View
     {
         $userRoles = UserRole::query()
-            ->when(auth()->user()->isOpd(), function (Builder $query) {
-                $query->whereHasMorph('imageable', SubOpd::class, function (Builder $query) {
-                    $query->where('opd_id', auth()->user()->role->imageable_id);
-                });
-            })
             ->withWhereHas('user', function (Builder $query) {
                 $query->pencarian($this->cari);
             })

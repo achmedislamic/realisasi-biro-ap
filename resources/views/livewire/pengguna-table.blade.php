@@ -18,7 +18,7 @@
                     Email
                 </x-table.th-sort>
                 <x-table.th>
-                    OPD / Sub OPD
+                    Bidang / UPT
                 </x-table.th>
                 <x-table.th>
                     Aksi
