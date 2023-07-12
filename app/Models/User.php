@@ -41,9 +41,9 @@ class User extends Authenticatable
         return in_array($this->role->imageable_type, [null, '', 'admin', 'Admin']);
     }
 
-    public function isBidangOrUpt(): bool
+    public function isBidangOrSubOpd(): bool
     {
-        return $this->isBidang() || $this->isUpt();
+        return $this->isBidang() || $this->isSubOpd();
     }
 
     public function isNotAdmin(): bool
@@ -56,9 +56,9 @@ class User extends Authenticatable
         return $this->role->imageable_type === RoleName::BIDANG;
     }
 
-    public function isUpt(): bool
+    public function isSubOpd(): bool
     {
-        return $this->role->imageable_type === RoleName::UPT;
+        return $this->role->imageable_type === RoleName::SUB_OPD;
     }
 
     public function scopePencarian(Builder $query, string $cari = ''): Builder

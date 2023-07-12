@@ -16,27 +16,27 @@ class ProgramTable extends Component
 
     public $menu = '';
 
-    public $opdId;
+    public $bidangId;
 
-    public $subOpdId;
+    public $uptId;
 
     protected $listeners = ['opdUpdated' => 'passOpdId', 'subOpdUpdated' => 'passSubOpdId'];
 
-    public function pilihIdProgramEvent(int $id, string $menu = '', int|string $opdId = null, int|string $subOpdId = null)
+    public function pilihIdProgramEvent(int $id, string $menu = '', int|string $bidangId = null, int|string $uptId = null)
     {
-        $this->emit('pilihIdProgramEvent', $id, $menu, $opdId, $subOpdId);
+        $this->emit('pilihIdProgramEvent', $id, $menu, $bidangId, $uptId);
         $this->emit('proKegGantiTabEvent', 'kegiatan');
     }
 
-    public function passOpdId($opdId)
+    public function passOpdId($bidangId)
     {
-        $this->opdId = $opdId;
-        $this->reset('subOpdId');
+        $this->bidangId = $bidangId;
+        $this->reset('uptId');
     }
 
-    public function passSubOpdId($subOpdId)
+    public function passSubOpdId($uptId)
     {
-        $this->subOpdId = $subOpdId;
+        $this->uptId = $uptId;
     }
 
     public function hapusProgram(int $id): void
@@ -50,7 +50,7 @@ class ProgramTable extends Component
 
     public function render()
     {
-        Gate::authorize('realisasi-menu', [$this->opdId, $this->subOpdId]);
+        Gate::authorize('realisasi-menu', [$this->bidangId, $this->uptId]);
         $programs = Program::query()
             ->when($this->menu == 'realisasi', function ($query) {
                 // tampilkan daftar program berdasarkan sub_opd_id
@@ -60,10 +60,10 @@ class ProgramTable extends Component
                     ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'ore.bidang_urusan_sub_opd_id')
                     ->join('sub_opds AS so', 'buso.sub_opd_id', '=', 'so.id')
                     ->join('opds AS o', 'so.opd_id', '=', 'o.id')
-                    ->when(filled($this->opdId), function ($query) {
-                        $query->where('o.id', $this->opdId);
-                    })->when(filled($this->subOpdId), function ($query) {
-                        $query->where('so.id', $this->subOpdId);
+                    ->when(filled($this->bidangId), function ($query) {
+                        $query->where('o.id', $this->bidangId);
+                    })->when(filled($this->uptId), function ($query) {
+                        $query->where('so.id', $this->uptId);
                     })
                     ->select('programs.nama', 'programs.id', 'programs.kode')
                     ->groupBy('programs.id')

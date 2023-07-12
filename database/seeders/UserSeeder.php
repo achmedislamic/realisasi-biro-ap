@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Bidang;
+use App\Models\SubOpd;
 use App\Models\Upt;
 use App\Models\{User, UserRole};
 use Illuminate\Database\Seeder;
@@ -49,8 +50,8 @@ class UserSeeder extends Seeder
 
         UserRole::create([
             'user_id' => $userUpt->id,
-            'imageable_id' => Upt::firstWhere('nama', 'like', '%Balai Pengujian Material Konstruksi%')->id,
-            'imageable_type' => 'upt',
+            'imageable_id' => SubOpd::firstWhere('nama', 'like', '%Balai Pengujian Material Konstruksi%')->id,
+            'imageable_type' => 'sub_opd',
         ]);
     }
 }

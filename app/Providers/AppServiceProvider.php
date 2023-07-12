@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'bidang' => 'App\Models\Bidang',
-            'upt' => 'App\Models\Upt',
+            'sub_opd' => 'App\Models\SubOpd',
         ]);
 
         Model::shouldBeStrict(! app()->isProduction());

@@ -1,4 +1,4 @@
-@if (auth()->user()->isBidangOrUpt())
+@if (auth()->user()->isBidangOrSubOpd())
     <x-nav-link :href="route('realisasi')" text="Input Realisasi" :active="request()->routeIs('realisasi')" />
 @else
     <x-nav-dropdown-link text="Realisasi" :active="request()->segment(1) == 'realisasi'">

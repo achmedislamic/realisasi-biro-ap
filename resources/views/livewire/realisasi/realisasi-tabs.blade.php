@@ -15,34 +15,38 @@
                         @if (auth()->user()->isAdmin())
                             <div class="w-full flex flex-row items-end space-x-3">
                                 <div class="w-full">
-                                    <x-select
-                                        label="OPD"
-                                        placeholder="Semua OPD"
-                                        wire:model="opdPilihan"
-                                        :async-data="route('select.opd')"
-                                        option-label="nama"
-                                        option-value="id"
-                                    />
+                                    <x-native-select
+                                        label="Bidang"
+                                        placeholder="Semua Bidang"
+                                        wire:model="bidangPilihan"
+                                    >
+                                    <option value="">Silakan Pilih</option>
+                                    @foreach (\App\Models\Bidang::orderBy('nama')->get() as $bidang)
+                                        <option value="{{ $bidang->id }}">{{ $bidang->nama }}</option>
+                                    @endforeach
+                                    </x-native-select>
                                 </div>
-                                <x-loading-indicator target="opdPilihan" />
+                                <x-loading-indicator target="bidangPilihan" />
                             </div>
                         @endif
 
-                        {{-- @if (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd()) --}}
+                        @if (auth()->user()->isAdmin())
                             <div class="w-full flex flex-row items-end space-x-3">
                                 <div class="w-full">
-                                    <x-select
+                                    <x-native-select
                                         label="Sub OPD"
                                         placeholder="Semua Sub OPD (Unit)"
                                         wire:model="subOpdPilihan"
-                                        :async-data="route('select.sub-opd', ['opdId' => $opdPilihan])"
-                                        option-label="nama"
-                                        option-value="id"
-                                    />
+                                    >
+                                    <option value="">Silakan Pilih</option>
+                                    @foreach (\App\Models\SubOpd::orderBy('nama')->get() as $upt)
+                                        <option value="{{ $upt->id }}">{{ $upt->nama }}</option>
+                                    @endforeach
+                                    </x-native-select>
                                 </div>
                                 <x-loading-indicator target="subOpdPilihan" />
                             </div>
-                        {{-- @endif --}}
+                        @endif
                     </div>
                 </div>
             @endif
@@ -93,16 +97,16 @@
                 </div>
                 <div id="myTabContent">
                     <div x-show="tab == 'program'" x-transition>
-                        @livewire('program.program-table', ['menu' => 'realisasi', 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
+                        @livewire('program.program-table', ['menu' => 'realisasi', 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'kegiatan'" x-transition>
-                        @livewire('kegiatan.kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
+                        @livewire('kegiatan.kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'subKegiatan'" x-transition>
-                        @livewire('sub-kegiatan.sub-kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
+                        @livewire('sub-kegiatan.sub-kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'objekRealisasi'" x-transition>
-                        @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'opdId' => $opdPilihan, 'subOpdId' => $subOpdPilihan])
+                        @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'realisasi'" x-transition>
                         @livewire('realisasi.realisasi-table')

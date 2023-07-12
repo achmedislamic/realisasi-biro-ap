@@ -28,7 +28,7 @@
             </div>
 
             @if (blank($userId) &&
-                    auth()->user()->isAdmin() && in_array($userRole->imageable_type, [\App\Enums\RoleName::BIDANG->value, \App\Enums\RoleName::UPT->value]))
+                    auth()->user()->isAdmin() && in_array($userRole->imageable_type, [\App\Enums\RoleName::BIDANG->value, \App\Enums\RoleName::SUB_OPD->value]))
                 <div class="flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0">
                     <div class="w-full">
                         <x-native-select :label="str($userRole->imageable_type)->title()" wire:model="userRole.imageable_id">
@@ -37,8 +37,8 @@
                                 @foreach (\App\Models\Bidang::orderBy('nama')->get() as $bidang)
                                     <option value="{{ $bidang->id }}">{{ $bidang->nama }}</option>
                                 @endforeach
-                            @elseif ($userRole->imageable_type == \App\Enums\RoleName::UPT->value)
-                                @foreach (\App\Models\Upt::orderBy('nama')->get() as $upt)
+                            @elseif ($userRole->imageable_type == \App\Enums\RoleName::SUB_OPD->value)
+                                @foreach (\App\Models\SubOpd::orderBy('nama')->get() as $upt)
                                     <option value="{{ $upt->id }}">{{ $upt->nama }}</option>
                                 @endforeach
                             @endif

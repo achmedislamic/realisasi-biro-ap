@@ -53,10 +53,15 @@
                     <x-table.td>
                         {{ $subKegiatan->kode }}
                     </x-table.td>
-                    <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-blue-500">
+                    @if (filled($menu))
+                    <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-blue-500">
                         {{ $subKegiatan->nama }}
                         <x-loading-indicator />
                     </x-table.td>
+                    @else
+                    <x-table.td>{{ $subKegiatan->nama }}</x-table.td>
+                    @endif
+
                     <x-table.td>
                         @if ($menu != 'realisasi')
                             <x-button.circle spinner warning xs icon="pencil"

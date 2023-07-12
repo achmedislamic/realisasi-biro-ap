@@ -48,7 +48,9 @@ class SubKegiatanTable extends Component
 
     public function render()
     {
+        // dd($this->menu);
         Gate::authorize('realisasi-menu', [$this->opdId, $this->subOpdId]);
+
         $subKegiatans = SubKegiatan::query()
             ->when(filled($this->menu), function (Builder $query) {
                 $query->join('objek_realisasis AS ore', 'ore.sub_kegiatan_id', '=', 'sub_kegiatans.id')
@@ -71,6 +73,7 @@ class SubKegiatanTable extends Component
             })
             ->where('kegiatan_id', $this->kegiatanId)
             ->pencarian($this->cari)
+            // ->ddRawSql()
             ->paginate();
 
         $kegiatan = Kegiatan::find($this->kegiatanId);

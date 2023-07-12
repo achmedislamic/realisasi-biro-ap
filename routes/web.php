@@ -102,7 +102,6 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 
         Route::prefix('/urusan-opd')->group(function () {
             Route::get('/', App\Http\Livewire\UrusanOpdTabs::class)->name('perangkat-daerah');
-            Route::get('/opd', App\Http\Livewire\UrusanOpdTabs::class)->name('master.informasi-perangkat-daerah');
             Route::get('/urusan/form/{id?}', App\Http\Livewire\Urusan\UrusanForm::class)->name('urusan.form');
             Route::get('/bidang-urusan/{urusanId}/form/{id?}', App\Http\Livewire\BidangUrusan\BidangUrusanForm::class)->name('bidang-urusan.form');
             Route::get('/opd/{idBidangUrusan}/form/{id?}', App\Http\Livewire\Opd\OpdForm::class)->name('opd.form');

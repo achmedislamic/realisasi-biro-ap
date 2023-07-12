@@ -7,13 +7,13 @@ use App\Models\{Opd, SubOpd};
 use Illuminate\View\View;
 use Livewire\Component;
 
-class RealisasiTabs extends Component
+final class RealisasiTabs extends Component
 {
     public string $tabAktif = 'program';
 
     public $objekRealisasiId;
 
-    public $opdPilihan;
+    public $bidangPilihan;
 
     public $programId;
 
@@ -23,15 +23,14 @@ class RealisasiTabs extends Component
 
     public $subOpdPilihan = '';
 
-    protected $queryString = ['tabAktif', 'programId' => ['except' => ''], 'kegiatanId' => ['except' => ''], 'subKegiatanId' => ['except' => ''], 'opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
+    protected $queryString = ['tabAktif', 'programId' => ['except' => ''], 'kegiatanId' => ['except' => ''], 'subKegiatanId' => ['except' => ''], 'bidangPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
 
     protected $listeners = ['gantiTab', 'pilihIdProgramEvent', 'pilihIdKegiatanEvent', 'subKegiatanClicked'];
 
     public function mount(): void
     {
-        if (auth()->user()->isOpd()) {
-            $this->opdPilihan = auth()->user()->role->imageable_id;
-
+        if (auth()->user()->isBidang()) {
+            $this->bidangPilihan = auth()->user()->role->imageable_id;
         }
 
         if (auth()->user()->isSubOpd()) {
