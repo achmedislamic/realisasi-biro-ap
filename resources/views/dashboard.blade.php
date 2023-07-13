@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="flex flex-col space-y-3 items-center justify-center">
-        <div class="w-1/3 flex flex-col items-center justify-center">
+        {{-- <div class="w-1/3 flex flex-col items-center justify-center">
             <h2>Realisasi VS Anggaran</h2>
             <canvas id="myChart"></canvas>
-        </div>
+        </div> --}}
         <div class="w-full">
             @livewire('sub-opd-modal-dashboard')
             @livewire('table-dashboard')

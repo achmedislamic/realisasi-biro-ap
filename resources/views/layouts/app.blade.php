@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Realisasi Anggaran Belanja') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Ubuntu:wght@400;600;700&display=swap">
     @vite(['resources/css/app.css'])
     @livewireStyles
 
@@ -22,7 +22,7 @@
     <x-dialog />
     <x-notifications />
     @livewire('livewire-ui-modal')
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-200">
         @include('layouts.top-navigation')
         @include('layouts.navigation')
 
@@ -36,7 +36,7 @@
         @endif
 
         <!-- Page Content -->
-        <main class="container mx-w-6xl mx-auto py-4">
+        <main class="container mx-w-6xl mx-auto py-4 drop-shadow-lg">
             {{ $slot }}
         </main>
     </div>

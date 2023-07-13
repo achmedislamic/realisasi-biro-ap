@@ -21,7 +21,7 @@ ease-in-out flex gap-2 items-center';
     </a>
 
     <ul x-cloak x-show="open" x-transition
-        class="absolute left-0 bg-white py-2 rounded-md shadow-lg overflow-hidden w-max z-50">
+        class="absolute left-0 bg-white rounded-md shadow-lg overflow-hidden w-max z-50">
         {{ $slot }}
     </ul>
 </li>

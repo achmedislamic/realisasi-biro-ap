@@ -24,7 +24,7 @@ module.exports = {
                     "medium-orange": "#FBA51C",
                     "heavy-orange": "#EB6B22",
                 },
-                utama: "#6366F1",
+                utama: "rgb(253 224 71 / var(--tw-bg-opacity))",
             },
         },
     },

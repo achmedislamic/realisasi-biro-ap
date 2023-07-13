@@ -10,7 +10,7 @@
             {{-- @if (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd()) --}}
             @if (auth()->user()->isAdmin())
                 <div class="mb-4 bg-slate-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
-                    <div class="w-1/2 flex gap-2">
+                    <div class="pt-3 w-1/2 flex gap-2">
                         {{-- @if (auth()->user()->isAdminOrSektor()) --}}
                         @if (auth()->user()->isAdmin())
                             <div class="w-full flex flex-row items-end space-x-3">

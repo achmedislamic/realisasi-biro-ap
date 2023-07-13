@@ -1,6 +1,6 @@
-<div class="flex justify-end">
+<div class="flex justify-start">
     @if (auth()->user()->isAdmin())
-        <button wire:click="$emit('openModal', 'ganti-tahapan-apbd.ganti-tahapan-apbd-modal')" class="font-bold text-xl">
+        <button wire:click="$emit('openModal', 'ganti-tahapan-apbd.ganti-tahapan-apbd-modal')" class="font-bold text-xl text-black">
             {{ $tahapanApbd->tahun}}
             {{ $tahapanApbd->nama }}
         </button>
