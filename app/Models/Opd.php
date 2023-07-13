@@ -31,11 +31,6 @@ class Opd extends Model
         return $this->morphOne(UserRole::class, 'imageable');
     }
 
-    public function targets(): MorphMany
-    {
-        return $this->morphMany(Target::class, 'targetable');
-    }
-
     public function scopePencarian(Builder $query, string $cari = ''): Builder
     {
         return $query->when($cari, function ($query) use ($cari) {

@@ -5,7 +5,7 @@
 <x-table.thead>
     <tr>
         <x-table.th rowspan="3">
-            {{ auth()->user()->isOpd()? 'Sub ': '' }}OPD
+            OPD
         </x-table.th>
         <x-table.th rowspan="3" class="text-right">
             Anggaran

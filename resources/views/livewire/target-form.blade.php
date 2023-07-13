@@ -1,6 +1,6 @@
 <x-slot:header>
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Form Target {{ $opd->teks_lengkap }}
+        Form Target {{ $subOpd->teks_lengkap }}
     </h2>
 </x-slot:header>
 

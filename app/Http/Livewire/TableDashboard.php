@@ -19,18 +19,9 @@ final class TableDashboard extends Component
 
     public function render(): View
     {
-        $subOpds = collect();
-        if(auth()->user()->isOpdOrSubOpd()){
-            $subOpds = $this->subOpds(auth()->user()->role->imageable_id);
-        }
-        if(auth()->user()->isAdmin()){
-            $subOpds = $this->subOpds('sekretariat daerah');
-        }
-        $opds = auth()->user()->isAdmin() ? $this->opds() : collect();
+        $opds = auth()->user()->isAdmin() ? $this->subOpds(1) : collect();
 
         [$targetOpds, $colspanRealisasi, $foreachCount] = [Target::all(), $this->colspanRealisasi($this->periode), $this->foreachCount($this->periode)];
-
-        $opds = $opds->merge($subOpds)->sortBy('nama_pd');
 
         return view('livewire.table-dashboard', compact('opds', 'targetOpds', 'colspanRealisasi', 'foreachCount'));
     }

@@ -5,19 +5,15 @@ namespace App\Http\Livewire;
 use App\Models\{Opd, SubOpd};
 use Livewire\Component;
 
-class TargetTable extends Component
+final class TargetTable extends Component
 {
     public function render()
     {
-        $opds = Opd::query()
+        $subOpds = SubOpd::query()
+            ->where('opd_id', 1)
             ->with('targets')
             ->get();
 
-        $biros = SubOpd::query()
-            ->whereRelation('opd', 'nama', 'like', '%sekretariat daerah%')
-            ->with('targets')
-            ->get();
-
-        return view('livewire.target-table', compact('opds', 'biros'));
+        return view('livewire.target-table', compact('subOpds'));
     }
 }

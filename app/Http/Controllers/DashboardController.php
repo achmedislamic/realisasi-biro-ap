@@ -13,9 +13,9 @@ final class DashboardController extends Controller
     {
         $anggaran = ObjekRealisasi::query()
             ->doesntHave('realisasis')
-            ->when(auth()->user()->isOpd(), function (Builder $query) {
-                $query->whereRelation('bidangUrusanSubOpd.subOpd', 'opd_id', '=', auth()->id());
-            })
+            // ->when(auth()->user()->isOpd(), function (Builder $query) {
+            //     $query->whereRelation('bidangUrusanSubOpd.subOpd', 'opd_id', '=', auth()->id());
+            // })
             ->when(auth()->user()->isSubOpd(), function (Builder $query) {
                 $query->whereRelation('bidangUrusanSubOpd.subOpd', 'id', '=', auth()->id());
             })
@@ -23,9 +23,9 @@ final class DashboardController extends Controller
 
         $realisasi = Realisasi::query()
             ->whereRelation('objekRealisasi', 'tahapan_apbd_id', cache('tahapanApbd')->id)
-            ->when(auth()->user()->isOpd(), function (Builder $query) {
-                $query->whereRelation('objekRealisasi.bidangUrusanSubOpd.subOpd', 'opd_id', '=', auth()->id());
-            })
+            // ->when(auth()->user()->isOpd(), function (Builder $query) {
+            //     $query->whereRelation('objekRealisasi.bidangUrusanSubOpd.subOpd', 'opd_id', '=', auth()->id());
+            // })
             ->when(auth()->user()->isSubOpd(), function (Builder $query) {
                 $query->whereRelation('objekRealisasi.bidangUrusanSubOpd.subOpd', 'id', '=', auth()->id());
             })

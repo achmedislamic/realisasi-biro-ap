@@ -7,7 +7,7 @@
         <span class="font-bold">Terakhir data disinkron:</span> {{ \App\Helpers\FormatHelper::tanggal(now(), true) }}
     </div>
     <div class="flex flex-row space-x-3">
-        @if (! auth()->user()->isOpd() && ! auth()->user()->isSubOpd())
+        @if (! auth()->user()->isSubOpd())
             <div class="w-full flex flex-col align-center">
                 <div class="flex flex-row space-x-2">
                     <div class="w-16 h-8 bg-red-500"></div>
@@ -46,9 +46,9 @@
     </div>
 
     <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="! auth()->user()->isOpdOrSubOpd()" />
+        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="! auth()->user()->isSubOpd()" />
         <tbody>
-            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="! auth()->user()->isOpdOrSubOpd()" />
+            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="! auth()->user()->isSubOpd()" />
         </tbody>
     </table>
 </div>

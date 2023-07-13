@@ -4,29 +4,23 @@ namespace App\Http\Livewire;
 
 use App\Models\{Opd, SubOpd, Target};
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Livewire\Component;
 
-class TargetForm extends Component
+final class TargetForm extends Component
 {
-    public $opd;
+    public $subOpd;
 
     public $targets;
 
-    public $mode;
-
-    public function mount(int $opd, string $mode = null)
+    public function mount(int $subOpdId)
     {
-        $this->mode = $mode;
-        if (is_null($mode)) {
-            $this->opd = Opd::find($opd);
-        } else {
-            $this->opd = SubOpd::find($opd);
-        }
+        $this->subOpd = SubOpd::findOrFail($subOpdId);
 
         $this->targets = [];
 
         for ($i = 1; $i <= 12; $i++) {
-            array_push($this->targets, Target::select('jumlah')->where('targetable_id', $opd)->where('bulan', $i)->first()->jumlah ?? 0);
+            array_push($this->targets, Target::select('jumlah')->where('targetable_id', $subOpdId)->where('bulan', $i)->first()->jumlah ?? 0);
         }
     }
 
@@ -52,8 +46,8 @@ class TargetForm extends Component
                 Target::updateOrCreate([
                     'tahun' => cache('tahapanApbd')->tahun,
                     'bulan' => ++$i,
-                    'targetable_id' => $this->opd->id,
-                    'targetable_type' => is_null($this->mode) ? 'opd' : 'sub_opd',
+                    'targetable_id' => $this->subOpd->id,
+                    'targetable_type' => 'sub_opd',
                 ], ['jumlah' => $target]);
             }
         });
@@ -61,7 +55,7 @@ class TargetForm extends Component
         return to_route('target');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.target-form', [
             'bulans' => $this->bulans(),
