@@ -3,21 +3,6 @@
     <div class="flex flex-col space-y-3">
         <div class="flex items-end gap-x-4">
             <div class="w-full">
-                @if (auth()->user()->isAdminOrSektor())
-                    <x-select
-                              label="OPD"
-                              placeholder="Pilih OPD"
-                              wire:model="opdDipilih"
-                              :async-data="route('select.opd')"
-                              option-label="nama"
-                              option-value="id" />
-                @else
-                    <p>Opd: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
-                @endif
-
-            </div>
-
-            <div class="w-full">
                 @if (auth()->user()->isSubOpd())
                     <p>Sub Unit: {{ auth()->user()->role->imageable->teks_lengkap }}</p>
                 @else

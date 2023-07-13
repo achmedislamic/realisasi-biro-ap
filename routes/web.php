@@ -40,12 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/objek-realisasi/form/{id?}', ObjekRealisasiForm::class)->name('objek-realisasi.form');
 
     Route::prefix('/laporan')->group(function () {
-        Route::middleware('can:is-admin')->get('/deviasi', LaporanDeviasi::class)->name('laporan-deviasi');
-        Route::get('/form-a', LaporanFormA::class)->name('laporan-form-a');
+        Route::get('/form-a', LaporanFormA::class)->name('laporan-bulan');
         Route::get('/semester', LaporanSemester::class)->name('laporan-semester');
-        Route::get('/form-b', LaporanFormB::class)->name('laporan-form-b');
-        Route::get('/form-c', LaporanFormC::class)->name('laporan-form-c');
-        Route::get('/form-e', LaporanFormE::class)->name('laporan-form-e');
+        Route::get('/form-b', LaporanFormB::class)->name('laporan-triwulan');
+        Route::get('/form-c', LaporanFormC::class)->name('laporan-tahun');
         Route::post('/form-a/export', [LaporanFormAController::class, 'export'])->name('laporan-form-a.export');
     });
 
