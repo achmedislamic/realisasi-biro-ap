@@ -10,38 +10,38 @@
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
                 <li class="mr-2" role="presentation">
                     <button @click="tab = 'akun'"
-                        :class="tab == 'akun' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                        :class="tab == 'akun' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                         class="inline-block p-4 border-b-2 rounded-t-lg" id="akun-tab" data-tabs-target="#akun"
                         type="button" role="tab" aria-controls="akun" aria-selected="false">Akun</button>
                 </li>
                 <li @click="tab = 'kelompok'" class="mr-2" role="presentation">
                     <button @click="tab = 'kelompok'"
-                        :class="tab == 'kelompok' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                        :class="tab == 'kelompok' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                         class="inline-block p-4 border-b-2 rounded-t-lg" id="kelompok-tab" data-tabs-target="#kelompok"
                         type="button" role="tab" aria-controls="kelompok" aria-selected="false">Kelompok</button>
                 </li>
                 <li @click="tab = 'jenis'" class="mr-2" role="presentation">
                     <button @click="tab = 'jenis'"
-                        :class="tab == 'jenis' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                        :class="tab == 'jenis' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                         class="inline-block p-4 border-b-2 rounded-t-lg" id="jenis-tab" data-tabs-target="#jenis"
                         type="button" role="tab" aria-controls="jenis" aria-selected="false">Jenis</button>
                 </li>
                 <li @click="tab = 'objek'" class="mr-2" role="presentation">
                     <button @click="tab = 'objek'"
-                        :class="tab == 'objek' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                        :class="tab == 'objek' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                         class="inline-block p-4 border-b-2 rounded-t-lg" id="objek-tab" data-tabs-target="#objek"
                         type="button" role="tab" aria-controls="objek" aria-selected="false">Objek</button>
                 </li>
                 <li @click="tab = 'rincian_objek'" class="mr-2" role="presentation">
                     <button @click="tab = 'rincian_objek'"
-                        :class="tab == 'rincian_objek' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                        :class="tab == 'rincian_objek' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                         class="inline-block p-4 border-b-2 rounded-t-lg" id="rincian_objek-tab"
                         data-tabs-target="#rincian_objek" type="button" role="tab" aria-controls="rincian_objek"
                         aria-selected="false">Rincian Objek</button>
                 </li>
                 <li @click="tab = 'sub_rincian_objek'" class="mr-2" role="presentation">
                     <button @click="tab = 'sub_rincian_objek'"
-                        :class="tab == 'sub_rincian_objek' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                        :class="tab == 'sub_rincian_objek' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                         class="inline-block p-4 border-b-2 rounded-t-lg" id="sub_rincian_objek-tab"
                         data-tabs-target="#sub_rincian_objek" type="button" role="tab" aria-controls="sub_rincian_objek"
                         aria-selected="false">Rekening (Sub Rincian Objek)</button>

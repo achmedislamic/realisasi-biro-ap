@@ -33,7 +33,7 @@
                 <x-table.td>
                     {{ $program->kode }}
                 </x-table.td>
-                <x-table.td class="hover:underline hover:cursor-pointer hover:text-blue-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $uptId }}')">
+                <x-table.td class="hover:underline hover:cursor-pointer hover:text-yellow-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $uptId }}')">
                     {{ $program->nama }}
                     <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $uptId }}')" />
                 </x-table.td>

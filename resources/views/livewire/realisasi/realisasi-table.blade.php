@@ -58,7 +58,7 @@
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
                 <li class="mr-2" role="presentation">
                     <button @click="tab = 'uang'"
-                            :class="tab == 'uang' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                            :class="tab == 'uang' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                             class="inline-block p-4 border-b-2 rounded-t-lg" id="uang-tab"
                             data-tabs-target="#uang" type="button" role="tab"
                             aria-selected="false">Keuangan</button>
@@ -66,7 +66,7 @@
 
                 <li class="mr-2" role="presentation">
                     <button @click="tab = 'fisik'"
-                            :class="tab == 'fisik' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                            :class="tab == 'fisik' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                             class="inline-block p-4 border-b-2 rounded-t-lg" id="fisik-tab"
                             data-tabs-target="#fisik" type="button" role="tab"
                             aria-selected="false">Fisik</button>
@@ -134,7 +134,7 @@
                     <x-slot name="table_actions">
                         @if (blank($objekRealisasi?->target))
                             <p>Tidak bisa mengisi realisasi fisik karena belum mengisi target fisik.</p>
-                            <a href="{{ route('objek-realisasi.form', [$objekRealisasi?->id]) }}" class="hover:underline text-blue-500">Klik di sini untuk mengisi Target Fisik.</a>
+                            <a href="{{ route('objek-realisasi.form', [$objekRealisasi?->id]) }}" class="hover:underline text-yellow-500">Klik di sini untuk mengisi Target Fisik.</a>
                         @else
                             <x-button primary label="Tambah" :href="route('realisasi-fisik.form', $objekRealisasiId)" />
                         @endif

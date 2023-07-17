@@ -74,9 +74,9 @@
                         <x-table.td>
                             {{ $realisasiApbds->firstItem() + $key }}
                         </x-table.td>
-                        <x-table.td wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" class="hover:underline hover:text-blue-500 hover:cursor-pointer">
+                        <x-table.td wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" class="hover:underline hover:text-yellow-500 hover:cursor-pointer">
                             {{ $objekRealisasi->subRincianObjekBelanja->rincianObjekBelanja->kode . ' ' . $objekRealisasi->subRincianObjekBelanja->kode . '.' . $objekRealisasi->subRincianObjekBelanja->nama }}
-                            <x-loading-indicator target="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" class="hover:underline hover:text-blue-500 hover:cursor-pointer" />
+                            <x-loading-indicator target="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" class="hover:underline hover:text-yellow-500 hover:cursor-pointer" />
                         </x-table.td>
                         <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}

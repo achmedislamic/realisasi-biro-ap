@@ -16,7 +16,7 @@
                 type="file"
                 accept=".xls,.xlsx" />
 
-            <small><a href="{{ asset('dokumen/format-import.xlsx') }}" class="text-blue-500 hover:underline hover:text-blue-700">Format Excel-nya bisa diunduh di sini</a></small>
+            <small><a href="{{ asset('dokumen/format-import.xlsx') }}" class="text-yellow-500 hover:underline hover:text-yellow-700">Format Excel-nya bisa diunduh di sini</a></small>
 
             <div class="ml-auto">
                 @if (!$hideButton)

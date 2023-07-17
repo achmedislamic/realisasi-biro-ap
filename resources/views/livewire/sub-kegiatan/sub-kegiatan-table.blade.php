@@ -54,7 +54,7 @@
                         {{ $subKegiatan->kode }}
                     </x-table.td>
                     @if (filled($menu))
-                    <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-blue-500">
+                    <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-yellow-500">
                         {{ $subKegiatan->nama }}
                         <x-loading-indicator />
                     </x-table.td>

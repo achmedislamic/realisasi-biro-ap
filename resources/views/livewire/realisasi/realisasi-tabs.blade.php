@@ -9,7 +9,7 @@
         <div>
             {{-- @if (auth()->user()->isAdminOrSektor() || auth()->user()->isOpd()) --}}
             @if (auth()->user()->isAdmin())
-                <div class="mb-4 bg-slate-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
+                <div class="mb-4 bg-yellow-100 p-3 pt-0 rounded-md flex gap-2 justify-end">
                     <div class="pt-3 w-1/2 flex gap-2">
                         {{-- @if (auth()->user()->isAdminOrSektor()) --}}
                         @if (auth()->user()->isAdmin())
@@ -57,7 +57,7 @@
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
                         <li class="mr-2" role="presentation">
                             <button @click="tab = 'program'"
-                                    :class="tab == 'program' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                    :class="tab == 'program' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                     class="inline-block p-4 border-b-2 rounded-t-lg" id="program-tab"
                                     data-tabs-target="#program" type="button" role="tab"
                                     aria-selected="false">Program</button>
@@ -65,7 +65,7 @@
 
                         <li class="mr-2" role="presentation">
                             <button @click="tab = 'kegiatan'"
-                                    :class="tab == 'kegiatan' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                    :class="tab == 'kegiatan' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                     class="inline-block p-4 border-b-2 rounded-t-lg" id="kegiatan-tab"
                                     data-tabs-target="#kegiatan" type="button" role="tab"
                                     aria-selected="false">Kegiatan</button>
@@ -73,7 +73,7 @@
 
                         <li class="mr-2" role="presentation">
                             <button @click="tab = 'subKegiatan'"
-                                    :class="tab == 'subKegiatan' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                    :class="tab == 'subKegiatan' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                     class="inline-block p-4 border-b-2 rounded-t-lg" id="sub-kegiatan-tab"
                                     data-tabs-target="#subKegiatan" type="button" role="tab"
                                     aria-selected="false">Sub Kegiatan</button>
@@ -81,14 +81,14 @@
 
                         <li class="mr-2" role="presentation">
                             <button @click="tab = 'objekRealisasi'"
-                                    :class="tab == 'objekRealisasi' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                    :class="tab == 'objekRealisasi' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                     class="inline-block p-4 border-b-2 rounded-t-lg" id="objek-realisasi-tab"
                                     data-tabs-target="#objek-realisasi" type="button" role="tab" aria-controls="profile"
                                     aria-selected="false">Rekening</button>
                         </li>
                         <li @click="tab = 'realisasi'" class="mr-2" role="presentation">
                             <button @click="tab = 'realisasi'"
-                                    :class="tab == 'realisasi' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                    :class="tab == 'realisasi' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                     class="inline-block p-4 border-b-2 rounded-t-lg" id="realisasi-tab"
                                     data-tabs-target="#realisasi" type="button" role="tab" aria-controls="profile"
                                     aria-selected="false">Realisasi</button>

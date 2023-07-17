@@ -11,13 +11,13 @@
                 @if ($mode != 'opd')
                     <li class="mr-2" role="presentation">
                         <button @click="tab = 'urusan'"
-                                :class="tab == 'urusan' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                :class="tab == 'urusan' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                 class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile"
                                 type="button" role="tab" aria-controls="profile" aria-selected="false">Urusan</button>
                     </li>
                     <li @click="tab = 'bidang_urusan'" class="mr-2" role="presentation">
                         <button @click="tab = 'bidang_urusan'"
-                                :class="tab == 'bidang_urusan' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                                :class="tab == 'bidang_urusan' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                                 class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile"
                                 type="button" role="tab" aria-controls="profile" aria-selected="false">Bidang Urusan</button>
                     </li>
@@ -25,13 +25,13 @@
 
                 <li @click="tab = 'opd'" class="mr-2" role="presentation">
                     <button @click="tab = 'opd'"
-                            :class="tab == 'opd' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                            :class="tab == 'opd' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                             class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">OPD</button>
                 </li>
                 <li @click="tab = 'sub_opd'" class="mr-2" role="presentation">
                     <button @click="tab = 'sub_opd'"
-                            :class="tab == 'sub_opd' ? 'text-blue-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
+                            :class="tab == 'sub_opd' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
                             class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile"
                             type="button" role="tab" aria-controls="profile" aria-selected="false">Sub OPD</button>
                 </li>
