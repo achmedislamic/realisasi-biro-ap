@@ -5,10 +5,11 @@ namespace App\Http\Livewire\ObjekRealisasi;
 use App\Jobs\ImportObjekRealisasi as JobImportObjekRealisasi;
 use App\Traits\WithLiveValidation;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\View\View;
 use Livewire\{Component, WithFileUploads};
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class ImportObjekRealisasi extends Component
+final class ImportObjekRealisasi extends Component
 {
     use WithLiveValidation;
     use WithFileUploads;
@@ -17,14 +18,14 @@ class ImportObjekRealisasi extends Component
 
     public $hideButton;
 
-    public function mount()
+    public function mount(): void
     {
         $this->hideButton = false;
     }
 
     protected $listeners = ['importSelesai' => 'showButton'];
 
-    public function showButton()
+    public function showButton(): void
     {
         $this->hideButton = false;
     }
@@ -36,7 +37,7 @@ class ImportObjekRealisasi extends Component
         ];
     }
 
-    public function upload()
+    public function upload(): void
     {
         $this->validate();
 
@@ -57,7 +58,7 @@ class ImportObjekRealisasi extends Component
         $this->hideButton = true;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.objek-realisasi.import-objek-realisasi');
     }

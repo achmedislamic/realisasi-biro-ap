@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="overflow-auto">
+    <div class="relative overflow-x-auto shadow-md rounded-md sm:rounded-lg border border-utama">
         <table {{ $attributes->merge(['class' => 'w-full text-sm text-left text-gray-500 dark:text-gray-400']) }}>
             {{ $slot }}
         </table>

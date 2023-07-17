@@ -45,10 +45,13 @@
         </div>
     </div>
 
-    <table class="border-collapse border border-slate-400 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="! auth()->user()->isSubOpd()" />
-        <tbody>
-            <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="! auth()->user()->isSubOpd()" />
-        </tbody>
-    </table>
+    <div class="relative overflow-x-auto shadow-md rounded-md sm:rounded-lg border border-utama">
+        <table class="border-collapse w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <x-dashboard.thead :$colspanRealisasi :$periode :$foreachCount :denganTarget="! auth()->user()->isSubOpd()" />
+            <tbody>
+                <x-table.tbody-dashboard :$opds :$targetOpds :$periode :$foreachCount :denganTarget="! auth()->user()->isSubOpd()" />
+            </tbody>
+        </table>
+    </div>
+
 </div>

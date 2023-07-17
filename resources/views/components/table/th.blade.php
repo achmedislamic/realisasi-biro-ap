@@ -1,3 +1,3 @@
-<th {{ $attributes->merge(['scope' => 'col', 'class' => 'py-3 px-3 border border-slate-400']) }}>
+<th {{ $attributes->merge(['scope' => 'col', 'class' => 'py-3 px-3']) }}>
   {{ $slot }}
 </th>

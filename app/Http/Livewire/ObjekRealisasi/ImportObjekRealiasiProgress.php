@@ -3,9 +3,10 @@
 namespace App\Http\Livewire\ObjekRealisasi;
 
 use Illuminate\Support\Facades\Bus;
+use Illuminate\View\View;
 use Livewire\Component;
 
-class ImportObjekRealiasiProgress extends Component
+final class ImportObjekRealiasiProgress extends Component
 {
     public $showImportProgress = false;
 
@@ -15,7 +16,7 @@ class ImportObjekRealiasiProgress extends Component
 
     protected $listeners = ['showImportProgressEvent' => 'showProgress'];
 
-    public function showProgress($idBatch = '')
+    public function showProgress($idBatch = ''): void
     {
         if ($idBatch) {
             $this->idBatch = $idBatch;
@@ -24,7 +25,7 @@ class ImportObjekRealiasiProgress extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         $percentage = 0;
         if ($this->idBatch) {

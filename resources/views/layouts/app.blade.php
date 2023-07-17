@@ -14,7 +14,9 @@
     @livewireStyles
 
     <style>
-        [x-cloak] { display: none !important; }
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -28,11 +30,11 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-        <header class="">
-            <div class="container mx-auto py-7">
-                {{ $header }}
-            </div>
-        </header>
+            <header class="">
+                <div class="container mx-auto py-7">
+                    {{ $header }}
+                </div>
+            </header>
         @endif
 
         <!-- Page Content -->

@@ -7,7 +7,7 @@
 @endphp
 @foreach ($opds as $opd)
     <x-table.tr>
-        <th scope="row" class="py-3 px-3 border border-slate-400 whitespace-nowrap {{ isset($opd->is_biro) && $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
+        <th scope="row" class="py-3 px-3 whitespace-nowrap {{ isset($opd->is_biro) && $opd->is_biro == 0 ? 'hover:underline hover:text-blue-500 hover:cursor-pointer' : '' }}">
             <div class="flex flex-row justify-between">
                 <p {!! isset($opd->is_biro) && $opd->is_biro == 0 ? "wire:click=\"\$emit('opdDashboardClicked', {$opd->id}, '{$periode}')\"" : '' !!}>{{ isset($opd->kode) && $opd->kode == '0000' ? 'Induk' : $opd->nama_pd }}</p>
 
