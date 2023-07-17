@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
-use App\Models\Opd;
-use App\Models\{Jadwal, User};
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,35 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('ubah-realisasi', function (User $user) {
-            if ($user->isAdminOrSektor()) {
-                return true;
-            }
-
-            $jadwal = Jadwal::firstWhere('is_aktif', true);
-
-            if (blank($jadwal) && $user->isNotAdmin()) {
-                return false;
-            }
-
-            return $jadwal->tanggal_waktu > now();
-        });
-
         Gate::define('realisasi-menu', function (User $user, int|string $opdId = null, int|string $subOpdId = null) {
-            if ($user->isAdmin()) {
-                return true;
-            }
-
-            $matchOpd = Opd::query()
-                ->where('sektor_id', $user->role->imageable_id)
-                ->where('id', $opdId)
-                ->first();
-
-            if($user->isSektor() && ! is_null($matchOpd)){
-                return true;
-            }
-
-            return $user->role->imageable_id == $opdId || $user->role->imageable_id == $subOpdId;
+            return $user->isAdmin() || ($user->role->imageable_id == $opdId && $user->role->imageable_type == 'bidang') || ($user->role->imageable_id == $subOpdId && $user->role->imageable_type == 'sub_opd');
         });
 
         Gate::define('pengguna-menu', fn (User $user) => $user->isAdmin());

@@ -19,9 +19,6 @@ class OpdController extends Controller
             ->selectRaw('id, CONCAT(kode, " ", nama) AS nama')
             ->orderBy('kode')
             ->orderBy('nama')
-            ->when(auth()->user()->isSektor(), function (Builder $query) {
-                $query->where('sektor_id', auth()->user()->role->imageable_id);
-            })
             ->when(
                 $request->search,
                 fn (Builder $query) => $query
