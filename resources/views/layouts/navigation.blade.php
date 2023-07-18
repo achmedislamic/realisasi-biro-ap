@@ -11,7 +11,29 @@
                     </svg>
                 </button>
             </div>
-            <div class="w-full flex justify-between">
+            <div :class="menu ? 'transform-none' : '-translate-x-full'" x-cloak class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform bg-white w-64 dark:bg-gray-800">
+                <ul class="flex flex-col space-y-3">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" text="Beranda" />
+
+                    @can('is-admin')
+                    <x-nav-link href="/telescope" text="Monitoring Aplikasi" target="_blank" />
+                    @endcan
+
+                    @if (auth()->user()->isAdmin())
+                    <x-nav-link :href="route('tahapan-apbd')"
+                        :active="request()->routeIs('tahapan-apbd') || request()->routeIs('tahapan-apbd.form')"
+                        text="Tahapan APBD" />
+                    <x-navigation.master-link />
+                    @endif
+
+                    <x-navigation.realisasi-link />
+                    <x-navigation.laporan-link />
+                </ul>
+                <div class="md:flex ml-auto items-center mt-4 md:mt-0">
+                    <x-navigation.pengguna-link />
+                </div>
+            </div>
+            <div class="hidden md:w-full md:flex md:justify-between" x-cloak>
                 <ul class="md:flex items-center text-sm font-semibold">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" text="Beranda" />
 
