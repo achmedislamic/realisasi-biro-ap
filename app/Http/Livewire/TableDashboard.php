@@ -19,7 +19,12 @@ final class TableDashboard extends Component
 
     public function render(): View
     {
-        $opds = auth()->user()->isAdmin() ? $this->subOpds(1) : collect();
+        $opds = collect();
+        if(auth()->user()->isAdmin()){
+            $opds = $this->subOpds(1);
+        } elseif(auth()->user()->isSubOpd()){
+            $opds = $this->subOpds(auth()->user()->role->imageable_id);
+        }
 
         [$targetOpds, $colspanRealisasi, $foreachCount] = [Target::all(), $this->colspanRealisasi($this->periode), $this->foreachCount($this->periode)];
 

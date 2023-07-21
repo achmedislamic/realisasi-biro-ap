@@ -13,6 +13,10 @@ final class UserRole extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    protected $casts = [
+        'imageable_type' => RoleName::class
+    ];
+
     public function imageable(): MorphTo
     {
         return $this->morphTo();

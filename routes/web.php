@@ -5,7 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\AkunBelanja\AkunBelanjaForm;
 use App\Http\Livewire\JenisBelanja\JenisBelanjaForm;
 use App\Http\Livewire\KelompokBelanja\KelompokBelanjaForm;
-use App\Http\Livewire\Laporan\{LaporanDeviasi, LaporanFormA, LaporanFormB, LaporanFormC, LaporanFormE, LaporanSemester};
+use App\Http\Livewire\Laporan\{LaporanFormA, LaporanFormB, LaporanFormC, LaporanSemester};
 use App\Http\Livewire\ObjekBelanja\ObjekBelanjaForm;
 use App\Http\Livewire\ObjekRealisasi\{ImportObjekRealisasi, ObjekRealisasiForm};
 use App\Http\Livewire\Realisasi\{RealisasiFisikForm, RealisasiForm, RealisasiTabs};

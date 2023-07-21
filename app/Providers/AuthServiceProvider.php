@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Enums\RoleName;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -24,7 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('realisasi-menu', function (User $user, int|string $opdId = null, int|string $subOpdId = null) {
-            return $user->isAdmin() || ($user->role->imageable_id == $opdId && $user->role->imageable_type == 'bidang') || ($user->role->imageable_id == $subOpdId && $user->role->imageable_type == 'sub_opd');
+            // dd($user->isAdmin() || ($user->role->imageable_id == $opdId && $user->role->imageable_type === RoleName::BIDANG) || ($user->role->imageable_id == $subOpdId && $user->role->imageable_type === RoleName::SUB_OPD));
+            // dd(($user->role->imageable_id == $subOpdId && $user->role->imageable_type === RoleName::SUB_OPD));
+            // return true;
+            return $user->isAdmin() || ($user->role->imageable_id == $opdId && $user->role->imageable_type === RoleName::BIDANG) || ($user->role->imageable_id == $subOpdId && $user->role->imageable_type === RoleName::SUB_OPD);
         });
 
         Gate::define('pengguna-menu', fn (User $user) => $user->isAdmin());

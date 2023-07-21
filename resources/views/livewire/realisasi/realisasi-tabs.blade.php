@@ -97,16 +97,16 @@
                 </div>
                 <div id="myTabContent">
                     <div x-show="tab == 'program'" x-transition>
-                        @livewire('program.program-table', ['menu' => 'realisasi', 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
+                        @livewire('program.program-table', ['menu' => 'realisasi', 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'kegiatan'" x-transition>
-                        @livewire('kegiatan.kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
+                        @livewire('kegiatan.kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'subKegiatan'" x-transition>
-                        @livewire('sub-kegiatan.sub-kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
+                        @livewire('sub-kegiatan.sub-kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'objekRealisasi'" x-transition>
-                        @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'bidangId' => $bidangPilihan, 'subOpdPilihan' => $subOpdPilihan])
+                        @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'realisasi'" x-transition>
                         @livewire('realisasi.realisasi-table')

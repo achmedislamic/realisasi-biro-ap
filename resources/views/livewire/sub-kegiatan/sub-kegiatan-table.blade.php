@@ -25,8 +25,8 @@
                 </x-table.th>
                 @if (filled($menu) && config('app.mode') != 'pupr')
                     <x-table.th>Nama OPD</x-table.th>
-                    <x-table.th>Nama UPT</x-table.th>
                 @endif
+                <x-table.th>Nama UPT</x-table.th>
 
                 <x-table.th>
                     Kode
@@ -47,8 +47,8 @@
                     </x-table.td>
                     @if (filled($menu) && config('app.mode') != 'pupr')
                         <x-table.td>{{ $subKegiatan->kode_opd . ' ' . $subKegiatan->nama_opd }}</x-table.td>
-                        <x-table.td>{{ $subKegiatan->kode_sub_opd . ' ' . $subKegiatan->nama_sub_opd }}</x-table.td>
                     @endif
+                    <x-table.td>{{ $subKegiatan->kode_sub_opd . ' ' . $subKegiatan->nama_sub_opd }}</x-table.td>
 
                     <x-table.td>
                         {{ $subKegiatan->kode }}

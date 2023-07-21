@@ -109,11 +109,11 @@ trait PerhitunganAnggaranRealisasiDashboard
 
         return $this->table()
             ->selectRaw($select)
-            ->when(auth()->user()->isAdmin(), fn ($query) => $query->where('o.id', $where))
+            ->where(auth()->user()->isAdmin() ? 'o.id' : 'so.id', $where)
             ->groupByRaw('so.kode, so.nama, so.id')
             ->orderBy('so.kode')
             ->orderBy('so.nama')
-            // ->dd()
+            // ->ddRawSql()
             ->get();
     }
 

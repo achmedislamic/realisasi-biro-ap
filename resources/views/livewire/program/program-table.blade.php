@@ -2,7 +2,7 @@
 
     <x-table.index :model="$programs">
 
-        @can('is-sektor')
+        @can('is-admin')
             <x-slot name="table_actions">
                 <x-button primary :href="route('program.form')" label="Tambah" />
             </x-slot>
@@ -33,9 +33,9 @@
                 <x-table.td>
                     {{ $program->kode }}
                 </x-table.td>
-                <x-table.td class="hover:underline hover:cursor-pointer hover:text-yellow-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $uptId }}')">
+                <x-table.td class="hover:underline hover:cursor-pointer hover:text-yellow-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')">
                     {{ $program->nama }}
-                    <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $uptId }}')" />
+                    <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
                 <x-table.td>
                     @if ($menu != 'realisasi')
@@ -55,7 +55,7 @@
                     @endif
 
                     <x-button.circle positive xs icon="folder-open"
-                        wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $uptId }}')" />
+                        wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
                 </x-table.td>
 
             </x-table.tr>
