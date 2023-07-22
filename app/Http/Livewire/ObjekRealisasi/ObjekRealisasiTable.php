@@ -8,11 +8,9 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
 
-class ObjekRealisasiTable extends Component
+final class ObjekRealisasiTable extends Component
 {
-    use WithPagination;
-    use Actions;
-    use Pencarian;
+    use Actions, Pencarian, WithPagination;
 
     public $tahapanApbds;
 
@@ -85,7 +83,7 @@ class ObjekRealisasiTable extends Component
 
             ->select('objek_realisasis.id AS id', 'objek_realisasis.sub_kegiatan_id', 'objek_realisasis.anggaran', 'objek_realisasis.sub_rincian_objek_belanja_id', 'objek_realisasis.target', 's.nama AS nama_satuan')
             ->where('objek_realisasis.sub_kegiatan_id', $this->subKegiatanId)
-            ->when(filled($this->opdId) && (auth()->user()->isAdmin() || auth()->user()->isOpd()), function (Builder $query) {
+            ->when(filled($this->opdId) && (auth()->user()->isAdmin()), function (Builder $query) {
                 $query->where('opds.id', $this->opdId);
             })
             ->when(filled($this->subOpdId), function (Builder $query) {
@@ -95,7 +93,7 @@ class ObjekRealisasiTable extends Component
                 $query->join('sub_rincian_objek_belanjas AS srob', 'srob.id', '=', 'objek_realisasis.sub_rincian_objek_belanja_id');
             })
             ->pencarian($this->cari)
-            // ->dd()
+            // ->ddRawSql()
             ->paginate();
 
         $subKegiatan = SubKegiatan::with('kegiatan.program')->find($this->subKegiatanId);

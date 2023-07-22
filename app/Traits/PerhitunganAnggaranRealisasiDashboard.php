@@ -82,20 +82,6 @@ trait PerhitunganAnggaranRealisasiDashboard
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id);
     }
 
-    protected function opds()
-    {
-        $select = "o.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}, 0 AS is_biro";
-
-        return $this->table()
-            ->when(auth()->user()->isAdmin(), function (Builder $query) use ($select) {
-                $query->selectRaw('o.id AS id, '.$select)
-                    ->where('o.nama', '!=', 'Sekretariat Daerah')
-                    ->groupByRaw('o.nama, o.id')
-                    ->orderBy('o.nama');
-            })
-            ->get();
-    }
-
     protected function subOpds(string|int $where = null): Collection
     {
         if (is_null($where)) {

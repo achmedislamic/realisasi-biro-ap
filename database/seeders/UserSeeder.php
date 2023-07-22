@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Bidang;
 use App\Models\SubOpd;
-use App\Models\Upt;
 use App\Models\{User, UserRole};
 use Illuminate\Database\Seeder;
 

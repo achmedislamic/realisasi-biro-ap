@@ -26,7 +26,9 @@
                 @if (filled($menu) && config('app.mode') != 'pupr')
                     <x-table.th>Nama OPD</x-table.th>
                 @endif
-                <x-table.th>Nama UPT</x-table.th>
+                @if (!auth()->user()->isSubOpd())
+                    <x-table.th>Nama UPT</x-table.th>
+                @endif
 
                 <x-table.th>
                     Kode
@@ -48,18 +50,22 @@
                     @if (filled($menu) && config('app.mode') != 'pupr')
                         <x-table.td>{{ $subKegiatan->kode_opd . ' ' . $subKegiatan->nama_opd }}</x-table.td>
                     @endif
-                    <x-table.td>{{ $subKegiatan->kode_sub_opd . ' ' . $subKegiatan->nama_sub_opd }}</x-table.td>
+                    @if (!auth()->user()->isSubOpd())
+                        <x-table.td>{{ $subKegiatan->kode_sub_opd . ' ' . $subKegiatan->nama_sub_opd }}</x-table.td>
+                    @endif
 
                     <x-table.td>
                         {{ $subKegiatan->kode }}
                     </x-table.td>
                     @if (filled($menu))
-                    <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-yellow-500">
-                        {{ $subKegiatan->nama }}
-                        <x-loading-indicator />
-                    </x-table.td>
+                        <x-table.td
+                                    wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')"
+                                    class="hover:underline hover:cursor-pointer hover:text-yellow-500">
+                            {{ $subKegiatan->nama }}
+                            <x-loading-indicator />
+                        </x-table.td>
                     @else
-                    <x-table.td>{{ $subKegiatan->nama }}</x-table.td>
+                        <x-table.td>{{ $subKegiatan->nama }}</x-table.td>
                     @endif
 
                     <x-table.td>
@@ -82,7 +88,8 @@
                         @if ($menu == 'realisasi')
                             <div class="flex flex-row space-x-3">
                                 @if (config('app.mode') != 'pupr')
-                                    <x-button orange xs icon="document" label="Isi Rincian Masalah" href="{{ route('rincian-masalah.form', ['subKegiatan' => $subKegiatan->id, 'subOpd' => $subKegiatan->sub_opd_id]) }}" />
+                                    <x-button orange xs icon="document" label="Isi Rincian Masalah"
+                                              href="{{ route('rincian-masalah.form', ['subKegiatan' => $subKegiatan->id, 'subOpd' => $subKegiatan->sub_opd_id]) }}" />
                                 @endif
 
                                 <x-button.circle spinner positive xs icon="folder-open"
