@@ -54,7 +54,7 @@
                         {{ $subKegiatan->kode }}
                     </x-table.td>
                     @if (filled($menu))
-                        <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-blue-500">
+                        <x-table.td wire:click="$emit('subKegiatanClicked', '{{ $subKegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan?->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" class="hover:underline hover:cursor-pointer hover:text-blue-500">
                             {{ $subKegiatan->nama }}
                             <x-loading-indicator />
                         </x-table.td>
@@ -82,7 +82,7 @@
                             <div class="flex flex-row space-x-3">
                                 <x-button orange xs icon="document" label="Isi Rincian Masalah" href="{{ route('rincian-masalah.form', ['subKegiatan' => $subKegiatan->id, 'subOpd' => $subKegiatan->sub_opd_id]) }}" />
                                 <x-button.circle spinner positive xs icon="folder-open"
-                                                 wire:click="$emit('subKegiatanClicked', '{{ $kegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" />
+                                                 wire:click="$emit('subKegiatanClicked', '{{ $subKegiatan->id }}', '{{ $menu }}', '{{ $subKegiatan->opd_id }}', '{{ $subKegiatan->sub_opd_id }}')" />
                             </div>
                         @endif
                     </x-table.td>
