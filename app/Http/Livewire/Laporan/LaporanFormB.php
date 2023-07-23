@@ -33,6 +33,11 @@ final class LaporanFormB extends Component
         $this->anggarans = collect();
         $this->subOpds = collect();
         $this->bidangUrusans = collect();
+
+        if (auth()->user()->isSubOpd()) {
+            $this->subOpdDipilih = auth()->user()->role->imageable_id;
+            $this->opdDipilih = SubOpd::select('opd_id')->find($this->subOpdDipilih)->opd_id;
+        }
     }
 
     public function updatedUrusanDipilih($value)
