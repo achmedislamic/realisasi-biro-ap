@@ -53,30 +53,30 @@
 
             <div class="flex gap-x-4">
                 <div class="w-full">
-                    <x-native-select :disabled="auth()->user()->isNotAdmin()" label="Program" wire:model="programPilihan">
+                    <x-form.select searchable required :disabled="auth()->user()->isNotAdmin()" label="Program" wire:model.defer="programPilihan">
                         <option selected>Pilih Program</option>
                         @foreach ($programs as $program)
                             <option value="{{ $program->id }}">{{ $program->kode }} - {{ $program->nama }}</option>
                         @endforeach
-                    </x-native-select>
+                    </x-form.select>
                 </div>
 
                 <div class="w-full">
-                    <x-native-select :disabled="auth()->user()->isNotAdmin()" label="Kegiatan" wire:model="kegiatanPilihan">
+                    <x-form.select searchable required :disabled="auth()->user()->isNotAdmin()" label="Kegiatan" wire:model.defer="kegiatanPilihan">
                         <option selected>Pilih Kegiatan</option>
                         @foreach ($kegiatans as $kegiatan)
                             <option value="{{ $kegiatan->id }}">{{ $kegiatan->kode }} - {{ $kegiatan->nama }}</option>
                         @endforeach
-                    </x-native-select>
+                    </x-form.select>
                 </div>
             </div>
 
-            <x-native-select :disabled="auth()->user()->isNotAdmin()" label="Sub Kegiatan" wire:model.defer="subKegiatanPilihan">
+            <x-form.select searchable required :disabled="auth()->user()->isNotAdmin()" label="Sub Kegiatan" wire:model.defer="subKegiatanPilihan">
                 <option selected>Pilih Sub Kegiatan</option>
                 @foreach ($subKegiatans as $subKegiatan)
                     <option value="{{ $subKegiatan->id }}">{{ $subKegiatan->kode }} - {{ $subKegiatan->nama }}</option>
                 @endforeach
-            </x-native-select>
+            </x-form.select>
 
             <div class="w-full">
                 <x-select
@@ -124,3 +124,14 @@
     </form>
 
 </x-container>
+
+@pushOnce('styles')
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+/>
+@endPushOnce
+
+@prependOnce('scripts')
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+@endPrependOnce

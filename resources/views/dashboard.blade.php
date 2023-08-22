@@ -38,7 +38,10 @@
                         datalabels: {
                             backgroundColor: 'white',
                             color: 'black',
-                            padding: 3
+                            padding: 3,
+                            formatter: (value, context) => {
+                                return value.toLocaleString(); // Format value with commas
+                            }
                         }
                     }
                 }
