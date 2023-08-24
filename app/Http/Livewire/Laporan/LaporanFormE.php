@@ -46,8 +46,8 @@ final class LaporanFormE extends Component
     {
         $this->validate([
             'triwulan' => 'required|numeric',
-            'opdDipilih' => 'required|numeric',
-            'subOpdDipilih' => 'nullable|numeric',
+            'opdDipilih' => 'required|integer',
+            'subOpdDipilih' => 'nullable|integer',
         ]);
 
         return Excel::download(new LaporanFormEExport($this->triwulan, $this->opdDipilih, $this->subOpdDipilih), 'laporan-form-e.xlsx');

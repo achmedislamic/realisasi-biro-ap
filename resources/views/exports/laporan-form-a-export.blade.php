@@ -375,7 +375,8 @@
                     $sisaAnggaran = $anggaran - $realisasiSdBulanIni;
 
                     $realisasiFisikBulanLalu = $queryBelanja6->sum('realisasi_fisik_bulan_lalu');
-                    $realisasiFisikBulanIni = $queryBelanja6->sum('realisasi_fisik_bulan_ini');                    $realisasiFisikSdBulanIni = $queryBelanja6->sum('realisasi_fisik_sd_bulan_ini');
+                    $realisasiFisikBulanIni = $queryBelanja6->sum('realisasi_fisik_bulan_ini');
+                    $realisasiFisikSdBulanIni = $queryBelanja6->sum('realisasi_fisik_sd_bulan_ini');
                 @endphp
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $realisasiBulanLalu }}</td>
                 <td style="{{ config('app.td_style') }} text-align: right;">{{ $anggaran == 0 ? 0 : $realisasiBulanLalu / $anggaran }}</td>
@@ -402,18 +403,18 @@
 
     <tr>
         <td colspan="2" style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">Jumlah Belanja</td>
-        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('anggaran') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('anggaran') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
-        <td style="{{ config('app.td_style') }}"></td>
-        <td style="{{ config('app.td_style') }}"></td>
-
-        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('realisasi_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
         <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="{{ config('app.td_style') }} text-align: right;">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('realisasi_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }}"></td>
+        <td style="{{ config('app.td_style') }}"></td>
+
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
         <td style="{{ config('app.td_style') }}"></td>
     </tr>

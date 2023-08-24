@@ -324,16 +324,16 @@
 
     <tr>
         <td colspan="2" style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">Jumlah Belanja</td>
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('anggaran') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('anggaran') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
 
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('anggaran_bulan_lalu') }}</td>
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('anggaran_bulan_ini') }}</td>
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('anggaran_bulan_lalu') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('realisasi_bulan_lalu') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('anggaran_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('realisasi_bulan_ini') }}</td>
 
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('anggaran_sd_bulan_ini') }}</td>
-        <td style="{{ config('app.td_style') }}">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('anggaran_sd_bulan_ini') }}</td>
+        <td style="{{ config('app.td_style') }} text-align: right; font-weight: bold;">{{ $opds->sum('realisasi_sd_bulan_ini') }}</td>
         <td style="{{ config('app.td_style') }}"></td>
 
         <td style="{{ config('app.td_style') }}"></td>

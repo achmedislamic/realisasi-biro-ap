@@ -61,8 +61,8 @@ final class LaporanFormC extends Component
     public function rules()
     {
         return [
-            'urusanDipilih' => 'required|numeric',
-            'bidangUrusanDipilih' => 'nullable|numeric',
+            'urusanDipilih' => 'required|integer',
+            'bidangUrusanDipilih' => 'nullable|integer',
             'triwulan' => 'required|string|max:15',
             'opdDipilih' => 'required|numeric',
             'subOpdDipilih' => 'nullable|numeric',
