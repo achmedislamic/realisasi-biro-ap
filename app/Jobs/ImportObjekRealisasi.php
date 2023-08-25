@@ -113,10 +113,10 @@ class ImportObjekRealisasi implements ShouldQueue
                         'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
                         'sub_kegiatan_id' => $subKegiatan->id,
                         'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
+                        'tahapan_apbd_id' => intval($this->idTahapanApbd),
                     ],
                     [
                         'anggaran' => floatval($item['APBD']),
-                        'tahapan_apbd_id' => intval($this->idTahapanApbd),
                     ]
                 );
             }

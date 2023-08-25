@@ -57,11 +57,11 @@ final class LaporanFormA extends Component
     public function rules()
     {
         return [
-            'urusanDipilih' => 'required|numeric',
-            'bidangUrusanDipilih' => 'nullable|string',
+            'urusanDipilih' => 'required|integer',
+            'bidangUrusanDipilih' => 'nullable|integer',
             'bulan' => 'required|string|max:15',
-            'opdDipilih' => 'required|numeric',
-            'subOpdDipilih' => 'nullable|numeric',
+            'opdDipilih' => 'required|integer',
+            'subOpdDipilih' => 'nullable|integer',
         ];
     }
 
