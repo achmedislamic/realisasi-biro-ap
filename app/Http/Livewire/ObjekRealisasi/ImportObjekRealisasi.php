@@ -48,6 +48,7 @@ class ImportObjekRealisasi extends Component
         $jobs = [];
 
         foreach ($chunks as $objekRealisasiChunk) {
+            // dd($objekRealisasiChunk);
             array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, cache('tahapanApbd')->id));
         }
 
