@@ -108,22 +108,17 @@ class ImportObjekRealisasi implements ShouldQueue
                 'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' '),
             ]);
 
-            // dd($subRincianObjekBelanja);
-
-            if (! is_null($bidangUrusanSubOpd->id) && ! is_null($subKegiatan->id) && ! is_null($subRincianObjekBelanja->id)) {
-                ObjekRealisasi::create(
-                    [
-                        'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
-                        'sub_kegiatan_id' => $subKegiatan->id,
-                        'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
-                        'tahapan_apbd_id' => $this->idTahapanApbd,
-                        'anggaran' => floatval($item['APBD']),
-                    ]
-                    // [
-
-                    // ]
-                );
-            }
+            ObjekRealisasi::updateOrCreate(
+                [
+                    'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
+                    'sub_kegiatan_id' => $subKegiatan->id,
+                    'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
+                    'tahapan_apbd_id' => $this->idTahapanApbd,
+                ],
+                [
+                    'anggaran' => floatval($item['APBD']),
+                ]
+            );
         }
     }
 }
