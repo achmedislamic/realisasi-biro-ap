@@ -47,7 +47,7 @@ class ImportObjekRealisasi implements ShouldQueue
                 'opd_id' => $opd->id,
                 'kode' => str($item['Sub Unit'])->before(' ')->after($opd->kode.'.'),
                 'nama' => str($item['Sub Unit'])->after(' '),
-                'is_biro' => str($item['Sub Unit'])->contains('Biro') ? true : false,
+                'is_biro' => str($item['Sub Unit'])->contains('Biro'),
             ]);
 
             $bidangUrusanSubOpd = BidangUrusanSubOpd::firstOrCreate([
@@ -107,19 +107,17 @@ class ImportObjekRealisasi implements ShouldQueue
                 'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' '),
             ]);
 
-            if (! is_null($bidangUrusanSubOpd->id) && ! is_null($subKegiatan->id) && ! is_null($subRincianObjekBelanja->id)) {
-                ObjekRealisasi::updateOrCreate(
-                    [
-                        'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
-                        'sub_kegiatan_id' => $subKegiatan->id,
-                        'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
-                        'tahapan_apbd_id' => intval($this->idTahapanApbd),
-                    ],
-                    [
-                        'anggaran' => floatval($item['APBD']),
-                    ]
-                );
-            }
+            ObjekRealisasi::updateOrCreate(
+                [
+                    'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
+                    'sub_kegiatan_id' => $subKegiatan->id,
+                    'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
+                    'tahapan_apbd_id' => intval($this->idTahapanApbd),
+                ],
+                [
+                    'anggaran' => floatval($item['APBD']),
+                ]
+            );
         }
     }
 }
