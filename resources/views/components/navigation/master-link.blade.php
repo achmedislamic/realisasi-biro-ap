@@ -7,4 +7,8 @@
         :active="request()->segment(2) == 'rekening-belanja'" />
     <x-nav-dropdown-item-link text="Satuan" :href="route('satuan')"
         :active="request()->segment(2) == 'satuan'" />
+    <x-nav-dropdown-item-link text="Kategori" :href="route('kategori')"
+        :active="request()->routeIs('kategori')" />
+    <x-nav-dropdown-item-link text="Sumber Dana" :href="route('sumber-dana')"
+        :active="request()->routeIs('sumber-dana')" />
 </x-nav-dropdown-link>

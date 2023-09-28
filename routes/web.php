@@ -81,6 +81,9 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
         Route::get('/kategori', App\Http\Livewire\Kategori\KategoriTable::class)->name('kategori');
         Route::get('/kategori/form/{id?}', App\Http\Livewire\Kategori\KategoriForm::class)->name('kategori.form');
 
+        Route::get('/sumber-dana', App\Http\Livewire\SumberDana\SumberDanaTable::class)->name('sumber-dana');
+        Route::get('/sumber-dana/form/{id?}', App\Http\Livewire\SumberDana\SumberDanaForm::class)->name('sumber-dana.form');
+
         Route::prefix('/program-kegiatan')->group(function () {
             Route::get('', App\Http\Livewire\ProgramKegiatanTabs::class)->name('program-kegiatan');
             Route::middleware('can:crud-program')->get('/program/form/{id?}', App\Http\Livewire\Program\ProgramForm::class)->name('program.form');
