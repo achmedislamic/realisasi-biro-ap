@@ -15,6 +15,9 @@ module.exports = {
 
     theme: {
         extend: {
+            backgroundImage: {
+              'hero': "url('/img/walpaper-hero.webp')"
+            },
             fontFamily: {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
