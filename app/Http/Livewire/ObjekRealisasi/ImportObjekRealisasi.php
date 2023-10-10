@@ -44,11 +44,9 @@ class ImportObjekRealisasi extends Component
             ->headerOnRow(1)
             ->getRows();
 
-        $chunks = array_chunk(json_decode($realisasiRows, true), 100);
-
         $jobs = [];
 
-        foreach ($chunks as $objekRealisasiChunk) {
+        foreach (array_chunk(json_decode($realisasiRows, true), 100) as $objekRealisasiChunk) {
             array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, cache('tahapanApbd')->id));
         }
 

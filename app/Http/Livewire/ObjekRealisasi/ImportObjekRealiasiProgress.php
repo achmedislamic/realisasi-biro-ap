@@ -26,17 +26,13 @@ class ImportObjekRealiasiProgress extends Component
 
     public function render()
     {
-        $percentage = 0;
-        if ($this->idBatch) {
-            $batch = Bus::findBatch($this->idBatch);
-            $percentage = $batch->progress();
+        $percentage = $this->idBatch ? Bus::findBatch($this->idBatch)->progress() : 0;
 
-            if ($percentage == 100) {
-                $this->idBatch = '';
-                $this->showImportProgress = false;
-                $this->importFinished = true;
-                $this->emit('importSelesai');
-            }
+        if ($percentage == 100) {
+            $this->idBatch = '';
+            $this->showImportProgress = false;
+            $this->importFinished = true;
+            $this->emit('importSelesai');
         }
 
         return view('livewire.objek-realisasi.import-objek-realiasi-progress', compact('percentage'));
