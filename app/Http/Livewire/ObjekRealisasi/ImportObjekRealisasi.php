@@ -44,14 +44,18 @@ class ImportObjekRealisasi extends Component
             ->headerOnRow(1)
             ->getRows();
 
-        $chunks = array_chunk(json_decode($realisasiRows, true), 500);
+        $chunks = array_chunk(json_decode($realisasiRows, true), 100);
+
         $jobs = [];
 
         foreach ($chunks as $objekRealisasiChunk) {
             array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, cache('tahapanApbd')->id));
         }
 
-        $batch = Bus::batch($jobs)->name('Import Anggaran Objek Realisasi')->dispatch();
+        $batch = Bus::batch($jobs)
+            ->name('Import Anggaran Objek Realisasi')
+            ->dispatch();
+
         $this->emit('showImportProgressEvent', $batch->id);
 
         $this->hideButton = true;
