@@ -246,7 +246,7 @@ class ObjekRealisasiForm extends Component
             'satuan_id' => $this->satuanId,
         ];
 
-        if (auth()->user()->isAdminOrSektor()) {
+        if (auth()->user()->isAdmin()) {
             $update = [
                 'sub_kegiatan_id' => $this->subKegiatanPilihan,
                 'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
