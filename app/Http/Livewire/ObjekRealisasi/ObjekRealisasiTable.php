@@ -96,6 +96,7 @@ final class ObjekRealisasiTable extends Component
             // ->ddRawSql()
             ->paginate();
 
+
         $subKegiatan = SubKegiatan::with('kegiatan.program')->find($this->subKegiatanId);
         $subOpd = SubOpd::with('opd')->find($this->subOpdId);
 

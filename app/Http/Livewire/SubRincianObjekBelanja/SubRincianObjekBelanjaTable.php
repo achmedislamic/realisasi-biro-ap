@@ -13,17 +13,33 @@ class SubRincianObjekBelanjaTable extends Component
     use WithPagination;
     use Actions;
 
+    public $tahapanApbds;
+
+    public $opdId;
+
+    public $subOpdId;
+
+    public $subKegiatanId;
+
+    public string $menu = '';
+
+    public $idTahapanApbd;
+
     public int $idRincianObjekBelanja = 0;
 
     protected $queryString = ['cari' => ['except' => '']];
 
-    protected $listeners = [
-        'pilihIdRincianObjekBelanjaEvent' => 'pilihIdRincianObjekBelanja',
-    ];
+    protected $listeners = ['subKegiatanClicked' => 'getSubRincianObjek'];
 
-    public function pilihIdRincianObjekBelanja(int $idRincianObjekBelanja)
+    public function
+    getSubRincianObjek(int $subKegiatanId, string $menu = '', int|string $opdId = null, int|string $subOpdId = null): void
     {
-        $this->idRincianObjekBelanja = $idRincianObjekBelanja;
+        $this->subKegiatanId = $subKegiatanId;
+        $this->menu = $menu;
+        $this->opdId = $opdId;
+        $this->subOpdId = $subOpdId;
+
+        $this->emit('gantiTab', 'subRincianObjek');
     }
 
     public function hapusSubRincianObjekBelanja(int $id): void
@@ -37,13 +53,16 @@ class SubRincianObjekBelanjaTable extends Component
 
     public function render()
     {
-        $subRincianObjekBelanjas = SubRincianObjekBelanja::query()
-            ->whereRincianObjekBelanjaId($this->idRincianObjekBelanja)
-            ->pencarian($this->cari)
-            ->paginate();
+        // $subRincianObjekBelanjas = SubRincianObjekBelanja::query()
+        //     ->whereRincianObjekBelanjaId($this->idRincianObjekBelanja)
+        //     ->pencarian($this->cari)
+        //     ->paginate();
 
-        $rincianObjekBelanja = RincianObjekBelanja::find($this->idRincianObjekBelanja);
+        // $rincianObjekBelanja = RincianObjekBelanja::find($this->idRincianObjekBelanja);
 
-        return view('livewire.sub-rincian-objek-belanja.sub-rincian-objek-belanja-table', compact(['subRincianObjekBelanjas', 'rincianObjekBelanja']));
+        return view(
+            'livewire.sub-rincian-objek-belanja.sub-rincian-objek-belanja-table'
+            // , compact(['subRincianObjekBelanjas', 'rincianObjekBelanja'])
+        );
     }
 }

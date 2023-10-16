@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-y-4">
-    <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
+    {{-- <div class="border-l-2 border-slate-900 text-slate-900 mb-4 bg-slate-100 py-2">
         <div class="flex gap-x-1 items-center">
             <div class="bg-slate-900 w-2 h-0.5"></div>
             <p>
@@ -92,5 +92,20 @@
             </x-table.tr>
             @endforeach
         </tbody>
-    </x-table.index>
+    </x-table.index> --}}
+
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, quas et? Consequatur dolorem harum perferendis cum,
+    atque magni architecto aspernatur reprehenderit. Doloremque possimus ducimus velit tenetur. Quis hic incidunt
+    fugiat.
+    Molestiae qui provident assumenda. Quis, dolore hic minima incidunt velit possimus repellat consectetur modi ut,
+    consequuntur magni quas accusantium recusandae. Quasi aspernatur tenetur doloremque. Quibusdam ullam minus amet et
+    esse.
+    Veritatis, debitis id? Nam ipsa doloremque natus quidem! Nihil dicta accusamus sed et dolor est assumenda temporibus
+    consequuntur soluta! Sunt molestiae facere eaque officia autem numquam perspiciatis soluta qui ut.
+    Quaerat molestiae et quibusdam! Vitae dolorem totam vero laborum. Repudiandae sed quo voluptatem dolorem ab esse
+    exercitationem numquam itaque tenetur officia. Nesciunt atque incidunt sapiente accusamus culpa consectetur cumque
+    tempora!
+    Consectetur fugit minus necessitatibus rem, distinctio dolorem mollitia veritatis numquam pariatur sequi molestiae
+    adipisci voluptate rerum nesciunt, assumenda voluptatibus ab alias aperiam libero illum. Voluptatum cum vel fugiat
+    expedita distinctio!
 </div>
