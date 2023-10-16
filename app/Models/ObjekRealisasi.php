@@ -62,6 +62,11 @@ class ObjekRealisasi extends Model
         return $this->belongsTo(SubRincianObjekBelanja::class);
     }
 
+    public function rincianBelanja(): BelongsTo
+    {
+        return $this->belongsTo(RincianBelanja::class);
+    }
+
     public function satuan(): BelongsTo
     {
         return $this->belongsTo(Satuan::class);
