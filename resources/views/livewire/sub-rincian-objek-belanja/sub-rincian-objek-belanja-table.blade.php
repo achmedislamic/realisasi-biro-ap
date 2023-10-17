@@ -77,7 +77,8 @@
                         {{ $subRincianObjek->nama }}
                     </x-table.td>
                     <x-table.td>
-                        -
+                        <x-button.circle spinner positive xs icon="folder-open"
+                            wire:click="$emit('subRincianObjekBelanjaClicked', '{{ $subRincianObjek->id }}', '{{ $subKegiatan->id }}', '{{ $menu }}', '{{ $subRincianObjek->id_opd }}', '{{ $subRincianObjek->id_sub_opd }}')" />
                     </x-table.td>
                 </x-table.tr>
             @endforeach

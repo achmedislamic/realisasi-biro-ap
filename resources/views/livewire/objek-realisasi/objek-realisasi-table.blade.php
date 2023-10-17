@@ -14,7 +14,8 @@
 
             <div class="flex gap-x-1 items-center">
                 <div class="bg-slate-900 w-2 h-0.5"></div>
-                <p>{{ $subKegiatan->kegiatan->program->kode ?? '' }} {{ $subKegiatan->kegiatan->program->nama ?? '' }}</p>
+                <p>{{ $subKegiatan->kegiatan->program->kode ?? '' }} {{ $subKegiatan->kegiatan->program->nama ?? '' }}
+                </p>
             </div>
             <div class="flex gap-x-1 items-center">
                 <div class="bg-slate-900 w-4 h-0.5"></div>
@@ -24,21 +25,25 @@
                 <div class="bg-slate-900 w-4 h-0.5"></div>
                 <p>{{ $subKegiatan->kode ?? '' }} {{ $subKegiatan->nama ?? '' }}</p>
             </div>
+            <div class="flex gap-x-1 items-center">
+                <div class="bg-slate-900 w-4 h-0.5"></div>
+                <p> {{ ($subRincianObjek->kode ?? '') . ' ' . ($subRincianObjek->nama ?? '') }}
+                </p>
+            </div>
         </div>
+
         <x-table.scrollable :model="$realisasiApbds" class="w-[2000px]">
 
             <x-slot name="table_actions">
                 @if (auth()->user()->isAdmin())
-                    <x-button
-                              primary
-                              label="Tambah"
-                              :href="route('objek-realisasi.form', [
-                                  'opdPilihan' => $subOpd?->opd_id,
-                                  'subOpdPilihan' => $subOpd?->id,
-                                  'programPilihan' => $subKegiatan?->kegiatan?->program_id,
-                                  'kegiatanPilihan' => $subKegiatan?->kegiatan_id,
-                                  'subKegiatanPilihan' => $subKegiatan?->id,
-                              ])" />
+                    <x-button primary label="Tambah" :href="route('objek-realisasi.form', [
+                        'opdPilihan' => $subOpd?->opd_id,
+                        'subOpdPilihan' => $subOpd?->id,
+                        'programPilihan' => $subKegiatan?->kegiatan?->program_id,
+                        'kegiatanPilihan' => $subKegiatan?->kegiatan_id,
+                        'subKegiatanPilihan' => $subKegiatan?->id,
+                        'subRincianObjekId' => $subRincianObjekId,
+                    ])" />
                     <x-button positive label="Import Anggaran Realisasi" :href="route('objek-realisasi.import')" />
                 @endif
             </x-slot>
@@ -49,7 +54,7 @@
                         #
                     </x-table.th>
                     <x-table.th>
-                        Rekening Belanja
+                        Rincian Belanja
                     </x-table.th>
                     <x-table.th>
                         Anggaran
@@ -74,9 +79,10 @@
                         <x-table.td>
                             {{ $realisasiApbds->firstItem() + $key }}
                         </x-table.td>
-                        <x-table.td wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" class="hover:underline hover:text-yellow-500 hover:cursor-pointer">
-                            {{ $objekRealisasi->subRincianObjekBelanja->rincianObjekBelanja->kode . ' ' . $objekRealisasi->subRincianObjekBelanja->kode . '.' . $objekRealisasi->subRincianObjekBelanja->nama }}
-                            <x-loading-indicator target="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" class="hover:underline hover:text-yellow-500 hover:cursor-pointer" />
+                        <x-table.td wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})"
+                            class="hover:underline hover:text-yellow-500 hover:cursor-pointer">
+                            {{ $objekRealisasi->rb_kode ?? '' }}
+                            {{ $objekRealisasi->rb_nama ?? '' }}
                         </x-table.td>
                         <x-table.td class="text-right">
                             {{ \App\Helpers\FormatHelper::angka($objekRealisasi->anggaran) }}
@@ -91,9 +97,9 @@
                             {{ $objekRealisasi->nama_satuan }}
                         </x-table.td>
                         <x-table.td>
-                            <x-button.circle warning xs icon="pencil"
-                                             :href="route('objek-realisasi.form', [$objekRealisasi->id])" />
-                            <x-button.circle negative xs icon="trash" x-on:confirm="{
+                            <x-button.circle warning xs icon="pencil" :href="route('objek-realisasi.form', [$objekRealisasi->id])" />
+                            <x-button.circle negative xs icon="trash"
+                                x-on:confirm="{
                                 title: 'Anda yakin akan menghapus data objek realisasi ini?',
                                 icon: 'question',
                                 accept: {
@@ -106,7 +112,7 @@
                                 }
                             }" />
                             <x-button.circle positive xs icon="folder-open"
-                                             wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" />
+                                wire:click="pilihIdObjekRealisasiEvent({{ $objekRealisasi->id }})" />
                         </x-table.td>
                     </x-table.tr>
                 @endforeach

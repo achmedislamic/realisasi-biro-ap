@@ -121,13 +121,24 @@
                         @livewire('sub-kegiatan.sub-kegiatan-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan])
                     </div>
                     <div x-show="tab == 'subRincianObjek'" x-transition>
-                        @livewire('sub-rincian-objek-belanja.sub-rincian-objek-belanja-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan])
+                        @livewire('sub-rincian-objek-belanja.sub-rincian-objek-belanja-table', [
+                            'menu' => 'realisasi',
+                            'programId' => $programId,
+                            'kegiatanId' => $kegiatanId,
+                            'subKegiatanId' => $subKegiatanId,
+                            'bidangId' => $bidangPilihan,
+                            'subOpdId' => $subOpdPilihan,
+                        ])
                     </div>
                     <div x-show="tab == 'objekRealisasi'" x-transition>
-                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus iure, quis deleniti eaque
-                            cum consequuntur aliquam magni recusandae iste labore repellat dignissimos non accusamus
-                            nisi eos officiis! Consectetur, hic quam!</div>
-                        {{-- @livewire('objek-realisasi.objek-realisasi-table', ['menu' => 'realisasi', 'programId' => $programId, 'kegiatanId' => $kegiatanId, 'subKegiatanId' => $subKegiatanId, 'bidangId' => $bidangPilihan, 'subOpdId' => $subOpdPilihan]) --}}
+                        @livewire('objek-realisasi.objek-realisasi-table', [
+                            'menu' => 'realisasi',
+                            'programId' => $programId,
+                            'kegiatanId' => $kegiatanId,
+                            'subKegiatanId' => $subKegiatanId,
+                            'bidangId' => $bidangPilihan,
+                            'subOpdId' => $subOpdPilihan,
+                        ])
                     </div>
                     <div x-show="tab == 'realisasi'" x-transition>
                         @livewire('realisasi.realisasi-table')

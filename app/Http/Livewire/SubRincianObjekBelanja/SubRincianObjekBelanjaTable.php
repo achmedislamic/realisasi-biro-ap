@@ -32,8 +32,7 @@ class SubRincianObjekBelanjaTable extends Component
 
     protected $listeners = ['subKegiatanClicked' => 'getSubRincianObjek'];
 
-    public function
-    getSubRincianObjek(int $subKegiatanId, string $menu = '', int|string $opdId = null, int|string $subOpdId = null): void
+    public function getSubRincianObjek(int $subKegiatanId, string $menu = '', int|string $opdId = null, int|string $subOpdId = null): void
     {
         $this->subKegiatanId = $subKegiatanId;
         $this->menu = $menu;
@@ -65,8 +64,11 @@ class SubRincianObjekBelanjaTable extends Component
                 'sub_rincian_objek_belanjas.kode',
                 'sub_rincian_objek_belanjas.nama',
                 'ore.bidang_urusan_sub_opd_id',
+                'rb.id as rincian_belnja_id',
+                'opds.kode as id_opd',
                 'opds.kode as kode_opd',
                 'opds.nama as nama_opd',
+                'sub_opds.id as id_sub_opd',
                 'sub_opds.kode as kode_sub_opd',
                 'sub_opds.nama as nama_sub_opd'
             )
