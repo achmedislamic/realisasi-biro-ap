@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\SubRincianObjekBelanja;
 
-use App\Models\{RincianObjekBelanja, SubRincianObjekBelanja};
+use App\Models\{ObjekRealisasi, RincianObjekBelanja, SubKegiatan, SubRincianObjekBelanja};
 use App\Traits\Pencarian;
 use Livewire\{Component, WithPagination};
 use WireUi\Traits\Actions;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class SubRincianObjekBelanjaTable extends Component
 {
@@ -53,16 +54,37 @@ class SubRincianObjekBelanjaTable extends Component
 
     public function render()
     {
-        // $subRincianObjekBelanjas = SubRincianObjekBelanja::query()
-        //     ->whereRincianObjekBelanjaId($this->idRincianObjekBelanja)
-        //     ->pencarian($this->cari)
-        //     ->paginate();
+        $subRincianObjeks = SubRincianObjekBelanja::query()
+            ->join('rincian_belanjas AS rb', 'rb.sub_rincian_objek_belanja_id', '=', 'sub_rincian_objek_belanjas.id')
+            ->join('objek_realisasis AS ore', 'ore.rincian_belanja_id', '=', 'rb.id')
+            ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'ore.bidang_urusan_sub_opd_id')
+            ->join('sub_opds', 'sub_opds.id', '=', 'buso.sub_opd_id')
+            ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
+            ->select(
+                'sub_rincian_objek_belanjas.id',
+                'sub_rincian_objek_belanjas.kode',
+                'sub_rincian_objek_belanjas.nama',
+                'ore.bidang_urusan_sub_opd_id',
+                'opds.kode as kode_opd',
+                'opds.nama as nama_opd',
+                'sub_opds.kode as kode_sub_opd',
+                'sub_opds.nama as nama_sub_opd'
+            )
+            ->where('ore.sub_kegiatan_id', $this->subKegiatanId)
+            ->when(filled($this->opdId) && (auth()->user()->isAdmin()), function (Builder $query) {
+                $query->where('opds.id', $this->opdId);
+            })
+            ->when(filled($this->subOpdId), function (Builder $query) {
+                $query->where('sub_opds.id', $this->subOpdId);
+            })
+            ->pencarian($this->cari)
+            ->paginate();
 
-        // $rincianObjekBelanja = RincianObjekBelanja::find($this->idRincianObjekBelanja);
+        $subKegiatan = SubKegiatan::with('kegiatan.program')->find($this->subKegiatanId);
 
         return view(
-            'livewire.sub-rincian-objek-belanja.sub-rincian-objek-belanja-table'
-            // , compact(['subRincianObjekBelanjas', 'rincianObjekBelanja'])
+            'livewire.sub-rincian-objek-belanja.sub-rincian-objek-belanja-table',
+            compact('subRincianObjeks', 'subKegiatan')
         );
     }
 }

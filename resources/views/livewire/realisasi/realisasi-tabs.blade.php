@@ -87,7 +87,7 @@
                                     ''"
                                 class="inline-block p-4 border-b-2 rounded-t-lg" id="objek-realisasi-tab"
                                 data-tabs-target="#objek-realisasi" type="button" role="tab"
-                                aria-controls="profile" aria-selected="false">Rekening (Sub Rincian Objek)</button>
+                                aria-controls="profile" aria-selected="false">Rekening</button>
                         </li>
 
                         <li class="mr-2" role="presentation">
