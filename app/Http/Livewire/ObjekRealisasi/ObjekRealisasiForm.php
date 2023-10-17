@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\ObjekRealisasi;
 
-use App\Models\{BidangUrusan, Urusan};
+use App\Models\{BidangUrusan, RincianBelanja, Urusan};
 use App\Models\{BidangUrusanSubOpd, Kegiatan, ObjekRealisasi, Opd, Program, Realisasi, SubKegiatan, SubOpd, SubRincianObjekBelanja};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -23,6 +23,8 @@ class ObjekRealisasiForm extends Component
     public $urusans;
 
     public $bidangUrusans;
+
+    public $rincianBelanjas;
 
     public $anggaran;
 
@@ -48,6 +50,8 @@ class ObjekRealisasiForm extends Component
 
     public $rekeningBelanjaPilihan = null;
 
+    public $rincianBelanjaPilihan = null;
+
     public $submitText;
 
     public $idObjekRealisasi;
@@ -57,21 +61,21 @@ class ObjekRealisasiForm extends Component
     public function mount(int $id = null)
     {
         $this->subOpds = collect();
-        if(filled($this->opdPilihan) && filled($this->subOpdPilihan)){
+        if (filled($this->opdPilihan) && filled($this->subOpdPilihan)) {
             $this->subOpds = SubOpd::where('opd_id', $this->opdPilihan)->get();
         }
 
         $this->programs = Program::orderBy('kode')->orderBy('nama')->get();
         $this->kegiatans = collect();
         $this->subKegiatans = collect();
-        if(filled($this->programPilihan) && filled($this->kegiatanPilihan)){
+        if (filled($this->programPilihan) && filled($this->kegiatanPilihan)) {
             $this->kegiatans = Kegiatan::query()
                 ->where('program_id', $this->programPilihan)
                 ->orderBy('kode')
                 ->orderBy('nama')
                 ->get();
 
-            if(filled($this->subKegiatanPilihan)){
+            if (filled($this->subKegiatanPilihan)) {
                 $this->subKegiatans = SubKegiatan::query()
                     ->where('kegiatan_id', $this->kegiatanPilihan)
                     ->orderBy('kode')
@@ -80,6 +84,8 @@ class ObjekRealisasiForm extends Component
             }
         }
 
+        $this->rincianBelanjas = collect();
+
         $this->submitText = 'Simpan';
         $this->urusans = Urusan::orderBy('kode')->get();
 
@@ -87,7 +93,7 @@ class ObjekRealisasiForm extends Component
             $this->bidangUrusans = BidangUrusan::orderBy('kode')->get();
         }
 
-        if (! is_null($id)) {
+        if (!is_null($id)) {
             $this->idObjekRealisasi = $id;
             $this->submitText = 'Ubah';
 
@@ -99,7 +105,11 @@ class ObjekRealisasiForm extends Component
             $this->bidangUrusanPilihan = $objekRealisasi->bidangUrusanSubOpd->bidang_urusan_id;
 
             $this->anggaran = $objekRealisasi->anggaran;
-            $this->rekeningBelanjaPilihan = $objekRealisasi->sub_rincian_objek_belanja_id;
+            $subRincianObjekBelanjaId = $objekRealisasi->rincianBelanja->sub_rincian_objek_belanja_id;
+            $this->rekeningBelanjaPilihan = $subRincianObjekBelanjaId;
+
+            $this->rincianBelanjas = RincianBelanja::where('sub_rincian_objek_belanja_id', $subRincianObjekBelanjaId)->orderBy('kode')->get();
+            $this->rincianBelanjaPilihan = $objekRealisasi->rincian_belanja_id;
 
             $this->target = $objekRealisasi->target;
             $this->satuanId = $objekRealisasi->satuan_id;
@@ -163,6 +173,14 @@ class ObjekRealisasiForm extends Component
         $this->subKegiatanPilihan = null;
     }
 
+    public function updatedRekeningBelanjaPilihan($rekening)
+    {
+        $this->rincianBelanjas = RincianBelanja::where('sub_rincian_objek_belanja_id', $rekening)
+            ->orderBy('kode')
+            ->get();
+        $this->rincianBelanjaPilihan = null;
+    }
+
     protected function rules(): array
     {
         return [
@@ -173,6 +191,7 @@ class ObjekRealisasiForm extends Component
             'kegiatanPilihan' => 'required|numeric',
             'subKegiatanPilihan' => 'required|numeric',
             'rekeningBelanjaPilihan' => 'required|numeric',
+            'rincianBelanjaPilihan' => 'required|numeric',
             'anggaran' => 'required',
             'target' => 'required',
             'satuanId' => 'required|numeric',
@@ -207,13 +226,13 @@ class ObjekRealisasiForm extends Component
             'tahapan_apbd_id' => cache('tahapanApbd')->id,
             'bidang_urusan_sub_opd_id' => BidangUrusanSubOpd::where('bidang_urusan_id', $this->bidangUrusanPilihan)->where('sub_opd_id', $this->subOpdPilihan)->first()->id,
             'sub_kegiatan_id' => $this->subKegiatanPilihan,
-            'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
+            'rincian_belanja_id' => $this->rincianBelanjaPilihan,
             'anggaran' => floatval($this->anggaran),
             'target' => $this->target,
             'satuan_id' => $this->satuanId,
         ]);
 
-        if (! $realisasi) {
+        if (!$realisasi) {
             $this->notification()->error(
                 'GAGAL !!!',
                 'Gagal menyimpan objek realisasi.'
@@ -229,6 +248,7 @@ class ObjekRealisasiForm extends Component
             $this->kegiatanPilihan = null;
             $this->subKegiatanPilihan = null;
             $this->rekeningBelanjaPilihan = null;
+            $this->rincianBelanjaPilihan = null;
 
             $this->subOpds = collect();
             $this->kegiatans = collect();
@@ -249,7 +269,7 @@ class ObjekRealisasiForm extends Component
         if (auth()->user()->isAdmin()) {
             $update = [
                 'sub_kegiatan_id' => $this->subKegiatanPilihan,
-                'sub_rincian_objek_belanja_id' => $this->rekeningBelanjaPilihan,
+                'rincian_belanja_id' => $this->rincianBelanjaPilihan,
                 'anggaran' => floatval($this->anggaran),
                 ...$update,
             ];
@@ -270,7 +290,8 @@ class ObjekRealisasiForm extends Component
             'kegiatanId' => $this->subKegiatan->kegiatan->id,
             'subKegiatanId' => $this->subKegiatan->id,
             'opdPilihan' => $objekRealisasi->bidangUrusanSubOpd->subOpd->opd_id,
-            'subOpdPilihan' => $objekRealisasi->bidangUrusanSubOpd->subOpd->id
+            'subOpdPilihan' => $objekRealisasi->bidangUrusanSubOpd->subOpd->id,
+            'subRincianObjekId' => $objekRealisasi->rincianBelanja->sub_rincian_objek_belanja_id
         ]);
     }
 
