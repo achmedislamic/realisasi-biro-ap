@@ -30,6 +30,10 @@ class ObjekRealisasiForm extends Component
 
     public $satuanId;
 
+    public $sumberDanaId;
+
+    public $kategoriId;
+
     public $target;
 
     public $urusanPilihan = null;
@@ -46,6 +50,8 @@ class ObjekRealisasiForm extends Component
 
     public $subKegiatanPilihan = null;
 
+    public $subRincianObjekId = null;
+
     public $subKegiatan = null;
 
     public $rekeningBelanjaPilihan = null;
@@ -56,7 +62,7 @@ class ObjekRealisasiForm extends Component
 
     public $idObjekRealisasi;
 
-    protected $queryString = ['opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => ''], 'programPilihan' => ['except' => ''], 'kegiatanPilihan' => ['except' => ''], 'subKegiatanPilihan' => ['except' => '']];
+    protected $queryString = ['opdPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => ''], 'programPilihan' => ['except' => ''], 'kegiatanPilihan' => ['except' => ''], 'subKegiatanPilihan' => ['except' => ''], 'subRincianObjekId' => ['except' => '']];
 
     public function mount(int $id = null)
     {
@@ -91,6 +97,8 @@ class ObjekRealisasiForm extends Component
 
         if (is_null($id)) {
             $this->bidangUrusans = BidangUrusan::orderBy('kode')->get();
+            $this->rincianBelanjas = RincianBelanja::where('sub_rincian_objek_belanja_id', $this->subRincianObjekId)->orderBy('kode')->get();
+            $this->rekeningBelanjaPilihan = $this->subRincianObjekId;
         }
 
         if (!is_null($id)) {
@@ -107,12 +115,13 @@ class ObjekRealisasiForm extends Component
             $this->anggaran = $objekRealisasi->anggaran;
             $subRincianObjekBelanjaId = $objekRealisasi->rincianBelanja->sub_rincian_objek_belanja_id;
             $this->rekeningBelanjaPilihan = $subRincianObjekBelanjaId;
-
             $this->rincianBelanjas = RincianBelanja::where('sub_rincian_objek_belanja_id', $subRincianObjekBelanjaId)->orderBy('kode')->get();
             $this->rincianBelanjaPilihan = $objekRealisasi->rincian_belanja_id;
 
             $this->target = $objekRealisasi->target;
             $this->satuanId = $objekRealisasi->satuan_id;
+            $this->sumberDanaId = $objekRealisasi->sumber_dana_id;
+            $this->kategoriId = $objekRealisasi->kategori_id;
 
             $subOpd = SubOpd::find($objekRealisasi->bidangUrusanSubOpd->sub_opd_id);
             if ($subOpd) {
@@ -195,6 +204,8 @@ class ObjekRealisasiForm extends Component
             'anggaran' => 'required',
             'target' => 'required',
             'satuanId' => 'required|numeric',
+            'sumberDanaId' => 'required|numeric',
+            'kategoriId' => 'required|numeric',
         ];
     }
 
@@ -230,6 +241,8 @@ class ObjekRealisasiForm extends Component
             'anggaran' => floatval($this->anggaran),
             'target' => $this->target,
             'satuan_id' => $this->satuanId,
+            'sumber_dana_id' => $this->sumberDanaId,
+            'kategori_id' => $this->kategoriId,
         ]);
 
         if (!$realisasi) {
@@ -264,6 +277,8 @@ class ObjekRealisasiForm extends Component
         $update = [
             'target' => $this->target,
             'satuan_id' => $this->satuanId,
+            'sumber_dana_id' => $this->sumberDanaId,
+            'kategori_id' => $this->kategoriId,
         ];
 
         if (auth()->user()->isAdmin()) {

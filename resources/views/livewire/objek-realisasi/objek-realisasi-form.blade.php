@@ -133,6 +133,26 @@
                 </div>
             </div>
 
+            <div class="flex flex-row space-x-3">
+                <div class="w-full">
+                    <x-native-select label="Sumber Dana" wire:model.defer="sumberDanaId">
+                        <option value="">Pilih Sumber Dana</option>
+                        @foreach (App\Models\SumberDana::all() as $sumberDana)
+                            <option value="{{ $sumberDana->id }}">{{ str($sumberDana->nama)->title() }}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+
+                <div class="w-full">
+                    <x-native-select label="Kategori Belanja" wire:model.defer="kategoriId">
+                        <option value="">Pilih Kategori</option>
+                        @foreach (App\Models\Kategori::all() as $kategori)
+                            <option value="{{ $kategori->id }}">{{ str($kategori->nama)->title() }}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
+            </div>
+
             <div class="flex justify-between">
                 <x-button gray label="Kembali ke halaman realisasi" :href="route('realisasi')" />
                 <x-button spinner type="submit" positive label="{{ $submitText }}" />

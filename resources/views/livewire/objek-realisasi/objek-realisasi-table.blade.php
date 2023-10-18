@@ -68,6 +68,12 @@
                     <x-table.th>
                         Satuan
                     </x-table.th>
+                    <x-table.th>
+                        Sumber Dana
+                    </x-table.th>
+                    <x-table.th>
+                        Kategori
+                    </x-table.th>
                     <x-table.th class="w-36">
                         Aksi
                     </x-table.th>
@@ -97,6 +103,13 @@
                             {{ $objekRealisasi->nama_satuan }}
                         </x-table.td>
                         <x-table.td>
+                            {{-- <x-button icon="plus" primary xs onclick="$openModal('sumberDanaModal')" /> --}}
+                            {{ $objekRealisasi->nama_sumber_dana }}
+                        </x-table.td>
+                        <x-table.td>
+                            {{ $objekRealisasi->nama_kategori }}
+                        </x-table.td>
+                        <x-table.td>
                             <x-button.circle warning xs icon="pencil" :href="route('objek-realisasi.form', [$objekRealisasi->id])" />
                             <x-button.circle negative xs icon="trash"
                                 x-on:confirm="{
@@ -119,4 +132,17 @@
             </tbody>
         </x-table.scrollable>
     </div>
+
+    <x-modal wire:model.defer="sumberDanaModal">
+        <x-card title="Taging Sumber Dana">
+            <x-input label="Pilih Sumber Dana" />
+
+            <x-slot name="footer">
+                <div class="flex justify-end gap-x-4">
+                    <x-button flat label="Cancel" x-on:click="close" />
+                    <x-button primary label="I Agree" />
+                </div>
+            </x-slot>
+        </x-card>
+    </x-modal>
 </div>

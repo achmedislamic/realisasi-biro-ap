@@ -64,13 +64,15 @@ final class ObjekRealisasiTable extends Component
     public function render()
     {
         $realisasiApbds = ObjekRealisasi::query()
-            ->with(['realisasis'])
+            ->with(['realisasis', 'rincianBelanja'])
             ->join('rincian_belanjas as rb', 'rb.id', '=', 'objek_realisasis.rincian_belanja_id')
             ->join('sub_rincian_objek_belanjas as srob', 'srob.id', '=', 'rb.sub_rincian_objek_belanja_id')
             ->join('bidang_urusan_sub_opds AS buso', 'buso.id', '=', 'objek_realisasis.bidang_urusan_sub_opd_id')
             ->join('sub_opds', 'sub_opds.id', '=', 'buso.sub_opd_id')
             ->join('opds', 'opds.id', '=', 'sub_opds.opd_id')
             ->leftJoin('satuans AS s', 's.id', '=', 'objek_realisasis.satuan_id')
+            ->leftJoin('sumber_danas AS sd', 'sd.id', '=', 'objek_realisasis.sumber_dana_id')
+            ->leftJoin('kategoris AS k', 'k.id', '=', 'objek_realisasis.kategori_id')
 
             ->select(
                 'objek_realisasis.id AS id',
@@ -80,7 +82,11 @@ final class ObjekRealisasiTable extends Component
                 'objek_realisasis.target',
                 'rb.kode as rb_kode',
                 'rb.nama as rb_nama',
-                's.nama as nama_satuan'
+                's.nama as nama_satuan',
+                'sd.id as sumber_dana_id',
+                'sd.nama as nama_sumber_dana',
+                'k.id as kategori_id',
+                'k.nama as nama_kategori',
             )
             ->where('objek_realisasis.sub_kegiatan_id', $this->subKegiatanId)
             ->where('srob.id', $this->subRincianObjekId)
