@@ -47,7 +47,7 @@ class ImportObjekRealisasi extends Component
         $jobs = [];
 
         foreach (array_chunk(json_decode($realisasiRows, true), 100) as $objekRealisasiChunk) {
-            array_push($jobs, new JobImportObjekRealisasi($objekRealisasiChunk, cache('tahapanApbd')->id));
+            $jobs[] = new JobImportObjekRealisasi($objekRealisasiChunk, cache('tahapanApbd')->id);
         }
 
         $batch = Bus::batch($jobs)

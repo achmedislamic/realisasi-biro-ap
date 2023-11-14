@@ -9,6 +9,8 @@ class BidangUrusanSubOpd extends Pivot
 {
     use HasFactory;
 
+    public $incrementing = true;
+
     protected $table = 'bidang_urusan_sub_opds';
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
