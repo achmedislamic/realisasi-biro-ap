@@ -62,7 +62,7 @@ class SubKegiatanTable extends Component
                         $query->where('so.id', $this->subOpdId);
                     })
                     ->select('sub_kegiatans.id', 'sub_kegiatans.kode', 'sub_kegiatans.nama', 'o.kode AS kode_opd', 'o.nama AS nama_opd', 'so.kode AS kode_sub_opd', 'so.nama AS nama_sub_opd', 'o.id AS opd_id', 'so.id AS sub_opd_id')
-                    ->groupByRaw('so.id, sub_kegiatans.id')
+                    ->groupBy('sub_kegiatans.id', 'sub_kegiatans.kode', 'sub_kegiatans.nama', 'o.kode', 'o.nama', 'so.kode', 'so.nama', 'o.id', 'so.id')
                     ->orderBy('sub_kegiatans.kode')
                     ->orderBy('sub_kegiatans.nama');
             })
