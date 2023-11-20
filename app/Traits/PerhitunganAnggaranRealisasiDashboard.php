@@ -122,7 +122,7 @@ trait PerhitunganAnggaranRealisasiDashboard
             ->when(auth()->user()->isSektor(), fn (Builder $query) => $query->where('o.sektor_id', auth()->user()->role->imageable_id))
             ->when((auth()->user()->isOpd() || auth()->user()->isAdminOrSektor() && is_numeric($where)), fn ($query) => $query->where('o.id', $where))
             ->when(auth()->user()->isSubOpd(), fn ($query) => $query->where('so.id', auth()->user()->role->imageable_id))
-            ->groupByRaw('so.kode, so.nama, so.id')
+            ->groupByRaw('so.kode, so.id, so.opd_id, so.nama')
             ->orderBy('so.kode')
             ->orderBy('so.nama')
             // ->ddRawSql()

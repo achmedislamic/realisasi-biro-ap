@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class PilihTahunAnggaran extends Component
 {
-    public function pilihTahunAnggaran($idTahapan)
+    public function pilihTahunAnggaran(int $idTahapan)
     {
         cache()->forever('tahapanApbd', TahapanApbd::find($idTahapan));
 
