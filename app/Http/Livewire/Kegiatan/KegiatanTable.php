@@ -80,6 +80,7 @@ class KegiatanTable extends Component
             })
             ->where('program_id', $this->programId)
             ->select('kegiatans.nama', 'kegiatans.id', 'kegiatans.kode')
+            ->groupBy('kegiatans.nama', 'kegiatans.id', 'kegiatans.kode')
             ->pencarian($this->cari)
             ->paginate();
 
