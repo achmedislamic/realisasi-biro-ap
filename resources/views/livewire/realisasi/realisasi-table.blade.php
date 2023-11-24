@@ -80,7 +80,7 @@
                 </li>
             </ul>
         </div>
-        {{-- <div id="myTabContent">
+        <div id="myTabContent">
             <div x-show="tab == 'uang'" x-transition>
                 <x-table.index :model="$realisasis">
                     <x-slot name="table_actions">
@@ -196,7 +196,7 @@
                     </tbody>
                 </x-table.index>
             </div>
-        </div> --}}
+        </div>
     </div>
 
 </div>

@@ -38,6 +38,8 @@ class RealisasiForm extends Component
 
     public $subRincianObjekBelanja;
 
+    public $rincianBelanja;
+
     public $anggaran;
 
     public $totalRealisasi;
@@ -48,14 +50,17 @@ class RealisasiForm extends Component
     {
         $this->submitText = 'Simpan Realisasi';
         $this->objekRealisasiId = $objekRealisasiId;
-        $this->objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd.opd')->find($objekRealisasiId);
+        $this->objekRealisasi = ObjekRealisasi::with([
+            'bidangUrusanSubOpd.subOpd.opd', 'rincianBelanja.subRincianObjekBelanja'
+        ])->find($objekRealisasiId);
 
         $this->opd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama;
         $this->subOpd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->nama;
         $this->program = $this->objekRealisasi->subKegiatan->kegiatan->program->nama;
         $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
         $this->subKegiatan = $this->objekRealisasi->subKegiatan->nama;
-        $this->subRincianObjekBelanja = $this->objekRealisasi->subRincianObjekBelanja->nama;
+        $this->subRincianObjekBelanja = $this->objekRealisasi->rincianBelanja->subRincianObjekBelanja->nama;
+        $this->rincianBelanja = $this->objekRealisasi->rincianBelanja->nama;
         $this->anggaran = FormatHelper::angka($this->objekRealisasi->anggaran);
 
         if (! is_null($id)) {

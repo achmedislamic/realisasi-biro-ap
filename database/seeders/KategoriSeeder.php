@@ -2,18 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\SumberDana;
+use App\Models\Kategori;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SumberDanaSeeder extends Seeder
+class KategoriSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        SumberDana::create(['nama' => 'DAU']);
-        SumberDana::create(['nama' => 'DAK']);
+        Kategori::create(['nama' => 'Kategori 1']);
+        Kategori::create(['nama' => 'Kategori 2']);
+        Kategori::create(['nama' => 'Kategori 3']);
     }
 }

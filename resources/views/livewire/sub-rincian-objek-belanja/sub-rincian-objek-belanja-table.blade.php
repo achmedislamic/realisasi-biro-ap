@@ -43,9 +43,6 @@
                 @if (filled($menu) && config('app.mode') != 'pupr')
                     <x-table.th>Nama OPD</x-table.th>
                 @endif
-                @if (!auth()->user()->isSubOpd())
-                    <x-table.th>Nama UPT</x-table.th>
-                @endif
 
                 <x-table.th>
                     Kode
@@ -67,14 +64,12 @@
                     @if (filled($menu) && config('app.mode') != 'pupr')
                         <x-table.td>{{ $subRincianObjek->kode_opd . ' ' . $subRincianObjek->nama_opd }}</x-table.td>
                     @endif
-                    @if (!auth()->user()->isSubOpd())
-                        <x-table.td>{{ $subRincianObjek->kode_sub_opd . ' ' . $subRincianObjek->nama_sub_opd }}</x-table.td>
-                    @endif
                     <x-table.td>
                         {{ $subRincianObjek->kode }}
                     </x-table.td>
-                    <x-table.td>
+                    <x-table.td wire:click="$emit('subRincianObjekBelanjaClicked', '{{ $subRincianObjek->id }}', '{{ $subKegiatan->id }}', '{{ $menu }}', '{{ $subRincianObjek->id_opd }}', '{{ $subRincianObjek->id_sub_opd }}')" class="hover:underline hover:cursor-pointer hover:text-yellow-500">
                         {{ $subRincianObjek->nama }}
+                        <x-loading-indicator />
                     </x-table.td>
                     <x-table.td>
                         <x-button.circle spinner positive xs icon="folder-open"
