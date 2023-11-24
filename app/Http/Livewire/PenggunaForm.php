@@ -125,7 +125,6 @@ class PenggunaForm extends Component
     public function simpan()
     {
         $this->validate();
-
         DB::transaction(function () {
             if (is_null($this->userId)) {
                 $this->user->password = bcrypt($this->password);
@@ -139,7 +138,7 @@ class PenggunaForm extends Component
                     'role_name' => $this->rolePengguna,
                     'imageable_id' => match ($this->rolePengguna) {
                         RoleName::SUB_OPD => $this->subOpdPilihan,
-                        RoleName::OPD => $this->opdPilihan->id,
+                        RoleName::OPD => $this->opdPilihan,
                         RoleName::SEKTOR => $this->sektorPilihan,
                         default => null
                     },
