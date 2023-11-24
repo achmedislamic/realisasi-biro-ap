@@ -37,6 +37,13 @@
                 </div>
             </div>
 
+            <div class="flex gap-x-4">
+
+                <div class="w-full">
+                    <x-input label="Rekening Belanja" disabled wire:model="rincianBelanja" />
+                </div>
+            </div>
+
             <div class="flex flex-row">
                 <div class="w-full">
                     <x-datetime-picker label="Tanggal Realisasi" placeholder="Pilih tanggal" parse-format="YYYY-MM-DD" wire:model.defer="realisasi.tanggal" without-time

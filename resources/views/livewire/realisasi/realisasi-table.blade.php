@@ -29,7 +29,11 @@
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Rekening Belanja</td>
-                        <td class="text-sm">{{ $objekRealisasi->subRincianObjekBelanja->nama }}</td>
+                        <td class="text-sm">{{ $objekRealisasi->rincianBelanja->subRincianObjekBelanja->nama }}</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-5 font-semibold text-sm text-gray-400">Rincian Belanja</td>
+                        <td class="text-sm">{{ $objekRealisasi->rincianBelanja->nama }}</td>
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Anggaran</td>
@@ -41,7 +45,8 @@
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Target Fisik</td>
-                        <td>{{ blank($objekRealisasi->target)? '(Belum di-input)': str($objekRealisasi->target)->replace('.', ',')->toString() .' ' .$objekRealisasi->satuan->nama }}</td>
+                        <td>{{ blank($objekRealisasi->target)? '(Belum di-input)': str($objekRealisasi->target)->replace('.', ',')->toString() .' ' .$objekRealisasi->satuan->nama }}
+                        </td>
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi Fisik</td>
@@ -58,18 +63,20 @@
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
                 <li class="mr-2" role="presentation">
                     <button @click="tab = 'uang'"
-                            :class="tab == 'uang' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
-                            class="inline-block p-4 border-b-2 rounded-t-lg" id="uang-tab"
-                            data-tabs-target="#uang" type="button" role="tab"
-                            aria-selected="false">Keuangan</button>
+                        :class="tab == 'uang' ?
+                            'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' :
+                            ''"
+                        class="inline-block p-4 border-b-2 rounded-t-lg" id="uang-tab" data-tabs-target="#uang"
+                        type="button" role="tab" aria-selected="false">Keuangan</button>
                 </li>
 
                 <li class="mr-2" role="presentation">
                     <button @click="tab = 'fisik'"
-                            :class="tab == 'fisik' ? 'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' : ''"
-                            class="inline-block p-4 border-b-2 rounded-t-lg" id="fisik-tab"
-                            data-tabs-target="#fisik" type="button" role="tab"
-                            aria-selected="false">Fisik</button>
+                        :class="tab == 'fisik' ?
+                            'text-yellow-600 font-bold border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' :
+                            ''"
+                        class="inline-block p-4 border-b-2 rounded-t-lg" id="fisik-tab" data-tabs-target="#fisik"
+                        type="button" role="tab" aria-selected="false">Fisik</button>
                 </li>
             </ul>
         </div>

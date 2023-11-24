@@ -62,6 +62,11 @@ class ObjekRealisasi extends Model
         return $this->belongsTo(SubRincianObjekBelanja::class);
     }
 
+    public function rincianBelanja(): BelongsTo
+    {
+        return $this->belongsTo(RincianBelanja::class);
+    }
+
     public function satuan(): BelongsTo
     {
         return $this->belongsTo(Satuan::class);
@@ -77,18 +82,15 @@ class ObjekRealisasi extends Model
         return $this->hasMany(RealisasiFisik::class);
     }
 
-     public function scopePencarian(Builder $query, string $cari = ''): Builder
-     {
-         return $query->when($cari, function ($query) use ($cari) {
-             $query->where(function ($query) use ($cari) {
-                 $query->search('anggaran', $cari)
-                     ->search('objek_realisasis.anggaran', $cari)
-                     ->search('opds.kode', $cari)
-                     ->search('sub_opds.kode', $cari)
-                     ->search('sub_opds.nama', $cari)
-                     ->search('srob.kode', $cari)
-                     ->search('srob.nama', $cari);
-             });
-         });
-     }
+    public function scopePencarian(Builder $query, string $cari = ''): Builder
+    {
+        return $query->when($cari, function ($query) use ($cari) {
+            $query->where(function ($query) use ($cari) {
+                $query->search('anggaran', $cari)
+                    ->orWhereHas('rincianBelanja', function ($query) use ($cari) {
+                        $query->where('kode', $cari)->orWhere('nama', $cari);
+                    });
+            });
+        });
+    }
 }

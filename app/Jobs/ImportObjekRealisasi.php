@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\BidangUrusanSubOpd;
-use App\Models\{AkunBelanja, BidangUrusan, JenisBelanja, Kegiatan, KelompokBelanja, ObjekBelanja, ObjekRealisasi, Opd, Program, RincianObjekBelanja, SubKegiatan, SubOpd, SubRincianObjekBelanja, Urusan};
+use App\Models\{AkunBelanja, BidangUrusan, JenisBelanja, Kegiatan, KelompokBelanja, ObjekBelanja, ObjekRealisasi, Opd, Program, RincianBelanja, RincianObjekBelanja, SubKegiatan, SubOpd, SubRincianObjekBelanja, Urusan};
 use Illuminate\Bus\{Batchable, Queueable};
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -107,11 +107,17 @@ class ImportObjekRealisasi implements ShouldQueue
                 'nama' => str($item['Rekening (Sub Rincian Obyek)'])->after(' '),
             ]);
 
+            $rincianBelanja = RincianBelanja::firstOrCreate([
+                'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
+                'kode' => str($item['Rincian Belanja'])->before(' ')->after($akunBelanja->kode . $kelompokBelanja->kode . '.' . $jenisBelanja->kode . '.' . $objekBelanja->kode . '.' . $rincianObjekBelanja->kode .'.' . $subRincianObjekBelanja->kode . '.'),
+                'nama' => str($item['Rincian Belanja'])->after(' '),
+            ]);
+
             ObjekRealisasi::updateOrCreate(
                 [
                     'bidang_urusan_sub_opd_id' => $bidangUrusanSubOpd->id,
                     'sub_kegiatan_id' => $subKegiatan->id,
-                    'sub_rincian_objek_belanja_id' => $subRincianObjekBelanja->id,
+                    'rincian_belanja_id' => $rincianBelanja->id,
                     'tahapan_apbd_id' => intval($this->idTahapanApbd),
                 ],
                 [

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SubRincianObjekBelanja extends Model
 {
@@ -17,7 +18,11 @@ class SubRincianObjekBelanja extends Model
     {
         return $query->when($cari, function ($query) use ($cari) {
             $query->where(function ($query) use ($cari) {
-                $query->search('nama', $cari);
+                $query->search('opds.kode', $cari)
+                    ->search('sub_opds.kode', $cari)
+                    ->search('sub_opds.nama', $cari)
+                    ->search('sub_rincian_objek_belanjas.kode', $cari)
+                    ->search('sub_rincian_objek_belanjas.nama', $cari);
             });
         });
     }
@@ -32,5 +37,10 @@ class SubRincianObjekBelanja extends Model
     public function rincianObjekBelanja(): BelongsTo
     {
         return $this->belongsTo(RincianObjekBelanja::class);
+    }
+
+    public function rincianBelanjas(): HasMany
+    {
+        return $this->hasMany(RincianBelanja::class);
     }
 }

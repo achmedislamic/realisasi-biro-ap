@@ -21,11 +21,13 @@ final class RealisasiTabs extends Component
 
     public $subKegiatanId;
 
+    public $subRincianObjekId;
+
     public $subOpdPilihan = '';
 
-    protected $queryString = ['tabAktif', 'programId' => ['except' => ''], 'kegiatanId' => ['except' => ''], 'subKegiatanId' => ['except' => ''], 'bidangPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
+    protected $queryString = ['tabAktif', 'programId' => ['except' => ''], 'kegiatanId' => ['except' => ''], 'subRincianObjekId' => ['except' => ''], 'subKegiatanId' => ['except' => ''], 'bidangPilihan' => ['except' => ''], 'subOpdPilihan' => ['except' => '']];
 
-    protected $listeners = ['gantiTab', 'pilihIdProgramEvent', 'pilihIdKegiatanEvent', 'subKegiatanClicked'];
+    protected $listeners = ['gantiTab', 'pilihIdProgramEvent', 'pilihIdKegiatanEvent', 'subKegiatanClicked', 'subRincianObjekBelanjaClicked'];
 
     public function mount(): void
     {
@@ -41,18 +43,26 @@ final class RealisasiTabs extends Component
     public function pilihIdProgramEvent($programId): void
     {
         $this->programId = $programId;
-        $this->reset(['kegiatanId', 'subKegiatanId', 'objekRealisasiId']);
+        $this->reset(['kegiatanId', 'subKegiatanId', 'objekRealisasiId', 'subRincianObjekId']);
     }
 
     public function pilihIdKegiatanEvent($kegiatanId): void
     {
         $this->kegiatanId = $kegiatanId;
-        $this->reset(['subKegiatanId', 'objekRealisasiId']);
+        $this->reset(['subKegiatanId', 'objekRealisasiId', 'subRincianObjekId']);
     }
 
     public function subKegiatanClicked($subKegiatanId): void
     {
         $this->subKegiatanId = $subKegiatanId;
+        $this->reset(['subRincianObjekId']);
+    }
+
+    public function
+    subRincianObjekBelanjaClicked(int $subRincianObjekId, int $subKegiatanId, string $menu = '', int|string $opdId = null, int|string $subOpdId = null): void
+    {
+        $this->subRincianObjekId = $subRincianObjekId;
+        $this->subOpdPilihan = $subOpdId;
     }
 
     public function updatedOpdPilihan($opdId): void
