@@ -34,7 +34,11 @@
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Total Realisasi Keuangan</td>
-                        <td>Rp. {{ \App\Helpers\FormatHelper::angka($realisasis->sum('jumlah')) }}</td>
+                        @php
+                            $jumlah = $realisasis->sum('jumlah');
+                            $persentase = $jumlah == 0 ? 0 : \App\Helpers\FormatHelper::angka($jumlah / $objekRealisasi->anggaran * 100);
+                        @endphp
+                        <td>Rp. {{ \App\Helpers\FormatHelper::angka($jumlah) }} ({{ $persentase }}%)</td>
                     </tr>
                     <tr>
                         <td class="pr-5 font-semibold text-sm text-gray-400">Target Fisik</td>
