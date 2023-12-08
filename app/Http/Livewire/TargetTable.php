@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bidang;
 use App\Models\{Opd, SubOpd};
 use Livewire\Component;
 
@@ -14,6 +15,11 @@ final class TargetTable extends Component
             ->with('targets')
             ->get();
 
-        return view('livewire.target-table', compact('subOpds'));
+        $bidangs = Bidang::query()
+            ->with('targets')
+            ->orderBy('nama')
+            ->get();
+
+        return view('livewire.target-table', compact('subOpds', 'bidangs'));
     }
 }

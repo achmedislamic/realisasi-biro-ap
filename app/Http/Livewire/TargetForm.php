@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bidang;
 use App\Models\{Opd, SubOpd, Target};
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -11,16 +12,25 @@ final class TargetForm extends Component
 {
     public $subOpd;
 
+    public $bidang;
+
     public $targets;
 
-    public function mount(int $subOpdId)
+    public function mount(int $imageable_id, string $mode)
     {
-        $this->subOpd = SubOpd::findOrFail($subOpdId);
+        if($mode == 'sub_opd'){
+            $this->subOpd = SubOpd::findOrFail($imageable_id);
+        }
+
+        if($mode == 'bidang'){
+            $this->bidang = Bidang::findOrFail($imageable_id);
+        }
+
 
         $this->targets = [];
 
         for ($i = 1; $i <= 12; $i++) {
-            array_push($this->targets, Target::select('jumlah')->where('targetable_id', $subOpdId)->where('bulan', $i)->first()->jumlah ?? 0);
+            array_push($this->targets, Target::select('jumlah')->where('targetable_id', $imageable_id)->where('bulan', $i)->first()->jumlah ?? 0);
         }
     }
 

@@ -46,7 +46,7 @@
             @if ($denganTarget)
                 <x-table.th class="text-center">Target</x-table.th>
             @endif
-            <x-table.th class="text-center">Jumlah</x-table.th>
+            <x-table.th class="text-center">Realisasi</x-table.th>
             @if ($denganTarget)
                 <x-table.th class="text-center">Persentase</x-table.th>
             @endif

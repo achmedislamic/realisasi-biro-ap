@@ -28,10 +28,25 @@
             </tr>
         </x-table.thead>
         <tbody>
+            @foreach ($bidangs as $bidang)
+            <x-table.tr>
+                <x-table.td>
+                    <x-button :href="route('target.form', ['imageable_id' => $bidang->id, 'mode' => 'bidang'])" label="Ubah" warning icon="pencil" />
+                </x-table.td>
+                <x-table.td-utama>
+                    {{ $bidang->nama }}
+                </x-table.td-utama>
+                @for ($i = 1; $i <= 12; $i++)
+                <x-table.td>
+                    {{ \App\Helpers\FormatHelper::angka($bidang->targets->where('bulan', $i)->first()?->jumlah ?? 0) }}
+                </x-table.td>
+                @endfor
+            </x-table.tr>
+            @endforeach
             @foreach ($subOpds as $subOpd)
             <x-table.tr>
                 <x-table.td>
-                    <x-button :href="route('target.form', ['subOpdId' => $subOpd->id, 'mode' => 'subOpd'])" label="Ubah" warning icon="pencil" />
+                    <x-button :href="route('target.form', ['imageable_id' => $subOpd->id, 'mode' => 'sub_opd'])" label="Ubah" warning icon="pencil" />
                 </x-table.td>
                 <x-table.td-utama>
                     {{ $subOpd->teks_lengkap }}
