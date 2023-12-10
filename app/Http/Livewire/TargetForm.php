@@ -16,14 +16,18 @@ final class TargetForm extends Component
 
     public $targets;
 
+    public string $mode;
+
     public function mount(int $imageable_id, string $mode)
     {
         if($mode == 'sub_opd'){
             $this->subOpd = SubOpd::findOrFail($imageable_id);
+            $this->mode = 'sub_opd';
         }
 
         if($mode == 'bidang'){
             $this->bidang = Bidang::findOrFail($imageable_id);
+            $this->mode = 'bidang';
         }
 
 
@@ -56,8 +60,8 @@ final class TargetForm extends Component
                 Target::updateOrCreate([
                     'tahun' => cache('tahapanApbd')->tahun,
                     'bulan' => ++$i,
-                    'targetable_id' => $this->subOpd->id,
-                    'targetable_type' => 'sub_opd',
+                    'targetable_id' => $this->subOpd?->id ?? $this->bidang->id,
+                    'targetable_type' => $this->mode,
                 ], ['jumlah' => $target]);
             }
         });
