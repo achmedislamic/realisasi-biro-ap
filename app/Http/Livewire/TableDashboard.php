@@ -15,13 +15,15 @@ final class TableDashboard extends Component
 
     public $urutan = 'asc';
 
+    public string $dataType = 'sub_opd';
+
     protected $queryString = ['periode' => ['except' => '']];
 
     public function render(): View
     {
         $opds = collect();
         if(auth()->user()->isAdmin()){
-            $opds = $this->subOpds(1);
+            $opds = $this->subOpds(1, $this->dataType);
         } elseif(auth()->user()->isSubOpd()){
             $opds = $this->subOpds(auth()->user()->role->imageable_id);
         }

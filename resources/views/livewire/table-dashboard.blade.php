@@ -25,6 +25,7 @@
                 </div>
             </div>
         @endif
+
         <div class="w-full">
             <div class="flex flex-row space-x-3">
                 <div class="w-full">
@@ -43,6 +44,13 @@
                 @endif
             </div>
         </div>
+    </div>
+
+    <div>
+        <x-native-select label="Data Yang Terlihat" wire:model="dataType">
+            <option value="sub_opd" selected>Sub OPD</option>
+            <option value="bidang">Bidang</option>
+        </x-native-select>
     </div>
 
     <div class="relative overflow-x-auto shadow-md rounded-md sm:rounded-lg border border-utama">
