@@ -78,6 +78,12 @@ trait PerhitunganAnggaranRealisasiDashboard
             ->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')
             ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id')
             ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
+            ->when($dataType == 'bidang', function ($query) {
+                $query->join('sub_kegiatans AS sk', 'sk.id', '=', 'or.sub_kegiatan_id')
+                    ->join('kegiatans AS k', 'k.id', '=', 'sk.kegiatan_id')
+                    ->join('programs AS p', 'p.id', '=', 'k.program_id')
+                    ->join('bidangs AS b', 'b.id', '=', 'p.bidang_id');
+            })
             ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
             ->leftJoin('realisasi_fisiks AS rf', 'rf.objek_realisasi_id', '=', 'or.id')
             ->where('or.tahapan_apbd_id', cache('tahapanApbd')->id);
@@ -89,7 +95,12 @@ trait PerhitunganAnggaranRealisasiDashboard
             return collect();
         }
 
-        $select = "so.kode, so.id, so.opd_id, so.nama AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
+        $nama = 'so.kode, so.id, so.opd_id, so.nama';
+        if($dataType == 'bidang'){
+            $nama = 'b.id, b.nama';
+        }
+
+        $select = "{$nama} AS nama_pd, SUM(or.anggaran) AS anggaran, SUM(r.jumlah) AS realisasi, SUM(rf.jumlah) AS realisasi_fisik{$this->realisasiBulananQuery()}";
         if ($where == 'sekretariat daerah') {
             $select = $select.', 1 AS is_biro';
         }
@@ -98,20 +109,13 @@ trait PerhitunganAnggaranRealisasiDashboard
             ->selectRaw($select)
             ->where(auth()->user()->isAdmin() ? 'o.id' : 'so.id', $where)
             ->when($dataType == 'bidang', function ($query) {
-                $subKegiatanIds = SubKegiatan::query()
-                    ->join('kegiatans AS k', 'k.id', '=', 'sub_kegiatans.kegiatan_id')
-                    ->join('programs AS p', 'p.id', '=', 'k.program_id')
-                    ->select('sub_kegiatans.id AS id')
-                    ->whereNotNull('p.bidang_id')
-                    ->get()
-                    ->pluck('id')
-                    ->all();
-
-                $query->whereIn('or.sub_kegiatan_id', $subKegiatanIds);
+                $query->groupByRaw('b.nama, b.id')
+                    ->orderBy('b.nama');
+            }, function ($query) {
+                $query->groupByRaw('so.kode, so.nama, so.id')
+                    ->orderBy('so.kode')
+                    ->orderBy('so.nama');
             })
-            ->groupByRaw('so.kode, so.nama, so.id')
-            ->orderBy('so.kode')
-            ->orderBy('so.nama')
             // ->ddRawSql()
             ->get();
     }
