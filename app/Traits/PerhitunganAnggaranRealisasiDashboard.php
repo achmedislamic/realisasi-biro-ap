@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\SubKegiatan;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -74,13 +75,8 @@ trait PerhitunganAnggaranRealisasiDashboard
     private function table(string $dataType = 'sub_opd'): Builder
     {
         return DB::table('opds AS o')
-            ->when($dataType == 'sub_opd', function ($query) {
-                $query->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')
-                    ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id');
-            }, function ($query) {
-                $query->join('bidangs AS b', 'b.opd_id', '=', 'o.id')
-                    ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id');
-            })
+            ->join('sub_opds AS so', 'so.opd_id', '=', 'o.id')
+            ->join('bidang_urusan_sub_opds AS buso', 'buso.sub_opd_id', '=', 'so.id')
             ->leftJoin('objek_realisasis AS or', 'or.bidang_urusan_sub_opd_id', '=', 'buso.id')
             ->leftJoin('realisasis AS r', 'r.objek_realisasi_id', '=', 'or.id')
             ->leftJoin('realisasi_fisiks AS rf', 'rf.objek_realisasi_id', '=', 'or.id')
@@ -101,6 +97,18 @@ trait PerhitunganAnggaranRealisasiDashboard
         return $this->table($dataType)
             ->selectRaw($select)
             ->where(auth()->user()->isAdmin() ? 'o.id' : 'so.id', $where)
+            ->when($dataType == 'bidang', function ($query) {
+                $subKegiatanIds = SubKegiatan::query()
+                    ->join('kegiatans AS k', 'k.id', '=', 'sub_kegiatans.kegiatan_id')
+                    ->join('programs AS p', 'p.id', '=', 'k.program_id')
+                    ->select('sub_kegiatans.id AS id')
+                    ->whereNotNull('p.bidang_id')
+                    ->get()
+                    ->pluck('id')
+                    ->all();
+
+                $query->whereIn('or.sub_kegiatan_id', $subKegiatanIds);
+            })
             ->groupByRaw('so.kode, so.nama, so.id')
             ->orderBy('so.kode')
             ->orderBy('so.nama')

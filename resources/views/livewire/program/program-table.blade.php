@@ -20,6 +20,9 @@
                     Nama
                 </x-table.th>
                 <x-table.th>
+                    Bidang
+                </x-table.th>
+                <x-table.th>
                     Aksi
                 </x-table.th>
             </tr>
@@ -36,6 +39,9 @@
                 <x-table.td class="hover:underline hover:cursor-pointer hover:text-yellow-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')">
                     {{ $program->nama }}
                     <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
+                </x-table.td>
+                <x-table.td>
+                    {{ $program->bidang?->nama }}
                 </x-table.td>
                 <x-table.td>
                     @if ($menu != 'realisasi')

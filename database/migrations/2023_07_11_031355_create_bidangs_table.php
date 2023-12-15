@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('nama');
             $table->timestamps();
         });
+
+        Schema::table('programs', function (Blueprint $table) {
+            $table->foreignId('bidang_id')->nullable()->constrained()->after('id');
+        });
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 // use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -29,6 +30,11 @@ class Program extends Model
     public function kegiatans(): HasMany
     {
         return $this->hasMany(Kegiatan::class);
+    }
+
+    public function bidang(): BelongsTo
+    {
+        return $this->belongsTo(Bidang::class);
     }
 
     // public function objekRealisasis()

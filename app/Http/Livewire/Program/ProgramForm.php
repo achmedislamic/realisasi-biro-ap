@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Program;
 
+use App\Models\Bidang;
 use App\Models\Program;
 use App\Traits\WithLiveValidation;
 use Livewire\Component;
@@ -9,14 +10,13 @@ use WireUi\Traits\Actions;
 
 class ProgramForm extends Component
 {
-    use WithLiveValidation;
-    use Actions;
+    use Actions, WithLiveValidation;
 
     public ?int $IdProgram = null;
 
     public Program $program;
 
-    public String $buttonText;
+    public string $buttonText;
 
     public function mount(int $id = null): void
     {
@@ -35,6 +35,7 @@ class ProgramForm extends Component
         return [
             'program.kode' => 'required|string|max:15',
             'program.nama' => 'required|string|max:255',
+            'program.bidang_id' => 'required|integer',
         ];
     }
 
@@ -56,10 +57,14 @@ class ProgramForm extends Component
                 'Data program diubah.'
             );
         }
+
+        return to_route('program-kegiatan');
     }
 
     public function render()
     {
-        return view('livewire.program.program-form');
+        return view('livewire.program.program-form', [
+            'bidangs' => Bidang::select('id', 'nama')->orderBy('nama')->get()
+        ]);
     }
 }

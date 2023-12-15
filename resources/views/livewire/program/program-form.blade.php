@@ -10,6 +10,12 @@
             <x-input label="Kode" placeholder="Kode" wire:model.defer="program.kode"
                 placeholder="Masukan program belanja" />
             <x-input label="Nama" wire:model.defer="program.nama" placeholder="Nama program belanja" />
+            <x-native-select label="Pilih Bidang" wire:model.defer="program.bidang_id">
+                <option value="">Silakan Pilih</option>
+                @foreach ($bidangs as $bidang)
+                    <option value="{{ $bidang->id }}">{{ $bidang->nama }}</option>
+                @endforeach
+            </x-native-select>
 
             <div class="flex justify-between">
                 <x-button gray label="Kembali" href="{{ url()->previous() }}" />

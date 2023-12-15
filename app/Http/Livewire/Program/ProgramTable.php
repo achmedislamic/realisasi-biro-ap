@@ -53,6 +53,7 @@ class ProgramTable extends Component
     {
         Gate::authorize('realisasi-menu', [$this->bidangId, $this->subOpdId]);
         $programs = Program::query()
+            ->with('bidang')
             ->when($this->menu == 'realisasi', function ($query) {
                 // tampilkan daftar program berdasarkan sub_opd_id
                 $query->join('kegiatans AS k', 'k.program_id', '=', 'programs.id')
