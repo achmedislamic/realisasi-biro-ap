@@ -151,6 +151,15 @@
                         @endforeach
                     </x-native-select>
                 </div>
+
+                <div class="w-full">
+                    <x-native-select label="Pokir Dari" wire:model.defer="anggotaDprdId">
+                        <option value="">Pilih Kategori</option>
+                        @foreach (App\Models\AnggotaDprd::orderBy('nama')->get() as $dprd)
+                            <option value="{{ $dprd->id }}">{{ str($dprd->nama)->title() }}</option>
+                        @endforeach
+                    </x-native-select>
+                </div>
             </div>
 
             <div class="flex justify-between">

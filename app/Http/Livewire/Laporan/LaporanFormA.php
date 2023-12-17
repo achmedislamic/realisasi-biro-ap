@@ -6,7 +6,6 @@ use App\Exports\LaporanFormAExport;
 use App\Models\{BidangUrusan, SubOpd, Urusan};
 use Livewire\{Component, WithPagination};
 use Maatwebsite\Excel\Facades\Excel;
-use Spatie\SimpleExcel\SimpleExcelWriter;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use WireUi\Traits\Actions;
 
@@ -60,7 +59,7 @@ final class LaporanFormA extends Component
             'urusanDipilih' => 'required|integer',
             'bidangUrusanDipilih' => 'nullable|integer',
             'bulan' => 'required|string|max:15',
-            'opdDipilih' => 'required|integer',
+            // 'opdDipilih' => 'required|integer',
             'subOpdDipilih' => 'nullable|integer',
         ];
     }
@@ -69,7 +68,7 @@ final class LaporanFormA extends Component
     {
         $this->validate();
 
-        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->bulan, $this->opdDipilih, $this->subOpdDipilih), 'laporan-form-a.xlsx');
+        return Excel::download(new LaporanFormAExport($this->urusanDipilih, $this->bidangUrusanDipilih, $this->bulan, $this->subOpdDipilih), 'laporan-form-a.xlsx');
     }
 
     public function render()

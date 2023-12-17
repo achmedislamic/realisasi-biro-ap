@@ -9,7 +9,7 @@
                     <x-native-select label="Sub OPD" wire:model.defer="subOpdDipilih">
                         <option value="">Pilih Sub OPD (Unit)</option>
                         @foreach ($subOpds as $subOpd)
-                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}</option>
+                            <option value="{{ $subOpd->id }}">{{ $subOpd->kode }} - {{ $subOpd->nama }}{{ $subOpd->kode == '0000' ? ' (Induk)' : '' }}</option>
                         @endforeach
                     </x-native-select>
                 @endif

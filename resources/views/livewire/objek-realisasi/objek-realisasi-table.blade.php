@@ -74,6 +74,9 @@
                     <x-table.th>
                         Kategori
                     </x-table.th>
+                    <x-table.th>
+                        Pokir
+                    </x-table.th>
                     <x-table.th class="w-36">
                         Aksi
                     </x-table.th>
@@ -104,10 +107,13 @@
                         </x-table.td>
                         <x-table.td>
                             {{-- <x-button icon="plus" primary xs onclick="$openModal('sumberDanaModal')" /> --}}
-                            {{ $objekRealisasi->nama_sumber_dana }}
+                            {{ $objekRealisasi?->nama_sumber_dana }}
                         </x-table.td>
                         <x-table.td>
-                            {{ $objekRealisasi->nama_kategori }}
+                            {{ $objekRealisasi?->nama_kategori }}
+                        </x-table.td>
+                        <x-table.td>
+                            {{ $objekRealisasi?->nama_anggota_dprd }}
                         </x-table.td>
                         <x-table.td>
                             <x-button.circle warning xs icon="pencil" :href="route('objek-realisasi.form', [$objekRealisasi->id])" />

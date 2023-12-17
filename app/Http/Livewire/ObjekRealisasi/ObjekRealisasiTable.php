@@ -73,6 +73,7 @@ final class ObjekRealisasiTable extends Component
             ->leftJoin('satuans AS s', 's.id', '=', 'objek_realisasis.satuan_id')
             ->leftJoin('sumber_danas AS sd', 'sd.id', '=', 'objek_realisasis.sumber_dana_id')
             ->leftJoin('kategoris AS k', 'k.id', '=', 'objek_realisasis.kategori_id')
+            ->leftJoin('anggota_dprds AS ad', 'ad.id', '=', 'objek_realisasis.anggota_dprd_id')
 
             ->select(
                 'objek_realisasis.id AS id',
@@ -87,6 +88,7 @@ final class ObjekRealisasiTable extends Component
                 'sd.nama as nama_sumber_dana',
                 'k.id as kategori_id',
                 'k.nama as nama_kategori',
+                'ad.nama as nama_anggota_dprd',
             )
             ->where('objek_realisasis.sub_kegiatan_id', $this->subKegiatanId)
             ->where('srob.id', $this->subRincianObjekId)

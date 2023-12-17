@@ -16,7 +16,6 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
         public int $urusanId,
         public ?int $bidangUrusanId,
         public string $waktu,
-        public int $opdId,
         public ?int $subOpdId = null,
         public string $jenisLaporan = 'a'
     ) {
@@ -151,7 +150,8 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
             ->join('sub_opds AS so', 'so.id', '=', 'buso.sub_opd_id')
             ->join('opds AS o', 'o.id', '=', 'so.opd_id')
 
-            ->join('sub_rincian_objek_belanjas AS srob', 'srob.id', '=', 'or.sub_rincian_objek_belanja_id')
+            ->join('rincian_belanjas AS rb', 'rb.id', '=', 'or.rincian_belanja_id')
+            ->join('sub_rincian_objek_belanjas AS srob', 'srob.id', '=', 'rb.sub_rincian_objek_belanja_id')
             ->join('rincian_objek_belanjas AS rob', 'rob.id', '=', 'srob.rincian_objek_belanja_id')
             ->join('objek_belanjas AS ob', 'ob.id', '=', 'rob.objek_belanja_id')
             ->join('jenis_belanjas AS jb', 'jb.id', '=', 'ob.jenis_belanja_id')
@@ -178,7 +178,6 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
             ->when(filled($this->bidangUrusanId), function ($query) {
                 $query->where('bu.id', $this->bidangUrusanId);
             })
-            ->where('o.id', $this->opdId)
             ->when(filled($this->subOpdId), function ($query) {
                 $query->where('so.id', $this->subOpdId);
             })
@@ -189,7 +188,7 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
 
         $urusan = Urusan::find($this->urusanId);
         $namaBidangUrusan = filled($this->bidangUrusanId) ? BidangUrusan::find($this->bidangUrusanId)->nama : null;
-        $opd = Opd::find($this->opdId);
+        $opd = Opd::find(config('app.opd_id'));
         // dd($opd);
         $subOpd = filled($this->subOpdId) ? SubOpd::find($this->subOpdId) : null;
         $jenisLaporan = $this->jenisLaporan;

@@ -19,9 +19,11 @@
                 <x-table.th>
                     Nama
                 </x-table.th>
-                <x-table.th>
-                    Bidang
-                </x-table.th>
+                @if (empty($menu))
+                    <x-table.th>
+                        Bidang
+                    </x-table.th>
+                @endif
                 <x-table.th>
                     Aksi
                 </x-table.th>
@@ -29,24 +31,27 @@
         </x-table.thead>
         <tbody>
             @foreach ($programs as $key => $program)
-            <x-table.tr>
-                <x-table.td>
-                    {{ $programs->firstItem() + $key }}
-                </x-table.td>
-                <x-table.td>
-                    {{ $program->kode }}
-                </x-table.td>
-                <x-table.td class="hover:underline hover:cursor-pointer hover:text-yellow-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')">
-                    {{ $program->nama }}
-                    <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
-                </x-table.td>
-                <x-table.td>
-                    {{ $program->bidang?->nama }}
-                </x-table.td>
-                <x-table.td>
-                    @if ($menu != 'realisasi')
-                    <x-button.circle warning xs icon="pencil" :href="route('program.form', $program->id)" />
-                        <x-button.circle negative xs icon="trash" x-on:confirm="{
+                <x-table.tr>
+                    <x-table.td>
+                        {{ $programs->firstItem() + $key }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $program->kode }}
+                    </x-table.td>
+                    <x-table.td class="hover:underline hover:cursor-pointer hover:text-yellow-500" wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')">
+                        {{ $program->nama }}
+                        <x-loading-indicator target="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
+                    </x-table.td>
+                    @if (empty($menu))
+                        <x-table.td>
+                            {{ $program?->bidang?->nama }}
+                        </x-table.td>
+                    @endif
+
+                    <x-table.td>
+                        @if ($menu != 'realisasi')
+                            <x-button.circle warning xs icon="pencil" :href="route('program.form', $program->id)" />
+                            <x-button.circle negative xs icon="trash" x-on:confirm="{
                             title: 'Anda yakin akan menghapus data?',
                             icon: 'question',
                             accept: {
@@ -58,13 +63,13 @@
                                 label: 'Batal'
                             }
                         }" />
-                    @endif
+                        @endif
 
-                    <x-button.circle positive xs icon="folder-open"
-                        wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
-                </x-table.td>
+                        <x-button.circle positive xs icon="folder-open"
+                                         wire:click="pilihIdProgramEvent({{ $program->id }}, '{{ $menu }}', '{{ $bidangId }}', '{{ $subOpdId }}')" />
+                    </x-table.td>
 
-            </x-table.tr>
+                </x-table.tr>
             @endforeach
         </tbody>
     </x-table.index>

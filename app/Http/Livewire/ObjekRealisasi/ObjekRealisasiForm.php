@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\ObjekRealisasi;
 
 use App\Models\{BidangUrusan, RincianBelanja, Urusan};
-use App\Models\{BidangUrusanSubOpd, Kegiatan, ObjekRealisasi, Opd, Program, Realisasi, SubKegiatan, SubOpd, SubRincianObjekBelanja};
+use App\Models\{BidangUrusanSubOpd, Kegiatan, ObjekRealisasi, Opd, Program, Realisasi, SubKegiatan, SubOpd};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -33,6 +33,8 @@ class ObjekRealisasiForm extends Component
     public $sumberDanaId;
 
     public $kategoriId;
+
+    public $anggotaDprdId;
 
     public $target;
 
@@ -122,6 +124,7 @@ class ObjekRealisasiForm extends Component
             $this->satuanId = $objekRealisasi->satuan_id;
             $this->sumberDanaId = $objekRealisasi->sumber_dana_id;
             $this->kategoriId = $objekRealisasi->kategori_id;
+            $this->anggotaDprdId = $objekRealisasi->anggota_dprd_id;
 
             $subOpd = SubOpd::find($objekRealisasi->bidangUrusanSubOpd->sub_opd_id);
             if ($subOpd) {
@@ -204,8 +207,9 @@ class ObjekRealisasiForm extends Component
             'anggaran' => 'required',
             'target' => 'required',
             'satuanId' => 'required|numeric',
-            'sumberDanaId' => 'required|numeric',
-            'kategoriId' => 'required|numeric',
+            'sumberDanaId' => 'nullable|numeric',
+            'kategoriId' => 'nullable|numeric',
+            'anggotaDprdId' => 'nullable|numeric',
         ];
     }
 
@@ -243,6 +247,7 @@ class ObjekRealisasiForm extends Component
             'satuan_id' => $this->satuanId,
             'sumber_dana_id' => $this->sumberDanaId,
             'kategori_id' => $this->kategoriId,
+            'anggota_dprd_id' => $this->anggotaDprdId,
         ]);
 
         if (!$realisasi) {
@@ -279,6 +284,7 @@ class ObjekRealisasiForm extends Component
             'satuan_id' => $this->satuanId,
             'sumber_dana_id' => $this->sumberDanaId,
             'kategori_id' => $this->kategoriId,
+            'anggota_dprd_id' => $this->anggotaDprdId,
         ];
 
         if (auth()->user()->isAdmin()) {

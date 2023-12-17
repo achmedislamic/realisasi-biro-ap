@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('objek_realisasis', function (Blueprint $table) {
             $table->foreignId('sumber_dana_id')->nullable()->constrained()->after('satuan_id');
             $table->foreignId('kategori_id')->nullable()->constrained()->after('sumber_dana_id');
+            $table->foreignId('anggota_dprd_id')->nullable()->constrained()->after('kategori_id');
         });
     }
 
