@@ -126,7 +126,7 @@ class PenggunaForm extends Component
     {
         $this->validate();
         DB::transaction(function () {
-            if (is_null($this->userId)) {
+            if (filled($this->password)) {
                 $this->user->password = bcrypt($this->password);
             }
 
