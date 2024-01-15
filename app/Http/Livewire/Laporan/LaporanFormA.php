@@ -62,13 +62,19 @@ final class LaporanFormA extends Component
 
     public function rules()
     {
-        return [
+        $rules = [
             'urusanDipilih' => 'required|integer',
             'bidangUrusanDipilih' => 'nullable|integer',
             'bulan' => 'required|string|max:15',
             'opdDipilih' => 'required|numeric',
             'subOpdDipilih' => 'nullable|numeric',
         ];
+
+        if(auth()->user()->isOpd()){
+            unset($rules['opdDipilih']);
+        }
+
+        return $rules;
     }
 
     public function cetak(): BinaryFileResponse

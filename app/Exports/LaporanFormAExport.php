@@ -16,7 +16,7 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
         public int $urusanId,
         public ?int $bidangUrusanId,
         public string $waktu,
-        public int $opdId,
+        public ?int $opdId = null,
         public ?int $subOpdId = null,
         public string $jenisLaporan = 'a'
     ) {
@@ -104,6 +104,9 @@ final class LaporanFormAExport implements FromView, ShouldAutoSize, WithStyles, 
 
     public function view(): View
     {
+        if(empty($this->opdId)){
+            $this->opdId = auth()->user()->role->imageable_id;
+        }
         $waktu = CarbonImmutable::createFromFormat('Y-m-d', $this->waktu);
         $namaPeriode = match ($this->jenisLaporan) {
             'a' => 'Bulan '.$waktu->translatedFormat('F').' '.cache('tahapanApbd')->tahun,

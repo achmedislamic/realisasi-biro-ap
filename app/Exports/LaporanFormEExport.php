@@ -11,7 +11,7 @@ class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths, 
 {
     public function __construct(
         public int $triwulan,
-        public int $opdId,
+        public ?int $opdId = null,
         public ?int $subOpdId = null,
     ) {
         //
@@ -36,6 +36,9 @@ class LaporanFormEExport implements FromView, ShouldAutoSize, WithColumnWidths, 
 
     public function view(): View
     {
+        if(empty($this->opdId)){
+            $this->opdId = auth()->user()->role->imageable_id;
+        }
         return view('exports.laporan-form-e-export', [
             'opd' => Opd::find($this->opdId),
             'subOpd' => SubOpd::find($this->subOpdId),
