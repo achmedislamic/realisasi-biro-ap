@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Target;
 use App\Traits\PerhitunganAnggaranRealisasiDashboard;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class SubOpdModalDashboard extends Component
