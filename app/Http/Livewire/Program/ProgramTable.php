@@ -67,7 +67,7 @@ class ProgramTable extends Component
                         $query->where('so.id', $this->subOpdId);
                     })
                     ->select('programs.nama', 'programs.id', 'programs.kode')
-                    ->groupBy('programs.id')
+                    ->groupByRaw('programs.id, programs.kode, programs.nama')
                     ->orderBy('programs.kode')
                     ->orderBy('programs.nama');
             })
