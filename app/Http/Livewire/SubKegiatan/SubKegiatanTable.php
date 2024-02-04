@@ -69,7 +69,8 @@ class SubKegiatanTable extends Component
                     ->orderBy('sub_kegiatans.nama');
             })
             ->when(blank($this->menu), function (Builder $query) {
-                $query->select('sub_kegiatans.id', 'sub_kegiatans.kode', 'sub_kegiatans.nama');
+                $query->select('sub_kegiatans.id', 'sub_kegiatans.kode', 'sub_kegiatans.nama')
+                    ->groupByRaw('sub_kegiatans.id, sub_kegiatans.kode, sub_kegiatans.nama');
             })
             ->where('kegiatan_id', $this->kegiatanId)
             ->pencarian($this->cari)
