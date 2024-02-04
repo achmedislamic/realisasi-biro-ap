@@ -54,6 +54,6 @@ class BidangUrusanTable extends Component
 
         $urusan = Urusan::find($this->idUrusan);
 
-        return view('livewire.bidang-Urusan.bidang-urusan-table', compact(['bidangUrusans', 'urusan']));
+        return view('livewire.bidang-urusan.bidang-urusan-table', compact(['bidangUrusans', 'urusan']));
     }
 }
