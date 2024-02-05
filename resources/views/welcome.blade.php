@@ -23,8 +23,8 @@
                 <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto overflow-hidden font-medium border-b border-gray-200 md:overflow-visible lg:justify-center sm:px-4 md:px-2 lg:px-0">
                     <div class="flex items-center justify-start w-1/4 h-full pr-4">
                         <a href="#_" class="flex items-center py-4 space-x-2 font-extrabold text-gray-900 md:py-0">
-                            <img src="https://www.ntbprov.go.id/images/favicon.png" alt="logo-provinsi-ntb" class="w-8 h-8">
-                            <span>Dinas PUPR</span>
+                            <img src="{{ asset('img/logo-ntb.webp') }}" alt="logo-provinsi-ntb" class="w-6 h-8">
+                            <span>Dinas PUPR Provinsi NTB</span>
                         </a>
                     </div>
                     <div class="top-0 left-0 items-start hidden w-full h-full p-4 text-sm bg-gray-900 bg-opacity-50 md:items-center md:w-3/4 md:absolute lg:text-base md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex fixed': showMenu, 'hidden': !showMenu }">
