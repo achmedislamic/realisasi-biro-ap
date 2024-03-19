@@ -93,7 +93,7 @@ class ObjekRealisasiForm extends Component
 
             $this->urusans = Urusan::orderBy('kode')->get();
 
-            $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.bidangUrusan')->find($id);
+            $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.bidangUrusan')->findOrFail($id);
             $this->urusanPilihan = $objekRealisasi->bidangUrusanSubOpd->bidangUrusan->urusan_id;
             $this->bidangUrusans = BidangUrusan::where('urusan_id', $this->urusanPilihan)->orderBy('kode')->get();
             $this->bidangUrusanPilihan = $objekRealisasi->bidangUrusanSubOpd->bidang_urusan_id;
