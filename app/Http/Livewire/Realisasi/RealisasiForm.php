@@ -24,8 +24,6 @@ class RealisasiForm extends Component
 
     public $submitText;
 
-    public ObjekRealisasi $objekRealisasi;
-
     public $opd;
 
     public $subOpd;
@@ -48,15 +46,15 @@ class RealisasiForm extends Component
     {
         $this->submitText = 'Simpan Realisasi';
         $this->objekRealisasiId = $objekRealisasiId;
-        $this->objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd.opd')->find($objekRealisasiId);
+        $objekRealisasi = ObjekRealisasi::with('bidangUrusanSubOpd.subOpd.opd')->findOrFail($objekRealisasiId);
 
-        $this->opd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama;
-        $this->subOpd = $this->objekRealisasi->bidangUrusanSubOpd->subOpd->nama;
-        $this->program = $this->objekRealisasi->subKegiatan->kegiatan->program->nama;
-        $this->kegiatan = $this->objekRealisasi->subKegiatan->kegiatan->nama;
-        $this->subKegiatan = $this->objekRealisasi->subKegiatan->nama;
-        $this->subRincianObjekBelanja = $this->objekRealisasi->subRincianObjekBelanja->nama;
-        $this->anggaran = FormatHelper::angka($this->objekRealisasi->anggaran);
+        $this->opd = $objekRealisasi->bidangUrusanSubOpd->subOpd->opd->nama;
+        $this->subOpd = $objekRealisasi->bidangUrusanSubOpd->subOpd->nama;
+        $this->program = $objekRealisasi->subKegiatan->kegiatan->program->nama;
+        $this->kegiatan = $objekRealisasi->subKegiatan->kegiatan->nama;
+        $this->subKegiatan = $objekRealisasi->subKegiatan->nama;
+        $this->subRincianObjekBelanja = $objekRealisasi->subRincianObjekBelanja->nama;
+        $this->anggaran = FormatHelper::angka($objekRealisasi->anggaran);
 
         if (! is_null($id)) {
             $this->idRealisasi = $id;
